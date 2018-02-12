@@ -8,3 +8,9 @@ function bmiim {
     mt=$(octe "$cm/100" | sed 's/ans =\s*//g')
     octe "$kg/($mt^2)" | sed 's/ans =\s*//g'
 }
+
+function bmi {
+    # First input is weight in kg
+    # Second input is height in m
+    octe "$1/(${2}^2)" | sed 's/ans =\s*//g'
+}
