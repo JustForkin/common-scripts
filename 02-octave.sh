@@ -6,6 +6,7 @@ function octe {
     octave --eval $@
 }
 
-function ctof {
-    octe "32+1.8*$1"
-}
+for i in $HOME/Shell/common-scripts/octave/*.sh
+do
+    . "$i"
+done
