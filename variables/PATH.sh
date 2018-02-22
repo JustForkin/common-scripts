@@ -11,3 +11,5 @@ export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$PATH:$GEMPATH
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 export PATH=$PATH:$PERL_PATH
+export PATH=$PATH:$HOME/.nix-profile/bin
+export XDG_DATA_DIRS=$HOME/.nix-profile/share
