@@ -127,3 +127,7 @@ function froot {
 function uroot {
     genroot /ubuntu
 }
+
+function aroot {
+    genroot /arch
+}
