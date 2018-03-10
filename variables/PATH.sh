@@ -12,4 +12,7 @@ export PATH=$PATH:$GEMPATH
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 export PATH=$PATH:$PERL_PATH
 export PATH=$PATH:$HOME/.nix-profile/bin
+if [[ -d $HOME/.gem/ruby/2.3.0/bin ]]; then
+    export PATH=$PATH:$HOME/.gem/ruby/2.3.0/bin
+fi
 export XDG_DATA_DIRS=$HOME/.nix-profile/share
