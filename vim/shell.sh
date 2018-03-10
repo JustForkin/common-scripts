@@ -1,5 +1,5 @@
 function vbash {
-    vim .bashrc
+    vim $HOME/.bashrc
 }
 
 function gvsh {
@@ -11,5 +11,5 @@ function vsh {
 }
 
 function vzsh {
-    vim .zshrc
+    vim $HOME/.zshrc
 }
