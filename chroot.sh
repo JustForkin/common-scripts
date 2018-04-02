@@ -88,7 +88,15 @@ function sroot {
 }
 
 function oroot {
-    genroot /opensuse
+    if [[ -d /opensuse/bin ]]; then
+         genroot /opensuse
+    elif [[ -d /opensuse-tumbleweed/bin ]]; then
+         genroot /opensuse-tumbleweed
+    elif [[ -d /opensuse-leap/bin ]]; then
+         genroot /opensuse-leap
+    else
+         printf "/opensuse, /opensuse-tumbleweed and /opensuse-leap do not look like distro mount points, there's no /bin dir!\n If you believe this is an error go to $HOME/Shell/common-scripts/chroot.sh and look for the oroot func.\n"
+    fi
 }
 
 function droot {
@@ -108,7 +116,11 @@ function dproot {
 }
 
 function lroot {
-    genroot /linuxmint
+    if [[ -d /linuxmint/bin ]]; then
+         genroot /linuxmint
+    elif [[ -d /mint/bin ]]; then
+         genroot /mint
+    fi
 }
 
 function nroot {
