@@ -1,8 +1,8 @@
 function comsearch {
-    for i in $(echo $PATH | sed 's/:/\n/g')
+    for dir in $(echo $PATH | sed 's/:/\n/g')
     do
-         if [[ -d $i ]]; then 
-              find $i -name "*vim*"
+         if [[ -d $dir ]]; then 
+              find $dir -name "*$@*"
          fi
     done
 }
