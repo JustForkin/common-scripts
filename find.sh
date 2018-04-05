@@ -6,3 +6,5 @@ function comsearch {
          fi
     done
 }
+
+alias comfind=comsearch
