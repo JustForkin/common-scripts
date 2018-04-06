@@ -21,3 +21,8 @@ function nixs {
 function nixi {
     nix-env -i "$@"
 }
+
+# Install from Nix file
+function nixif {
+    nix-env -if "$@"
+}
