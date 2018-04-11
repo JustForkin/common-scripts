@@ -1,5 +1,9 @@
 export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/fusion809/channels/nixos/nixpkgs
-export NIX_SSL_CERT_FILE=/etc/ssl/ca-bundle.pem
+if [[ -f /etc/ssl/ca-bundle.pem ]]; then
+    export NIX_SSL_CERT_FILE=/etc/ssl/ca-bundle.pem
+elif [[ -f /etc/ssl/certs/ca-certificates.crt ]]; then
+    export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+fi
 
 if ! [[ -f $HOME/.config/nixpkgs/config.nix ]]; then
     mkdir -p $HOME/.config/nixpkgs
