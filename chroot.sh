@@ -37,12 +37,17 @@ function genroot {
                TERM="$TERM"              \
                PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin \
                /bin/bash --login +h
-    elif [[ -f $root/bin/sh ]] && [[ -n $ENV ]]; then
-         sudo chroot "$root" $ENV -i     \
-               HOME="/root"              \
-               TERM="$TERM"              \
-               PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin \
-               /bin/sh --login +h
+    elif `cat $root/etc/os-release | grep -i NixOS > /dev/null 2>&1`; then
+          INIT=$(sudo find $root/nix/store -type f -path '*nixos*/init' -print -quit)
+         BASH=$(sudo find $root/nix/store -type f -path '*/bin/bash' -print -quit)
+         BASH=$(echo $BASH | sed "s|/nixos||g")      
+         ENV=$(sudo find $root/nix/store -type f -path '*/bin/env' -print -quit)
+         sudo sed -i "s,exec systemd,exec /$BASH," $INIT
+
+         INIT=$(echo $INIT | sed "s|/nixos||g")
+                                             
+         sudo chroot $root ./$INIT --login +h
+
     elif [[ -f $root/bin/sh ]] || [[ -L $root/bin/sh ]]; then
          sudo chroot "$root" /bin/sh
     else
@@ -99,8 +104,14 @@ function oroot {
     fi
 }
 
+DISTRO=$(cat /etc/os-release | grep "^ID" | cut -d '=' -f 2)
+
 function droot {
-    genroot /debian
+    if [[ $DISTRO == "debian" ]]; then
+         genroot /deepin
+    else
+         genroot /debian
+    fi
 }
 
 function duroot {
