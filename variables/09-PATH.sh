@@ -2,6 +2,9 @@
 export PATH=
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 export PATH=$PATH:/usr/local/bin:/usr/local/sbin
+if [[ -d $HOME/anaconda3 ]]; then
+    export PATH=$HOME/anaconda3/bin:$PATH
+fi
 
 if [[ -d /usr/lib/hardening-wrapper/bin ]]; then
     export PATH=$PATH:/usr/lib/hardening-wrapper/bin
