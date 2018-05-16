@@ -2,6 +2,14 @@ function vcl {
     vim *.changelog
 }
 
+alias vchl=vcl
+
+function vds {
+    vim *.dsc
+}
+
+alias vdsc=vds
+
 function vpk {
     vim PKGBUILD
 }
