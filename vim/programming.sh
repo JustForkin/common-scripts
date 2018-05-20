@@ -6,6 +6,14 @@ function vcp {
     vim *.cpp
 }
 
+function vdk {
+    vim Dockerfile
+}
+
+function vgc {
+    vim gtk.css
+}
+
 function vgo {
     vim *.go
 }
@@ -13,6 +21,16 @@ function vgo {
 function vgp {
     vim *.gp
 }
+
+function vgt {
+    vim gtkrc
+}
+
+function vit {
+    vim index.theme
+}
+
+alias vth=vit
 
 function vmk {
     vim Makefile
@@ -27,7 +45,13 @@ function vrl {
 }
 
 function vrm {
-    vim README*
+    # If a README exists, open it to edit it
+    # otherwise create one written in markdown
+    if `ls * | grep "README" > /dev/null 2>&1`; then
+         vim README*
+    else
+         vim README.md
+    fi
 }
 
 function vrs {
