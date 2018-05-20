@@ -120,6 +120,89 @@ function zshup {
     fi
 } 
 
+function flatup {
+    pkgver=$(wget -cqO- https://github.com/flatpak/flatpak/releases | grep "tar\.gz" | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/\.tar\.gz//g' | head -n 1)
+    pkgpver=$(cat $OBSH/flatpak/flatpak.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
+
+    if [[ $pkgver == $pkgpver ]]; then
+         printf "Seems to be up-to-date mate.\n"
+    else
+         sed -i -e "s/$pkgpver/$pkgver/g" $OBSH/flatpak/flatpak.spec
+         cdobsh flatpak
+         osc ci -m "Bumping $pkgpver->$pkgver"
+    fi
+} 
+
+function jmolup {
+    pkgver=$(curl -sL https://sourceforge.net/projects/jmol/files | grep "binary.zip" | cut -d '-' -f 3 | tail -n 1)
+    pkgpver=$(cat $OBSH/jmol/jmol.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
+
+    if [[ $pkgver == $pkgpver ]]; then
+         printf "Seems to be up-to-date mate.\n"
+    else
+         sed -i -e "s/$pkgpver/$pkgver/g" $OBS/jmol/jmol.spec
+         cdobsh jmol
+         osc ci -m "Bumping $pkgpver->$pkgver"
+    fi
+}
+
+function obsdup {
+    if ! `ls /tmp | grep src > /dev/null 2>&1`; then
+         curl -sL http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-$(date | sed 's/ /_/g' | sed 's/:[0-9]*_/_/g').html
+    fi
+
+    pkgver=$(curl -sL https://github.com/openSUSE/obs-service-download_files/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
+    pkgpver=$(sed -n 's/pkgver=//p' $OBSH/obs-service-download_files/PKGBUILD)
+
+    if [[ $pkgpver == $pkgver ]]; then
+         printf "Seems to be up-to-date mate.\n"
+    else
+         sed -i -e "s/$pkgpver/$pkgver/g" $OBSH/obs-service-download_files/PKGBUILD
+         cdobsh obs-service-download_files
+         osc ci -m "Bumping $pkgpver->$pkgver"
+    fi
+}
+
+function snapdup {
+    pkgver=$(wget -cqO- https://github.com/snapcore/snapd/releases | grep "[0-9].vendor\.tar\.xz" | head -n 1 | cut -d '/' -f 6)
+    pkgpver=$(cat $HOME/OBS/home:fusion809/snapd/snapd.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
+
+    if [[ $pkgver == $pkgpver ]]; then
+         printf "Seems to be up-to-date mate.\n"
+    else
+         sed -i -e "s/$pkgpver/$pkgver/g" $OBSH/snapd/snapd.spec
+         cdobsh snapd
+         osc ci -m "Bumping $pkgpver->$pkgver"
+    fi
+}
+
+function snapdgup {
+    pkgver=$(wget -cqO- https://github.com/snapcore/snapd-glib/releases | grep "[0-9]\.tar\.xz" | head -n 1 | cut -d '/' -f 6)
+    pkgpver=$(cat $HOME/OBS/home:fusion809/snapd-glib/snapd-glib.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
+
+    if [[ $pkgver == $pkgpver ]]; then
+         printf "Seems to be up-to-date mate.\n"
+    else
+         sed -i -e "s/$pkgpver/$pkgver/g" $OBSH/snapd-glib/snapd-glib.spec
+         cdobsh snapd-glib
+         osc ci -m "Bumping $pkgpver->$pkgver"
+    fi
+}
+
+function oscup {
+    pkgver=$(curl -sL https://github.com/openSUSE/osc/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
+    pkgpver=$(sed -n 's/pkgver=//p' $OBSH/osc/PKGBUILD)
+
+    if [[ $pkgpver == $pkgver ]]; then
+         printf "Seems to be up-to-date mate.\n"
+    else
+         sed -i -e "s/$pkgpver/$pkgver/g" $OBSH/osc/PKGBUILD
+         cdobsh osc
+         osc ci -m "Bumping $pkgpver->$pkgver"
+    fi
+} 
+
+# Dark Reign update
 function drup {
     cdgo DarkReign
     git pull origin master -q
