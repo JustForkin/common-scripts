@@ -21,3 +21,23 @@ function cdart {
          esac
     fi
 }
+
+function cdg {
+    cd $HOME/GitHub/$1
+}
+
+function cdgm {
+    cdg mine/$1
+}
+
+function cdgo {
+    cdgo others/$1
+}
+
+function cdobs {
+    cd $HOME/OBS/$1
+}
+
+function cdobsh {
+    cdobs home:fusion809/$1
+}
