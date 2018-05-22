@@ -22,10 +22,6 @@ elif [[ -n $EMAIL ]] && ! [[ -f $HOME/.ssh/id_rsa.pub ]]; then
 	git config --global user.email "$EMAIL"
 fi
 
-if ! `which keychain > /dev/null 2>&1`; then
-  zpi keychain
-fi
-
 # Start agent
 eval `keychain -q --eval id_rsa`
 
