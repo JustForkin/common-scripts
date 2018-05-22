@@ -22,6 +22,26 @@ elif [[ -n $EMAIL ]] && ! [[ -f $HOME/.ssh/id_rsa.pub ]]; then
 	git config --global user.email "$EMAIL"
 fi
 
+if ! `which keychain > /dev/null 2>&1`; then
+    if `cat /etc/os-release | grep -i openSUSE > /dev/null 2>&1`; then
+         sudo zypper in -y keychain
+    elif `cat /etc/os-release | grep -i Fedora > /dev/null 2>&1`; then
+         sudo dnf install -y keychain
+    elif `cat /etc/os-release | grep -i "Debian\|Ubuntu\|deepin" > /dev/null 2>&1`; then
+         sudo apt install -y keychain
+    elif `cat /etc/os-release | grep -i "CentOS" > /dev/null 2>&1`; then
+         sudo yum install -y keychain
+    elif `cat /etc/os-release | grep -i "Arch" > /dev/null 2>&1`; then
+         sudo pacman -S keychain --noconfirm
+    elif `cat /etc/os-release | grep -i "Gentoo" > /dev/null 2>&1`; then
+         sudo emerge net-misc/keychain
+    elif `cat /etc/os-release | grep -i "Void" > /dev/null 2>&1`; then
+         sudo xbps-install -y keychain
+    elif `cat /etc/os-release | grep -i "NixOS" > /dev/null 2>&1`; then
+         nix-env -i keychain
+    fi
+fi
+
 # Start agent
 eval `keychain -q --eval id_rsa`
 
