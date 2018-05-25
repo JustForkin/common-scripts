@@ -140,7 +140,7 @@ function jmolup {
     if [[ $pkgver == $pkgpver ]]; then
          printf "Seems to be up-to-date mate.\n"
     else
-         sed -i -e "s/$pkgpver/$pkgver/g" $OBS/jmol/jmol.spec
+         sed -i -e "s/$pkgpver/$pkgver/g" $OBSH/jmol/jmol.spec
          cdobsh jmol
          osc ci -m "Bumping $pkgpver->$pkgver"
     fi
