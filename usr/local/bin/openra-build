@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /home/fusion809/GitHub/others/OpenRA
+make clean
+cd packaging/linux
+./buildpackage.sh bleed-$(git rev-list --branches bleed --count) /home/fusion809/Programs/AppImage
