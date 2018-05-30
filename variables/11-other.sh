@@ -9,3 +9,7 @@ export CSP="$DC/C-Math-Projects"
 
 # ~/Programs folder
 export PRG="$HOME/Programs"
+
+# ~/Pictures
+export PI="$HOME/Pictures"
+export PA="$PI/Artwork"
