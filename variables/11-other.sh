@@ -13,3 +13,8 @@ export PRG="$HOME/Programs"
 # ~/Pictures
 export PI="$HOME/Pictures"
 export PA="$PI/Artwork"
+
+# ~/Chem
+export CH="$HOME/Chem"
+export D3="$CH/3D"
+export SM="$D3/Small molecules"
