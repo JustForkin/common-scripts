@@ -42,6 +42,14 @@ function cdgm {
     cdg mine/$1
 }
 
+function cdsc {
+    cdgm scripts/$1
+}
+
+function cdcs {
+    cdsc common-scripts/$1
+}
+
 function cdgo {
     cdgo others/$1
 }
