@@ -32,6 +32,10 @@ function vit {
 
 alias vth=vit
 
+function vmd {
+    vim *.md
+}
+
 function vmk {
     vim Makefile
 }
