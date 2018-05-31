@@ -87,6 +87,10 @@ function cdpe {
     cdp "exe/$1"
 }
 
+function cdpj {
+    cdp "jar/$1"
+}
+
 function cdpr {
     cdp rpm/$1
 }
