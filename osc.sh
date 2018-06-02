@@ -76,6 +76,7 @@ function openrabup {
          sed -i -e "s/$specm/$comm/g" $OBSH/openra-bleed/openra-bleed.spec
          cdobsh openra-bleed
          osc ci -m "Bumping $specn->$mastn"
+         /usr/local/bin/openra-build
     fi
 }
 
