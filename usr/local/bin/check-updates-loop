@@ -1,8 +1,12 @@
 #!/bin/bash
-while
+while :
 do
     timestamp=$(date +"%r %A, %d %B %Y")
-    printf "Running /usr/local/bin/check-updates at $timestamp"
+    printf "Running /usr/local/bin/check-updates at $timestamp\n"
     /usr/local/bin/check-updates
-    sleep 10m
+    if [[ -n "$@" ]]; then
+         sleep "$@"
+    else
+         sleep 10m
+    fi
 done
