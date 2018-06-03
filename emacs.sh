@@ -17,7 +17,7 @@ function emacs-appimage {
 	fi
 }
 
-for i in $HOME/Shell/edit/emacs/*.sh
+for i in $(dirname "$0")/emacs/*.sh
 do
   . "$i"
 done
