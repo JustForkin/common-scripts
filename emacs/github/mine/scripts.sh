@@ -2,7 +2,7 @@ function emsc {
   emacs "$SCR/$1"
 }
 
-for i in $HOME/Shell/edit/emacs/github/mine/scripts/*.sh
+for i in $(dirname "$0")/scripts/*.sh
 do
   . "$i"
 done
