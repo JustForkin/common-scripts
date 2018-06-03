@@ -18,6 +18,10 @@ function vpm {
     sudo vim /etc/portage/package.mask
 }
 
+function vpmc {
+    sudo vim /etc/portage/make.conf
+}
+
 function vpu {
     sudo vim /etc/portage/package.use
 }
@@ -28,4 +32,8 @@ function vsd {
 
 function vsu {
     sudo vim /etc/sudoers
+}
+
+function vmo {
+    sudo vim /etc/conf.d/modules
 }
