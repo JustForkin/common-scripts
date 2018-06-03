@@ -80,10 +80,16 @@ function push {
 
     # Update common-scripts dirs
     if `echo $PWD | grep "$HOME/Shell/common-scripts" > /dev/null 2>&1`; then
-         read -p "Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n]" yn
+         if ! `echo $SHELL | grep zsh > /dev/null 2>&1`; then
+              read -p "Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n]" yn
+         elif
+              read "yn?Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n]"
+         fi
+
          case $yn in
               [Yy]* ) update-common;;
-              [Nn]* ) printf "OK, it's your funeral. Run update-common if you change your mind.\n" ; exit ;; 
+              [Nn]* ) printf "OK, it's your funeral. Run update-common if you change your mind.\n" && exit ;; 
+              * ) printf "Please answer y or n.\n" ; ...
          esac
     fi
 }
