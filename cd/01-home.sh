@@ -3,7 +3,7 @@ function cda {
 }
 
 # Chem
-. chem.sh
+. $(dirname "$0")/chem.sh
 
 # 
 function cddo {
