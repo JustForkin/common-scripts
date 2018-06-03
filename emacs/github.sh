@@ -1,4 +1,4 @@
-for i in $HOME/Shell/edit/emacs/github/*.sh
+for i in $(dirname "$0")/github/*.sh
 do
   . "$i"
 done
