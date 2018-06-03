@@ -88,7 +88,7 @@ function push {
 
          case $yn in
               [Yy]* ) update-common;;
-              [Nn]* ) printf "OK, it's your funeral. Run update-common if you change your mind.\n" && exit ;; 
+              [Nn]* ) printf "OK, it's your funeral. Run update-common if you change your mind.\n" ;; 
               * ) printf "Please answer y or n.\n" ; ...
          esac
     fi
