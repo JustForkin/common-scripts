@@ -20,4 +20,6 @@ function cdsh {
 }
 
 # cd to Textbooks
-
+function cdt {
+    cd "$HOME/Textbooks/$1"
+}
