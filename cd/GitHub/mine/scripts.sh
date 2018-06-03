@@ -11,6 +11,10 @@ function cdces {
 	cdsc "centos-scripts/$1"
 }
 
+function cdcs {
+    cdsc "common-scripts/$1"
+}
+
 function cdds {
 	cdsc "debian-scripts/$1"
 }
