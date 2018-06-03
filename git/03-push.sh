@@ -3,13 +3,40 @@ function git-branch {
 }
 
 # Push changes
+## Minimal version
+function pushm {
+    git add --all                                        # Add all files to git
+    git commit -m "$1"                                   # Commit with message = argument 1
+    git push origin $(git-branch)                        # Push to the current branch
+}
+
+## Update common-scripts
+function cssubup {
+    if [[ $1 = common ]] && ! `echo $SCR/common-scripts > /dev/null 2>&1`; then
+         printf "Updating common-scripts repository.\n"
+         pushd $SCR/$1-scripts
+    else
+         pushd $SCR/$1-scripts/Shell/common-scripts
+    fi
+
+    git pull origin master
+
+    if ! [[ $1 = common ]]; then
+         pushd ..
+         pushm "Updating common-scripts submodule"
+         popd
+    fi
+
+    popd
+}
+# Complete push    
 function push {
     if `printf "$PWD" | grep 'AUR' > /dev/null 2>&1`; then
          mksrcinfo
     fi
-    git add --all                                        # Add all files to git
-    git commit -m "$1"                                   # Commit with message = argument 1
-    git push origin $(git-branch)                        # Push to the current branch
+
+    pushm "$1"
+
     if `echo $PWD | grep "$HOME/Shell" > /dev/null 2>&1`; then
          szsh
     elif `echo $PWD | grep "$FS" > /dev/null 2>&1` && `cat /etc/os-release | grep -i Fedora > /dev/null 2>&1`; then
@@ -30,6 +57,25 @@ function push {
          szsh
     elif `echo $PWD | grep "$CS" > /dev/null 2>&1` && `cat /etc/os-release | grep -i CentOS > /dev/null 2>&1`; then
          szsh
+    fi
+
+    # Update common-scripts dirs
+    if `echo $PWD | grep "$HOME/Shell/common-scripts" > /dev/null 2>&1`; then
+         printf "Updating common-scripts submodules and main repo.\n"
+         cssubup arch
+         cssubup centos
+         cssubup common
+         cssubup debian
+         cssubup fedora
+         cssubup gentoo
+         cssubup mageia
+         cssubup nixos
+         cssubup opensuse
+         cssubup pclinuxos
+         cssubup pisi
+         cssubup sabayon
+         cssubup slackware
+         cssubup void
     fi
 }
 
