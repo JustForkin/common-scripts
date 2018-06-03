@@ -30,6 +30,20 @@ function cdli {
     cdls "icons/$1"
 }
 
+function cddd {
+    cdls "desktop-directories/$1"
+}
+
+function cdlt {
+    cdls "themes/$1"
+}
+
+function cdlw {
+    cdls "wallpapers/$1"
+}
+
+alias cdw=cdlw
+
 function cdic {
     cd $HOME/.icons/$1
 }
