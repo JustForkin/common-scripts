@@ -12,7 +12,7 @@ function pushm {
 
 ## Update common-scripts
 function cssubup {
-    if [[ $1 = common ]] && ! `echo $PWD | grep "$SCR/common-scripts" > /dev/null 2>&1`; then
+    if [[ $1 = common ]] && ! `echo $PWD | grep "$SCR/common-scripts" > /dev/null 2>&1` && [[ -d "$SCR/$1-scripts" ]] ; then
          printf "Updating common-scripts repository.\n"
          pushd $SCR/$1-scripts
     else
@@ -29,6 +29,25 @@ function cssubup {
 
     popd
 }
+
+function update-common {
+    printf "Updating common-scripts submodules and main repo.\n"
+    cssubup arch
+    cssubup centos
+    cssubup common
+    cssubup debian
+    cssubup fedora
+    cssubup gentoo
+    cssubup mageia
+    cssubup nixos
+    cssubup opensuse
+    cssubup pclinuxos
+    cssubup pisi
+    cssubup sabayon
+    cssubup slackware
+    cssubup void
+}
+
 # Complete push    
 function push {
     if `printf "$PWD" | grep 'AUR' > /dev/null 2>&1`; then
@@ -61,21 +80,11 @@ function push {
 
     # Update common-scripts dirs
     if `echo $PWD | grep "$HOME/Shell/common-scripts" > /dev/null 2>&1`; then
-         printf "Updating common-scripts submodules and main repo.\n"
-         cssubup arch
-         cssubup centos
-         cssubup common
-         cssubup debian
-         cssubup fedora
-         cssubup gentoo
-         cssubup mageia
-         cssubup nixos
-         cssubup opensuse
-         cssubup pclinuxos
-         cssubup pisi
-         cssubup sabayon
-         cssubup slackware
-         cssubup void
+         read -p "Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n]" yn
+         case $yn in
+              [Yy]* ) update-common;;
+              [Nn]* ) printf "OK, it's your funeral. Run update-common if you change your mind.\n" ; exit ;; 
+         esac
     fi
 }
 
