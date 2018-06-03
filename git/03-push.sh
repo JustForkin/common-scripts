@@ -12,7 +12,7 @@ function pushm {
 
 ## Update common-scripts
 function cssubup {
-    if [[ $1 = common ]] && ! `echo $SCR/common-scripts > /dev/null 2>&1`; then
+    if [[ $1 = common ]] && ! `echo $PWD | grep "$SCR/common-scripts" > /dev/null 2>&1`; then
          printf "Updating common-scripts repository.\n"
          pushd $SCR/$1-scripts
     else
