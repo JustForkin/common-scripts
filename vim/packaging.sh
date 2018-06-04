@@ -36,5 +36,11 @@ function vsp {
 }
 
 function vyl {
-    vim *.yml
+    vim *.yml .*.yml
+}
+
+alias vyml=vyl
+
+function vtyl {
+    vim .travis.yml
 }
