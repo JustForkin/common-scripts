@@ -2,7 +2,7 @@ function cdat {
     cd $HOME/.atom/$1
 }
 
-function cdcf {
+function cdc {
     cd $HOME/.config/$1
 }
 
