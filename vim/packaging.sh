@@ -11,14 +11,6 @@ function vds {
 alias vdsc=vds
 alias vsc=vds
 
-function vpk {
-    if [[ -f package.json ]]; then
-         vim package.json
-    else
-         vim PKGBUILD
-    fi
-}
-
 function vrl {
     vim *rules
 }
