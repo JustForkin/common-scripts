@@ -28,7 +28,11 @@ function vsp {
 }
 
 function vyl {
-    vim *.yml .*.yml
+    if `ls .*.yml > /dev/null 2>&1`; then
+         vim .*.yml
+    elif `ls *.yml > /dev/null 2>&1`; then
+         vim *.yml
+    fi
 }
 
 alias vyml=vyl
