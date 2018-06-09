@@ -244,3 +244,22 @@ function drup {
          osc ci -m "Bumping $specn->$mastn"
     fi    
 }
+
+# Dark Reign update
+function racup {
+    cdgo raclassic
+    git pull origin master -q
+    mastn=$(git rev-list --branches master --count)
+    specn=$(cat $OBSH/openra-raclassic/openra-raclassic.spec | grep "Version:" | sed 's/Version:\s*//g')
+    comm=$(git log | head -n 1 | cut -d ' ' -f 2)
+    specm=$(cat $OBSH/openra-raclassic/openra-raclassic.spec | grep "define commit" | cut -d ' ' -f 3)
+
+    if [[ $specn == $mastn ]]; then
+         printf "OpenRA RA Classic is up to date!\n"
+    else
+         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-raclassic/openra-raclassic.spec
+         sed -i -e "s/$specm/$comm/g" $OBSH/openra-raclassic/openra-raclassic.spec
+         cdobsh openra-raclassic
+         osc ci -m "Bumping $specn->$mastn"
+    fi    
+}
