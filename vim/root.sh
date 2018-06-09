@@ -11,7 +11,15 @@ function vpc {
 }
 
 function vpk {
-    sudo vim /etc/portage/package.accept_keywords
+    if [[ -f PKGBUILD ]]; then 
+         vim PKGBUILD
+    elif [[ -d /etc/portage ]]; then
+         sudo vim /etc/portage/package.accept_keywords
+    elif [[ -f package.json ]]; then
+         vim package.json
+    else
+         vim PKGBUILD
+    fi
 }
 
 function vpm {

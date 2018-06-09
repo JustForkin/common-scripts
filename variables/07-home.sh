@@ -7,5 +7,5 @@ export DO=$HOME/Downloads
 export PS=$HOME/Pictures
 export PRG=$HOME/Programs
 export SHL=$HOME/Shell
-export VI=$HOME/Videos
+export VID=$HOME/Videos
 export VBX=$HOME/"VirtualBox VMs"

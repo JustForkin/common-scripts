@@ -2,12 +2,28 @@ function git-branch {
     git rev-parse --abbrev-ref HEAD
 }
 
-# Push changes
+function comno {
+    git rev-list --branches $(git-branch) --count
+}
+
 ## Minimal version
 function pushm {
     git add --all                                        # Add all files to git
     git commit -m "$1"                                   # Commit with message = argument 1
     git push origin $(git-branch)                        # Push to the current branch
+}
+
+function pusht {
+    git add --all
+    git commit -m "$1"
+    if [[ -n $2 ]]; then
+         git tag "$2"
+         git push origin $2
+    else
+         git tag $(comno)
+         git push origin $(comno)
+    fi
+    git push origin $(git-branch)
 }
 
 ## Update common-scripts

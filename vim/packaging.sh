@@ -11,14 +11,6 @@ function vds {
 alias vdsc=vds
 alias vsc=vds
 
-function vpk {
-    if [[ -f package.json ]]; then
-         vim package.json
-    else
-         vim PKGBUILD
-    fi
-}
-
 function vrl {
     vim *rules
 }
@@ -36,5 +28,15 @@ function vsp {
 }
 
 function vyl {
-    vim *.yml
+    if `ls .*.yml > /dev/null 2>&1`; then
+         vim .*.yml
+    elif `ls *.yml > /dev/null 2>&1`; then
+         vim *.yml
+    fi
+}
+
+alias vyml=vyl
+
+function vtyl {
+    vim .travis.yml
 }

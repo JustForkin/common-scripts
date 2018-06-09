@@ -38,3 +38,4 @@ function cd3dpm {
 }
 
 alias cdpm=cd3dpm
+alias cdpml=cd3dpm
