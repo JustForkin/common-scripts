@@ -54,7 +54,11 @@ function push {
          mksrcinfo
     fi
 
-    pushm "$1"
+    if `echo $PWD | grep OpenRA > /dev/null 2>&1`; then
+         pusht "$1"
+    else
+         pushm "$1"
+    fi
 
     if `echo $PWD | grep "$HOME/Shell" > /dev/null 2>&1`; then
          szsh
