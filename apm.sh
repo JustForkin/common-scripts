@@ -19,3 +19,7 @@ alias apmrm=apmr
 function apms {
     apm search "$@"
 }
+
+function apml {
+    apm list
+}
