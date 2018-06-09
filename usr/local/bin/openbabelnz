@@ -1,0 +1,12 @@
+#!/bin/bash
+# OpenBabel latest version available
+cd /home/fusion809/GitHub/others/openbabel
+git pull origin master -q
+orlv=$(git rev-list --branches master --count)
+comm=$(git log -1 --format=%h)
+# OpenBabel latest packaged version
+orpv=$(cat $HOME/OBS/home:fusion809:openbabel3/openbabel3/openbabel3.spec | grep "Version:" | sed 's/Version:\s*//g')
+
+if ! [[ $orpv == $orlv ]]; then
+    zenity --error --text="A new Open Babel commit ($comm) is available\!" --title="Warning\!"
+fi

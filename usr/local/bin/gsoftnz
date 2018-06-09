@@ -1,0 +1,7 @@
+#!/bin/bash
+pkgver=$(wget -cqO- https://github.com/GNOME/gnome-software/releases | grep "tar\.gz" | grep "3\.[02468]*\.[0-9]*" | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/\.tar\.gz//g' | head -n 1)
+pkgpver=$(cat /data/OBS/home:fusion809/gnome-software/gnome-software.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
+
+if ! [[ $pkgver == $pkgpver ]]; then
+    zenity --error --text="A new GNOME Software release ($pkgver) is now available\! To update to it run gsoftup." --title="Warning\!"
+fi

@@ -1,0 +1,12 @@
+#!/bin/bash
+# 0 A.D. latest version available
+cd /home/fusion809/GitHub/others/0ad
+git pull origin master -q
+orlv=$(git rev-list --branches master --count)
+comm=$(git log -1 --format=%h)
+# 0 A.D. latest packaged version
+orpv=$(cat $HOME/OBS/home:fusion809/0ad/0ad.spec | grep "Version:" | sed 's/Version:\s*//g')
+
+if ! [[ $orpv == $orlv ]]; then
+    zenity --error --text="A new 0 A.D. commit (${comm}) has been pushed\! To update to it run 0adup." --title="Warning\!"
+fi

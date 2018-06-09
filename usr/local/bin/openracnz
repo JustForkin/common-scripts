@@ -1,0 +1,12 @@
+#!/bin/bash
+# OpenRA RAClassic latest commit available
+cd /home/fusion809/GitHub/others/raclassic
+git pull origin master -q
+orlv=$(git rev-list --branches master --count)
+comm=$(git log -1 --format=%h)
+# OpenRA latest packaged version
+orpv=$(cat $HOME/OBS/home:fusion809/openra-raclassic/openra-raclassic.spec | grep "Version:" | sed 's/Version:\s*//g')
+
+if ! [[ $orpv == $orlv ]]; then
+    zenity --error --text="A new OpenRA RA Classic commit (${comm}) is available\! To update to it run racup." --title="Warning\!"
+fi
