@@ -3,12 +3,12 @@ cd /home/fusion809/GitHub/mine/packaging/OpenRA
 git pull upstream bleed -q
 commc=$(git -C $GHUBO/OpenRA rev-list --branches bleed --count)
 commn=$(octave --eval "$commc+1" | sed "s/ans =\s*//g")
-sed -i -e "s/Version: [0-9]*/Version: fusion809/OpenRA#${commn}/g" mods/*/mod.yaml
+sed -i -e "s/Version: [0-9]*/Version: ${commn}/g" mods/*/mod.yaml
 sed -i -e "s/[0-9]*/${commn}/g" VERSION
+make clean
 git add --all
 git commit -m "Upstream update"
 git push origin bleed -q
-make clean
 make
 sudo make install-core
 sudo make install-linux-shortcuts
