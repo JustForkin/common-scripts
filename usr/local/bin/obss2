@@ -4,7 +4,7 @@ if `which curl > /dev/null 2>&1`; then
 elif `which wget > /dev/null 2>&1`; then
     wget -cqO- http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-obss2.html
 else
-    printf "Neither cURL nor wget are detected, so please either install one or add them to your system PATH.\n"
+    printf "Neither cURL nor wget are detected, so please either install one or add them to your system PATH.\n" && exit
 fi
 
 pkgver=$(cat /tmp/src-obss2.html | grep obs-service-source_validator | cut -d '"' -f 4 | cut -d '_' -f 2 | sed 's/validator-//g' | sed 's/\.src\.rpm*//g')

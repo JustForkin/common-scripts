@@ -1,8 +1,13 @@
 #!/bin/bash
 # OpenBabel latest version available
 cd /home/fusion809/GitHub/others/openbabel
-git pull origin master -q
-orlv=$(git rev-list --branches master --count)
+if `which git > /dev/null 2>&1`; then
+    git pull origin master -q
+    orlv=$(git rev-list --branches master --count)
+else
+    printf "git has not been detected in the system PATH. Please either install it, if it is not already installed, or add it to the system PATH if it already is.\n"
+fi
+
 # OpenBabel latest packaged version
 orpv=$(cat $HOME/OBS/home:fusion809:openbabel3/openbabel3/openbabel3.spec | grep "Version:" | sed 's/Version:\s*//g')
 

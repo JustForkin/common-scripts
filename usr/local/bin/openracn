@@ -1,8 +1,14 @@
 #!/bin/bash
 # OpenRA RAClassic latest commit available
 cd /home/fusion809/GitHub/others/raclassic
-git pull origin master -q
-orlv=$(git rev-list --branches master --count)
+
+if `which git > /dev/null 2>&1`; then
+    git pull origin master -q
+    orlv=$(git rev-list --branches master --count)
+else
+    printf "git is not detected, either install it or if already installed at it to the system PATH.\n" && exit
+fi
+
 # OpenRA latest packaged version
 orpv=$(cat $HOME/OBS/home:fusion809/openra-raclassic/openra-raclassic.spec | grep "Version:" | sed 's/Version:\s*//g')
 

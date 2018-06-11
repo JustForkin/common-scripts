@@ -2,7 +2,7 @@
 if `which curl > /dev/null 2>&1`; then
     pkgver=$(curl -sL https://github.com/eranif/codelite/releases | grep "app\.tar\.gz" | head -n 1 | cut -d '/' -f 6)
 elif `which wget > /dev/null 2>&1`; then
-    pkgver=$(curl -sL https://github.com/eranif/codelite/releases | grep "app\.tar\.gz" | head -n 1 | cut -d '/' -f 6)
+    pkgver=$(wget -cqO- https://github.com/eranif/codelite/releases | grep "app\.tar\.gz" | head -n 1 | cut -d '/' -f 6)
 else
     zenity --error --text="Neither cURL nor wget has been detected. Please either install one, or if already installed add it to the system PATH." --title="Warning!"    
 else

@@ -1,16 +1,38 @@
 #!/bin/bash
 cd /home/fusion809/GitHub/mine/packaging/OpenRA
+if ! `which git > /dev/null 2>&1`; then
+    printf "git not found, please add it to system path, presumably after installing it.\n" && exit
+elif ! `which make > /dev/null 2>&1`; then
+    printf "make is missing, please add it to system path, which will likely be after you install it.\n" && exit
+fi
+
+printf "Updating my OpenRA fork...\n"
 git pull upstream bleed -q
+
+printf "Determining the number of the latest bleed commit..."
 commc=$(git rev-list --branches bleed --count)
+printf "${commc}.\n"
+
 commn=$(octave --eval "$commc+1" | sed "s/ans =\s*//g")
+printf "Next commit's number will be ${commn}.\n"
+
+printf "Let's sed to replace the current version listed in mods/*/mod.yaml and VERSION to the $commn.\n"
 sed -i -e "s/Version: [0-9]*/Version: ${commn}/g" mods/*/mod.yaml
 sed -i -e "s/[0-9]*/${commn}/g" VERSION
+
+printf "Done. Now run make clean to remove build artefacts so we can commit these changes...\n"
 make clean
+
+printf "Time to do some committng...\n"
 git add --all
 git commit -m "Upstream update"
+printf "Tagging and pushing new release $commn...\n"
 git tag $commn
 git push origin $commn
+printf "Pushing to bleed branch...\n"
 git push origin bleed -q
+
+printf "Let's build and install OpenRA from this latest commit now...\n"
 make
 sudo make install-core
 sudo make install-linux-shortcuts
