@@ -1,6 +1,12 @@
 #!/bin/bash
 if ! `ls /tmp | grep src > /dev/null 2>&1`; then
-     curl -sL http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-$(date | sed 's/ /_/g' | sed 's/:[0-9]*_/_/g').html
+    if `which curl > /dev/null 2>&1`; then
+         curl -sL http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-$(date | sed 's/ /_/g' | sed 's/:[0-9]*_/_/g').html
+    elif `which wget > /dev/null 2>&1`; then
+         wget -cqO- http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-$(date | sed 's/ /_/g' | sed 's/:[0-9]*_/_/g').html
+    else
+         printf "Neither cURL nor wget has been detected, please install them if not installed or add them to the system PATH if they already are.\n" && exit
+    fi         
 fi
 
 pkgver=$(cat /tmp/$(ls /tmp | grep "src-.*html" | tail -n 1) | grep obs-service-format_spec_file | cut -d '"' -f 4 | cut -d '_' -f 3 | sed 's/file-//g' | sed 's/\.src\.rpm*//g')
@@ -15,7 +21,12 @@ else
     printf "OBSFSpec\n"
 fi
 
-pkgver=$(curl -sL https://github.com/openSUSE/obs-service-download_files/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
+if `which curl > /dev/null 2>&1`; then
+    pkgver=$(curl -sL https://github.com/openSUSE/obs-service-download_files/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
+elif `which wget > /dev/null 2>&1`; then
+    pkgver=$(wget -cqO- https://github.com/openSUSE/obs-service-download_files/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
+fi
+
 cd $HOME/OBS/home:fusion809/obs-service-download_files
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 

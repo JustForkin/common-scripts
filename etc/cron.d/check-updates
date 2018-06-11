@@ -20,9 +20,9 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
 # m h  dom mon dow   command
-0   *  *   *   *     /usr/local/bin/check-updates-cronjob
-10  *  *   *   *     /usr/local/bin/check-updates-cronjob
-20  *  *   *   *     /usr/local/bin/check-updates-cronjob
-30  *  *   *   *     /usr/local/bin/check-updates-cronjob
-40  *  *   *   *     /usr/local/bin/check-updates-cronjob
-50  *  *   *   *     /usr/local/bin/check-updates-cronjob
+0   *  *   *   *     /usr/local/bin/check-updates-popup
+10  *  *   *   *     /usr/local/bin/check-updates-popup
+20  *  *   *   *     /usr/local/bin/check-updates-popup
+30  *  *   *   *     /usr/local/bin/check-updates-popup
+40  *  *   *   *     /usr/local/bin/check-updates-popup
+50  *  *   *   *     /usr/local/bin/check-updates-popup

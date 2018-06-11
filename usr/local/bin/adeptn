@@ -1,5 +1,12 @@
 #!/bin/bash
-pkgver=$(wget -cqO- https://foicica.com/textadept/feed | grep -vi "alpha\|beta" | grep "win32.zip" | head -n 1 | cut -d '_' -f 2 | sed 's/.win32.zip.*//g')
+if `which wget > /dev/null 2>&1`; then
+    pkgver=$(wget -cqO- https://foicica.com/textadept/feed | grep -vi "alpha\|beta" | grep "win32.zip" | head -n 1 | cut -d '_' -f 2 | sed 's/.win32.zip.*//g')
+elif `which curl > /dev/null 2>&1`; then
+    pkgver=$(curl -sL https://foicica.com/textadept/feed | grep -vi "alpha\|beta" | grep "win32.zip" | head -n 1 | cut -d '_' -f 2 | sed 's/.win32.zip.*//g')
+else
+    printf "Neither cURL nor wget has been detected, please install them if not installed or add them to the system PATH if they already are.\n" && exit
+fi
+
 cd $HOME/GitHub/mine/packaging/fusion809-overlay/app-editors/textadept
 pkgpver=$(ls -ld * | tail -n 1 | sed 's/.*textadept-//g' | sed 's/.ebuild//g')
 

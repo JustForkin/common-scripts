@@ -1,5 +1,12 @@
 #!/bin/bash
-pkgver=$(curl -sL https://github.com/eranif/codelite/releases | grep "app\.tar\.gz" | head -n 1 | cut -d '/' -f 6)
+if `which curl > /dev/null 2>&1`; then
+    pkgver=$(curl -sL https://github.com/eranif/codelite/releases | grep "app\.tar\.gz" | head -n 1 | cut -d '/' -f 6)
+elif `which wget > /dev/null 2>&1`; then
+    pkgver=$(wget -cqO- https://github.com/eranif/codelite/releases | grep "app\.tar\.gz" | head -n 1 | cut -d '/' -f 6)
+else
+    printf "Neither cURL nor wget has been detected, please install them if not installed or add them to the system PATH if they already are.\n" && exit
+fi
+    
 cd $HOME/GitHub/mine/packaging/fusion809-overlay/dev-util/codelite
 pkgpver=$(ls -ld * | head -n 1 | sed 's/[a-zA-Z0-9: .]*codelite/codelite/g' | cut -d '-' -f 8 | sed 's/.ebuild//g')
 

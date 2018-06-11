@@ -1,13 +1,41 @@
 #!/bin/bash
-pkgver=$(curl -sL https://github.com/atom/atom/releases | grep "beta" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
-pkgbv=$(echo $pkgver | cut -d '-' -f 2 | sed 's/beta//g')
-pkgnbv=$(echo $pkgver | cut -d '-' -f 1)
+# Latest Atom beta release available, e.g. 1.28.0-beta2
+if `which curl > /dev/null 2>&1`; then
+    pkgverb=$(curl -sL https://github.com/atom/atom/releases | grep "beta" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+elif `which wget > /dev/null 2>&1`; then
+    pkgverb=$(wget -cqO- https://github.com/atom/atom/releases | grep "beta" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+else
+    printf "Neither cURL nor wget are detected, please install them, or if installed add to system PATH.\n" && exit
+fi
+
+# Latest Atom stable release available
+if `which curl > /dev/null 2>&1`; then
+    pkgvers=$(curl -sL https://github.com/atom/atom/releases | grep -v "beta" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+elif `which wget > /dev/null 2>&1`; then
+    pkgvers=$(wget -cqO- https://github.com/atom/atom/releases | grep -v "beta" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+else
+    printf "Neither cURL nor wget are detected, please install them, or if already installed please add them to the system PATH.\n" && exit
+fi
+
+# The number that comes after "beta" in the release number (e.g. 2 for 1.28.0-beta2)
+pkgbv=$(echo $pkgverb | cut -d '-' -f 2 | sed 's/beta//g')
+# The number that comes before beta in the release number
+pkgnbv=$(echo $pkgverb | cut -d '-' -f 1)
 cd $HOME/AUR/atom-editor-beta
 pkgpnbv=$(sed -n 's/_pkgver=//p' PKGBUILD)
 pkgpbv=$(sed -n 's/_pkgrel=//p' PKGBUILD)
+pkgpvers=$(ls $HOME/GitHub/mine/packaging/fusion809-overlay/app-editors/atom-bin/*.ebuild | grep -v "beta" | cut -d '/' -f 10 | cut -d '-' -f 3 | sed 's/.ebuild//g')
 
-if ! ( [ $pkgpnbv == $pkgnbv ] && [ $pkgpbv == $pkgbv ] ); then
-    printf "Atom$pkgver\n"
+# Stable release checker
+if ! [[ $pkgvers == $pkgpvers ]]; then
+    printf "Atom$pkgvers"
 else
-    printf "Atom\n"
+    printf "Atom"
+fi
+
+# Beta checker
+if ! ( [ $pkgpnbv == $pkgnbv ] && [ $pkgpbv == $pkgbv ] ); then
+    printf "$pkgver\n"
+else
+    printf "\n"
 fi

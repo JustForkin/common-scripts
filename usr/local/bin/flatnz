@@ -3,5 +3,5 @@ pkgver=$(wget -cqO- https://github.com/flatpak/flatpak/releases | grep "tar\.gz"
 pkgpver=$(cat /data/OBS/home:fusion809/flatpak/flatpak.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    zenity --error --text="A new Flatpak release (${pkgver}) is now available\! To update to it run flatup." --title="Warning\!"    
+    zenity --error --text="A new Flatpak release (${pkgver}) is now available! To update to it run flatup." --title="Warning!"    
 fi

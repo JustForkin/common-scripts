@@ -1,5 +1,12 @@
 #!/bin/bash
-pkgver=$(wget -cqO- https://github.com/cppit/jucipp/releases | grep "tar\.gz" | cut -d '/' -f 5 | head -n 1 | cut -d '"' -f 1 | sed 's/v//g' | sed 's/\.tar\.gz//g')
+if `which wget > /dev/null 2>&1`; then
+    pkgver=$(wget -cqO- https://github.com/cppit/jucipp/releases | grep "tar\.gz" | cut -d '/' -f 5 | head -n 1 | cut -d '"' -f 1 | sed 's/v//g' | sed 's/\.tar\.gz//g')
+elif `which curl > /dev/null 2>&1`; then 
+    pkgver=$(curl -sL https://github.com/cppit/jucipp/releases | grep "tar\.gz" | cut -d '/' -f 5 | head -n 1 | cut -d '"' -f 1 | sed 's/v//g' | sed 's/\.tar\.gz//g')
+else
+    zenity --error --text="Neither cURL nor wget are detected, please install them, or if installed add to system PATH.\n" --title="Warning\!" && exit
+fi
+
 cd $HOME/AUR/jucipp
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 
