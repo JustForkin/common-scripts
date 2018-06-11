@@ -78,7 +78,8 @@ function push {
     elif `echo $PWD | grep OpenRA > /dev/null 2>&1`; then
          commc=$(git rev-list --branches bleed --count)
          commn=$(octe "$commc+1")
-         sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" $PK/OpenRA/{mods/*/mod.yaml,VERSION}
+         sed -i -e "s/Version: [0-9]*/Version: ${commn}/g" $PK/OpenRA/mods/*/mod.yaml
+         sed -i -e "s/[0-9]*/${commn}/g" VERSION
          pushm "$1"
     else
          pushm "$1"
