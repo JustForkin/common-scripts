@@ -3,7 +3,8 @@ cd /home/fusion809/GitHub/packaging/OpenRA
 git pull upstream bleed -q
 commc=$(git rev-list --branches master --count)
 commn=$(octave --eval "$commc+1" | sed "s/ans =\s*//g")
-sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" $PK/OpenRA/{mods/*/mod.yaml,VERSION}
+sed -i -e "s/Version: [0-9]*/Version: ${commn}/g" $PK/OpenRA/mods/*/mod.yaml
+sed -i -e "s/[0-9]*/${commn}/g" VERSION
 git add --all
 git commit -m "Upstream update"
 git push origin bleed -q
