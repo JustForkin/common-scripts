@@ -70,9 +70,7 @@ function push {
          mksrcinfo
     fi
 
-    if `echo $PWD | grep OpenRA > /dev/null 2>&1`; then
-         pusht "$1"
-    elif `echo $PWD | grep opendesktop > /dev/null 2>&1`; then
+    if `echo $PWD | grep opendesktop > /dev/null 2>&1`; then
          commc=$(git rev-list --branches master --count)
          commn=$(octe "$commc+1")
          sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" $PK/opendesktop-app/pkg/appimage/appimagebuild

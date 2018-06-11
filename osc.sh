@@ -70,7 +70,7 @@ function openrabup {
          printf "OpenRA Bleed is up to date!\n"
     else
          printf "Updating my fork of the OpenRA repository.\n"
-         cdpk OpenRA ; git checkout bleed -q ; git pull upstream bleed -q ; git push origin bleed -q
+         cdpk OpenRA ; git checkout bleed -q ; git pull upstream bleed -q ; push "New upstream commit, bumping VERSION"
          printf "Updating OBS repo openra-bleed.\n"
          sed -i -e "s/$specn/$mastn/g" $OBSH/openra-bleed/openra-bleed.spec
          sed -i -e "s/$specm/$comm/g" $OBSH/openra-bleed/openra-bleed.spec
