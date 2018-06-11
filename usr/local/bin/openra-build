@@ -8,6 +8,9 @@ sed -i -e "s/[0-9]*/${commn}/g" VERSION
 make clean
 git add --all
 git commit -m "Upstream update"
+commdc=$(git rev-list --branches bleed --count)
+git tag $commdc
+git push origin $commdc
 git push origin bleed -q
 make
 sudo make install-core
