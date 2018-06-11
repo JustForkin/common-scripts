@@ -3,7 +3,7 @@ function cde {
     cdgm "editors/$1"
 }
 
-function cda {
+function cdgat {
     cde "atom/$1"
 }
 
