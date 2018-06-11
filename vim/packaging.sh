@@ -15,10 +15,6 @@ function vrl {
     vim *rules
 }
 
-function vsh {
-    vim $SHL $HOME/.bashrc $HOME/.zshrc
-}
-
 function vsl {
     vim $HOME/SlackBuilds
 }
