@@ -61,3 +61,8 @@ export BREW_PATH=/home/linuxbrew/.linuxbrew
 if [[ -d $BREW_PATH/bin ]]; then
     export PATH=$PATH:$BREW_PATH/bin:$BREW_PATH/sbin
 fi
+
+# JChem
+if [[ -d /opt/chemaxon/jchemsuite/bin ]]; then
+    export PATH=$PATH:/opt/chemaxon/jchemsuite/bin
+fi
