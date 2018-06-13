@@ -32,11 +32,13 @@ git push origin $commn
 printf "Pushing to bleed branch...\n"
 git push origin bleed -q
 
-printf "Let's build and install OpenRA from this latest commit now...\n"
-make
-sudo make install-core
-sudo make install-linux-shortcuts
-sudo make install-linux-mime
-sudo make install-man-page
-sudo rm /usr/local/lib/openra/*.sh
-sudo mkdir -p /var/games/openra/ModMetadata/
+if ! ( [[ -f /usr/bin/openra-ra ]] | [[ -f /usr/bin/openra ]] | [[ -f /usr/games/openra ]] ); then
+    printf "Let's build and install OpenRA from this latest commit now...\n"
+    make
+    sudo make install-core
+    sudo make install-linux-shortcuts
+    sudo make install-linux-mime
+    sudo make install-man-page
+    sudo rm /usr/local/lib/openra/*.sh
+    sudo mkdir -p /var/games/openra/ModMetadata/
+fi
