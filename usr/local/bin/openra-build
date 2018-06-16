@@ -23,13 +23,13 @@ sed -i -e "s/[0-9]*/${commn}/g" VERSION
 printf "Done. Now run make clean to remove build artefacts so we can commit these changes...\n"
 make clean
 
-printf "Time to do some committng...\n"
-git add --all
-git commit -m "Upstream update"
-printf "Tagging and pushing new release $commn...\n"
-git tag $commn
-git push origin $commn
-printf "Pushing to bleed branch...\n"
+#printf "Time to do some committng...\n"
+#git add --all
+#git commit -m "Upstream update"
+#printf "Tagging and pushing new release $commn...\n"
+#git tag $commn
+#git push origin $commn
+#printf "Pushing to bleed branch...\n"
 
 cd /home/fusion809/GitHub/others/OpenRA
 commco=$(git rev-list --branches bleed --count)
