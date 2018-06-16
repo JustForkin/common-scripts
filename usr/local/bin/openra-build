@@ -30,13 +30,19 @@ printf "Tagging and pushing new release $commn...\n"
 git tag $commn
 git push origin $commn
 printf "Pushing to bleed branch...\n"
-git push origin bleed -q
 
-printf "Let's build and install OpenRA from this latest commit now...\n"
-make
-sudo make install-core
-sudo make install-linux-shortcuts
-sudo make install-linux-mime
-sudo make install-man-page
-sudo rm /usr/local/lib/openra/*.sh
-sudo mkdir -p /var/games/openra/ModMetadata/
+cd /home/fusion809/GitHub/others/OpenRA
+commco=$(git rev-list --branches bleed --count)
+
+if ! ( [[ -f /usr/bin/openra-ra ]] | [[ -f /usr/bin/openra ]] | [[ -f /usr/games/openra ]] ); then
+    printf "Let's build and install OpenRA from this latest commit now...\n"
+    sed -i -e "s|{DEV_VERSION}|$commco|g" mods/*/*.yaml VERSION
+    make
+    sudo make install-core
+    sudo make install-linux-shortcuts
+    sudo make install-linux-mime
+    sudo make install-man-page
+    sudo rm /usr/local/lib/openra/*.sh
+    sudo mkdir -p /var/games/openra/ModMetadata/
+    git stash
+fi
