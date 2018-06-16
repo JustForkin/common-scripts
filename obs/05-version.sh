@@ -18,11 +18,15 @@ function vere {
     if ! [[ -n $2 ]]; then
          if [[ -f $OBSH/$1/$1.spec ]]; then
               cat $OBSH/$1/$1.spec | grep "Version:" | sed 's/Version:\s*//g'
-         elif
+         elif [[ -f $OBSH/$1/PKGBUILD ]]; then
               verpe $1
+         elif [[ -f $OBSH/$1/debian.dsc ]]; then
+              cat $OBSH/$1/debian.dsc | grep "^Version" | sed 's/Version:\s*//g'
+         else
+              printf "Can't find a $OBSH/$1/$1.spec, or $OBSH/$1/PKGBUILD, or $OBSH/$1/debian.dsc, are you sure you have the right function, or the right number of arguments?\n A second input can be used to specify a spec file that is not named the same as its directory.\n" 
          fi
     else
-         if [[ -f $OBSH/$1/$2.spec ]]; then
+        if [[ -f $OBSH/$1/$2.spec ]]; then
               cat $OBSH/$1/$2.spec | grep "Version:" | sed 's/Version:\s*//g'
         fi
     fi
