@@ -1,10 +1,11 @@
 function 0adup {
     cdgo 0ad
     git pull origin master -q
-    mastn=$(git rev-list --branches master --count)
-    specn=$(cat $OBSH/0ad/0ad.spec | grep "Version:" | sed 's/Version:\s*//g')
-    comm=$(git log | head -n 1 | cut -d ' ' -f 2)
-    specm=$(cat $OBSH/0ad/0ad.spec | grep "define commit" | cut -d ' ' -f 3)
+    # See 05-version.sh for the definition of these funcs
+    mastn=$(comno)
+    specn=$(vere 0ad)
+    comm=$(loge)
+    specm=$(come 0ad)
 
     if [[ $specn == $mastn ]]; then
          printf "0 A.D. is up to date!\n"

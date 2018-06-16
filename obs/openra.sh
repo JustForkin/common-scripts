@@ -1,10 +1,11 @@
 function openrabup {
     cdgo OpenRA
+    gt checkout bleed -q
     git pull origin bleed -q
-    mastn=$(git rev-list --branches bleed --count)
-    specn=$(cat $OBSH/openra-bleed/openra-bleed.spec | grep "Version:" | sed 's/Version:\s*//g')
-    comm=$(git log | head -n 1 | cut -d ' ' -f 2)
-    specm=$(cat $OBSH/openra-bleed/openra-bleed.spec | grep "define commit" | cut -d ' ' -f 3)
+    mastn=$(comno)
+    specn=$(vere openra-bleed)
+    comm=$(loge)
+    specm=$(come openra-bleed)
 
     if [[ $specn == $mastn ]]; then
          printf "OpenRA Bleed is up to date!\n"
@@ -23,10 +24,10 @@ function openrabup {
 function ra2up {
     cdgo ra2
     git pull origin master -q
-    mastn=$(git rev-list --branches master --count)
-    specn=$(cat $OBSH/openra-ra2/openra-ra2.spec | grep "Version:" | sed 's/Version:\s*//g')
-    comm=$(git log | head -n 1 | cut -d ' ' -f 2)
-    specm=$(cat $OBSH/openra-ra2/openra-ra2.spec | grep "define commit" | cut -d ' ' -f 3)
+    mastn=$(comno)
+    specn=$(vere openra-ra2)
+    comm=$(loge)
+    specm=$(come openra-ra2)
 
     if [[ $specn == $mastn ]]; then
          printf "OpenRA RA2 is up to date!\n"
@@ -42,10 +43,10 @@ function ra2up {
 function drup {
     cdgo DarkReign
     git pull origin master -q
-    mastn=$(git rev-list --branches master --count)
-    specn=$(cat $OBSH/openra-dr/openra-dr.spec | grep "Version:" | sed 's/Version:\s*//g')
-    comm=$(git log | head -n 1 | cut -d ' ' -f 2)
-    specm=$(cat $OBSH/openra-dr/openra-dr.spec | grep "define commit" | cut -d ' ' -f 3)
+    mastn=$(come)
+    specn=$(vere openra-dr)
+    comm=$(loge)
+    specm=$(come openra-dr)
 
     if [[ $specn == $mastn ]]; then
          printf "OpenRA Dark Reign is up to date!\n"
@@ -54,17 +55,17 @@ function drup {
          sed -i -e "s/$specm/$comm/g" $OBSH/openra-dr/openra-dr.spec
          cdobsh openra-dr
          osc ci -m "Bumping $specn->$mastn"
-    fi    
+    fi
 }
 
 # Dark Reign update
 function racup {
     cdgo raclassic
     git pull origin master -q
-    mastn=$(git rev-list --branches master --count)
-    specn=$(cat $OBSH/openra-raclassic/openra-raclassic.spec | grep "Version:" | sed 's/Version:\s*//g')
-    comm=$(git log | head -n 1 | cut -d ' ' -f 2)
-    specm=$(cat $OBSH/openra-raclassic/openra-raclassic.spec | grep "define commit" | cut -d ' ' -f 3)
+    mastn=$(come)
+    specn=$(vere openra-raclassic)
+    comm=$(loge)
+    specm=$(come openra-raclassic)
 
     if [[ $specn == $mastn ]]; then
          printf "OpenRA RA Classic is up to date!\n"
@@ -73,6 +74,5 @@ function racup {
          sed -i -e "s/$specm/$comm/g" $OBSH/openra-raclassic/openra-raclassic.spec
          cdobsh openra-raclassic
          osc ci -m "Bumping $specn->$mastn"
-    fi    
+    fi
 }
-

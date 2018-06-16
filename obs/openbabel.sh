@@ -1,7 +1,7 @@
 function babelup {
     cdgo openbabel
     git pull origin master -q
-    mastn=$(git rev-list --branches master --count)
+    mastn=$(comno)
     specn=$(cat $OBS/home:fusion809:openbabel3/openbabel3/openbabel3.spec | grep "Version:" | sed 's/Version:\s*//g')
     comm=$(git log | head -n 1 | cut -d ' ' -f 2)
     specm=$(cat $OBS/home:fusion809:openbabel3/openbabel3/openbabel3.spec | grep "define commit" | cut -d ' ' -f 3)
@@ -17,5 +17,3 @@ function babelup {
 }
 
 alias openbabelup=babelup
-
-

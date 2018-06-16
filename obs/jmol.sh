@@ -1,6 +1,6 @@
 function jmolup {
     pkgver=$(curl -sL https://sourceforge.net/projects/jmol/files | grep "binary.zip" | cut -d '-' -f 3 | tail -n 1)
-    pkgpver=$(cat $OBSH/jmol/jmol.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
+    pkgpver=$(vere jmol)
 
     if [[ $pkgver == $pkgpver ]]; then
          printf "Seems to be up-to-date mate.\n"
