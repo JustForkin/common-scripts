@@ -1,6 +1,6 @@
 function openrabup {
     cdgo OpenRA
-    gt checkout bleed -q
+    git checkout bleed -q
     git pull origin bleed -q
     mastn=$(comno)
     specn=$(vere openra-bleed)
