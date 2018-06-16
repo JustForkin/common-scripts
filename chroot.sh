@@ -1,4 +1,5 @@
 function genroot {
+    # Check where the root filesystem is
     if [[ -d $1/root/dev ]]; then
          root="$1/root"
     elif [[ -d $1/@/dev ]]; then
@@ -7,6 +8,12 @@ function genroot {
          root="$1"
     fi
 
+    # Make sure the data partition is mounted
+    if [[ -d $root/data ]] && ! `cat /etc/mtab | grep $root/data`; then
+         sudo mount /dev/sdb1 $root/data
+    fi
+
+    # Check if the appropriate mount points are set up for the chroot to work
     if ! [[ -f "$root/proc/cgroups" ]]; then
          sudo mount -t proc /proc "$root/proc"
          sudo mount --rbind /dev "$root/dev"
@@ -22,7 +29,7 @@ function genroot {
     elif [[ -f $root/usr/bin/env ]]; then
          ENV=/usr/bin/env
     fi
-                   #PS1="($1 chroot) $PS1"    \
+    
     if [[ -f $root/usr/local/bin/su-fusion809 ]]; then
          sudo chroot "$root" /usr/local/bin/su-fusion809
     elif [[ -f $root/bin/zsh ]]; then
@@ -38,14 +45,14 @@ function genroot {
                PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin \
                /bin/bash --login +h
     elif `cat $root/etc/os-release | grep -i NixOS > /dev/null 2>&1`; then
-          INIT=$(sudo find $root/nix/store -type f -path '*nixos*/init' -print -quit)
+         INIT=$(sudo find $root/nix/store -type f -path '*nixos*/init' -print -quit)
          BASH=$(sudo find $root/nix/store -type f -path '*/bin/bash' -print -quit)
-         BASH=$(echo $BASH | sed "s|/nixos||g")      
+         BASH=$(echo $BASH | sed "s|/nixos||g")
          ENV=$(sudo find $root/nix/store -type f -path '*/bin/env' -print -quit)
          sudo sed -i "s,exec systemd,exec /$BASH," $INIT
 
          INIT=$(echo $INIT | sed "s|/nixos||g")
-                                             
+
          sudo chroot $root ./$INIT --login +h
 
     elif [[ -f $root/bin/sh ]] || [[ -L $root/bin/sh ]]; then
@@ -153,4 +160,8 @@ function uroot {
 
 function aroot {
     genroot /arch
+}
+
+function nuroot {
+    genroot /neon-user
 }
