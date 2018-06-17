@@ -41,7 +41,7 @@ function ra2up {
 function drup {
     cdgo DarkReign
     git pull origin master -q
-    mastn=$(come)
+    mastn=$(comno)
     specn=$(vere openra-dr)
     comm=$(loge)
     specm=$(come openra-dr)
@@ -60,7 +60,7 @@ function drup {
 function racup {
     cdgo raclassic
     git pull origin master -q
-    mastn=$(come)
+    mastn=$(comno)
     specn=$(vere openra-raclassic)
     comm=$(loge)
     specm=$(come openra-raclassic)
@@ -83,7 +83,7 @@ function uRAup {
     enlv=$(cat mod.config | grep '^ENGINE_VERSION' | cut -d '"' -f 2)
     # OpenRA engine version in spec file
     enpv=$(cat $OBS_PATH/openra-ura.spec | grep engine_version | cut -d ' ' -f 3)
-    mastn=$(come)
+    mastn=$(comno)
     specn=$(vere openra-ura)
     comm=$(loge)
     specm=$(come openra-ura)
