@@ -74,3 +74,33 @@ function racup {
          osc ci -m "Bumping $specn->$mastn"
     fi
 }
+
+function uRAup {
+    OBS_PATH="$HOME/OBS/home:fusion809/openra-ura"
+    cdgo uRA
+    git pull origin master -q
+    # OpenRA latest engine version
+    enlv=$(cat mod.config | grep '^ENGINE_VERSION' | cut -d '"' -f 2)
+    # OpenRA engine version in spec file
+    enpv=$(cat $OBS_PATH/openra-ura.spec | grep engine_version | cut -d ' ' -f 3)
+    mastn=$(come)
+    specn=$(vere openra-ura)
+    comm=$(loge)
+    specm=$(come openra-ura)
+
+    if [[ $specn == $mastn ]]; then
+         printf "OpenRA Red Alert Unplugged mod is up to date!\n"
+    else
+         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-ura/openra-ura.spec
+         sed -i -e "s/$specm/$comm/g" $OBSH/openra-ura/openra-ura.spec
+         if ! [[ $enpv == $enlv ]]; then
+              sed -i -e "s/$enpv/$enlv/g" $OBS_PATH/openra-ura.spec
+              rm -rf engine ; ./fetch-engine.sh
+              tar czvf $OBS_PATH/engine.tar.gz engine
+         fi
+         cdobsh openra-ura
+         osc ci -m "Bumping $specn->$mastn; engine $enpv->$enlv"
+    fi
+}
+
+alias uraup=uRAup
