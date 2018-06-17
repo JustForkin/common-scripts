@@ -1,5 +1,6 @@
 #!/bin/bash
-# OpenRA Red Alert 2 mod latest commit available
+# OpenRA Red Alert Unplugged mod latest commit available
+OBS_PATH="$HOME/OBS/home:fusion809/openra-ura"
 cd /home/fusion809/GitHub/others/uRA
 if ! `which git > /dev/null 2>&1`; then
     printf "git is not detected, please install it and if already installed add it to your system PATH!\n" && exit
@@ -7,10 +8,18 @@ fi
 git pull origin master -q
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
-orpv=$(cat $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec | grep "Version:" | sed 's/Version:\s*//g')
+orpv=$(cat $OBS_PATH/openra-ura.spec | grep "Version:" | sed 's/Version:\s*//g')
+# OpenRA latest engine version
+enlv=$(cat mod.config | grep '^ENGINE_VERSION' | cut -d '"' -f 2)
+# OpenRA engine version in spec file
+enpv=$(cat $OBS_PATH/openra-ura.spec | grep engine_version | cut -d ' ' -f 3)
 
 if [[ $orpv == $orlv ]]; then
     printf "OpenRA uRA \n"
 else
-    printf "OpenRA uRA${orlv}\n"
+    if [[ $enpv == $enlv ]]; then
+         printf "OpenRA uRA${orlv}\n"
+    else
+         printf "OpenRA uRA${orlv}; engine $enpv->$enlv\n"
+    fi
 fi
