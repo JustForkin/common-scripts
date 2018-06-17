@@ -41,7 +41,7 @@ function ra2up {
 function drup {
     cdgo DarkReign
     git pull origin master -q
-    mastn=$(come)
+    mastn=$(comno)
     specn=$(vere openra-dr)
     comm=$(loge)
     specm=$(come openra-dr)
@@ -60,7 +60,7 @@ function drup {
 function racup {
     cdgo raclassic
     git pull origin master -q
-    mastn=$(come)
+    mastn=$(comno)
     specn=$(vere openra-raclassic)
     comm=$(loge)
     specm=$(come openra-raclassic)
@@ -76,30 +76,33 @@ function racup {
 }
 
 function uRAup {
-    OBS_PATH="$HOME/OBS/home:fusion809/openra-ura"
-    cdgo uRA
+    cd $HOME/GitHub/others/uRA
     git pull origin master -q
     # OpenRA latest engine version
-    enlv=$(cat mod.config | grep '^ENGINE_VERSION' | cut -d '"' -f 2)
+    enlv=$(cat mod.config | grep '^ENGINE\_VERSION' | cut -d '"' -f 2)
     # OpenRA engine version in spec file
-    enpv=$(cat $OBS_PATH/openra-ura.spec | grep engine_version | cut -d ' ' -f 3)
-    mastn=$(come)
-    specn=$(vere openra-ura)
-    comm=$(loge)
-    specm=$(come openra-ura)
+    enpv=$(cat $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec | grep "define engine\_version" | cut -d ' ' -f 3)
+    mastn=$(git rev-list --branches master --count)
+    specn=$(cat $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec | grep "Version\:" | sed 's/Version:\s*//g')
+    comm=$(git log | head -n 1 | cut -d ' ' -f 2)
+    specm=$(cat $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec | grep "define commit" | cut -d ' ' -f 3)
 
     if [[ $specn == $mastn ]]; then
-         printf "OpenRA Red Alert Unplugged mod is up to date!\n"
+         printf "OpenRA Red Alert Unplugged mod is up to date\!\n"
     else
-         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-ura/openra-ura.spec
-         sed -i -e "s/$specm/$comm/g" $OBSH/openra-ura/openra-ura.spec
+         sed -i -e "s/$specn/$mastn/g" $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec
+         sed -i -e "s/$specm/$comm/g" $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec
          if ! [[ $enpv == $enlv ]]; then
-              sed -i -e "s/$enpv/$enlv/g" $OBS_PATH/openra-ura.spec
-              rm -rf engine ; ./fetch-engine.sh
-              tar czvf $OBS_PATH/engine.tar.gz engine
+              sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec
+              ./fetch-engine.sh
+              tar czvf $HOME/OBS/home:fusion809/openra-ura/engine.tar.gz engine
          fi
-         cdobsh openra-ura
-         osc ci -m "Bumping $specn->$mastn; engine $enpv->$enlv"
+         cd $HOME/OBS/home:fusion809/openra-ura
+         if ! [[ $enpv == $enlv ]]; then
+              osc ci -m "Bumping $specn->$mastn; engine $enpv->$enlv"
+         else
+              osc ci -m "Bumping $specn->$mastn; engine version is unchanged."
+         fi
     fi
 }
 
