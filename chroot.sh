@@ -9,7 +9,7 @@ function genroot {
     fi
 
     # Make sure the data partition is mounted
-    if [[ -d $root/data ]] && ! `cat /etc/mtab | grep $root/data`; then
+    if [[ -d $root/data ]] && ! `cat /etc/mtab | grep $root/data > /dev/null 2>&1`; then
          sudo mount /dev/sdb1 $root/data
     fi
 
