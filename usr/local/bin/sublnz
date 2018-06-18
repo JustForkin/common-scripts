@@ -4,5 +4,5 @@ cd $HOME/GitHub/mine/packaging/fusion809-overlay/app-editors/sublime-text
 pkgpver=$(ls -ld * | tail -n 1 | sed 's/[a-zA-Z0-9: .]*sublime-text//g' | cut -d '-' -f 8 | sed 's/.ebuild//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    zenity --error --text="A new Sublime Text release (${pkgver}) is available\!" --title="Warning\!"
+    zenity --error --text="A new Sublime Text release (${pkgver}) is available!" --title="Warning!"
 fi

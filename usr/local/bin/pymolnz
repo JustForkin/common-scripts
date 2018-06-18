@@ -3,5 +3,5 @@ pkgver=$(wget -cqO- http://sourceforge.net/projects/pymol | grep "\.tar\.bz2" | 
 pkgpver=$(cat /data/OBS/home:fusion809/pymol/pymol.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g' | sed 's/\.svn[0-9]*//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    zenity --error --text="A new PyMOL release (${pkgver}) is available\!" --title="Warning\!"
+    zenity --error --text="A new PyMOL release (${pkgver}) is available!" --title="Warning!"
 fi

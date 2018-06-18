@@ -3,5 +3,5 @@ pkgver=$(wget -cqO- https://github.com/snapcore/snapd/releases | grep "tar\.gz" 
 pkgpver=$(cat /data/OBS/home:fusion809/snapd/snapd.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    zenity --error --text="A new snapd release (${pkgver}) is available\! To update to it run snapdup." --title="Warning\!"
+    zenity --error --text="A new snapd release (${pkgver}) is available! To update to it run snapdup." --title="Warning!"
 fi

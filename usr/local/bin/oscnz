@@ -4,5 +4,5 @@ cd $HOME/OBS/home:fusion809/osc
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 
 if ! ( [ $pkgpver == $pkgver ] ); then
-    zenity --error --text="A new OSC release (${pkgver}) is available\! Run oscup to update to it." --title="Warning\!"
+    zenity --error --text="A new OSC release (${pkgver}) is available! Run oscup to update to it." --title="Warning!"
 fi

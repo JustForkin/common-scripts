@@ -11,5 +11,5 @@ fi
 orpv=$(cat $HOME/OBS/home:fusion809/openra/openra.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if ! [[ $orpv == $orlv ]]; then
-    zenity --error --text="A new OpenRA release (${pkgver}) is available\!" --title="Warning\!"
+    zenity --error --text="A new OpenRA release (${pkgver}) is available!" --title="Warning!"
 fi
