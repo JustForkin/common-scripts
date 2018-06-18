@@ -94,7 +94,7 @@ function uRAup {
          sed -i -e "s/$specm/$comm/g" $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec
          if ! [[ $enpv == $enlv ]]; then
               sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec
-              ./fetch-engine.sh || exit 0
+              make
               tar czvf $HOME/OBS/home:fusion809/openra-ura/engine.tar.gz engine
          fi
          cd $HOME/OBS/home:fusion809/openra-ura
