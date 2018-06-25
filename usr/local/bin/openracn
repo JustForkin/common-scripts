@@ -13,7 +13,7 @@ fi
 orpv=$(cat $HOME/OBS/home:fusion809/openra-raclassic/openra-raclassic.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
-    printf "OpenRA RAClas \n"
+    printf "OpenRA RAC \n"
 else
-    printf "OpenRA RAClas${orlv}\n"
+    printf "OpenRA RAC${orlv}\n"
 fi

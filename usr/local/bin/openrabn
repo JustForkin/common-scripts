@@ -13,7 +13,7 @@ orlv=$(git rev-list --branches bleed --count)
 orpv=$(cat $HOME/OBS/home:fusion809/openra-bleed/openra-bleed.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
-    printf "OpenRA Bleed \n"
+    printf "OpenRA B \n"
 else
-    printf "OpenRA Bleed${orlv}\n"
+    printf "OpenRA B${orlv}\n"
 fi
