@@ -1,8 +1,8 @@
 #!/bin/bash
 if `which wget > /dev/null 2>&1`; then
-    pkgver=$(wget -cqO- https://github.com/ostreedev/ostree/releases | grep "tar\.gz" | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/\.tar\.gz//g' | sed "s|v||g" | head -n 1)
+    pkgver=$(wget -cqO- https://github.com/ostreedev/ostree/releases | grep "tar\.xz" | cut -d '/' -f 6 | sed "s|v||g" | head -n 1)
 elif `which curl > /dev/null 2>&1`; then
-    pkgver=$(curl -sL https://github.com/ostreedev/ostree/releases | grep "tar\.gz" | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/\.tar\.gz//g' | sed "s|v||g" | head -n 1)
+    pkgver=$(curl -sL https://github.com/ostreedev/ostree/releases | grep "tar\.xz" | cut -d '/' -f 6 | sed "s|v||g" | head -n 1)
 else
     printf "Neither cURL nor wget are detected, please install them, or if they are already installed please add them to the system PATH.\n" && exit
 fi
