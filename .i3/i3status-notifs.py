@@ -139,7 +139,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/codeliten",
-    color="#22AF9F",
+    color="#88FFFF",
     interval=300)
 
 status.register("shell",
