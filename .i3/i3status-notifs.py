@@ -88,11 +88,6 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/openbabeln",
-    color="#F32CF5",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/obss",
     color="#44EF4F",
     interval=1200)
@@ -106,6 +101,11 @@ status.register("shell",
     command="/usr/local/bin/obsf",
     color="#E8EF8E",
     interval=1200)
+
+status.register("shell",
+    command="/usr/local/bin/openbabeln",
+    color="#F32CF5",
+    interval=300)
 
 status.register("shell",
     command="/usr/local/bin/netbeansn",
