@@ -108,6 +108,11 @@ status.register("shell",
     interval=1200)
 
 status.register("shell",
+    command="/usr/local/bin/komodon",
+    color="#3FCAFF",
+    interval=300)
+
+status.register("shell",
     command="/usr/local/bin/jucippn",
     color="#F9B999",
     interval=300)
