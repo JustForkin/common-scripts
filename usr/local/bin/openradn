@@ -10,7 +10,7 @@ orlv=$(git rev-list --branches master --count)
 orpv=$(cat $HOME/OBS/home:fusion809/openra-dr/openra-dr.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
-    printf "OpenRA Dark Reign \n"
+    printf "OpenRA DR \n"
 else
-    printf "OpenRA Dark Reign${orlv}\n"
+    printf "OpenRA DR${orlv}\n"
 fi
