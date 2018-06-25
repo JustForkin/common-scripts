@@ -99,6 +99,10 @@ function sroot {
     genroot /slackware
 }
 
+function slroot {
+    genroot /scientific
+}
+
 function oroot {
     if [[ -d /opensuse/bin ]]; then
          genroot /opensuse
