@@ -11,8 +11,8 @@ function openrabup {
          printf "OpenRA Bleed is up to date!\n"
     else
          printf "Updating OBS repo openra-bleed.\n"
-         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-bleed/openra-bleed.spec
-         sed -i -e "s/$specm/$comm/g" $OBSH/openra-bleed/openra-bleed.spec
+         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-bleed/{openra-bleed.spec,PKGBUILD}
+         sed -i -e "s/$specm/$comm/g" $OBSH/openra-bleed/{openra-bleed.spec,PKGBUILD}
          cdobsh openra-bleed
          osc ci -m "Bumping $specn->$mastn"
          /usr/local/bin/openra-build
