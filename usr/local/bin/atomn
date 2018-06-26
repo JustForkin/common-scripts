@@ -10,9 +10,9 @@ fi
 
 # Latest Atom stable release available
 if `which curl > /dev/null 2>&1`; then
-    pkgvers=$(curl -sL https://github.com/atom/atom/releases | grep -v "beta" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+    pkgvers=$(curl -sL https://github.com/atom/atom/releases | grep -v "beta\|dev" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
 elif `which wget > /dev/null 2>&1`; then
-    pkgvers=$(wget -cqO- https://github.com/atom/atom/releases | grep -v "beta" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+    pkgvers=$(wget -cqO- https://github.com/atom/atom/releases | grep -v "beta\|dev" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
 else
     printf "Neither cURL nor wget are detected, please install them, or if already installed please add them to the system PATH.\n" && exit
 fi
