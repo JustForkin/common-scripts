@@ -6,7 +6,7 @@ elif `which wget > /dev/null 2>&1`; then
 else
     printf "Neither cURL nor wget are detected, please install them, or if installed add to system PATH.\n" && exit
 fi    
-cd $HOME/OBS/home:fusion809/osc
+cd /data/OBS/home:fusion809/osc
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 
 if ! ( [ $pkgpver == $pkgver ] ); then

@@ -1,6 +1,6 @@
 #!/bin/bash
 # OpenRA Red Alert Unplugged mod latest commit available
-OBS_PATH="$HOME/OBS/home:fusion809/openra-ura"
+OBS_PATH="/data/OBS/home:fusion809/openra-ura"
 cd /home/fusion809/GitHub/others/uRA
 if ! `which git > /dev/null 2>&1`; then
     printf "git is not detected, please install it and if already installed add it to your system PATH!\n" && exit

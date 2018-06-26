@@ -7,7 +7,7 @@ else
     printf "Neither cURL nor wget are detected, please install them, or if installed add to system PATH.\n" && exit    
 fi
 
-cd $HOME/AUR/jucipp
+cd /data/AUR/jucipp
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 
 if ! [[ $pkgver == $pkgpver ]]; then

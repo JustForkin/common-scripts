@@ -7,7 +7,7 @@ else
     printf "Neither cURL nor wget have been detected, please install them or, if already installed, add them to the system PATH.\n"
 fi
 
-cd $HOME/OBS/home:fusion809/jmol
+cd /data/OBS/home:fusion809/jmol
 pkgsp=$(cat jmol.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if ! [[ $pkgver == $pkgsp ]]; then

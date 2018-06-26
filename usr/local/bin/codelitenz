@@ -7,7 +7,7 @@ else
     zenity --error --text="Neither cURL nor wget has been detected. Please either install one, or if already installed add it to the system PATH." --title="Warning!"    
 else
     
-cd $HOME/GitHub/mine/packaging/fusion809-overlay/dev-util/codelite
+cd /data/GitHub/mine/packaging/fusion809-overlay/dev-util/codelite
 pkgpver=$(ls -ld * | head -n 1 | sed 's/[a-zA-Z0-9: .]*codelite/codelite/g' | cut -d '-' -f 8 | sed 's/.ebuild//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then

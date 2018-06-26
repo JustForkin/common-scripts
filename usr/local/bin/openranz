@@ -8,7 +8,7 @@ else
     zenity --error --text="Neither cURL nor wget are detected, please install them, or if installed add to system PATH!" --title="Warning!" && exit
 fi     
 # OpenRA latest packaged version
-orpv=$(cat $HOME/OBS/home:fusion809/openra/openra.spec | grep "Version:" | sed 's/Version:\s*//g')
+orpv=$(cat /data/OBS/home:fusion809/openra/openra.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if ! [[ $orpv == $orlv ]]; then
     zenity --error --text="A new OpenRA release (${pkgver}) is available!" --title="Warning!"
