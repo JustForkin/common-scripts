@@ -30,8 +30,8 @@ function ra2up {
     if [[ $specn == $mastn ]]; then
          printf "OpenRA RA2 is up to date!\n"
     else
-         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-ra2/openra-ra2.spec
-         sed -i -e "s/$specm/$comm/g" $OBSH/openra-ra2/openra-ra2.spec
+         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-ra2/{openra-ra2.spec,PKGBUILD}
+         sed -i -e "s/$specm/$comm/g" $OBSH/openra-ra2/{openra-ra2.spec,PKGBUILD}
          cdobsh openra-ra2
          osc ci -m "Bumping $specn->$mastn"
     fi
@@ -49,8 +49,8 @@ function drup {
     if [[ $specn == $mastn ]]; then
          printf "OpenRA Dark Reign is up to date!\n"
     else
-         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-dr/openra-dr.spec
-         sed -i -e "s/$specm/$comm/g" $OBSH/openra-dr/openra-dr.spec
+         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-dr/{openra-dr.spec,PKGBUILD}
+         sed -i -e "s/$specm/$comm/g" $OBSH/openra-dr/{openra-dr.spec,PKGBUILD}
          cdobsh openra-dr
          osc ci -m "Bumping $specn->$mastn"
     fi
@@ -68,8 +68,8 @@ function racup {
     if [[ $specn == $mastn ]]; then
          printf "OpenRA RA Classic is up to date!\n"
     else
-         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-raclassic/openra-raclassic.spec
-         sed -i -e "s/$specm/$comm/g" $OBSH/openra-raclassic/openra-raclassic.spec
+         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-raclassic/{openra-raclassic.spec,PKGBUILD}
+         sed -i -e "s/$specm/$comm/g" $OBSH/openra-raclassic/{openra-raclassic.spec,PKGBUILD}
          cdobsh openra-raclassic
          osc ci -m "Bumping $specn->$mastn"
     fi
@@ -90,8 +90,8 @@ function uRAup {
     if [[ $specn == $mastn ]]; then
          printf "OpenRA Red Alert Unplugged mod is up to date\!\n"
     else
-         sed -i -e "s/$specn/$mastn/g" $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec
-         sed -i -e "s/$specm/$comm/g" $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec
+         sed -i -e "s/$specn/$mastn/g" $HOME/OBS/home:fusion809/openra-ura/{openra-ura.spec,PKGBUILD}
+         sed -i -e "s/$specm/$comm/g" $HOME/OBS/home:fusion809/openra-ura/{openra-ura.spec,PKGBUILD}
          if ! [[ $enpv == $enlv ]]; then
               sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec
               make
