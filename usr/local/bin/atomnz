@@ -11,19 +11,19 @@ fi
 
 # Latest Atom stable release available
 if `which curl > /dev/null 2>&1`; then
-    pkgvers=$(curl -sL https://github.com/atom/atom/releases | grep -v "beta" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+    pkgvers=$(curl -sL https://github.com/atom/atom/releases | grep -v "beta\|dev" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
 elif `which wget > /dev/null 2>&1`; then
-    pkgvers=$(wget -cqO- https://github.com/atom/atom/releases | grep -v "beta" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+    pkgvers=$(wget -cqO- https://github.com/atom/atom/releases | grep -v "beta\|dev" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
 fi
 
 # The number that comes after "beta" in the release number (e.g. 2 for 1.28.0-beta2)
 pkgbv=$(echo $pkgverb | cut -d '-' -f 2 | sed 's/beta//g')
 # The number that comes before beta in the release number
 pkgnbv=$(echo $pkgverb | cut -d '-' -f 1)
-cd $HOME/AUR/atom-editor-beta
+cd /data/AUR/atom-editor-beta
 pkgpnbv=$(sed -n 's/_pkgver=//p' PKGBUILD)
 pkgpbv=$(sed -n 's/_pkgrel=//p' PKGBUILD)
-pkgpvers=$(ls $HOME/GitHub/mine/packaging/fusion809-overlay/app-editors/atom-bin/*.ebuild | grep -v "beta" | cut -d '/' -f 10 | cut -d '-' -f 3 | sed 's/.ebuild//g')
+pkgpvers=$(ls /data/GitHub/mine/packaging/fusion809-overlay/app-editors/atom-bin/*.ebuild | grep -v "beta" | cut -d '/' -f 9 | cut -d '-' -f 3 | sed 's/.ebuild//g')
 
 if ! [[ $pkgvers == $pkgpvers ]]; then
     zenity --error --text="A new Atom stable release (${pkgvers}) is available!" --title="Warning!"    

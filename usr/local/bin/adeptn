@@ -7,7 +7,7 @@ else
     printf "Neither cURL nor wget has been detected, please install them if not installed or add them to the system PATH if they already are.\n" && exit
 fi
 
-cd $HOME/GitHub/mine/packaging/fusion809-overlay/app-editors/textadept
+cd /data/GitHub/mine/packaging/fusion809-overlay/app-editors/textadept
 pkgpver=$(ls -ld * | tail -n 1 | sed 's/.*textadept-//g' | sed 's/.ebuild//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then

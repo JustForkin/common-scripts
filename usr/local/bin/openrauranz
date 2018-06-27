@@ -1,6 +1,6 @@
 #!/bin/bash
 # OpenRA Red Alert Unplugged mod latest commit available
-OBS_PATH="$HOME/OBS/home:fusion809/openra-ura"
+OBS_PATH="/data/OBS/home:fusion809/openra-ura"
 cd /home/fusion809/GitHub/others/uRA
 
 # update repository

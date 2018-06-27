@@ -13,7 +13,7 @@ orlv=$(git rev-list --branches master --count)
 # commit hash
 comm=$(git log -1 --format=%h)
 # 0 A.D. latest packaged version
-orpv=$(cat $HOME/OBS/home:fusion809/0ad/0ad.spec | grep "Version:" | sed 's/Version:\s*//g')
+orpv=$(cat /data/OBS/home:fusion809/0ad/0ad.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if ! [[ $orpv == $orlv ]]; then
     zenity --error --text="A new 0 A.D. commit (no. ${orlv}, ${comm}) has been pushed! To update to it run 0adup." --title="Warning!"
