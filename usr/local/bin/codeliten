@@ -11,7 +11,7 @@ cd /data/GitHub/mine/packaging/fusion809-overlay/dev-util/codelite
 pkgpver=$(ls -ld * | head -n 1 | sed 's/[a-zA-Z0-9: .]*codelite/codelite/g' | cut -d '-' -f 8 | sed 's/.ebuild//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    printf "CodeLite$pkgver\n"
+    printf "CL$pkgver\n"
 else
-    printf "CodeLite\n"
+    printf "CL\n"
 fi

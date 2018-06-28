@@ -29,7 +29,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/subln",
-    color="#9FB8FF",
+    color="#FFFF44",
     interval=300)
 
 status.register("shell",
@@ -39,7 +39,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/snapdn",
-    color="#BFBFEB",
+    color="#AFAFEF",
     interval=300)
 
 status.register("shell",
@@ -84,7 +84,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/openran",
-    color="#FFFFAA",
+    color="#FFAA00",
     interval=300)
 
 status.register("shell",

@@ -11,7 +11,7 @@ fi
 orpv=$(cat /data/OBS/home:fusion809/openra/openra.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
-    printf "OpenRA \n"
+    printf "ORA \n"
 else
-    printf "OpenRA${orlv}\n"
+    printf "ORA${orlv}\n"
 fi

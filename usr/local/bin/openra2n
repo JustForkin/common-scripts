@@ -10,7 +10,7 @@ orlv=$(git rev-list --branches master --count)
 orpv=$(cat /data/OBS/home:fusion809/openra-ra2/openra-ra2.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
-    printf "OpenRA RA2 \n"
+    printf "ORA2 \n"
 else
-    printf "OpenRA RA2${orlv}\n"
+    printf "ORA2${orlv}\n"
 fi

@@ -15,11 +15,11 @@ enlv=$(cat mod.config | grep '^ENGINE_VERSION' | cut -d '"' -f 2)
 enpv=$(cat $OBS_PATH/openra-ura.spec | grep engine_version | cut -d ' ' -f 3)
 
 if [[ $orpv == $orlv ]]; then
-    printf "OpenRA uRA \n"
+    printf "ORAuRA \n"
 else
     if [[ $enpv == $enlv ]]; then
-         printf "OpenRA uRA${orlv}\n"
+         printf "ORAuRA${orlv}\n"
     else
-         printf "OpenRA uRA${orlv}; engine $enpv->$enlv\n"
+         printf "ORAuRA${orlv}; engine $enpv->$enlv\n"
     fi
 fi
