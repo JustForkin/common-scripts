@@ -32,6 +32,12 @@ function ra2up {
     else
          sed -i -e "s/$specn/$mastn/g" $OBSH/openra-ra2/{openra-ra2.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" $OBSH/openra-ra2/{openra-ra2.spec,PKGBUILD}
+         if ! [[ $enpv == $enlv ]]; then
+              sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-ra2/{openra-ra2.spec,PKGBUILD}
+              make clean
+              make
+              tar czvf $HOME/OBS/home:fusion809/openra-ra2/engine-${enlv}.tar.gz engine
+         fi
          cdobsh openra-ra2
          osc ci -m "Bumping $specn->$mastn"
     fi
@@ -41,6 +47,10 @@ function ra2up {
 function drup {
     cdgo DarkReign
     git pull origin master -q
+    # OpenRA latest engine version
+    enlv=$(cat mod.config | grep '^ENGINE\_VERSION' | cut -d '"' -f 2)
+    # OpenRA engine version in spec file
+    enpv=$(cat $HOME/OBS/home:fusion809/openra-dr/openra-dr.spec | grep "define engine\_version" | cut -d ' ' -f 3)
     mastn=$(comno)
     specn=$(vere openra-dr)
     comm=$(loge)
@@ -51,6 +61,12 @@ function drup {
     else
          sed -i -e "s/$specn/$mastn/g" $OBSH/openra-dr/{openra-dr.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" $OBSH/openra-dr/{openra-dr.spec,PKGBUILD}
+         if ! [[ $enpv == $enlv ]]; then
+              sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-dr/{openra-dr.spec,PKGBUILD}
+              make clean
+              make
+              tar czvf $HOME/OBS/home:fusion809/openra-dr/engine-${enlv}.tar.gz engine
+         fi
          cdobsh openra-dr
          osc ci -m "Bumping $specn->$mastn"
     fi
@@ -60,6 +76,10 @@ function drup {
 function racup {
     cdgo raclassic
     git pull origin master -q
+    # OpenRA latest engine version
+    enlv=$(cat mod.config | grep '^ENGINE\_VERSION' | cut -d '"' -f 2)
+    # OpenRA engine version in spec file
+    enpv=$(cat $HOME/OBS/home:fusion809/openra-raclassic/openra-raclassic.spec | grep "define engine\_version" | cut -d ' ' -f 3)
     mastn=$(comno)
     specn=$(vere openra-raclassic)
     comm=$(loge)
@@ -70,6 +90,18 @@ function racup {
     else
          sed -i -e "s/$specn/$mastn/g" $OBSH/openra-raclassic/{openra-raclassic.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" $OBSH/openra-raclassic/{openra-raclassic.spec,PKGBUILD}
+         if ! [[ $enpv == $enlv ]]; then
+              sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-raclassic/{openra-raclassic.spec,PKGBUILD}
+              make clean
+              make
+              if `cat /etc/os-release | grep openSUSE > /dev/null 2>&1`; then
+                   tar czvf $HOME/OBS/home:fusion809/openra-ura/engine-${enlv}.tar.gz engine
+                   printf "Please remember to rebuild engine-arch.tar.gz on Arch Linux and then commit the changes at $HOME/OBS/home:fusion809/openra-raclassic\n" && exit
+              elif `cat /etc/os-release | grep Arch > /dev/null 2>&1`; then
+                   tar czvf $HOME/OBS/home:fusion809/openra-raclassic/engine-arch-${enlv}.tar.gz engine
+                   printf "Please remember to rebuild engine.tar.gz on Tumbleweed and then commit the changes at $HOME/OBS/home:fusion809/openra-raclassic\n" && exit
+              fi
+         fi
          cdobsh openra-raclassic
          osc ci -m "Bumping $specn->$mastn"
     fi
@@ -93,9 +125,9 @@ function uRAup {
          sed -i -e "s/$specn/$mastn/g" $HOME/OBS/home:fusion809/openra-ura/{openra-ura.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" $HOME/OBS/home:fusion809/openra-ura/{openra-ura.spec,PKGBUILD}
          if ! [[ $enpv == $enlv ]]; then
-              sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-ura/openra-ura.spec
+              sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-ura/{openra-ura.spec,PKGBUILD}
               make
-              tar czvf $HOME/OBS/home:fusion809/openra-ura/engine.tar.gz engine
+              tar czvf $HOME/OBS/home:fusion809/openra-ura/engine-${enlv}.tar.gz engine
          fi
          cd $HOME/OBS/home:fusion809/openra-ura
          if ! [[ $enpv == $enlv ]]; then
