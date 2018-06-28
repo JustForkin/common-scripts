@@ -37,6 +37,10 @@ function ra2up {
               make clean
               make
               tar czvf $HOME/OBS/home:fusion809/openra-ra2/engine-${enlv}.tar.gz engine
+              cdobsh openra-ra2
+              osc rm engine-${enpv}.tar.gz
+              osc add engine-${enlv}.tar.gz
+              cd -
          fi
          cdobsh openra-ra2
          osc ci -m "Bumping $specn->$mastn"
@@ -66,6 +70,10 @@ function drup {
               make clean
               make
               tar czvf $HOME/OBS/home:fusion809/openra-dr/engine-${enlv}.tar.gz engine
+              cdobsh openra-dr
+              osc rm engine-${enpv}.tar.gz
+              osc add engine-${enlv}.tar.gz
+              cd -
          fi
          cdobsh openra-dr
          osc ci -m "Bumping $specn->$mastn"
@@ -96,10 +104,18 @@ function racup {
               make
               if `cat /etc/os-release | grep openSUSE > /dev/null 2>&1`; then
                    tar czvf $HOME/OBS/home:fusion809/openra-ura/engine-${enlv}.tar.gz engine
-                   printf "Please remember to rebuild engine-arch.tar.gz on Arch Linux and then commit the changes at $HOME/OBS/home:fusion809/openra-raclassic\n" && exit
+                   cdobsh openra-raclassic
+                   osc rm engine-${enpv}.tar.gz
+                   osc add engine-${enlv}.tar.gz
+                   cd -
+                   printf "Please remember to rebuild engine-arch.tar.gz on Arch Linux, then delete old tarball with osc rm, then add the new one with osc add and then commit the changes at $HOME/OBS/home:fusion809/openra-raclassic\n" && exit
               elif `cat /etc/os-release | grep Arch > /dev/null 2>&1`; then
                    tar czvf $HOME/OBS/home:fusion809/openra-raclassic/engine-arch-${enlv}.tar.gz engine
-                   printf "Please remember to rebuild engine.tar.gz on Tumbleweed and then commit the changes at $HOME/OBS/home:fusion809/openra-raclassic\n" && exit
+                   cdobsh openra-raclassic
+                   osc rm engine-arch-${enpv}.tar.gz
+                   osc add engine-arch-${enlv}.tar.gz
+                   cd -
+                   printf "Please remember to rebuild engine.tar.gz on Tumbleweed, then delete old tarball with osc rm, then add the new one with osc add and then commit the changes at $HOME/OBS/home:fusion809/openra-raclassic\n" && exit
               fi
          fi
          cdobsh openra-raclassic
@@ -128,6 +144,10 @@ function uRAup {
               sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-ura/{openra-ura.spec,PKGBUILD}
               make
               tar czvf $HOME/OBS/home:fusion809/openra-ura/engine-${enlv}.tar.gz engine
+              cdobsh openra-ura
+              osc rm engine-${enpv}.tar.gz
+              osc add engine-${enlv}.tar.gz
+              cd -
          fi
          cd $HOME/OBS/home:fusion809/openra-ura
          if ! [[ $enpv == $enlv ]]; then
