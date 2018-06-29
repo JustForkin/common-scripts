@@ -123,11 +123,6 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/mintn",
-    color="#AAFFAA",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/komodon",
     color="#3FCAFF",
     interval=300)
