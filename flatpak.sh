@@ -9,3 +9,7 @@ function flatlist {
 function flatnum {
     flathub | wc -l
 }
+
+function flatup {
+    flatpak update
+}
