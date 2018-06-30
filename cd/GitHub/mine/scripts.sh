@@ -15,6 +15,10 @@ function cdcs {
     cdsc "common-scripts/$1"
 }
 
+function cdcsu {
+    cdcs "usr/local/bin"
+}
+
 function cdds {
 	cdsc "debian-scripts/$1"
 }
