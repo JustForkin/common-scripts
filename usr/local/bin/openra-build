@@ -2,23 +2,25 @@
 cd /home/fusion809/GitHub/mine/packaging/OpenRA
 # Check for git
 if ! `which git > /dev/null 2>&1`; then
-    printf "git not found, please add it to system path, presumably after installing it.\n" && exit
+    zenity --error --text="git not found, please add it to system path, presumably after installing it." --title="Error!" && exit
 fi
 # Check for make
 if ! `which make > /dev/null 2>&1`; then
-    printf "make is missing, please add it to system path, which will likely be after you install it.\n" && exit
+    zenity --error --text="make is missing, please add it to system path, which will likely be after you install it." --title="Error!" && exit
 fi
 
 # Check for mono
 if ! `which mono > /dev/null 2>&1`; then
-    printf "mono is missing, please add it to system path, which will likely be after you install it.\n" && exit
+    zenity --error --text="mono is missing, please add it to system path, which will likely be after you install it." --title="Error!" && exit
 fi
 
 # Check for Lua 5.1 libraries
 if ! [[ -f /usr/lib/x86_64-linux-gnu/liblua5.1.so ]] ; then
     if ! [[ -f /lib64/liblua5.1.so ]]; then
          if ! [[ -f /usr/lib64/liblua5.1.so.0 ]]; then
-              printf "Lua 5.1 libs are not found in /usr/lib/x86_64-linux-gnu, /lib64 or /usr/lib64. If they are installed somewhere else, but in LD_LIBRARY_PATH, feel free to ignore this warning, otherwise install these libraries plesee" && exit
+              if ! [[ -f /usr/lib64/liblua.so.5.1.5 ]]; then
+                   zenity --error --text="Lua 5.1 libs are not found in /usr/lib/x86_64-linux-gnu, /lib64 or /usr/lib64. If they are installed somewhere else, but in LD_LIBRARY_PATH, feel free to ignore this warning, otherwise install these libraries please" --title="Error!" && exit
+              fi
          fi
     fi
 fi
@@ -50,15 +52,21 @@ fi
 cd /home/fusion809/GitHub/others/OpenRA
 commco=$(git rev-list --branches bleed --count)
 
+VERSION=$(cat /usr/lib/openra/VERSION)
+
+if [[ $VERSION == $commco ]]; then
+    exit
+fi
+
 if ! ( [[ -f /usr/bin/openra-ra ]] || [[ -f /usr/bin/openra ]] || [[ -f /usr/games/openra ]] ); then
-    printf "Let's build and install OpenRA from this latest commit now...\n"
+    zenity --error --text="OpenRA is going to be updated to commit $commco" --title="Warning!"
     sed -i -e "s|{DEV_VERSION}|$commco|g" mods/*/*.yaml VERSION
     make
-    sudo make install-core
-    sudo make install-linux-shortcuts
-    sudo make install-linux-mime
-    sudo make install-man-page
-    sudo rm /usr/local/lib/openra/*.sh
+    sudo make prefix=/usr install-core
+    sudo make prefix=/usr install-linux-shortcuts
+    sudo make prefix=/usr install-linux-mime
+    sudo make prefix=/usr install-man-page
+    sudo rm /usr/lib/openra/*.sh
     sudo mkdir -p /var/games/openra/ModMetadata/
     git stash
 fi
