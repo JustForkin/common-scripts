@@ -31,7 +31,7 @@ function cssubup {
     if [[ $1 = common ]] && ! `echo $PWD | grep "$SCR/common-scripts" > /dev/null 2>&1` && [[ -d "$SCR/$1-scripts" ]] ; then
          printf "Updating common-scripts repository.\n"
          pushd $SCR/$1-scripts
-    else
+    elif ! [[ $1 == common ]]; then
          pushd $SCR/$1-scripts/Shell/common-scripts
     fi
 
