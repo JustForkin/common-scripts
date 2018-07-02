@@ -60,7 +60,7 @@ fi
 
 if ! ( [[ -f /usr/bin/openra-ra ]] || [[ -f /usr/bin/openra ]] || [[ -f /usr/games/openra ]] ); then
     zenity --error --text="OpenRA is going to be updated to commit $commco" --title="Warning!"
-    sed -i -e "s|{DEV_VERSION}|$commco|g" mods/*/*.yaml VERSION
+    make version VERSION="bleed-$commco"
     make
     sudo make prefix=/usr install-core
     sudo make prefix=/usr install-linux-shortcuts
