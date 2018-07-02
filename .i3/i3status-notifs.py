@@ -18,7 +18,7 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/vimn",
+    command="/usr/local/bin/vim-updater",
     color="#99AAFF",
     interval=300)
 

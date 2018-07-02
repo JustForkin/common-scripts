@@ -17,3 +17,4 @@ function babelup {
 }
 
 alias openbabelup=babelup
+alias obabelup=babelup

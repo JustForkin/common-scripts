@@ -1,4 +1,4 @@
-genup () {
+function yrup {
         cdgo yr
         hub pull origin master -q
         enlv=$(cat mod.config | grep '^ENGINE\_VERSION' | cut -d '"' -f 2) 
