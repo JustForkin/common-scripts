@@ -17,7 +17,7 @@ function emacs-appimage {
 	fi
 }
 
-if `echo $0 | grep "zsh" > /dev/null 2>&1`; then
+if [[ -n $ZSH_VERSION ]]; then
     for i in $(dirname "$0")/emacs/*.sh
     do
          . "$i"

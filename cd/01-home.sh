@@ -2,7 +2,7 @@ function cda {
     cd $HOME/AUR/$1
 }
 
-if `echo $0 | grep "zsh" > /dev/null 2>&1`; then
+if [[ -n $ZSH_VERSION ]]; then
     # Chem
     . $(dirname "$0")/home/chem.sh
 
