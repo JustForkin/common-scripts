@@ -11,5 +11,5 @@ comm=$(git log -1 --format=%h)
 orpv=$(cat /data/OBS/home:fusion809/openra-gen/openra-gen.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if ! [[ $orpv == $orlv ]]; then
-    zenity --error --text="A new OpenRA Generals-Alpha mod commit (${orlv}) is available, to upgrade to it run grup!" --title="Warning!"
+    zenity --error --text="A new OpenRA Generals-Alpha mod commit (${orlv}) is available, to upgrade to it run genup!" --title="Warning!"
 fi
