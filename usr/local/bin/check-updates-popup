@@ -3,6 +3,11 @@ if ! `which zenity > /dev/null 2>&1`; then
     printf "Zenity is not installed, so there is nothing for me to generate popup windows.\n" && exit
 fi
 
+if ! `ping -q -w 1 -c 1 `ip r | grep default | cut -d ' ' -f 3` > /dev/null`; then
+    zenity --error --text="No internet connection detected, script will wait 1 minute before re-running."
+    sleep 60
+fi
+
 if ! `which curl > /dev/null 2>&1`; then
     if ! `which wget > /dev/null 2>&1`; then
          zenity --error --text="Neither cURL nor wget have been detected. These are required in order to check for updates. Please install at least one of them and if one is already installed please edit your system PATH and re-run this script." --title="Warning!" && exit
@@ -13,32 +18,32 @@ if ! `which git > /dev/null 2>&1`; then
     zenity --error --text="git cannot be detected in which system PATH. If it is not installed please install it, if it is please edit system PATH so this script can find it.\n" && exit
 fi
 
-0adnz; 
-atomnz; 
+0adnz;
+atomnz;
 codelitenz;
 flatnz;
 gsoftnz;
-jmolnz; 
-jucippnz; 
+jmolnz;
+jucippnz;
 komodonz;
 netbeansnz;
-obsaz; 
+obsaz;
 openbabelnz;
-openranz; 
-openrabnz; 
+openranz;
+openrabnz;
 openracnz;
 openradnz;
 openragnz;
 openra2nz;
 openrauranz;
 openraynz;
-oscnz; 
+oscnz;
 ostreenz;
 pymolnz;
 snapdnz;
 snapdgnz;
-sublnz; 
+sublnz;
 adeptnz;
-vimnz; 
-vscodenz; 
+vimnz;
+vscodenz;
 zshnz
