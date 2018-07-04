@@ -55,12 +55,13 @@ commco=$(git rev-list --branches bleed --count)
 VERSION=$(cat /usr/lib/openra/VERSION)
 
 if [[ $VERSION == $commco ]]; then
-    exit
+    printf "At the latest commit already mate!\n" ; exit
 fi
 
-if ! ( [[ -f /usr/bin/openra-ra ]] || [[ -f /usr/bin/openra ]] || [[ -f /usr/games/openra ]] ); then
+if ! [[ -f /usr/bin/openra-ra ]] || ! [[ -f /usr/lib/openra/method ]] ; then
     zenity --error --text="OpenRA is going to be updated to commit $commco" --title="Warning!"
-    make version VERSION="bleed-$commco"
+    make version VERSION="$commco"
+    echo "Manually build" | sudo tee -a  /usr/lib/openra/method
     make
     sudo make prefix=/usr install-core
     sudo make prefix=/usr install-linux-shortcuts
