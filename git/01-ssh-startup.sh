@@ -42,8 +42,10 @@ if ! `which keychain > /dev/null 2>&1`; then
     fi
 fi
 
-# Start agent
-eval `keychain -q --eval id_rsa`
+        if ! `cat /etc/os-release | grep Mageia > /dev/null 2>&1`; then
+	      eval `keychain -q --eval id_rsa`
+        fi
+
 
 # AUR
 if [[ $USER == "fusion809" ]] || [[ $AUR == "true" ]]; then
@@ -58,8 +60,9 @@ if [[ $USER == "fusion809" ]] || [[ $AUR == "true" ]]; then
 	# start the ssh-agent
 	# Remember, for this to work you need your SSH keys setup
 	# https://help.github.com/articles/generating-ssh-keys/
-
-	eval `keychain -q --eval aur`
+        if ! `cat /etc/os-release | grep Mageia > /dev/null 2>&1`; then
+	      eval `keychain -q --eval aur`
+        fi
 else
 	printf "Add an AUR=true line to your $HOME/.gitconfig.sh file in order to set up SSH to authenticate AUR commits.\n"
 fi
