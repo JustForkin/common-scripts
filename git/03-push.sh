@@ -88,7 +88,7 @@ function push {
          szsh
     elif `echo $PWD | grep "$FS" > /dev/null 2>&1` && `cat /etc/os-release | grep -i Fedora > /dev/null 2>&1`; then
          szsh
-    elif `echo $PWD | grep "$AS" > /dev/null 2>&1` && `cat /etc/os-release | grep -i Arch > /dev/null 2>&1`; then
+    elif `echo $PWD | grep "$ARS" > /dev/null 2>&1` && `cat /etc/os-release | grep -i Arch > /dev/null 2>&1`; then
          szsh
     elif `echo $PWD | grep "$GS" > /dev/null 2>&1` && `cat /etc/os-release | grep -i Gentoo > /dev/null 2>&1`; then
          szsh

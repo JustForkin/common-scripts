@@ -1,4 +1,4 @@
-export AS=$SCR/arch-scripts
+export ARS=$SCR/arch-scripts
 export CS=$SCR/centos-scripts
 export DS=$SCR/debian-scripts
 export FS=$SCR/fedora-scripts
