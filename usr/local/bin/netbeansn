@@ -1,4 +1,9 @@
 #!/bin/bash
+while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+do
+    sleep 60
+done
+
 if `which wget > /dev/null 2>&1`; then
     pkgver=$(wget -cqO- https://netbeans.org/downloads | grep ARTIFACTS | head -n 1 | cut -d '/' -f 5)
 elif `which curl > /dev/null 2>&1`; then

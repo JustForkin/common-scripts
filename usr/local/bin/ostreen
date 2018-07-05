@@ -1,4 +1,9 @@
 #!/bin/bash
+while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+do
+    sleep 60
+done
+
 if `which wget > /dev/null 2>&1`; then
     pkgver=$(wget -cqO- https://github.com/ostreedev/ostree/releases | grep "tar\.xz" | cut -d '/' -f 6 | sed "s|v||g" | head -n 1)
 elif `which curl > /dev/null 2>&1`; then

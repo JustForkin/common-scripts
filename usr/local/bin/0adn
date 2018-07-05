@@ -2,6 +2,11 @@
 # 0 A.D. latest version available
 cd /home/fusion809/GitHub/others/0ad
 
+while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+do
+    sleep 60
+done
+
 # update repository
 if `which git > /dev/null 2>&1`; then
     git pull origin master -q

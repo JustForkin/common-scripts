@@ -1,4 +1,9 @@
 #!/bin/bash
+while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+do
+    sleep 60
+done
+
 if `which curl > /dev/null 2>&1`; then
     pkgver=$(curl -sL https://sourceforge.net/projects/jmol/files | grep "binary.zip" | cut -d '-' -f 3 | tail -n 1)
 elif `which wget > /dev/null 2>&1`; then

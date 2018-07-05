@@ -1,4 +1,9 @@
 #!/bin/bash
+while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+do
+    sleep 60
+done
+
 if `which curl > /dev/null 2>&1`; then
     pkgver=$(curl -sL https://github.com/eranif/codelite/releases | grep "app\.tar\.gz" | head -n 1 | cut -d '/' -f 6)
 elif `which wget > /dev/null 2>&1`; then

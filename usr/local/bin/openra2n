@@ -1,4 +1,9 @@
 #!/bin/bash
+while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+do
+    sleep 60
+done
+
 # OpenRA Red Alert 2 mod latest commit available
 cd /home/fusion809/GitHub/others/ra2
 if ! `which git > /dev/null 2>&1`; then

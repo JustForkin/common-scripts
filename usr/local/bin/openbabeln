@@ -1,4 +1,9 @@
 #!/bin/bash
+while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+do
+    sleep 60
+done
+
 # OpenBabel latest version available
 cd /home/fusion809/GitHub/others/openbabel
 if `which git > /dev/null 2>&1`; then
