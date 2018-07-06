@@ -3,10 +3,11 @@ if ! `which zenity > /dev/null 2>&1`; then
     printf "Zenity is not installed, so there is nothing for me to generate popup windows.\n" && exit
 fi
 
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`:
+while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null 2>&1`
+do
     zenity --error --text="No internet connection detected, script will wait 1 minute before re-running."
     sleep 60
-end
+done
 
 if ! `which curl > /dev/null 2>&1`; then
     if ! `which wget > /dev/null 2>&1`; then
