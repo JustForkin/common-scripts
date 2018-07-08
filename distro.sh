@@ -25,3 +25,9 @@ function distro-partition {
     done
 }
 
+function part-list {
+    sudo lsblk -o name,partlabel,size,uuid
+}
+
+alias partlist=part-list
+alias plist=part-list
