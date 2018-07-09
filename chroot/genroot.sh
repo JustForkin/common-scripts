@@ -1,4 +1,11 @@
 function genroot {
+    function mountup {
+         distro=$(echo $1 | cut -d '/' -f 2)
+         if ! `cat /etc/mtab | grep "$1" > /dev/null 2>&1`; then
+              sudo mount /dev/$(ls -ld /dev/disk/by-label/* | grep -i $distro | cut -d '/' -f 7) /$distro
+         fi
+    }
+
     # Check where the root filesystem is
     if [[ -d $1/root/dev ]]; then
          root="$1/root"
@@ -8,8 +15,10 @@ function genroot {
          root="$1"
     fi
 
-    distro=$(echo $1 | cut -d '/' -f 2)
-    sudo mount /dev/$(ls -ld /dev/disk/by-label/* | grep -i $distro | cut -d '/' -f 7) /$distro ; sudo mount /dev/sdb1 $root/data
+    # Make sure the data partition is mounted
+    if [[ -d $root/data ]] && ! `cat /etc/mtab | grep $root/data > /dev/null 2>&1`; then
+         sudo mount /dev/sdb1 $root/data
+    fi
 
     # Check if the appropriate mount points are set up for the chroot to work
     if ! [[ -f "$root/proc/cgroups" ]]; then
