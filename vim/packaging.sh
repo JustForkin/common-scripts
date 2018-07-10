@@ -20,7 +20,15 @@ function vsl {
 }
 
 function vsp {
-    vim *.spec
+    specl=$(ls | grep "\.spec")
+    specln=$(echo $specl | wc -l)
+    if [[ $specln > 1 ]] && [[ -f $(basename $PWD).spec ]]; then
+         vim $(basename $PWD).spec
+    elif [[ $specl > 1 ]]; then
+         vim $(echo $specl | head -n 1) 
+    else
+         vim $(basename $PWD).spec
+    fi
 }
 
 function vyl {
