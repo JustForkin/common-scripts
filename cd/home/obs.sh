@@ -7,3 +7,7 @@ function cdobs {
 function cdobsh {
     cdobs home:fusion809/$1
 }
+
+function cdobsh3 {
+    cdobs home:fusion809:openbabel3/$1
+}
