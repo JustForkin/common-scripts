@@ -18,7 +18,7 @@ fi
 verl=$(ls /data/GitHub/mine/packaging/fusion809-overlay/app-editors/visual-studio-code/*.ebuild | cut -d '/' -f 9 | cut -d '-' -f 4 | sed 's/.ebuild//g')
 
 if [[ $verl == $ver ]]; then
-    printf "VSCode\n"
+    printf "VSC\n"
 else
-    printf "VSCode$ver\n"
+    printf "VSC$ver\n"
 fi

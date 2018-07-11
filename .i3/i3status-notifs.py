@@ -33,6 +33,11 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
+    command="/usr/local/bin/spglibn",
+    color="#F3C200",
+    interval=300)
+
+status.register("shell",
     command="/usr/local/bin/snapdgn",
     color="#33A0F0",
     interval=300)
@@ -123,6 +128,16 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
+    command="/usr/local/bin/molen",
+    color="#F3C200",
+    interval=300)
+
+status.register("shell",
+    command="/usr/local/bin/libmsymn",
+    color="#33F233",
+    interval=300)
+
+status.register("shell",
     command="/usr/local/bin/komodon",
     color="#3FCAFF",
     interval=300)
@@ -150,6 +165,16 @@ status.register("shell",
 status.register("shell",
     command="/usr/local/bin/codeliten",
     color="#88FFFF",
+    interval=300)
+
+status.register("shell",
+    command="/usr/local/bin/avogadroln",
+    color="#F3FF22",
+    interval=300)
+
+status.register("shell",
+    command="/usr/local/bin/avogadron",
+    color="#F3C200",
     interval=300)
 
 status.register("shell",

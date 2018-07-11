@@ -8,7 +8,7 @@ pkgver=$(wget -cqO- http://sourceforge.net/projects/pymol | grep "\.tar\.bz2" | 
 pkgpver=$(cat /data/OBS/home:fusion809/pymol/pymol.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g' | sed 's/\.svn[0-9]*//g')
 
 if [[ $pkgver == $pkgpver ]]; then
-    printf "PyMOL\n"
+    printf "PyM\n"
 else
-    printf "PyMOL${pkgver}\n"
+    printf "PyM${pkgver}\n"
 fi
