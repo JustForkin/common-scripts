@@ -21,6 +21,8 @@ function olroot {
          genroot /leap
     elif [[ -d /ol/bin ]]; then
          genroot /ol
+    elif [[ -d /leap ]]; then
+         genroot /leap
     fi
 }
 
