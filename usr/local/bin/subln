@@ -9,7 +9,7 @@ cd /data/GitHub/mine/packaging/fusion809-overlay/app-editors/sublime-text
 pkgpver=$(ls -ld * | tail -n 1 | sed 's/[a-zA-Z0-9: .]*sublime-text//g' | cut -d '-' -f 8 | sed 's/.ebuild//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    printf "Sublime$pkgver\n"
+    printf "Subl$pkgver\n"
 else
-    printf "Sublime\n"
+    printf "Subl\n"
 fi

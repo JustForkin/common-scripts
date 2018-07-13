@@ -15,12 +15,16 @@ fi
 
 0adnz;
 atomnz;
+avogadronz;
+avogadrolnz;
 codelitenz;
 flatnz;
 gsoftnz;
 jmolnz;
 jucippnz;
 komodonz;
+libmsymnz;
+molenz;
 netbeansnz;
 obsaz;
 openbabelnz;
@@ -37,6 +41,7 @@ ostreenz;
 pymolnz;
 snapdnz;
 snapdgnz;
+spglibnz;
 sublnz;
 adeptnz;
 vimnz;

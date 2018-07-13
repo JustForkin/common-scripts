@@ -16,7 +16,7 @@ cd /data/GitHub/mine/packaging/fusion809-overlay/app-editors/textadept
 pkgpver=$(ls -ld * | tail -n 1 | sed 's/.*textadept-//g' | sed 's/.ebuild//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    printf "Textadept$pkgver\n"
+    printf "TA$pkgver\n"
 else
-    printf "Textadept\n"
+    printf "TA\n"
 fi

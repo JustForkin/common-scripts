@@ -16,8 +16,8 @@ cd /data/OBS/home:fusion809/obs-service-download_files
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 
 if ! ( [ $pkgpver == $pkgver ] ); then
-    printf "OBSSDown$pkgver\n"
+    printf "OBSSD$pkgver\n"
 else
-    printf "OBSSDown\n"
+    printf "OBSSD\n"
 fi
 

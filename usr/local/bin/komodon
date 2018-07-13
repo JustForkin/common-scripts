@@ -15,7 +15,7 @@ fi
 pkgpver=$(cat /data/OBS/home:fusion809/komodo-edit/komodo-edit.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if [[ $pkgver == $pkgpver ]]; then
-    printf "Komodo\n"
+    printf "Kom\n"
 else
-    printf "Komodo${pkgver}\n"
+    printf "Kom${pkgver}\n"
 fi

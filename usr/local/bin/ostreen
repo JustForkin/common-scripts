@@ -14,8 +14,8 @@ fi
 
 pkgpver=$(cat /data/OBS/home:fusion809/libostree/libostree.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
-if [[ $pkgver == $pkgpver ]]; then
-    printf "OSTree\n"
+if [[ $pkgver == $pkgpver ]] || [[ $pkgver == 2018.6 ]]; then
+    printf "OST\n"
 else
-    printf "OSTree${pkgver}\n"
+    printf "OST${pkgver}\n"
 fi

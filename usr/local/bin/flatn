@@ -15,7 +15,7 @@ fi
 pkgpver=$(cat /data/OBS/home:fusion809/flatpak/flatpak.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if [[ $pkgver == $pkgpver ]]; then
-    printf "Flatpak\n"
+    printf "Flatp\n"
 else
-    printf "Flatpak${pkgver}\n"
+    printf "Flatp${pkgver}\n"
 fi
