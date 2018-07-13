@@ -1,0 +1,6 @@
+#!/bin/bash
+if `which wget > /dev/null 2>&1`; then
+    wget -cqO- https://build.opensuse.org/project/show/home:fusion809/ | grep "build error" | cut -d '>' -f 2 | cut -d '<' -f 1
+elif `which curl > /dev/null 2>&1`; then
+    curl -sL https://build.opensuse.org/project/show/home:fusion809/ | grep "build error" | cut -d '>' -f 2 | cut -d '<' -f 1
+fi
