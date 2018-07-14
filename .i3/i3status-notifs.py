@@ -19,7 +19,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/vimn",
-    color="#99AAFF",
+    color="#AACCFF",
     interval=300)
 
 status.register("shell",
@@ -54,7 +54,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/ostreen",
-    color="#FF6F6F",
+    color="#FF9F9F",
     interval=300)
 
 status.register("shell",
@@ -64,7 +64,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/openrayn",
-    color="#999F3F",
+    color="#AA9F9F",
     interval=300)
 
 status.register("shell",
@@ -74,7 +74,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/openragn",
-    color="#3F9F3F",
+    color="#9FCF9F",
     interval=300)
 
 status.register("shell",
@@ -160,6 +160,11 @@ status.register("shell",
 status.register("shell",
     command="/usr/local/bin/flatn",
     color="#4EC756",
+    interval=300)
+
+status.register("shell",
+    command="/usr/local/bin/dtermn",
+    color="#FAE396",
     interval=300)
 
 status.register("shell",
