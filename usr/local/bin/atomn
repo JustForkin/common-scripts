@@ -30,6 +30,8 @@ cd /data/AUR/atom-editor-beta
 pkgpnbv=$(sed -n 's/_pkgver=//p' PKGBUILD)
 pkgpbv=$(sed -n 's/_pkgrel=//p' PKGBUILD)
 pkgpvers=$(ls /data/GitHub/mine/packaging/fusion809-overlay/app-editors/atom-bin/*.ebuild | grep -v "beta" | cut -d '/' -f 9 | cut -d '-' -f 3 | sed 's/.ebuild//g')
+pkgpverb=${pkgpnbv}.${pkgpbv}
+pkgverb=${pkgnbv}.${pkgbv}
 
 # Stable release checker
 if ! [[ $pkgvers == $pkgpvers ]]; then
@@ -39,7 +41,7 @@ else
 fi
 
 # Beta checker
-if ! ( [ $pkgpnbv == $pkgnbv ] && [ $pkgpbv == $pkgbv ] ); then
+if ! [[ $pkgpverb == $pkgverb ]]; then
     printf "$pkgver\n"
 else
     printf "\n"

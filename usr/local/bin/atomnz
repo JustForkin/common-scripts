@@ -24,11 +24,13 @@ cd /data/AUR/atom-editor-beta
 pkgpnbv=$(sed -n 's/_pkgver=//p' PKGBUILD)
 pkgpbv=$(sed -n 's/_pkgrel=//p' PKGBUILD)
 pkgpvers=$(ls /data/GitHub/mine/packaging/fusion809-overlay/app-editors/atom-bin/*.ebuild | grep -v "beta" | cut -d '/' -f 9 | cut -d '-' -f 3 | sed 's/.ebuild//g')
+pkgpverb=${pkgpnbv}.${pkgpbv}
+pkgverb=${pkgnbv}.${pkgbv}
 
 if ! [[ $pkgvers == $pkgpvers ]]; then
     zenity --error --text="A new Atom stable release (${pkgvers}) is available!" --title="Warning!"    
 fi
 
-if ! ( [ $pkgpnbv == $pkgnbv ] && [ $pkgpbv == $pkgbv ] ); then
+if ! [[ $pkgverb == $pkgpverb ]]; then
     zenity --error --text="A new Atom beta release (${pkgnbv}-beta${pkgbv}) is available! Remember to update it in both fusion809-overlay and atom-editor-beta." --title="Warning!"    
 fi
