@@ -17,7 +17,7 @@ fi
 orpv=$(cat /data/OBS/home:fusion809/openbabel3/openbabel3.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
-    printf "OBabel \n"
+    printf "OB \n"
 else
-    printf "OBabel${orlv}\n"
+    printf "OB${orlv}\n"
 fi

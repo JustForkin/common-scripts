@@ -17,7 +17,7 @@ fi
 orpv=$(cat /data/OBS/home:fusion809/libmsym/libmsym.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
-    printf "LMSYM \n"
+    printf "LSY \n"
 else
-    printf "LMSYM${orlv}\n"
+    printf "LSY${orlv}\n"
 fi

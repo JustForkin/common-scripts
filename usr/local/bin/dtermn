@@ -7,9 +7,9 @@ done
 
 # Determine latest version of terminal
 if `which curl > /dev/null 2>&1`; then
-    pkgver=$(curl -sL https://github.com/linuxdeepin/deepin-terminal/releases | grep -v "beta\|dev" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+    pkgver=$(curl -sL https://github.com/linuxdeepin/deepin-terminal/releases | grep "\.tar\.gz" | head -n 1 | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/v//g' | sed 's/\.tar\.gz//g')
 elif `which wget > /dev/null 2>&1`; then
-    pkgver=$(wget -cqO- https://github.com/linuxdeepin/deepin-terminal/releases | grep -v "beta\|dev" | grep "a href" | grep "amd64\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 6 | sed 's/v//g')
+    pkgver=$(wget -cqO- https://github.com/linuxdeepin/deepin-terminal/releases | grep "\.tar\.gz" | head -n 1 | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/v//g' | sed 's/\.tar\.gz//g')
 else
     printf "Neither cURL nor wget are detected, please install them, or if already installed please add them to the system PATH.\n" && exit
 fi
