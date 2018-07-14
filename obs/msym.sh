@@ -7,7 +7,7 @@ function msymup {
     specm=$(cat $OBS/home:fusion809/libmsym/libmsym.spec | grep "define commit" | cut -d ' ' -f 3)
 
     if [[ $specn == $mastn ]]; then
-         printf "Avogadro 2 is up to date!\n"
+         printf "libmsym is up to date!\n"
     else
          sed -i -e "s/$specn/$mastn/g" $OBS/home:fusion809/libmsym/libmsym.spec
          sed -i -e "s/$specm/$comm/g" $OBS/home:fusion809/libmsym/libmsym.spec
