@@ -62,6 +62,7 @@ fi
 
 if ! [[ -f /usr/bin/openra-ra ]] || [[ -f /usr/lib/openra/method ]] ; then
     zenity --error --text="OpenRA is going to be updated to commit $commco" --title="Warning!"
+    make clean
     make version VERSION="bleed-$commco"
     echo "Manually build" | sudo tee -a  /usr/lib/openra/method
     make
