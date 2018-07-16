@@ -1,0 +1,3 @@
+function soroot {
+    genroot /solus
+}
