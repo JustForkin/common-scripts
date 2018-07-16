@@ -61,7 +61,6 @@ function update-common {
     cssubup pisi
     cssubup sabayon
     cssubup slackware
-    cssubup solus
     cssubup void
 }
 
