@@ -1,6 +1,10 @@
 #!/bin/bash
 DISTRO=$(cat /etc/os-release | grep "^NAME")
 
+if ! [[ -d /home/fusion809/.i3 ]]; then
+    printf "i3 directory not found\n" ; exit
+fi
+
 if [[ $DISTRO == "openSUSE"* ]]; then
     git -C /home/fusion809/.i3 checkout opensuse
 elif [[ $DISTRO == "Arch"* ]]; then
