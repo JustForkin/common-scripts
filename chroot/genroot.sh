@@ -1,4 +1,7 @@
 function genroot {
+    if ! [[ -d "$1" ]]; then
+	 sudo mkdir -p "$1"
+    fi
     distro=$(echo $1 | cut -d '/' -f 2)
     if `ls /dev/mapper | grep -i "$distro" > /dev/null 2>&1`; then
          if ! `cat /etc/mtab | grep "$1" > /dev/null 2>&1`; then
