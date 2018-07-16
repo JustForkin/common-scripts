@@ -18,3 +18,4 @@ function libsup {
 
 alias avogadrolibsup=libsup
 alias avolibsup=libsup
+alias avolup=libsup
