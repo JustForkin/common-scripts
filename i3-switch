@@ -1,0 +1,12 @@
+#!/bin/bash
+DISTRO=$(cat /etc/os-release | grep "^NAME")
+
+if [[ $DISTRO == "openSUSE"* ]]; then
+    git -C /home/fusion809/.i3 checkout opensuse
+elif [[ $DISTRO == "Arch"* ]]; then
+    git -C /home/fusion809/.i3 checkout archlinux
+elif [[ $DISTRO == "Debian"* ]]; then
+    git -C /home/fusion809/.i3 checkout master
+elif [[ $DISTRO == "Gentoo"* ]]; then
+    git -C /home/fusion809/.i3 checkout gentoo
+fi
