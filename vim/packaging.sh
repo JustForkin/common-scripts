@@ -54,3 +54,5 @@ function vtyl {
 function vdsk {
     vim *.desktop
 }
+
+alias vdk=vdsk
