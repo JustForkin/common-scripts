@@ -31,6 +31,12 @@ function vsp {
     fi
 }
 
+function vcg {
+    vim *.changes
+}
+
+alias vch=vcg
+
 function vyl {
     if `ls .*.yml > /dev/null 2>&1`; then
          vim .*.yml
