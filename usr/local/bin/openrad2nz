@@ -1,0 +1,19 @@
+#!/bin/bash
+# OpenRA Dune II mod latest commit available
+cd /home/fusion809/GitHub/others/d2
+
+# update repository
+if `which git > /dev/null 2>&1`; then
+    git pull origin master -q
+else
+    zenity --error --text="git isn't found. Please install it, or if it is installed edit your system PATH." --title="Warning!" && exit
+fi
+
+orlv=$(git rev-list --branches master --count)
+comm=$(git log -1 --format=%h)
+# OpenRA latest packaged version
+orpv=$(cat /data/OBS/home:fusion809/openra-d2/openra-d2.spec | grep "Version:" | sed 's/Version:\s*//g')
+
+if ! [[ $orpv == $orlv ]]; then
+    zenity --error --text="A new OpenRA Dune II mod commit (${comm}) is available! To update to it run d2up." --title="Warning!"
+fi

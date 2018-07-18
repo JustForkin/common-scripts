@@ -83,6 +83,11 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
+    command="/usr/local/bin/openrad2n",
+    color="#FAF695",
+    interval=300)
+
+status.register("shell",
     command="/usr/local/bin/openracn",
     color="#FF669F",
     interval=300)
