@@ -50,3 +50,7 @@ alias vyml=vyl
 function vtyl {
     vim .travis.yml
 }
+
+function vdsk {
+    vim *.desktop
+}

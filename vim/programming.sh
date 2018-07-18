@@ -6,10 +6,6 @@ function vcp {
     vim *.cpp
 }
 
-function vdk {
-    vim Dockerfile
-}
-
 function vgc {
     vim gtk.css
 }
