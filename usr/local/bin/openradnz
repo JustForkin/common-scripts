@@ -11,5 +11,5 @@ comm=$(git log -1 --format=%h)
 orpv=$(cat /data/OBS/home:fusion809/openra-dr/openra-dr.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if ! [[ $orpv == $orlv ]]; then
-    zenity --error --text="A new OpenRA DarkReign mod commit (${pkgver}) is available, to upgrade to it run drup!" --title="Warning!"
+    zenity --error --text="A new OpenRA DarkReign mod commit (${comm}) is available, to upgrade to it run drup!" --title="Warning!"
 fi
