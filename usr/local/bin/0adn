@@ -1,5 +1,5 @@
 #!/bin/bash
-# 0 A.D. latest version available
+# 0ad latest version available
 cd /home/fusion809/GitHub/others/0ad
 
 while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
@@ -16,11 +16,11 @@ fi
 
 # Determine latest commit's number
 orlv=$(git rev-list --branches master --count)
-# 0 A.D. latest packaged version
+# 0ad latest packaged version
 orpv=$(cat /data/OBS/home:fusion809/0ad/0ad.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
-    printf "0 A.D. \n"
+    printf "0ad \n"
 else
-    printf "0 A.D.${orlv}\n"
+    printf "0ad${orlv}\n"
 fi
