@@ -15,7 +15,7 @@ fi
 pkgpver=$(cat /data/OBS/home:fusion809/gnome-software/gnome-software.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if [[ $pkgver == $pkgpver ]]; then
-    printf "GSoft\n"
+    printf "GS\n"
 else
-    printf "GSoft${pkgver}\n"
+    printf "GS${pkgver}\n"
 fi
