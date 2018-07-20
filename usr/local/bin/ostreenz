@@ -9,6 +9,6 @@ fi
 
 pkgpver=$(cat /data/OBS/home:fusion809/libostree/libostree.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
-if ! ( [[ $pkgver == $pkgpver ]] | [[ $pkgver == 2018.6 ]] ); then
+if ! [[ $pkgver == $pkgpver ]]; then
     zenity --error --text="A new OSTree release (${pkgver}) is available!" --title="Warning!"
 fi

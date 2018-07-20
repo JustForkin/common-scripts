@@ -15,6 +15,6 @@ function openrabup {
          sed -i -e "s/$specm/$comm/g" $OBSH/openra-bleed/{openra-bleed.spec,PKGBUILD}
          cdobsh openra-bleed
          osc ci -m "Bumping $specn->$mastn"
-         /usr/local/bin/openra-build
+         /usr/local/bin/openra-build-cli
     fi
 }
