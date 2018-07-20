@@ -16,7 +16,7 @@ cd /data/AUR/jucipp
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    printf "Juci++$pkgver\n"
+    printf "J++$pkgver\n"
 else
-    printf "Juci++\n"
+    printf "J++\n"
 fi
