@@ -21,7 +21,7 @@ pkgpver=$(echo "$pkgpnbv-$pkgpbv")
 rm /tmp/src-obss2.html
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    printf "OBSSVal$pkgver\n"
+    printf "OBV$pkgver\n"
 else
-    printf "OBSSVal\n"
+    printf "OBV\n"
 fi

@@ -21,7 +21,7 @@ pkgpver=$(echo "$pkgpnbv-$pkgpbv")
 rm /tmp/src-obsf2.html
 
 if ! [[ $pkgver == $pkgpver ]]; then
-    printf "OBSFSpec$pkgver\n"
+    printf "OBF$pkgver\n"
 else
-    printf "OBSFSpec\n"
+    printf "OBF\n"
 fi
