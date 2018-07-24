@@ -15,7 +15,7 @@ if ! `which mono > /dev/null 2>&1`; then
 fi
 
 # Check for Lua 5.1 libraries
-if ! [[ -f /usr/lib/x86_64-linux-gnu/liblua5.1.so ]] ; then
+if ! ls /usr/lib/x86_64-linux-gnu/liblua5.1.so* > /dev/null 2>&1 ; then
     if ! [[ -f /lib64/liblua5.1.so ]]; then
          if ! [[ -f /usr/lib64/liblua5.1.so.0 ]]; then
               if ! [[ -f /usr/lib64/liblua.so.5.1.5 ]]; then
