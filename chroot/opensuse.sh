@@ -1,38 +1,63 @@
-function oroot {
-    if [[ -d /opensuse/bin ]]; then
-         genroot /opensuse
-    elif [[ -d /opensuse-tumbleweed/bin ]]; then
-         genroot /opensuse-tumbleweed
-    elif [[ -d /ot/bin ]]; then
-         genroot /ot
-    elif [[ -d /opensuse-leap/bin ]]; then
-         genroot /opensuse-leap
-    elif [[ -d /leap ]]; then
-         genroot /leap
+function otroot {
+    # Determine root partition of Leap
+    root=$(ls -ld /dev/disk/by-label/* | grep -i tumbleweed | cut -d '/' -f 7)
+    printf "Chrootin' into openSUSE Tumbleweed on /dev/$root.\n"
+
+    if ! cat /etc/mtab | grep -i tumbleweed > /dev/null 2>&1 ; then
+         if [[ -d /tumbleweed ]]; then
+              sudo mount /dev/$root /tumbleweed
+              genroot /tumbleweed
+         elif [[ -d /opensuse-tumbleweed ]]; then
+              sudo mount /dev/$root /opensuse-tumbleweed
+              genroot /opensuse-tumbleweed
+         elif [[ -d /ot ]]; then
+              sudo mount /dev/$root /ot
+              genroot /ot
+         elif [[ -d /opensuse && ! -d /opensuse/bin ]]; then
+              sudo mount /dev/$root /opensuse
+              genroot /opensuse
+         else
+              printf "Suitable mount point not found, so making /tumbleweed directory.\n"
+              sudo mkdir /tumbleweed
+              sudo mount /dev/$root /tumbleweed
+              genroot /tumbleweed
+         fi
     else
-         printf "/opensuse, /opensuse-tumbleweed, /ot, /opensuse-leap and /leap do not look like distro mount points, there's no /bin dir!\n If you believe this is an error go to $HOME/Shell/common-scripts/chroot.sh and look for the oroot func.\n"
+         genroot $(cat /etc/mtab | grep tumbleweed | head -n 1 | cut -d ' ' -f 2)
     fi
 }
 
 function olroot {
-    if [[ -d /opensuse-leap/bin ]]; then
-         genroot /opensuse-leap
-    elif [[ -d /leap/bin ]]; then
-         genroot /leap
-    elif [[ -d /ol/bin ]]; then
-         genroot /ol
-    elif [[ -d /leap ]]; then
-         genroot /leap
+    # Determine root partition of Leap
+    root=$(ls -ld /dev/disk/by-label/* | grep -i leap | cut -d '/' -f 7)
+    printf "Chrootin' into openSUSE Leap on /dev/$root.\n"
+
+    if ! cat /etc/mtab | grep -i leap > /dev/null 2>&1 ; then
+         if [[ -d /leap ]]; then
+              sudo mount /dev/$root /leap
+              genroot /leap
+         elif [[ -d /opensuse-leap ]]; then
+              sudo mount /dev/$root /opensuse-leap
+              genroot /opensuse-leap
+         elif [[ -d /ol ]]; then
+              sudo mount /dev/$root /ol
+              genroot /ol
+         elif [[ -d /opensuse && ! -d /opensuse/bin ]]; then
+              sudo mount /dev/$root /opensuse
+              genroot /opensuse
+         else
+              printf "Suitable mount point not found, so making /leap directory.\n"
+              sudo mkdir /leap
+              sudo mount /dev/$root /leap
+              genroot /leap
+         fi
+    else
+         genroot $(cat /etc/mtab | grep leap | head -n 1 | cut -d ' ' -f 2)
     fi
 }
 
-function otroot {
-    if [[ -d /opensuse-tumbleweed/bin ]]; then
-         genroot /opensuse-tumbleweed
-    elif [[ -d /tumbleweed/bin ]]; then
-         genroot /tumbleweed
-    elif [[ -d /ot/bin ]]; then
-         genroot /ot
-    fi
-}
-
+if ls -ld /dev/disk/by-label/* | grep -i tumbleweed > /dev/null 2>&1 ; then
+    alias oroot=otroot
+else
+    alias oroot=olroot
+fi
