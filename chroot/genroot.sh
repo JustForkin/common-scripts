@@ -43,15 +43,14 @@ function genroot {
     if [[ -f $root/usr/local/bin/su-fusion809 ]]; then
          sudo chroot "$root" /usr/local/bin/su-fusion809
     elif [[ -f $root/bin/zsh ]]; then
-         sudo chroot "$root" $ENV -i     \
-               HOME="/root"              \
-               TERM="$TERM"              \
-               PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin \
-               /bin/zsh --login +h
+         #sudo chroot "$root" $ENV -i     \
+         #      HOME="/root"              \
+         #      PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin \
+         #      /bin/zsh --login +h
+         sudo chroot "$root" /bin/zsh
     elif [[ -f $root/bin/bash ]]; then
          sudo chroot "$root" $ENV -i     \
                HOME="/root"              \
-               TERM="$TERM"              \
                PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin \
                /bin/bash --login +h
     elif `cat $root/etc/os-release | grep -i NixOS > /dev/null 2>&1`; then
