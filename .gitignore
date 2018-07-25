@@ -1,2 +1,4 @@
 .*.swp
 octave-workspace
+*~
+.*~

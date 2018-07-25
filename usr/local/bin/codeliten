@@ -13,7 +13,11 @@ else
 fi
     
 cd /data/GitHub/mine/packaging/fusion809-overlay/dev-util/codelite
-pkgpver=$(ls -ld * | head -n 1 | sed 's/[a-zA-Z0-9: .]*codelite/codelite/g' | cut -d '-' -f 8 | sed 's/.ebuild//g')
+if ls -ld * | tail -n 1 | grep Manifest > /dev/null 2>&1 ; then
+    pkgpver=$(ls -ld * | head -n 1 | sed 's/[a-zA-Z0-9: .]*codelite/codelite/g' | cut -d '-' -f 8 | sed 's/.ebuild//g')
+elif ls -ld * | head -n 1 | grep Manifest > /dev/null 2>&1 ; then
+    pkgpver=$(ls -ld * | tail -n 2 | head -n 1 | sed 's/[a-zA-Z0-9: .]*codelite/codelite/g' | cut -d '-' -f 8 | sed 's/.ebuild//g')
+fi
 
 if ! [[ $pkgver == $pkgpver ]]; then
     printf "CL$pkgver\n"
