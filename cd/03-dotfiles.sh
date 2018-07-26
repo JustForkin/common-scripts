@@ -30,6 +30,8 @@ function cdli {
     cdls "icons/$1"
 }
 
+alias cdlsi=cdli
+
 function cddd {
     cdls "desktop-directories/$1"
 }
