@@ -6,9 +6,9 @@ done
 
 # OpenRA latest version available
 if `which curl > /dev/null 2>&1`; then
-    orlv=$(curl -sL https://github.com/OpenRA/OpenRA/releases | grep "release-.*\.tar\.gz" | head -n 1 | cut -d "/" -f 5 | cut -d '-' -f 2 | sed 's/\.tar.*//g')
+    orlv=$(curl -sL https://github.com/OpenRA/OpenRA/releases | grep "[a-z]*-.*\.tar\.gz" | head -n 1 | cut -d "/" -f 5 | cut -d '-' -f 2 | sed 's/\.tar.*//g')
 elif `which wget > /dev/null 2>&1`; then
-    orlv=$(wget -cqO- https://github.com/OpenRA/OpenRA/releases | grep "release-.*\.tar\.gz" | head -n 1 | cut -d "/" -f 5 | cut -d '-' -f 2 | sed 's/\.tar.*//g')
+    orlv=$(wget -cqO- https://github.com/OpenRA/OpenRA/releases | grep "[a-z]*-.*\.tar\.gz" | head -n 1 | cut -d "/" -f 5 | cut -d '-' -f 2 | sed 's/\.tar.*//g')
 else
     printf "Neither cURL nor wget are detected, please install them, or if installed add to system PATH.\n" && exit 
 fi
