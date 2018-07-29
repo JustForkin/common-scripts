@@ -1,0 +1,3 @@
+function eroot {
+    genroot /elementary
+}
