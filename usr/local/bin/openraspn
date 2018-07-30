@@ -19,14 +19,15 @@ sdkpv=$(cat /data/OBS/home:fusion809/openra-sp/openra-sp.spec | grep "Version:" 
 
 cd /data/GitHub/others/Shattered-Paradise
 splc=$(git log | head -n 1 | cut -d ' ' -f 2)
+splver=$(git rev-list --branches master --count)
 sppc=$(cat /data/OBS/home:fusion809/openra-sp/openra-sp.spec | grep "define sp_commit" | sed 's/%define sp_commit //g')
 
 if [[ $sdkpv == $sdklv ]] && [[ $splc == $sppc ]]; then
-    printf "SDKSP \n"
+    printf "SSP \n"
 elif [[ $sdkpv == $sdklv ]]; then
-    printf "SDK SP${splc}\n"
+    printf "S SP${splver}\n"
 elif [[ $splc == $sppc ]]; then
-    printf "SDK${sdklv}SP \n"
+    printf "S${sdklv}SP \n"
 else
-    printf "SDK${sdklv}SP${splc}\n"
+    printf "S${sdklv}SP${splver}\n"
 fi
