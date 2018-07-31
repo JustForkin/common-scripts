@@ -138,11 +138,6 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/netbeansn",
-    color="#AAFFFF",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/molen",
     color="#F3C200",
     interval=300)
