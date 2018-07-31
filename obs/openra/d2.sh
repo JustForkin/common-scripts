@@ -1,5 +1,5 @@
 function d2up {
-    cdgo d2
+    cdgo d2 || exit
     git pull origin master -q
     mastn=$(comno)
     specn=$(vere openra-d2)
@@ -19,16 +19,16 @@ function d2up {
          if ! [[ "$enpv" == "$enlv" ]]; then
               printf "%s\n" "Updating engine to $enlv."
               sed -i -e "s/define engine_version $enpv/define engine_version $enlv/g" "$HOME"/OBS/home:fusion809/openra-d2/{openra-d2.spec,PKGBUILD}
-              make clean
-              make
+              make clean || exit
+              make || exit
               tar czvf "$HOME/OBS/home:fusion809/openra-d2/engine-${enlv}.tar.gz" engine
-              cdobsh openra-d2
+              cdobsh openra-d2 || exit
               osc rm engine-"${enpv}".tar.gz
               osc add engine-"${enlv}".tar.gz
               cd - || exit
          fi
          printf "%s\n" "Committing changes."
-         cdobsh openra-d2
+         cdobsh openra-d2 || exit
          osc ci -m "Bumping $specn->$mastn"
     fi
 }

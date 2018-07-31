@@ -2,7 +2,7 @@ function yrup {
         cdgo yr || exit
         hub pull origin master -q
         enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2) 
-        enpv=$(grep "define engine\_version" < "$HOME"/OBS/home:fusion809/openra-yr/openra-yr.spec | cut -d ' ' -f 3) 
+        enpv=$(grep "define engine\_version" < "$OBSH"/openra-yr/openra-yr.spec | cut -d ' ' -f 3) 
         mastn=$(comno) 
         specn=$(vere openra-yr) 
         comm=$(loge) 
@@ -15,10 +15,10 @@ function yrup {
                 sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-yr/{openra-yr.spec,PKGBUILD}
                 if ! [[ "$enpv" == "$enlv" ]]
                 then
-                        sed -i -e "s/$enpv/$enlv/g" "$HOME"/OBS/home:fusion809/openra-yr/{openra-yr.spec,PKGBUILD}
-                        make clean
-                        make
-                        tar czvf "$HOME"/OBS/home:fusion809/openra-yr/engine-"${enlv}".tar.gz engine
+                        sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-yr/{openra-yr.spec,PKGBUILD}
+                        make clean || exit
+                        make || exit
+                        tar czvf "$OBSH"/openra-yr/engine-"${enlv}".tar.gz engine
                         cdobsh openra-yr || exit
                         osc rm engine-"${enpv}".tar.gz
                         osc add engine-"${enlv}".tar.gz

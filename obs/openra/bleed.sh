@@ -1,5 +1,5 @@
 function openrabup {
-    cdgo OpenRA
+    cdgo OpenRA || exit
     git checkout bleed -q
     git pull origin bleed -q
     mastn=$(comno)
@@ -13,7 +13,7 @@ function openrabup {
          printf "%s\n" "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}
-         cdobsh openra-bleed
+         cdobsh openra-bleed || exit
          osc ci -m "Bumping $specn->$mastn"
          /usr/local/bin/openra-build-cli
     fi

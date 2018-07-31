@@ -1,6 +1,6 @@
 # Dark Reign update
 function genup {
-    cdgo Generals-Alpha
+    cdgo Generals-Alpha || exit
     git pull origin master -q
     # OpenRA latest engine version
     enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
@@ -12,16 +12,16 @@ function genup {
     specm=$(come openra-gen)
 
     if [[ $specn == $mastn ]]; then
-         printf "OpenRA Generals Alpha is up to date!\n"
+         printf "%s\n" "OpenRA Generals Alpha is up to date!"
     else
-         printf "Updating openra-gen spec file and PKGBUILD.\n"
+         printf "%s\n" "Updating openra-gen spec file and PKGBUILD."
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-gen/{openra-gen.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-gen/{openra-gen.spec,PKGBUILD}
          if ! [[ $enpv == $enlv ]]; then
               printf "Updating Generals Alpha engine.\n"
               sed -i -e "s/$enpv/$enlv/g" "$HOME"/OBS/home:fusion809/openra-gen/{openra-gen.spec,PKGBUILD}
-              make clean
-              make
+              make clean || exit
+              make || exit
               tar czvf "$HOME"/OBS/home:fusion809/openra-gen/engine-"${enlv}".tar.gz generals-alpha-engine
               cdobsh openra-gen
               osc rm engine-"${enpv}".tar.gz
