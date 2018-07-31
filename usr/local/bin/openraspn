@@ -23,11 +23,11 @@ splver=$(git rev-list --branches master --count)
 sppc=$(cat /data/OBS/home:fusion809/openra-sp/openra-sp.spec | grep "define sp_commit" | sed 's/%define sp_commit //g')
 
 if [[ $sdkpv == $sdklv ]] && [[ $splc == $sppc ]]; then
-    printf "SSP \n"
+    printf "ORASSP \n"
 elif [[ $sdkpv == $sdklv ]]; then
-    printf "S SP${splver}\n"
+    printf "ORAS SP${splver}\n"
 elif [[ $splc == $sppc ]]; then
-    printf "S${sdklv}SP \n"
+    printf "ORAS${sdklv}SP \n"
 else
-    printf "S${sdklv}SP${splver}\n"
+    printf "ORAS${sdklv}SP${splver}\n"
 fi
