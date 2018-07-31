@@ -1,14 +1,14 @@
 function pullob {
-	git pull origin $(git-branch)
+	git pull origin "$(git-branch)"
 }
 
 function gitup {
     cdgo
     for i in *
     do
-         pushd $i
+         pushd $i || exit
          git stash -q
          git pull --all -q
-         popd
+         popd || exit
     done
 }
