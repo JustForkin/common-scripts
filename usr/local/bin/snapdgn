@@ -8,7 +8,7 @@ pkgver=$(wget -cqO- https://github.com/snapcore/snapd-glib/releases | grep "tar\
 pkgpver=$(cat /data/OBS/home:fusion809/snapd-glib/snapd-glib.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if [[ $pkgver == $pkgpver ]]; then
-    printf "snapdg\n"
+    printf "spdg\n"
 else
-    printf "snapdg${pkgver}\n"
+    printf "spdg${pkgver}\n"
 fi

@@ -10,3 +10,5 @@ function gsup {
          osc ci -m "Bumping $pkgpver->$pkgver"
     fi
 }
+
+alias gsoftup=gsup
