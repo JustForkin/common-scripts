@@ -10,10 +10,8 @@ function 0adup {
     if [[ $specn == $mastn ]]; then
          printf "0 A.D. is up to date!\n"
     else
-         sed -i -e "s/$specn/$mastn/g" $OBSH/0ad/0ad.spec
-         sed -i -e "s/$specn/$mastn/g" $OBSH/0ad-data/0ad-data.spec
-         sed -i -e "s/$specm/$comm/g" $OBSH/0ad/0ad.spec
-         sed -i -e "s/$specm/$comm/g" $OBSH/0ad-data/0ad-data.spec
+         sed -i -e "s/$specn/$mastn/g" \
+                -e "s/$specm/$comm/g" $OBSH/0ad*/0ad*.spec
          cdobsh 0ad; osc ci -m "Bumping $specn->$mastn"
          cdobsh 0ad-data; osc ci -m "Bumping $specn->$mastn"
     fi
