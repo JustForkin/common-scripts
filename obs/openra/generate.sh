@@ -1,16 +1,16 @@
 # Create new mod
 function newmod {
-    cdgo "$1"
+    cdgo "$1" || exit
     git pull origin master -q
     if [[ -f "$HOME/OBS/home:fusion809/openra-$2/openra-$2.spec" ]]; then
-         printf "I've already packaged openra-$1, so exiting\n" && exit
+         printf "%s\n" "I've already packaged openra-$1, so exiting" && exit
     else
          if ! [[ -d "$HOME/OBS/home:fusion809/openra-$2" ]]; then
-              cdobsh ; osc mkpac "openra-$2" ; cd -
+              cdobsh && osc mkpac "openra-$2" && cd - || exit
          fi
          # OpenRA latest engine version
-         enlv=$(cat mod.config | grep '^ENGINE\_VERSION' | cut -d '"' -f 2)
-         enpv=$(cat $HOME/OBS/home:fusion809/openra-dr/openra-dr.spec | grep "define engine\_version" | cut -d ' ' -f 3)
+         enlv=$(grep '^ENGINE\_VERSION' < cat mod.config | cut -d '"' -f 2)
+         enpv=$(grep "define engine\_version" < $HOME/OBS/home:fusion809/openra-dr/openra-dr.spec | cut -d ' ' -f 3)
          specn=$(vere openra-dr)
          mastn=$(comno)
          specm=$(come openra-dr)
@@ -47,19 +47,19 @@ function newmod {
          sed -i -e "s|Dark Reign|$5|g" "$OBSH/openra-$2/openra-$2"*
          sed -i -e "s|Dark Reign|$5|g" "$OBSH/openra-$2/PKGBUILD"
          
-         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-$2/{openra-$2.spec,PKGBUILD}
-         sed -i -e "s/$specm/$comm/g" $OBSH/openra-$2/{openra-$2.spec,PKGBUILD}
-         sed -i -e "s/$enpv/$enlv/g" $OBSH/openra-$2/{openra-$2.spec,PKGBUILD}
+         sed -i -e "s/$specn/$mastn/g" "$OBSH/openra-$2"/{openra-"$2".spec,PKGBUILD}
+         sed -i -e "s/$specm/$comm/g" "$OBSH/openra-$2"/{openra-"$2".spec,PKGBUILD}
+         sed -i -e "s/$enpv/$enlv/g" "$OBSH/openra-$2"/{openra-"$2".spec,PKGBUILD}
          if [[ -f $GHUBO/yr/mods/yr/logo.png ]]; then
-              sed -i -e "s|icon.png|logo.png|g" $OBSH/openra-$2/{openra-$2.spec,PKGBUILD}
+              sed -i -e "s|icon.png|logo.png|g" "$OBSH/openra-$2"/{openra-"$2".spec,PKGBUILD}
          fi
          make clean
          make
-         tar czvf $HOME/OBS/home:fusion809/openra-$2/engine-${enlv}.tar.gz engine
-         cdobsh openra-$2
-         osc add engine-${enlv}.tar.gz
-         cd -
-         cdobsh openra-$2
+         tar czvf "$HOME/OBS/home:fusion809/openra-$2/engine-${enlv}.tar.gz" engine
+         cdobsh openra-"$2" || exit
+         osc add engine-"${enlv}".tar.gz
+         cd - || exit
+         cdobsh openra-"$2" || exit
          read "yn?Edit the description (line 70) as it presently is written for Dark Reign.\n Type y or yes and then enter to proceed.\n"
          vsp
          osc build openSUSE_Tumbleweed --noverify

@@ -2,9 +2,9 @@ function mwup {
     cd $HOME/GitHub/others/Medieval-Warfare
     git pull origin Next -q
     # OpenRA latest engine version
-    enlv=$(cat mod.config | grep '^ENGINE\_VERSION' | cut -d '"' -f 2)
+    enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
     # OpenRA engine version in spec file
-    enpv=$(cat $HOME/OBS/home:fusion809/openra-mw/openra-mw.spec | grep "define engine\_version" | cut -d ' ' -f 3)
+    enpv=$(grep "define engine\_version" < $HOME/OBS/home:fusion809/openra-mw/openra-mw.spec | cut -d ' ' -f 3)
     mastn=$(git rev-list --branches Next --count)
     specn=$(cat $HOME/OBS/home:fusion809/openra-mw/openra-mw.spec | grep "Version\:" | sed 's/Version:\s*//g')
     comm=$(git log | head -n 1 | cut -d ' ' -f 2)

@@ -8,11 +8,11 @@ function openrabup {
     specm=$(come openra-bleed)
 
     if [[ $specn == $mastn ]]; then
-         printf "OpenRA Bleed is up to date!\n"
+         printf "%s\n" "OpenRA Bleed is up to date!"
     else
-         printf "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm.\n"
-         sed -i -e "s/$specn/$mastn/g" $OBSH/openra-bleed/{openra-bleed.spec,PKGBUILD}
-         sed -i -e "s/$specm/$comm/g" $OBSH/openra-bleed/{openra-bleed.spec,PKGBUILD}
+         printf "%s\n" "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
+         sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}
+         sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}
          cdobsh openra-bleed
          osc ci -m "Bumping $specn->$mastn"
          /usr/local/bin/openra-build-cli
