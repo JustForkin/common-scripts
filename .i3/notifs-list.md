@@ -1,6 +1,6 @@
 | Abbrev. | Description                   | Package location | Update function
 | ------- | :---------------------------: | :--------------: | :--------------------: |
-| 0ad     | 0 A.D., the RTS game          | OBS              | 0adup                  |
+| 0ad     | 0 A.D., the RTS game          | OBS              | [0adup](../obs/0ad.sh)                  |
 | Atom    | Atom text editor              | AUR and overlay  | atomup (Gentoo chroot)
 | AvoA    | avogadroapp (avogadro2)       | OBS              | avoup                  |
 | AvoL    | avogadrolibs (avogadro2-libs) | OBS              | avolup                 |
@@ -13,3 +13,5 @@
 | Kom     | Komodo Edit                   | OBS              | komup
 | LSY     | libmsym                       | OBS              | lmsymup
 | MolQ    | Molequeue                     | OBS              | molqup
+| NQ      | Notepadqq                     | OBS              | nqqup
+| OB      | OBabel                        | OBS              | obabelup
