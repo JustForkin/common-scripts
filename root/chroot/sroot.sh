@@ -20,7 +20,11 @@ function sroot {
 }
 
 function slroot {
-    genroot /scientific
+    if grep -i scientific < /etc/os-release > /dev/null 2>&1 ; then
+         genroot /scientific
+    elif grep -i slackware < /etc/os-release > /dev/null 2>&1 ; then
+         genroot /slackware
+    fi
 }
 
 
