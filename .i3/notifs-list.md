@@ -27,4 +27,6 @@
 | ORAGA   | OpenRA Generals Alpha         | OBS              | [genup](../obs/openra/gen.sh)
 | ORAu    | OpenRA Red Alert Unplugged    | OBS              | [uraup](../obs/openra/ura.sh)
 | ORAYR   | OpenRA Yuri's Revenge         | OBS              | [yrup](../obs/openra/yr.sh)
-| osc     | openSUSE command-line client  | OBS              | [oscup](../obs/openra/osc.sh)
+| osc     | openSUSE command-line client  | OBS              | [oscup](../obs/osc.sh)
+| OST     | OSTree                        | OBS              | [ostreeup](../obs/ostree.sh)
+| PyM     | PyMOL                         | OBS              | [pymolup](../obs/pymol.sh)
