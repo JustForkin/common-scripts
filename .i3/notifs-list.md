@@ -34,4 +34,7 @@
 | spd     | snapd                         | OBS              | [snapdup](../obs/snapd.sh)
 | spdg    | snapd-glib                    | OBS              | [snapdgup](../obs/snapd.sh#L14)
 | spg     | spglib                        | OBS              | [spgup](../obs/spglib.sh)
-| Subl    | Sublime Text                  | Overlay          | [sublup](https://github.com/fusion809/gentoo-scripts/blob/master/Shell/pms/ebuild/sublime.sh)
+| Subl    | Sublime Text                  | Overlay          | [sublup](https://github.com/fusion809/gentoo-scripts/blob/master/Shell/pms/ebuild/sublime.sh) (groot)
+| Vim     | Vim                           | AUR, OBS and overlay | [vimup](https://github.com/fusion809/gentoo-scripts/blob/master/Shell/pms/ebuild/vim.sh) (Groot)
+| VSCode  | Visual Studio Code            | Overlay              | [codeup](https://github.com/fusion809/gentoo-scripts/blob/master/Shell/pms/ebuild/code.sh)
+| Zsh     | Z Shell                       | OBS                  | [zshup](../obs/zsh.sh)
