@@ -30,3 +30,7 @@
 | osc     | openSUSE command-line client  | OBS              | [oscup](../obs/osc.sh)
 | OST     | OSTree                        | OBS              | [ostreeup](../obs/ostree.sh)
 | PyM     | PyMOL                         | OBS              | [pymolup](../obs/pymol.sh)
+| SSP     | Shattered Paradise OpenRA mod | OBS              | [spup](../obs/sp.sh)
+| spd     | snapd                         | OBS              | [snapdup](../obs/snapd.sh)
+| spdg    | snapd-glib                    | OBS              | [snapdgup](../obs/snapd.sh#L14)
+| spg     | spglib                        | OBS              | [spgup](../obs/spglib.sh)

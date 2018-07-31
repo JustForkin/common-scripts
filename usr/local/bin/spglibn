@@ -17,7 +17,7 @@ fi
 orpv=$(cat /data/OBS/home:fusion809/spglib/spglib.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
-    printf "spglib \n"
+    printf "spg \n"
 else
-    printf "spglib${orlv}\n"
+    printf "spg${orlv}\n"
 fi
