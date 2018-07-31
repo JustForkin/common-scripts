@@ -9,3 +9,4 @@ function komodoup {
 alias kup=komodoup
 alias kedup=komodoup
 alias komodoeditup=komodoup
+alias komup=komodoup
