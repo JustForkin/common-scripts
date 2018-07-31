@@ -18,7 +18,7 @@ function genup {
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-gen/{openra-gen.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-gen/{openra-gen.spec,PKGBUILD}
          if ! [[ $enpv == $enlv ]]; then
-              printf "Updating Generals Alpha engine.\n"
+              printf "%s\n" "Updating Generals Alpha engine."
               sed -i -e "s/$enpv/$enlv/g" "$HOME"/OBS/home:fusion809/openra-gen/{openra-gen.spec,PKGBUILD}
               make clean || exit
               make || exit
@@ -26,10 +26,10 @@ function genup {
               cdobsh openra-gen
               osc rm engine-"${enpv}".tar.gz
               osc add engine-"${enlv}".tar.gz
-              cd -
+              cd - || exit
          fi
-         printf "Committing changes.\n"
-         cdobsh openra-gen
+         printf "%s\n" "Committing changes."
+         cdobsh openra-gen || exit
          osc ci -m "Bumping $specn->$mastn"
     fi
 }

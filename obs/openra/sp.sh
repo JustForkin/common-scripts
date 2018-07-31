@@ -17,6 +17,7 @@ function spup {
          printf "%s\n" "SDK is up-to-date!"
     else
          if ! [[ "$enpv" == "$enlv" ]]; then
+              printf "%s\n" "Updating the game engine to $enlv."
               sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-sp/{openra-sp.spec,PKGBUILD}
               make clean || exit
               make || exit
@@ -27,8 +28,8 @@ function spup {
               cd - || exit
          fi
          cdobsh openra-sp || exit
-         sed -i -e "s|$sdkpc|$sdklc|g" openra-sp.spec
-         sed -i -e "s|$sdkpver|$sdklver|g" openra-sp.spec
+         sed -i -e "s|$sdkpc|$sdklc|g" \
+                -e "s|$sdkpver|$sdklver|g" openra-sp.spec
     fi
 
     # If Shattered Paradise is outdated sed update it
