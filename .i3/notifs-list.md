@@ -17,3 +17,4 @@
 | OB      | OBabel                        | OBS              | [obabelup](../obs/openbabel.sh)
 | OBF     | OBS format spec file service  | OBS              | [obsfup](../obs/obsf.sh)
 | OBD     | OBS download files service    | OBS              | [obsdup](../obs/obsd.sh)
+| OBV     | OBS source validator servie   | OBS              | [obsvup](../obs/obsv.sh)
