@@ -14,9 +14,11 @@ function genup {
     if [[ $specn == $mastn ]]; then
          printf "OpenRA Generals Alpha is up to date!\n"
     else
+         printf "Updating openra-gen spec file and PKGBUILD.\n"
          sed -i -e "s/$specn/$mastn/g" $OBSH/openra-gen/{openra-gen.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" $OBSH/openra-gen/{openra-gen.spec,PKGBUILD}
          if ! [[ $enpv == $enlv ]]; then
+              printf "Updating Generals Alpha engine.\n"
               sed -i -e "s/$enpv/$enlv/g" $HOME/OBS/home:fusion809/openra-gen/{openra-gen.spec,PKGBUILD}
               make clean
               make
@@ -26,6 +28,7 @@ function genup {
               osc add engine-${enlv}.tar.gz
               cd -
          fi
+         printf "Committing changes.\n"
          cdobsh openra-gen
          osc ci -m "Bumping $specn->$mastn"
     fi
