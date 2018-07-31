@@ -4,7 +4,7 @@ function obsfup {
     pkgverl=$(echo $pkgverf | cut -d '-' -f 1)
     _pkgverl=$(echo $pkgverf | cut -d '-' -f 2)
     pkgverp=$(cat PKGBUILD | grep "^pkgver=" | cut -d '=' -f 2)
-    _pkgverp=$(cat PKGBUILD | grep "_pkgver=" | cut -d '=' -f 2)
+    _pkgverp=$(cat PKGBUILD | grep "^_pkgver=" | cut -d '=' -f 2)
 
     sed -i -e "s|$pkgverp|$pkgverl|g" \
            -e "s|${_pkgverp}|${_pkgverl}|g" PKGBUILD
