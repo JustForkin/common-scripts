@@ -15,6 +15,10 @@ function vrl {
     vim *rules
 }
 
+function ved {
+    vim ${PWD/*\//}-*.ebuild
+}
+
 function vsl {
     vim $HOME/SlackBuilds
 }
