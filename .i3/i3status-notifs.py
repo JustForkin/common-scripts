@@ -23,11 +23,6 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/adeptn",
-    color="#FFCF76",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/subln",
     color="#FFFF44",
     interval=300)
