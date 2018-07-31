@@ -4,8 +4,8 @@ cd /home/fusion809/GitHub/others/Medieval-Warfare
 if ! `which git > /dev/null 2>&1`; then
     zenity --error --text="git is not detected, either install it or if already installed at it to the system PATH!" --title="Warning!" && exit
 fi
-git pull origin master -q
-orlv=$(git rev-list --branches master --count)
+git pull origin Next -q
+orlv=$(git rev-list --branches Next --count)
 comm=$(git log -1 --format=%h)
 # OpenRA latest packaged version
 orpv=$(cat /data/OBS/home:fusion809/openra-mw/openra-mw.spec | grep "Version:" | sed 's/Version:\s*//g')
