@@ -7,11 +7,11 @@ function moleup {
     specm=$(cat $OBS/home:fusion809/molequeue/molequeue.spec | grep "define commit" | cut -d ' ' -f 3)
 
     if [[ $specn == $mastn ]]; then
-         printf "Avogadro 2 is up to date!\n"
+         printf "MoleQueue is up to date!\n"
     else
-         sed -i -e "s/$specn/$mastn/g" $OBS/home:fusion809/molequeue/molequeue.spec
-         sed -i -e "s/$specm/$comm/g" $OBS/home:fusion809/molequeue/molequeue.spec
-         cdobs home:fusion809/molequeue
+         cdobsh molequeue
+         sed -i -e "s/$specn/$mastn/g" \
+                -e "s/$specm/$comm/g" molequeue.spec
          osc ci -m "Bumping $specn->$mastn"
     fi
 }
