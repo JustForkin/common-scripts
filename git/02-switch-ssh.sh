@@ -1,15 +1,13 @@
 # Switch to SSH
 function gitsw {
-  # $1 is the username of the repo
+  # repo is the name of the repository
+  repo=$(git remote -v | grep origin | sed 's/.*\///g' | sed 's/.git.*//g' | head -n 1)
   git remote rm origin
-  git remote rm upstream
-  if [[ -n "$1" ]]
-    then
-      git remote add origin git@github.com:$1/"${PWD##*/}".git
-      git remote add upstream git@github.com:$1/"${PWD##*/}".git
-    else
-      git remote add origin git@github.com:fusion809/"${PWD##*/}".git
-      git remote add upstream git@github.com:fusion809/"${PWD##*/}".git
+
+  if [[ -n "$1" ]]; then
+      git remote add origin git@github.com:fusion809/"${1}".git
+  else
+      git remote add origin git@github.com:fusion809/"${repo}".git
   fi
 }
 
@@ -18,10 +16,10 @@ alias gitssh=gitsw
 alias gits=gitsw
 
 function gtsa {
-	for i in $HOME/GitHub/mine/*/*
+	for i in $GHUBM/*/*
 	do
-		pushd $i
+		pushd $i || exit
 		gitsw
-		popd
+		popd || exit
 	done
 }
