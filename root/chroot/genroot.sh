@@ -9,8 +9,8 @@ function genroot {
     fi
 
     # Make sure the data partition is mounted
-    if [[ -d $root/data ]] && ! `cat /etc/mtab | grep $root/data > /dev/null 2>&1`; then
-         mount /dev/sdb1 $root/data
+    if [[ -d "$root"/data ]] && ! grep "$root"/data < /etc/mtab > /dev/null 2>&1; then
+         mount /dev/sdb1 "$root"/data
     fi
 
     # Check if the appropriate mount points are set up for the chroot to work
@@ -32,36 +32,36 @@ function genroot {
     
     if [[ -f $root/usr/local/bin/su-fusion809 ]]; then
          chroot "$root" /usr/local/bin/su-fusion809
-    elif [[ -f $root/bin/zsh ]]; then
-         chroot "$root" $ENV -i     \
+    elif [[ -f "$root"/bin/zsh ]]; then
+         chroot "$root" $ENV -i          \
                HOME="/root"              \
                TERM="$TERM"              \
                PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin \
                /bin/zsh --login +h
-    elif [[ -f $root/bin/bash ]]; then
-         chroot "$root" $ENV -i     \
+    elif [[ -f "$root"/bin/bash ]]; then
+         chroot "$root" $ENV -i          \
                HOME="/root"              \
                TERM="$TERM"              \
                PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin \
                /bin/bash --login +h
-    elif `cat $root/etc/os-release | grep -i NixOS > /dev/null 2>&1`; then
-         INIT=$(find $root/nix/store -type f -path '*nixos*/init' -print -quit)
-         BASH=$(find $root/nix/store -type f -path '*/bin/bash' -print -quit)
-         BASH=$(echo $BASH | sed "s|/nixos||g")
-         ENV=$(find $root/nix/store -type f -path '*/bin/env' -print -quit)
-         sed -i "s,exec systemd,exec /$BASH," $INIT
+    elif cat "$root"/etc/os-release | grep -i NixOS > /dev/null 2>&1; then
+         INIT=$(find "$root"/nix/store -type f -path '*nixos*/init' -print -quit)
+         BASH=$(find "$root"/nix/store -type f -path '*/bin/bash' -print -quit)
+         BASH="${BASH/nixos/}"
+         ENV=$(find "$root"/nix/store -type f -path '*/bin/env' -print -quit)
+         sed -i "s,exec systemd,exec /$BASH," "$INIT"
 
-         INIT=$(echo $INIT | sed "s|/nixos||g")
+         INIT="${INIT/nixos/}"
 
-         chroot $root ./$INIT --login +h
+         chroot "$root" ./"$INIT" --login +h
 
-    elif [[ -f $root/bin/sh ]] || [[ -L $root/bin/sh ]]; then
+    elif [[ -f "$root"/bin/sh ]] || [[ -L "$root"/bin/sh ]]; then
          chroot "$root" /bin/sh
     else
          printf "I'm missing a shell, mate!"
     fi
 
-    if [[ -f $root/usr/bin/dnf ]]; then
+    if [[ -f "$root"/usr/bin/dnf ]]; then
          touch "$root/.autorelabel"
     fi
 }

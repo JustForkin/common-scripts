@@ -6,5 +6,6 @@ function groot {
     if ! [[ -d /gentoo/data/Programs ]]; then
          mount /dev/sdb1 /gentoo/data
     fi
+    
     genroot /gentoo
 }
