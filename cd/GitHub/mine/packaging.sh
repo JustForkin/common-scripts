@@ -24,3 +24,11 @@ function cdora {
 
 alias cdopenra=cdora
 alias cdopra=cdora
+
+function cdvp {
+    cdpk "void-packages/$1"
+}
+
+function cdvps {
+    cdvp "srcpkgs/$1"
+}
