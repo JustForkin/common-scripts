@@ -60,3 +60,7 @@ function vdsk {
 }
 
 alias vdk=vdsk
+
+function vtp {
+    vim template
+}
