@@ -1,7 +1,7 @@
 # Switch to SSH
 function gitsw {
   # repo is the name of the repository
-  repo=$(git remote -v | grep origin | sed 's/.*\///g' | sed 's/.git.*//g' | head -n 1)
+  repo=$(git remote -v | grep origin | sed 's/.*\///g' | sed 's/.git.*//g' | sed 's/ (fetch)//g' | head -n 1)
   git remote rm origin
 
   if [[ -n "$1" ]]; then
