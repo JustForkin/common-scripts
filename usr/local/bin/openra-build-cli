@@ -15,15 +15,15 @@ if ! `which mono > /dev/null 2>&1`; then
 fi
 
 # Check for Lua 5.1 libraries
-if ! find /usr/lib* /lib* -name "liblua*5*1*.so*" --quit > /dev/null 2>&1 ; then
+if ! find /usr/lib* /lib* -name "liblua*5*1*.so*" -quit > /dev/null 2>&1 ; then
     printf "Lua 5.1 libs are not found in /usr/lib/x86_64-linux-gnu, /lib64 or /usr/lib64. If they are installed somewhere else, but in LD_LIBRARY_PATH, feel free to ignore this warning, otherwise install these libraries please\n"
 fi
 
-if ! find /lib* /usr/lib* -name "libopenal*" --quit > /dev/null 2>&1 ; then
+if ! find /lib* /usr/lib* -name "libopenal*" -quit > /dev/null 2>&1 ; then
     printf "OpenAL libraries not found, please install them.\n" && exit
 fi
 
-if ! find /lib* /usr/lib* -name "libSDL2*.so*" --quit > /dev/null 2>&1 ; then
+if ! find /lib* /usr/lib* -name "libSDL2*.so*" -quit > /dev/null 2>&1 ; then
     printf "SDL2 libraries are not found, please install them.\n" && exit
 fi
 #printf "Updating my OpenRA fork...\n"
