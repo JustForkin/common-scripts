@@ -74,3 +74,9 @@ function cdaqi {
 function cdgn {
 	cdsc "GNU_Octave/$1"
 }
+
+function cdgpl {
+	cdsc "PyMOL-scripts/$1"
+}
+
+alias cdgpml=cdgpl
