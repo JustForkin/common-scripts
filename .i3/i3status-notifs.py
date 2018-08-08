@@ -153,11 +153,6 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/jucippn",
-    color="#F9B999",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/jmoln",
     color="#A2F412",
     interval=300)
