@@ -173,11 +173,6 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/codeliten",
-    color="#88FFFF",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/avogadroln",
     color="#F3FF22",
     interval=300)
@@ -185,11 +180,6 @@ status.register("shell",
 status.register("shell",
     command="/usr/local/bin/avogadron",
     color="#F3C200",
-    interval=300)
-
-status.register("shell",
-    command="/usr/local/bin/atomn",
-    color="#FFAA00",
     interval=300)
 
 status.register("shell",
