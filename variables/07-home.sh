@@ -9,3 +9,7 @@ export PRG=$HOME/Programs
 export SHL=$HOME/Shell
 export VID=$HOME/Videos
 export VBX=$HOME/"VirtualBox VMs"
+export VISO=$VBX/ISOs
+export VM=$HOME/VMs
+export VMS=$HOME/VMs
+export VMs=$HOME/VMs
