@@ -81,7 +81,7 @@ function obuild {
     git stash
 }
 
-if [[ -f /usr/lib/openra/method ]] || ! [[ -d /usr/lib/openra ]]; then
+if [ -f /usr/lib/openra/method -o ! -d /usr/lib/openra ]; then
     obuild "$1"
 else
     printf "It would appear OpenRA has been installed via another method, like via a package manager.\nWould you like to install anyway?"
