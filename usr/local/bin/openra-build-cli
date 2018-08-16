@@ -1,16 +1,18 @@
 #!/bin/bash
-cd /home/fusion809/GitHub/mine/packaging/OpenRA
+cd /data/GitHub/others/OpenRA || ( printf "/home/fusion809/GitHub/others/OpenRA doesn't exist mate, therefore I am exiting\!" && exit )
+
 # Check for git
-if ! `which git > /dev/null 2>&1`; then
+if ! which git > /dev/null 2>&1; then
     printf "git not found, please add it to system path, presumably after installing it.\n"
 fi
+
 # Check for make
-if ! `which make > /dev/null 2>&1`; then
+if ! which make > /dev/null 2>&1; then
     printf "make is missing, please add it to system path, which will likely be after you install it.\n"
 fi
 
 # Check for mono
-if ! `which mono > /dev/null 2>&1`; then
+if ! which mono > /dev/null 2>&1; then
     printf "mono is missing, please add it to system path, which will likely be after you install it.\n"
 fi
 
@@ -50,23 +52,25 @@ fi
 #git tag $commn
 #git push origin $commn
 #printf "Pushing to bleed branch...\n"
-
-cd /home/fusion809/GitHub/others/OpenRA
 commco=$(git rev-list --branches bleed --count)
 
-VERSION=$(cat /usr/lib/openra/VERSION)
+if [[ -f /usr/lib/openra/VERSION ]]; then
+    VERSION=$(cat /usr/lib/openra/VERSION)
+else
+    VERSION="0" && printf "%s\n" "OpenRA doesn't appear to be installed to /usr, so I'm going to rectify this!"
+fi
 
 if [[ $VERSION == "bleed-$commco" ]]; then
     printf "At the latest commit already mate!\n" ; exit
 fi
 
-if ! [[ -f /usr/bin/openra-ra ]] || [[ -f /usr/lib/openra/method ]] ; then
-    printf "OpenRA is going to be updated to commit $commco\n"
+function obuild {
+    printf "%s${commco}\n" "OpenRA is going to be updated to commit "
     if ! [[ $1 == "install" ]]; then
          make clean
     fi
     make version VERSION="bleed-$commco"
-    echo "Manually build" | sudo tee -a  /usr/lib/openra/method
+    echo "Manually built" | sudo tee -a /usr/lib/openra/method
     make
     sudo make prefix=/usr install-core
     sudo make prefix=/usr install-linux-shortcuts
@@ -75,4 +79,17 @@ if ! [[ -f /usr/bin/openra-ra ]] || [[ -f /usr/lib/openra/method ]] ; then
     sudo rm /usr/lib/openra/*.sh
     sudo mkdir -p /var/games/openra/ModMetadata/
     git stash
+}
+
+if [ -f /usr/lib/openra/method -o ! -d /usr/lib/openra ]; then
+    obuild "$1"
+else
+    printf "It would appear OpenRA has been installed via another method, like via a package manager.\nWould you like to install anyway?"
+    read -r yn
+    case $yn in
+        [yY]*)
+            obuild "$1";;
+        [nN]*)
+            printf "Seems like a wise move.\n"
+    esac
 fi

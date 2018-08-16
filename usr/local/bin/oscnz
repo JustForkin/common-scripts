@@ -1,5 +1,5 @@
 #!/bin/bash
-pkgver=$(curl -sL https://github.com/openSUSE/osc/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
+pkgver=$(curl -sL https://github.com/openSUSE/osc/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 4 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
 cd /data/OBS/home:fusion809/osc
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 

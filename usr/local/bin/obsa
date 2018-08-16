@@ -27,9 +27,9 @@ else
 fi
 
 if `which curl > /dev/null 2>&1`; then
-    pkgver=$(curl -sL https://github.com/openSUSE/obs-service-download_files/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
+    pkgver=$(curl -sL https://github.com/openSUSE/obs-service-download_files/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 4 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
 elif `which wget > /dev/null 2>&1`; then
-    pkgver=$(wget -cqO- https://github.com/openSUSE/obs-service-download_files/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
+    pkgver=$(wget -cqO- https://github.com/openSUSE/obs-service-download_files/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 4 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
 fi
 
 cd /data/OBS/home:fusion809/obs-service-download_files
