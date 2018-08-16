@@ -15,6 +15,10 @@ function openrabup {
          sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}
          cdobsh openra-bleed || exit
          osc ci -m "Bumping $specn->$mastn"
-         /usr/local/bin/openra-build-cli
+         sed -i -e "s/version=$specn/version=$mastn/g" \
+                -e "s/commit=$specm/commit=$comm/g" $PK/void-packages-bleed/srcpkgs/openra-bleed/template
+         if cat /etc/os-release | grep -vi "openSUSE\|Arch\|Void" > /dev/null 2>&1 ; then
+              /usr/local/bin/openra-build-cli
+         fi
     fi
 }
