@@ -1,0 +1,3 @@
+function croot {
+	genroot /centos
+}

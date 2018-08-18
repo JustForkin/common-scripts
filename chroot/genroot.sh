@@ -3,10 +3,13 @@ function genroot {
 	 sudo mkdir -p "$1"
     fi
     distro=$(echo $1 | cut -d '/' -f 2)
-    if `ls /dev/mapper | grep -i "$distro" > /dev/null 2>&1`; then
-         sudo mount /dev/mapper/$distro-root /$distro
-    elif ! `cat /etc/mtab | grep "$1" > /dev/null 2>&1`; then
+    lvmroot=$(ls /dev/mapper | grep -i "$distro")
+    if (! cat /etc/mtab | grep "$1" > /dev/null 2>&1) && (ls /dev/mapper | grep -i "$distro" > /dev/null 2>&1); then
+         sudo mount /dev/mapper/${lvmroot} /$distro
+    elif ( ! cat /etc/mtab | grep "$1" > /dev/null 2>&1 ) && (ls -ld /dev/disk/by-label/* | grep -i $distro > /dev/null 2>&1); then
          sudo mount /dev/$(ls -ld /dev/disk/by-label/* | grep -i $distro | cut -d '/' -f 7) /$distro
+    elif ( ! cat /etc/mtab | grep "$1" > /dev/null 2>&1 ); then
+	printf "Sorry mate, I cannot seem to find a partition with a file system named $distro\n"
     fi
 
     # Check where the root filesystem is
