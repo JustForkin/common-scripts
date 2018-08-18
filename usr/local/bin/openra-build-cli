@@ -84,7 +84,7 @@ function obuild {
 if [ -f /usr/lib/openra/method -o ! -d /usr/lib/openra ]; then
     obuild "$1"
 else
-    printf "It would appear OpenRA has been installed via another method, like via a package manager.\nWould you like to install anyway?"
+    printf "It would appear OpenRA has been installed via another method, like via a package manager.\nWould you like to install anyway? "
     read -r yn
     case $yn in
         [yY]*)
