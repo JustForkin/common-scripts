@@ -59,7 +59,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/openrayn",
-    color="#AA9F9F",
+    color="#FFAAFF",
     interval=300)
 
 status.register("shell",
