@@ -16,7 +16,7 @@ function mwup {
 		sed -i -e "s/$specn/$mastn/g" "$HOME"/OBS/home:fusion809/openra-mw/{openra-mw.spec,PKGBUILD}
 		sed -i -e "s/$specm/$comm/g" "$HOME"/OBS/home:fusion809/openra-mw/{openra-mw.spec,PKGBUILD}
 		if [[ $enlv == "{DEV_VERSION}" ]]; then
-			pushd $GHUBOOpenRA
+			pushd $GHUBO/OpenRA
 			git pull origin bleed
 			enlv=$(git rev-list --branches bleed --count)
 			popd
