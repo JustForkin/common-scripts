@@ -16,6 +16,9 @@ statuses=$(wget -cqO- "https://build.opensuse.org/project/monitor/home:fusion809
 
 if [[ -n $pkgs ]]; then
     no=$(echo "$pkgs" | wc -l)
+    if [[ -n $msg ]]; then
+         printf "$msg: "
+    fi
 
     for i in $(seq 1 $no)
     do
