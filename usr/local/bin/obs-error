@@ -1,31 +1,14 @@
 #!/bin/bash
 if `which wget > /dev/null 2>&1`; then
-    msg=$(wget -cqO- https://build.opensuse.org/project/show/home:fusion809/ | grep "build error" | cut -d '>' -f 2 | cut -d '<' -f 1)
+	msg=$(wget -cqO- https://build.opensuse.org/project/show/home:fusion809/ | grep "build error" | cut -d '>' -f 2 | cut -d '<' -f 1)
+	pkgs=$(wget -cqO- "https://build.opensuse.org/project/monitor/home:fusion809?blocked=0&building=0&dispatching=0&finished=0&scheduled=0&signing=0&succeeded=0" | grep "<td" | grep "</td" | grep -v "<a.*></a>" | cut -d '"' -f 6 | sed 's/id-//g' | sed 's/Fedora_/F/g' | sed 's/Rawhide/Raw/g' | sed 's/Mageia_/M/g' | sed 's/Cauldron/Cauld/g' | sed 's/Arch_Extra/Arch/g' | sed 's/CentOS_/C/g' | sed 's/Scientific_Linux_/SL/g' | sed 's/openSUSE_Tumbleweed/OT/g' | sed 's/openSUSE_Leap_/OL/g' | sed 's/openSUSE_Factory/OF/g' | sed 's/xUbuntu_/U/g' | sed 's/Debian_//g' | sed 's/SLE_12_SP/S12P/g' | sed 's/SLE_15/S15/g' | sed 's/RHEL_/R/g' | sed 's/Testing/Test/g' | sed 's/x86_64/x86-64/g' | sed 's/_/ /g' | tr '\n' ';' | sed 's/;$//g' | sed 's/;/; /g')
 elif `which curl > /dev/null 2>&1`; then
-    msg=$(curl -sL https://build.opensuse.org/project/show/home:fusion809/ | grep "build error" | cut -d '>' -f 2 | cut -d '<' -f 1)
+	msg=$(curl -sL https://build.opensuse.org/project/show/home:fusion809/ | grep "build error" | cut -d '>' -f 2 | cut -d '<' -f 1)
+	pkgs=$(curl -sL "https://build.opensuse.org/project/monitor/home:fusion809?blocked=0&building=0&dispatching=0&finished=0&scheduled=0&signing=0&succeeded=0" | grep "<td" | grep "</td" | grep -v "<a.*></a>" | cut -d '"' -f 6 | sed 's/id-//g' | sed 's/Fedora_/F/g' | sed 's/Rawhide/Raw/g' | sed 's/Mageia_/M/g' | sed 's/Cauldron/Cauld/g' | sed 's/Arch_Extra/Arch/g' | sed 's/CentOS_/C/g' | sed 's/Scientific_Linux_/SL/g' | sed 's/openSUSE_Tumbleweed/OT/g' | sed 's/openSUSE_Leap_/OL/g' | sed 's/openSUSE_Factory/OF/g' | sed 's/xUbuntu_/U/g' | sed 's/Debian_//g' | sed 's/SLE_12_SP/S12P/g' | sed 's/SLE_15/S15/g' | sed 's/RHEL_/R/g' | sed 's/Testing/Test/g' | sed 's/x86_64/x86-64/g' | sed 's/_/ /g' | tr '\n' ';' | sed 's/;$//g' | sed 's/;/; /g')
 fi
 
-pkgs=$(wget -cqO- "https://build.opensuse.org/project/monitor/home:fusion809?blocked=0&building=0&dispatching=0&finished=0&scheduled=0&signing=0&succeeded=0" | grep "/package/live_build_log/home:fusion809" | cut -d '/' -f 5)
-archs=$(wget -cqO- "https://build.opensuse.org/project/monitor/home:fusion809?blocked=0&building=0&dispatching=0&finished=0&scheduled=0&signing=0&succeeded=0" | grep "/package/live_build_log/home:fusion809" | cut -d '/' -f 7 | cut -d '"' -f 1)
-distros=$(wget -cqO- "https://build.opensuse.org/project/monitor/home:fusion809?blocked=0&building=0&dispatching=0&finished=0&scheduled=0&signing=0&succeeded=0" | grep "/package/live_build_log/home:fusion809" | cut -d '/' -f 6 | sed 's/openSUSE_//g' | sed 's/Tumbleweed/TW/g' | sed 's/Fedora_/F/g' | sed 's/Debian_/D/g' | sed 's/xUbuntu_/U/g' | sed 's/CentOS_/C/g')
-statuses=$(wget -cqO- "https://build.opensuse.org/project/monitor/home:fusion809?blocked=0&building=0&dispatching=0&finished=0&scheduled=0&signing=0&succeeded=0" | grep "/package/live_build_log/home:fusion809" | cut -d '>' -f 3 | cut -d '<' -f 1)
-
 if [[ -n $pkgs ]]; then
-    no=$(echo "$pkgs" | wc -l)
-
-    printf "$msg: "
-
-    for i in $(seq 1 $no)
-    do
-         printf "$(echo "$pkgs" | sed -n "${i},${i}p") $(echo "$distros" | sed -n "${i},${i}p") ($(echo "$archs" | sed -n "${i},${i}p")) $(echo "$statuses" | sed -n "${i},${i}p")"
-         
-         if [[ $i < $no ]]; then
-              printf "; "
-         fi
-    done
-elif [[ -n $msg ]]; then 
-    unresolv=$(wget -cqO- "https://build.opensuse.org/project/monitor?utf8=%E2%9C%93&commit=Filter%3A&unresolvable=1&pkgname=&repo_AppImage=1&repo_Arch_Extra=1&repo_CentOS_6=1&repo_CentOS_7=1&repo_Debian_8_0=1&repo_Debian_9_0=1&repo_Debian_Testing=1&repo_Fedora_27=1&repo_Fedora_28=1&repo_Fedora_Rawhide=1&repo_Mageia_6=1&repo_Mageia_Cauldron=1&repo_RHEL_5=1&repo_RHEL_6=1&repo_RHEL_7=1&repo_SLE_12_SP3=1&repo_SLE_12_SP4=1&repo_SLE_15=1&repo_ScientificLinux_6=1&repo_ScientificLinux_7=1&repo_openSUSE_Factory_ARM=1&repo_openSUSE_Factory_PowerPC=1&repo_openSUSE_Leap_15_0=1&repo_openSUSE_Leap_42_3=1&repo_openSUSE_Tumbleweed=1&repo_xUbuntu_14_04=1&repo_xUbuntu_16_04=1&repo_xUbuntu_17_10=1&repo_xUbuntu_18_04=1&arch_aarch64=1&arch_armv7l=1&arch_i586=1&arch_ppc64=1&arch_ppc64le=1&arch_x86_64=1&project=home%3Afusion809&defaults=0" | grep "unresolvable" | grep "td")
-    printf "All is good, except for some unresolvables."
+	printf "$msg: $pkgs"
 else
-    printf "All is good!\n"
+	printf "All is good!\n"
 fi
