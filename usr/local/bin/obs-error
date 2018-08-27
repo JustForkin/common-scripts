@@ -13,9 +13,7 @@ statuses=$(wget -cqO- "https://build.opensuse.org/project/monitor/home:fusion809
 if [[ -n $pkgs ]]; then
     no=$(echo "$pkgs" | wc -l)
 
-    if [[ -n $msg ]]; then
-         printf "$msg: "
-    fi
+    printf "$msg: "
 
     for i in $(seq 1 $no)
     do
@@ -25,6 +23,9 @@ if [[ -n $pkgs ]]; then
               printf "; "
          fi
     done
+elif [[ -n $msg ]]; then 
+    unresolv=$(wget -cqO- "https://build.opensuse.org/project/monitor?utf8=%E2%9C%93&commit=Filter%3A&unresolvable=1&pkgname=&repo_AppImage=1&repo_Arch_Extra=1&repo_CentOS_6=1&repo_CentOS_7=1&repo_Debian_8_0=1&repo_Debian_9_0=1&repo_Debian_Testing=1&repo_Fedora_27=1&repo_Fedora_28=1&repo_Fedora_Rawhide=1&repo_Mageia_6=1&repo_Mageia_Cauldron=1&repo_RHEL_5=1&repo_RHEL_6=1&repo_RHEL_7=1&repo_SLE_12_SP3=1&repo_SLE_12_SP4=1&repo_SLE_15=1&repo_ScientificLinux_6=1&repo_ScientificLinux_7=1&repo_openSUSE_Factory_ARM=1&repo_openSUSE_Factory_PowerPC=1&repo_openSUSE_Leap_15_0=1&repo_openSUSE_Leap_42_3=1&repo_openSUSE_Tumbleweed=1&repo_xUbuntu_14_04=1&repo_xUbuntu_16_04=1&repo_xUbuntu_17_10=1&repo_xUbuntu_18_04=1&arch_aarch64=1&arch_armv7l=1&arch_i586=1&arch_ppc64=1&arch_ppc64le=1&arch_x86_64=1&project=home%3Afusion809&defaults=0" | grep "unresolvable" | grep "td")
+    printf "All is good, except for some unresolvables."
 else
     printf "All is good!\n"
 fi
