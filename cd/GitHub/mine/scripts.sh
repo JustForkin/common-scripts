@@ -12,11 +12,11 @@ function cdces {
 }
 
 function cdcs {
-    cdsc "common-scripts/$1"
+	cdsc "common-scripts/$1"
 }
 
 function cdcsu {
-    cdcs "usr/local/bin"
+	cdcs "usr/local/bin"
 }
 
 function cdds {
@@ -66,6 +66,10 @@ function cdsls {
 function cdzt {
 	cdsc "zsh-theme/$1"
 }
+
+alias cdzsh=cdzt
+alias cdzsht=cdzt
+alias cdzst=cdzt
 
 function cdaqi {
 	cdsc "atom-quick-install/$1"
