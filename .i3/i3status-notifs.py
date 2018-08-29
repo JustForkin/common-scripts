@@ -63,11 +63,6 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/openramwn",
-    color="#FFCCAA",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/openrauran",
     color="#F3AC56",
     interval=300)
@@ -75,6 +70,11 @@ status.register("shell",
 status.register("shell",
     command="/usr/local/bin/openraspn",
     color="#AAFFCC",
+    interval=300)
+
+status.register("shell",
+    command="/usr/local/bin/openramwn",
+    color="#FFCCAA",
     interval=300)
 
 status.register("shell",

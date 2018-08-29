@@ -7,7 +7,7 @@ function gsoftbup {
     specm=$(cat $OBS/home:fusion809/gnome-software-bleed/gnome-software-bleed.spec | grep "define commit" | cut -d ' ' -f 3)
 
     if [[ $specn == $mastn ]]; then
-         printf "GNOME Software Bleed is up to date!\n"
+         printf "%s\n" "GNOME Software Bleed is up to date!"
     else
          sed -i -e "s/$specn/$mastn/g" $OBS/home:fusion809/gnome-software-bleed/gnome-software-bleed.spec
          sed -i -e "s/$specm/$comm/g" $OBS/home:fusion809/gnome-software-bleed/gnome-software-bleed.spec
@@ -15,3 +15,6 @@ function gsoftbup {
          osc ci -m "Bumping $specn->$mastn"
     fi
 }
+
+alias gsupb=gsoftbup
+alias gbsup=gsoftbup
