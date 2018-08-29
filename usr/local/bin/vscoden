@@ -1,14 +1,14 @@
 #!/bin/bash
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
 do
     sleep 60
 done
 
 URL="https://packages.microsoft.com/repos/vscode/pool/main/c/code"
-if `which curl > /dev/null 2>&1`; then
+if command -v curl > /dev/null 2>&1; then
     revn=$(curl -sL $URL | grep "deb" | cut -d '-' -f 3 | cut -d '_' -f 1 | sort -n | tail -n 1)
     ver=$(curl -sL $URL | grep "$revn" | cut -d '-' -f 1 | cut -d '_' -f 2)
-elif `which wget > /dev/null 2>&1`; then
+elif command -v wget > /dev/null 2>&1; then
     revn=$(wget -cqO- $URL | grep "deb" | cut -d '-' -f 3 | cut -d '_' -f 1 | sort -n | tail -n 1)
     over=$(wget -cqO- $URL | grep "$revn" | cut -d '-' -f 1 | cut -d '_' -f 2)
 else

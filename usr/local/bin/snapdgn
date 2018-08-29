@@ -1,5 +1,5 @@
 #!/bin/bash
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
 do
     sleep 60
 done

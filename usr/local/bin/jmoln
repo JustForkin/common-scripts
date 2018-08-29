@@ -1,13 +1,13 @@
 #!/bin/bash
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
 do
     sleep 60
 done
 
-if `which curl > /dev/null 2>&1`; then
+if command -v curl > /dev/null 2>&1; then
     MAJOR=$(curl -sL https://sourceforge.net/projects/jmol/files/Jmol/ | grep "Version%20[0-9]" | head -n 1 | cut -d '/' -f 6 | sed 's/Version%20//g')
     pkgver=$(wget -cqO- "https://sourceforge.net/projects/jmol/files/Jmol/Version%20${MAJOR}" | grep "Jmol%20${MAJOR}" | head -n 1 | cut -d '/' -f 7 | sed 's/Jmol%20//g')
-elif `which wget > /dev/null 2>&1`; then
+elif command -v wget > /dev/null 2>&1; then
     MAJOR=$(wget -cqO- https://sourceforge.net/projects/jmol/files/Jmol/ | | grep "Version%20[0-9]" | head -n 1 | cut -d '/' -f 6 | sed 's/Version%20//g') 
     pkgver=$(wget -cqO- "https://sourceforge.net/projects/jmol/files/Jmol/Version%20${MAJOR}" | grep "Jmol%20${MAJOR}" | head -  n 1 | cut -d '/' -f 7 | sed 's/Jmol%20//g')
 else

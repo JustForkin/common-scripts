@@ -1,16 +1,16 @@
 #!/bin/bash
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
 do
     sleep 60
 done
 
-if `ls /tmp | grep src | grep html > /dev/null 2>&1`; then
+if ls /tmp | grep src | grep html > /dev/null 2>&1; then
     rm /tmp/src*.html
 fi
 
-if `which curl > /dev/null 2>&1`; then
+if command -v curl > /dev/null 2>&1; then
     curl -sL http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-$(date | sed 's/ /_/g' | sed 's/:[0-9]*_/_/g').html
-elif `which wget > /dev/null 2>&1`; then
+elif command -v wget > /dev/null 2>&1; then
     wget -cqO- http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-$(date | sed 's/ /_/g' | sed 's/:[0-9]*_/_/g').html
 else
     printf "Neither cURL nor wget are detected, so please either install one or add them to your system PATH.\n" && exit

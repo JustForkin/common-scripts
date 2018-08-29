@@ -1,12 +1,12 @@
 #!/bin/bash
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
 do
     sleep 60
 done
 
-if `which wget > /dev/null 2>&1`; then
+if command -v wget > /dev/null 2>&1; then
     pkgver=$(wget -cqO- https://github.com/ostreedev/ostree/releases | grep "tar\.xz" | cut -d '/' -f 6 | sed "s|v||g" | head -n 1)
-elif `which curl > /dev/null 2>&1`; then
+elif command -v curl > /dev/null 2>&1; then
     pkgver=$(curl -sL https://github.com/ostreedev/ostree/releases | grep "tar\.xz" | cut -d '/' -f 6 | sed "s|v||g" | head -n 1)
 else
     printf "Neither cURL nor wget are detected, please install them, or if they are already installed please add them to the system PATH.\n" && exit

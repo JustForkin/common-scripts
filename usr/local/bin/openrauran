@@ -1,5 +1,5 @@
 #!/bin/bash
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
 do
     sleep 60
 done
@@ -7,7 +7,7 @@ done
 # OpenRA Red Alert Unplugged mod latest commit available
 OBS_PATH="/data/OBS/home:fusion809/openra-ura"
 cd /home/fusion809/GitHub/others/uRA
-if ! `which git > /dev/null 2>&1`; then
+if ! command -v git > /dev/null 2>&1; then
     printf "git is not detected, please install it and if already installed add it to your system PATH!\n" && exit
 fi
 git pull origin master -q

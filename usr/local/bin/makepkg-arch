@@ -712,7 +712,7 @@ write_buildinfo() {
 }
 
 # build a sorted NUL-separated list of the full contents of the current
-# directory suitable for passing to `bsdtar --files-from`
+# directory suitable for passing to bsdtar --files-from
 # database files are placed at the beginning of the package regardless of
 # sorting
 list_package_files() {

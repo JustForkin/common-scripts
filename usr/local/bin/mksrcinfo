@@ -6,7 +6,7 @@ shopt -s extglob
 array_build() {
   local dest=$1 src=$2 i keys values
 
-  # it's an error to try to copy a value which doesn't exist.
+  # it's an error to try to copy a value command -v doesn't exist.
   declare -p "$2" &>/dev/null || return 1
 
   # Build an array of the indicies of the source array.

@@ -3,7 +3,7 @@
 cd /home/fusion809/GitHub/others/d2
 
 # update repository
-if `which git > /dev/null 2>&1`; then
+if command -v git > /dev/null 2>&1; then
     git pull origin master -q
 else
     zenity --error --text="git isn't found. Please install it, or if it is installed edit your system PATH." --title="Warning!" && exit

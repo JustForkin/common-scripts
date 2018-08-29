@@ -1,26 +1,26 @@
 #!/bin/bash
 # 0ad latest version available
-cd /home/fusion809/GitHub/others/0ad
+cd /home/fusion809/GitHub/others/0ad || exit
 
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+while ! ping -q -w 1 -c 1 "$(ip r | grep default | cut -d ' ' -f 3)" > /dev/null
 do
     sleep 60
 done
 
 # update repository
-if `which git > /dev/null 2>&1`; then
+if command -v git > /dev/null 2>&1; then
     git pull origin master -q
 else
-    printf "git isn't found. Please install it, or if it is installed edit your system PATH.\n" && exit
+    printf "%s\n" "git isn't found. Please install it, or if it is installed edit your system PATH." && exit
 fi
 
 # Determine latest commit's number
 orlv=$(git rev-list --branches master --count)
 # 0ad latest packaged version
-orpv=$(cat /data/OBS/home:fusion809/0ad/0ad.spec | grep "Version:" | sed 's/Version:\s*//g')
+orpv=$(grep "Version:" < /data/OBS/home:fusion809/0ad/0ad.spec | sed 's/Version:\s*//g')
 
-if [[ $orpv == $orlv ]]; then
-    printf "0ad \n"
+if [[ "$orpv" == "$orlv" ]]; then
+    printf "%s\n" "0ad "
 else
-    printf "0ad${orlv}\n"
+    printf "%s\n" "0ad${orlv}"
 fi

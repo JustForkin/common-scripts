@@ -1,5 +1,5 @@
 #!/bin/bash
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
 do
     sleep 60
 done
@@ -7,7 +7,7 @@ done
 # OpenRA latest commit on the bleed branch available
 cd /home/fusion809/GitHub/others/SP-OpenRAModSDK
 # update repository
-if `which git > /dev/null 2>&1`; then
+if command -v git > /dev/null 2>&1; then
     git pull origin master -q
 else
     printf "git isn't found. Please install it, or if it is installed edit your system PATH." && exit

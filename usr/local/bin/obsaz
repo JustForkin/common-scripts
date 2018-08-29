@@ -1,13 +1,13 @@
 #!/bin/bash
-while ! `ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null`
+while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
 do
     sleep 60
 done
 
-if ! `ls /tmp | grep src > /dev/null 2>&1`; then
-    if `which curl > /dev/null 2>&1`; then
+if ! ls /tmp | grep src > /dev/null 2>&1; then
+    if command -v curl > /dev/null 2>&1; then
          curl -sL http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-$(date | sed 's/ /_/g' | sed 's/:[0-9]*_/_/g').html
-    elif `which wget > /dev/null 2>&1`; then
+    elif command -v wget > /dev/null 2>&1; then
          wget -cqO- http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-$(date | sed 's/ /_/g' | sed 's/:[0-9]*_/_/g').html
     else
          zenity --error --text="Neither cURL nor wget has been detected, please install them if not installed or add them to the system PATH if they already are.!" --title="Warning!" && exit

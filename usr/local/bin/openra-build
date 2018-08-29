@@ -1,17 +1,17 @@
 #!/bin/bash
-cd /home/fusion809/GitHub/mine/packaging/OpenRA
+cd /home/fusion809/GitHub/mine/packaging/OpenRA || exit
 # Check for git
-if ! `which git > /dev/null 2>&1`; then
+if ! command -v git > /dev/null 2>&1; then
     zenity --error --text="git not found, please add it to system path, presumably after installing it." --title="Error!" && exit
 fi
 # Check for make
-if ! `which make > /dev/null 2>&1`; then
-    zenity --error --text="make is missing, please add it to system path, which will likely be after you install it." --title="Error!" && exit
+if ! command -v make > /dev/null 2>&1; then
+    zenity --error --text="make is missing, please add it to system path, command -v will likely be after you install it." --title="Error!" && exit
 fi
 
 # Check for mono
-if ! `which mono > /dev/null 2>&1`; then
-    zenity --error --text="mono is missing, please add it to system path, which will likely be after you install it." --title="Error!" && exit
+if ! command -v mono > /dev/null 2>&1; then
+    zenity --error --text="mono is missing, please add it to system path, command -v will likely be after you install it." --title="Error!" && exit
 fi
 
 # Check for Lua 5.1 libraries
@@ -53,7 +53,7 @@ fi
 #git push origin $commn
 #printf "Pushing to bleed branch...\n"
 
-cd /home/fusion809/GitHub/others/OpenRA
+cd /home/fusion809/GitHub/others/OpenRA || exit
 commco=$(git rev-list --branches bleed --count)
 
 VERSION=$(cat /usr/lib/openra/VERSION)
