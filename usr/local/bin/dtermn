@@ -11,14 +11,14 @@ if command -v curl > /dev/null 2>&1; then
 elif command -v wget > /dev/null 2>&1; then
     pkgver=$(wget -cqO- https://github.com/linuxdeepin/deepin-terminal/releases | grep "\.tar\.gz" | head -n 1 | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/v//g' | sed 's/\.tar\.gz//g')
 else
-    printf "Neither cURL nor wget are detected, please install them, or if already installed please add them to the system PATH.\n" && exit
+    printf "%s\n" "Neither cURL nor wget are detected, please install them, or if already installed please add them to the system PATH." && exit
 fi
 
 pkgpver=$(grep "Version:" < /data/OBS/home:fusion809/deepin-terminal/deepin-terminal.spec  | sed 's/Version:\s*//g')
 
 # Stable release checker
-if ! [[ $pkgver == $pkgpver ]]; then
-    printf "DT$pkgver\n"
+if ! [[ "${pkgver}" == "${pkgpver}" ]]; then
+    printf "%s\n" "DT${pkgver}"
 else
-    printf "DT\n"
+    printf "%s\n" "DT"
 fi
