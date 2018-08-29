@@ -14,7 +14,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/vscoden",
-    color="#0FC0FF",
+    color="#9FC9FF",
     interval=300)
 
 status.register("shell",
@@ -109,7 +109,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/openran",
-    color="#FFAA00",
+    color="#FFAA99",
     interval=300)
 
 status.register("shell",
@@ -159,7 +159,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/gsoftbn",
-    color="#FF76DD",
+    color="#AA99FF",
     interval=300)
 
 status.register("shell",
