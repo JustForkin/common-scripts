@@ -9,7 +9,7 @@ status = Status()
 
 status.register("shell",
     command="/usr/local/bin/zshn",
-    color="#FDADB6",
+    color="#FDCDD9",
     interval=300)
 
 status.register("shell",
@@ -29,7 +29,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/spglibn",
-    color="#F3C200",
+    color="#F9C755",
     interval=300)
 
 status.register("shell",
@@ -134,7 +134,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/notepadqqn",
-    color="#AFAFCC",
+    color="#CFCFCC",
     interval=300)
 
 status.register("shell",
@@ -149,7 +149,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/komodon",
-    color="#3FCAFF",
+    color="#9FCCFF",
     interval=300)
 
 status.register("shell",
