@@ -26,6 +26,10 @@ function genroot {
          sudo mount /dev/sdb1 $root/data
     fi
 
+    # Mount up ESP
+    if [[ -d $root/boot/efi ]] && ! `cat /etc/mtab | grep $root/boot/efi > /dev/null 2>&1`; then
+         sudo mount /dev/$(ls -ld /dev/disk/by-label/* | grep -i EFI | cut -d '/' -f 7) $root/boot/efi
+    fi
     # Check if the appropriate mount points are set up for the chroot to work
     if ! [[ -f "$root/proc/cgroups" ]]; then
          sudo mount -t proc /proc "$root/proc"
