@@ -36,3 +36,6 @@ function cdpz {
     cdp zip/$1
 }
 
+function cdpo {
+	cdp "OpenRA mods"
+}

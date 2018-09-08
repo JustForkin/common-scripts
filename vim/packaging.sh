@@ -1,66 +1,66 @@
 function vcl {
-    vim *.changelog
+	if ls | grep "hange" > /dev/null 2>&1; then
+		vim *hange*
+	else
+		printf "No *hang* file is found.\n"
+	fi
 }
 
+alias vch=vcl
 alias vchl=vcl
+alias vcg=vcl
 
 function vds {
-    vim *.dsc
+	vim *.dsc
 }
 
 alias vdsc=vds
 alias vsc=vds
 
 function vrl {
-    vim *rules
+	vim *rules
 }
 
 function ved {
-    vim ${PWD/*\//}-*.ebuild
+	vim ${PWD/*\//}-*.ebuild
 }
 
 function vsl {
-    vim $HOME/SlackBuilds
+	vim $HOME/SlackBuilds
 }
 
 function vsp {
-    specl=$(ls | grep "\.spec")
-    specln=$(echo $specl | wc -l)
-    if [[ $specln > 1 ]] && [[ -f $(basename $PWD).spec ]]; then
-         vim $(basename $PWD).spec
-    elif [[ $specl > 1 ]]; then
-         vim $(echo $specl | head -n 1) 
-    else
-         vim $(basename $PWD).spec
-    fi
+	specl=$(ls | grep "\.spec")
+	specln=$(echo $specl | wc -l)
+	if [[ $specln > 1 ]] && [[ -f $(basename $PWD).spec ]]; then
+		 vim $(basename $PWD).spec
+	elif [[ $specl > 1 ]]; then
+		 vim $(echo $specl | head -n 1) 
+	else
+		 vim $(basename $PWD).spec
+	fi
 }
-
-function vcg {
-    vim *.changes
-}
-
-alias vch=vcg
 
 function vyl {
-    if `ls .*.yml > /dev/null 2>&1`; then
-         vim .*.yml
-    elif `ls *.yml > /dev/null 2>&1`; then
-         vim *.yml
-    fi
+	if `ls .*.yml > /dev/null 2>&1`; then
+		 vim .*.yml
+	elif `ls *.yml > /dev/null 2>&1`; then
+		 vim *.yml
+	fi
 }
 
 alias vyml=vyl
 
 function vtyl {
-    vim .travis.yml
+	vim .travis.yml
 }
 
 function vdsk {
-    vim *.desktop
+	vim *.desktop
 }
 
 alias vdk=vdsk
 
 function vtp {
-    vim template
+	vim template
 }
