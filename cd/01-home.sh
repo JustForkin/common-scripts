@@ -3,6 +3,9 @@ function cda {
 }
 
 if [[ -n $ZSH_VERSION ]]; then
+    # ABS
+    . $(dirname "$0")/home/abs.sh
+
     # Chem
     . $(dirname "$0")/home/chem.sh
 
