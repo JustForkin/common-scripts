@@ -21,6 +21,9 @@ if [[ -n $ZSH_VERSION ]]; then
     # Programs
     . $(dirname "$0")/home/programs.sh
 
+    # QEMU
+    . $(dirname "$0")/home/qemu.sh
+
     # Videos
     . $(dirname "$0")/home/videos.sh
 
