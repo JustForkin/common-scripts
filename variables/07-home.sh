@@ -1,7 +1,7 @@
 export CHROOT=$HOME/chroot
 export ABS=$HOME/abs
 export AUR=$HOME/AUR
-export DE=$HOME/Desktop
+export DES=$HOME/Desktop
 export DC=$HOME/Documents
 export DO=$HOME/Downloads
 export PS=$HOME/Pictures
