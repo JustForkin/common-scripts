@@ -12,7 +12,7 @@ function genup {
     specm=$(come openra-gen)
 
     if [[ $specn == $mastn ]]; then
-         printf "%s\n" "OpenRA Generals Alpha is up to date!"
+         printf "%s\n" "OpenRA Generals Alpha is up-to-date!"
     else
          printf "%s\n" "Updating openra-gen spec file and PKGBUILD."
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-gen/{openra-gen.spec,PKGBUILD}

@@ -12,7 +12,7 @@ function drup {
     specm=$(come openra-dr)
 
     if [[ $specn == $mastn ]]; then
-         printf "OpenRA Dark Reign is up to date!\n"
+         printf "OpenRA Dark Reign is up-to-date!\n"
     else
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-dr/{openra-dr.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-dr/{openra-dr.spec,PKGBUILD}

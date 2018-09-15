@@ -11,7 +11,7 @@ function ra2up {
     specm=$(come openra-ra2)
 
     if [[ $specn == $mastn ]]; then
-         printf "OpenRA RA2 is up to date!\n"
+         printf "OpenRA RA2 is up-to-date!\n"
     else
          printf "Updating openra-ra2 spec file and PKGBUILD.\n"
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-ra2/{openra-ra2.spec,PKGBUILD}
