@@ -9,6 +9,8 @@ pkgpver=$(cat /data/OBS/home:fusion809/snapd/snapd.spec | grep "Version:" | cut 
 
 if [[ $pkgver == $pkgpver ]]; then
     printf "spd\n"
+elif echo $pkgver | grep "2.35" > /dev/null 2>&1; then
+    printf "spd \n"
 else
     printf "spd${pkgver}\n"
 fi

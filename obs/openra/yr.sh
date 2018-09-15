@@ -9,7 +9,7 @@ function yrup {
         specm=$(come openra-yr) 
         if [[ "$specn" == "$mastn" ]]
         then
-                printf "OpenRA Yuri's Revenge is up to date!\n"
+                printf "OpenRA Yuri's Revenge is up-to-date!\n"
         else
                 sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-yr/{openra-yr.spec,PKGBUILD}
                 sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-yr/{openra-yr.spec,PKGBUILD}

@@ -5,7 +5,7 @@ do
 done
 
 cd /data/OBS/home:fusion809/notepadqq
-pkgver=$(wget -q https://github.com/notepadqq/notepadqq/releases -O - | grep "tar\.gz" | head -n 1 | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/v//g' | sed 's/\.tar\.gz//g')
+pkgver=$(wget -q https://github.com/notepadqq/notepadqq/releases -O - | grep "tar\.gz" | head -n 1 | cut -d '/' -f 5 | cut -d '"' -f 1 | grep -v "beta" | sed 's/v//g' | sed 's/\.tar\.gz//g')
 pkgpver=$(cat _service | grep gz | cut -d '/' -f 4 | head -n 1 | sed 's/v//g' | sed 's/\.tar\.gz//g' | cut -d '<' -f 1)
 
 if [[ $pkgver == $pkgpver ]]; then

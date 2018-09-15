@@ -11,7 +11,7 @@ function d2up {
     enpv=$(grep "define engine\_version" < "$HOME"/OBS/home:fusion809/openra-d2/openra-d2.spec | cut -d ' ' -f 3)
 
     if [[ $specn == $mastn ]]; then
-         printf "%s\n" "OpenRA RA2 is up to date!"
+         printf "%s\n" "OpenRA RA2 is up-to-date!"
     else
          printf "%s\n" "Updating d2 spec file and PKGBUILD."
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-d2/{openra-d2.spec,PKGBUILD}

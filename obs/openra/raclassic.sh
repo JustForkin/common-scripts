@@ -33,7 +33,7 @@ function racup {
     specm=$(come openra-raclassic)
 
     if [[ "$specn" == "$mastn" ]]; then
-         printf "%s\n" "OpenRA RA Classic is up to date!"
+         printf "%s\n" "OpenRA RA Classic is up-to-date!"
     else
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-raclassic/{openra-raclassic.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-raclassic/{openra-raclassic.spec,PKGBUILD}

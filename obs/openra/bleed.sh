@@ -8,7 +8,7 @@ function openrabup {
     specm=$(come openra-bleed)
 
     if [[ $specn == $mastn ]]; then
-         printf "%s\n" "OpenRA Bleed is up to date!"
+         printf "%s\n" "OpenRA Bleed is up-to-date!"
     else
          printf "%s\n" "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}

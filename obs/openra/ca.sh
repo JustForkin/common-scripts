@@ -12,7 +12,7 @@ function caup {
     specm=$(come openra-ca)
 
     if [[ $specn == $mastn ]]; then
-         printf "OpenRA Combined Arms is up to date!\n"
+         printf "OpenRA Combined Arms is up-to-date!\n"
     else
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-ca/{openra-ca.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-ca/{openra-ca.spec,PKGBUILD}
