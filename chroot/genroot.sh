@@ -28,7 +28,9 @@ function genroot {
 
     # Mount up ESP
     if [[ -d $root/boot/efi ]] && ! `cat /etc/mtab | grep $root/boot/efi > /dev/null 2>&1`; then
-         sudo mount /dev/$(ls -ld /dev/disk/by-label/* | grep -i EFI | cut -d '/' -f 7) $root/boot/efi
+	# Commented out command mounts up sdb2, instead of sda1
+         #sudo mount /dev/$(ls -ld /dev/disk/by-label/* | grep -i EFI | cut -d '/' -f 7) $root/boot/efi
+	sudo mount /dev/$(parted /dev/sda print | grep EFI | cut -d ' ' -f 2) $root/boot/efi
     fi
     # Check if the appropriate mount points are set up for the chroot to work
     if ! [[ -f "$root/proc/cgroups" ]]; then
