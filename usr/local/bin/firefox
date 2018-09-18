@@ -1,4 +1,6 @@
 #!/bin/bash
-if ! ps ax | grep firefox | grep -v grep > /dev/null 2>&1; then
-    /usr/bin/firefox
-fi 
+if [[ -f /usr/bin/firefox ]] ; then
+	/usr/bin/firefox "$@"
+elif [[ -f $HOME/.nix-profile/bin/firefox ]]; then
+	$HOME/.nix-profile/bin/firefox "$@"
+fi

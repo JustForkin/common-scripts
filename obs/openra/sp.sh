@@ -1,7 +1,7 @@
 function spup {
     cdgo Shattered-Paradise || exit
     splver=$(git log | head -n 1 | cut -d ' ' -f 2)
-    sppver=$(grep 'sp_commit' < /data/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define sp_commit //g')
+    sppver=$(grep 'sp_commit' < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define sp_commit //g')
     # Latest engine version
     enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
     # OpenRA engine version in spec file
@@ -9,8 +9,8 @@ function spup {
     cd ../SP-OpenRAModSDK || exit
     sdklver=$(git log | head -n 1 | cut -d ' ' -f 2)
     sdklc=$(git rev-list --brarnches master --count)
-    sdkpver=$(grep "commit" < cat /data/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define commit //g')
-    sdkpc=$(grep "Version:" < /data/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/Version:\s*//g')
+    sdkpver=$(grep "commit" < cat /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define commit //g')
+    sdkpc=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/Version:\s*//g')
 
     # If OpenRAModSDK is outdated sed update it
     if [[ "$sdklc" == "$sdkpc" ]]; then

@@ -1,8 +1,8 @@
 function sroot {
     function sbroot {
          if [[ -f /sabayon/bin/bash ]]; then
-              if ! [[ -d /sabayon/data/Programs ]]; then
-                   sudo mount /dev/sdb1 /sabayon/data
+              if ! [[ -d /sabayon/home/fusion809/Programs ]]; then
+                   sudo mount /dev/sdb1 /sabayon/home/fusion809
               fi
               genroot /sabayon
          fi
@@ -12,8 +12,8 @@ function sroot {
          sudo mount /dev/sda16 /slackware
     fi
 
-    if ! [[ -d /slackware/data/Programs ]]; then
-         sudo mount /dev/sdb1 /slackware/data
+    if ! [[ -d /slackware/home/fusion809/Programs ]]; then
+         sudo mount /dev/sdb1 /slackware/home/fusion809
     fi
 
     genroot /slackware || sbroot || genroot /scientific
