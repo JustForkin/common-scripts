@@ -3,6 +3,8 @@ function cde {
     cdgm "editors/$1"
 }
 
+alias cded=cde
+
 function cdgat {
     cde "atom/$1"
 }
