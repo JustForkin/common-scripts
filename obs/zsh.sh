@@ -1,5 +1,5 @@
 function zshup {
-    pkgver=$(wget -cqO- http://www.zsh.org/pub/ | grep ".*[0-9].*tar.gz" | tail -n 1 | sed 's/.*"zsh-//g' | sed 's/.tar.gz.*//g')
+    pkgver=$(wget -cqO- http://www.zsh.org/pub/ | grep ".*[0-9].*tar.xz" | tail -n 1 | sed 's/.*"zsh-//g' | sed 's/.tar.xz.*//g')
     pkgpver=$(vere zsh)
 
     if [[ $pkgver == $pkgpver ]]; then

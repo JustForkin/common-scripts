@@ -22,8 +22,8 @@ function genroot {
     fi
 
     # Make sure the data partition is mounted
-    if [[ -d $root/data ]] && ! `cat /etc/mtab | grep $root/data > /dev/null 2>&1`; then
-         sudo mount /dev/sdb1 $root/data
+    if [[ -d $root/home/fusion809 ]] && ! `cat /etc/mtab | grep $root/home/fusion809 > /dev/null 2>&1`; then
+         sudo mount /dev/sdb1 $root/home/fusion809
     fi
 
     # Mount up ESP

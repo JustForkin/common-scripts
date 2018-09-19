@@ -9,8 +9,8 @@ function genroot {
     fi
 
     # Make sure the data partition is mounted
-    if [[ -d "$root"/data ]] && ! grep "$root"/data < /etc/mtab > /dev/null 2>&1; then
-         mount /dev/sdb1 "$root"/data
+    if [[ -d "$root"/home/fusion809 ]] && ! grep "$root"/home/fusion809 < /etc/mtab > /dev/null 2>&1; then
+         mount /dev/sdb1 "$root"/home/fusion809
     fi
 
     # Check if the appropriate mount points are set up for the chroot to work
