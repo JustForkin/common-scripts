@@ -12,7 +12,7 @@ else
     printf "Neither cURL nor wget has been detected, please install them if not installed or add them to the system PATH if they already are.\n" && exit
 fi
 
-cd /data/OBS/home:fusion809/obs-service-download_files
+cd /home/fusion809/OBS/home:fusion809/obs-service-download_files
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 
 if ! ( [ $pkgpver == $pkgver ] ); then

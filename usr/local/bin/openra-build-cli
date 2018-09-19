@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /data/GitHub/others/OpenRA || ( printf "/home/fusion809/GitHub/others/OpenRA doesn't exist mate, therefore I am exiting\!" && exit )
+cd /home/fusion809/GitHub/others/OpenRA || ( printf "/home/fusion809/GitHub/others/OpenRA doesn't exist mate, therefore I am exiting\!" && exit )
 
 # Check for git
 if ! command -v git > /dev/null 2>&1; then

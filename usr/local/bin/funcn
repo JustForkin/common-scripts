@@ -14,10 +14,10 @@ export -f ebver
 # Determine pkgver from spec file
 function spver {
     if ! [[ -n $2 ]]; then
-         cat /data/OBS/home:fusion809/${1}/${1}.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g'
+         cat /home/fusion809/OBS/home:fusion809/${1}/${1}.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g'
     elif [[ $2 == "vim" ]]; then
-         basever=$(cat /data/OBS/home:fusion809/${1}/${1}.spec | grep "%define baseversion" | sed 's/\s*//g')
-         patver=$(cat /data/OBS/home:fusion809/${1}/${1}.spec | grep "%define patchversion" | sed 's/\s*//g')
+         basever=$(cat /home/fusion809/OBS/home:fusion809/${1}/${1}.spec | grep "%define baseversion" | sed 's/\s*//g')
+         patver=$(cat /home/fusion809/OBS/home:fusion809/${1}/${1}.spec | grep "%define patchversion" | sed 's/\s*//g')
          pkgver=${basever}.${patver}
          printf "${basever}.${patver}"
     fi

@@ -11,7 +11,7 @@ fi
 orlv=$(git rev-list --branches bleed --count)
 comm=$(git log -1 --format=%h)
 # OpenRA latest packaged version
-orpv=$(grep "Version:" < /data/OBS/home:fusion809/openra-bleed/openra-bleed.spec | sed 's/Version:\s*//g')
+orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-bleed/openra-bleed.spec | sed 's/Version:\s*//g')
 
 if ! [[ $orpv == $orlv ]]; then
     zenity --error --text="A new OpenRA bleed branch commit (${comm}) is available! To update to it run openrabup." --title="Warning!"

@@ -15,7 +15,7 @@ if ! ls /tmp | grep src > /dev/null 2>&1; then
 fi
 
 pkgver=$(cat /tmp/$(ls /tmp | grep "src-.*html" | tail -n 1) | grep obs-service-format_spec_file | cut -d '"' -f 4 | cut -d '_' -f 3 | sed 's/file-//g' | sed 's/\.src\.rpm*//g')
-cd /data/AUR/obs-service-format_spec_file
+cd /home/fusion809/AUR/obs-service-format_spec_file
 pkgpnbv=$(sed -n 's/^pkgver=//p' PKGBUILD)
 pkgpbv=$(sed -n 's/_pkgver=//p' PKGBUILD)
 pkgpver=$(echo "$pkgpnbv-$pkgpbv")
@@ -25,7 +25,7 @@ if ! [[ $pkgver == $pkgpver ]]; then
 fi
 
 pkgver=$(curl -sL https://github.com/openSUSE/obs-service-download_files/releases | grep "\.tar\.gz" | head -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5 | sed 's/\.tar\.gz//g')
-cd /data/OBS/home:fusion809/obs-service-download_files
+cd /home/fusion809/OBS/home:fusion809/obs-service-download_files
 pkgpver=$(sed -n 's/pkgver=//p' PKGBUILD)
 
 if ! ( [ $pkgpver == $pkgver ] ); then
@@ -33,7 +33,7 @@ if ! ( [ $pkgpver == $pkgver ] ); then
 fi
 
 pkgver=$(cat /tmp/src*.html | grep obs-service-source_validator | cut -d '"' -f 4 | cut -d '_' -f 2 | sed 's/validator-//g' | sed 's/\.src\.rpm*//g')
-cd /data/AUR/obs-service-source_validator
+cd /home/fusion809/AUR/obs-service-source_validator
 pkgpnbv=$(sed -n 's/^pkgver=//p' PKGBUILD)
 pkgpbv=$(sed -n 's/_pkgrel=//p' PKGBUILD)
 pkgpver=$(echo "$pkgpnbv-$pkgpbv")

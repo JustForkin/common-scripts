@@ -6,7 +6,7 @@ elif command -v curl > /dev/null 2>&1; then
 else
     zenity --error --text="Neither cURL nor wget are detected, please install them, or if installed add to system PATH." --title="Warning!" && exit
 fi
-pkgpver=$(cat /data/OBS/home:fusion809/flatpak/flatpak.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
+pkgpver=$(cat /home/fusion809/OBS/home:fusion809/flatpak/flatpak.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if ! [[ $pkgver == $pkgpver ]]; then
     zenity --error --text="A new Flatpak release (${pkgver}) is now available! To update to it run flatup." --title="Warning!"    

@@ -15,11 +15,11 @@ fi
 
 sdklv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
-sdkpv=$(cat /data/OBS/home:fusion809/openra-sp/openra-sp.spec | grep "Version:" | sed 's/Version:\s*//g')
+sdkpv=$(cat /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | grep "Version:" | sed 's/Version:\s*//g')
 
-cd /data/GitHub/others/Shattered-Paradise
+cd /home/fusion809/GitHub/others/Shattered-Paradise
 splc=$(git log | head -n 1 | cut -d ' ' -f 2)
-sppc=$(cat /data/OBS/home:fusion809/openra-sp/openra-sp.spec | grep "define sp_commit" | sed 's/%define sp_commit //g')
+sppc=$(cat /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | grep "define sp_commit" | sed 's/%define sp_commit //g')
 
 if [[ $sdkpv == $sdklv ]] && [[ $splc == $sppc ]]; then
     zenity --error --text="OpenRA Shattered Paradise, both OpenRAModSDK and Shattered Paradise repositories are up-to-date." --title="Warning!"

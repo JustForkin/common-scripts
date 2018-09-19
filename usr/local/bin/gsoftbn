@@ -14,7 +14,7 @@ else
 fi
 
 # GNOME Software Bleed latest packaged version
-orpv=$(grep "Version:" < /data/OBS/home:fusion809/gnome-software-bleed/gnome-software-bleed.spec | sed 's/Version:\s*//g')
+orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/gnome-software-bleed/gnome-software-bleed.spec | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
     printf "%s\n" "GSB"

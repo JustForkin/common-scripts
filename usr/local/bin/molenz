@@ -9,7 +9,7 @@ else
     zenity --error --text "git has not been detected in the system PATH. Please either install it, if it is not already installed, or add it to the system PATH if it already is!" --title="Warning!"
 fi
 # MoleQueue latest packaged version
-orpv=$(cat /data/OBS/home:fusion809/molequeue/molequeue.spec | grep "Version:" | sed 's/Version:\s*//g')
+orpv=$(cat /home/fusion809/OBS/home:fusion809/molequeue/molequeue.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if ! [[ $orpv == $orlv ]]; then
     zenity --error --text="A new MoleQueue commit ($comm) is available!" --title="Warning!"

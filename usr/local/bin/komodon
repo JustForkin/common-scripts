@@ -12,7 +12,7 @@ else
     printf "Neither cURL nor wget are detected, so please either install one or if already installed add them to your system PATH.\n"
 fi
 
-pkgpver=$(cat /data/OBS/home:fusion809/komodo-edit/komodo-edit.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
+pkgpver=$(cat /home/fusion809/OBS/home:fusion809/komodo-edit/komodo-edit.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if [[ $pkgver == $pkgpver ]]; then
     printf "Kom\n"

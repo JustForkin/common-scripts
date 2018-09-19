@@ -12,7 +12,7 @@ else
     printf "%s\n" "Neither cURL nor wget are detected, please install them, or if they are already installed please add them to the system PATH." && exit
 fi
 
-pkgpver=$(grep "Version:" < /data/OBS/home:fusion809/flatpak/flatpak.spec | cut -d ':' -f 2 | sed 's/\s*//g')
+pkgpver=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/flatpak/flatpak.spec | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if [[ $pkgver == $pkgpver ]]; then
     printf "%s\n" "FP"

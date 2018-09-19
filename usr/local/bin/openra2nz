@@ -12,7 +12,7 @@ fi
 orlv=$(git rev-list --branches master --count)
 comm=$(git log -1 --format=%h)
 # OpenRA latest packaged version
-orpv=$(cat /data/OBS/home:fusion809/openra-ra2/openra-ra2.spec | grep "Version:" | sed 's/Version:\s*//g')
+orpv=$(cat /home/fusion809/OBS/home:fusion809/openra-ra2/openra-ra2.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if ! [[ "$orpv" == "$orlv" ]]; then
     zenity --error --text="A new OpenRA Red Alert 2 mod commit (${comm}) is available! To update to it run ra2up." --title="Warning!"

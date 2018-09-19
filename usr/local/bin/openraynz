@@ -8,7 +8,7 @@ git pull origin master -q
 orlv=$(git rev-list --branches master --count)
 comm=$(git log -1 --format=%h)
 # OpenRA latest packaged version
-orpv=$(cat /data/OBS/home:fusion809/openra-yr/openra-yr.spec | grep "Version:" | sed 's/Version:\s*//g')
+orpv=$(cat /home/fusion809/OBS/home:fusion809/openra-yr/openra-yr.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if ! [[ $orpv == $orlv ]]; then
     zenity --error --text="A new OpenRA yr mod commit (${pkgver}) is available, to upgrade to it run drup!" --title="Warning!"

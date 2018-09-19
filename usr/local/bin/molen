@@ -14,7 +14,7 @@ else
 fi
 
 # Avogadro 2 latest packaged version
-orpv=$(cat /data/OBS/home:fusion809/molequeue/molequeue.spec | grep "Version:" | sed 's/Version:\s*//g')
+orpv=$(cat /home/fusion809/OBS/home:fusion809/molequeue/molequeue.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
     printf "MolQ \n"

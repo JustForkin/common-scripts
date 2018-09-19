@@ -15,7 +15,7 @@ fi
 
 orlv=$(git rev-list --branches bleed --count)
 # OpenRA latest packaged version
-orpv=$(grep "Version:" < /data/OBS/home:fusion809/openra-bleed/openra-bleed.spec | sed 's/Version:\s*//g')
+orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-bleed/openra-bleed.spec | sed 's/Version:\s*//g')
 
 if [[ "$orpv" == "$orlv" ]]; then
     printf "%s\n" "ORAB "

@@ -12,7 +12,7 @@ fi
 git pull origin master -q
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
-orpv=$(grep "Version:" < /data/OBS/home:fusion809/openra-ra2/openra-ra2.spec | sed 's/Version:\s*//g')
+orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-ra2/openra-ra2.spec | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
     printf "%s\n" "ORA2 "

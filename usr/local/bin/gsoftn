@@ -12,7 +12,7 @@ else
     printf "Neither cURL nor wget have been found, please install them, or if already installed, add them to the system PATH.\n" && exit
 fi
 
-pkgpver=$(grep "Version:" < /data/OBS/home:fusion809/gnome-software/gnome-software.spec | cut -d ':' -f 2 | sed 's/\s*//g')
+pkgpver=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/gnome-software/gnome-software.spec | cut -d ':' -f 2 | sed 's/\s*//g')
 
 if [[ $pkgver == $pkgpver ]]; then
     printf "%s\n" "GS"

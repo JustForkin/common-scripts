@@ -16,7 +16,7 @@ else
 fi
 
 # Avogadro 2 latest packaged version
-orpv=$(grep "Version:" < /data/OBS/home:fusion809/avogadro2/avogadro2.spec | sed 's/Version:\s*//g')
+orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/avogadro2/avogadro2.spec | sed 's/Version:\s*//g')
 
 if [[ "$orpv" == "$orlv" ]]; then
     printf "%s\n" "AvoA "

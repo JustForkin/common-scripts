@@ -1,5 +1,5 @@
 #!/bin/bash
-export DIR=/data/Documents/CodeLite/CPP-Math-Projects
+export DIR=/home/fusion809/Documents/CodeLite/CPP-Math-Projects
 pushd $DIR
 /usr/bin/gvim
 popd
