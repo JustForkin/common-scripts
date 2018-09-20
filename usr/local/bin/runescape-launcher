@@ -1,0 +1,6 @@
+#!/bin/bash
+if [[ -f /usr/bin/runescape-launcher ]]; then
+	/usr/bin/runescape-launcher "$@"
+else
+	flatpak run com.jagex.RuneScape
+fi
