@@ -4,17 +4,13 @@ function cdp {
 }
 
 function cdpa {
-    if [[ -d $HOME/Programs/AppImage ]]; then
-         cdp AppImage/$1
-    elif [[ -d $HOME/Programs/AppImages ]]; then
-         cdp AppImages/$1
-    else
-         read -p "No AppImage directory found at ~/Programs/AppImage, or ~/Programs/AppImages. Would you like you edit the file in which this function was defined?\n" yn
-         case $yn in
-              [Yy]* ) vim $HOME/Shell/common-scripts/cd.sh
-         esac
-    fi
+	mkdir -p $HOME/Applications
+	cd $HOME/Applications
 }
+
+alias cdAp=cdpa
+alias cddap=cdpa
+alias cdapi=cdpa
 
 function cdpd {
     cdp Deb/$1
