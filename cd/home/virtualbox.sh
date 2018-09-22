@@ -1,9 +1,9 @@
-function cdvm {
+function cdvbm {
     cd $HOME/"VirtualBox VMs"/$1
 } 
 
 function cdvi {
-    cdvm "ISOs/$1"
+    cdvbm "ISOs/$1"
 }
 
 function cdvil {
