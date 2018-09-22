@@ -2,6 +2,8 @@ function cdd {
     cd $HOME/Documents/$1
 }
 
+alias cddc=cdd
+
 function cdcfe {
     cdd "CodeLite/CPP-Math-Projects/$1"
 }
