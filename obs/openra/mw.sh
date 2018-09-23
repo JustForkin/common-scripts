@@ -11,7 +11,7 @@ function mwup {
 	specm=$(grep "define commit" < "$HOME"/OBS/home:fusion809/openra-mw/openra-mw.spec | cut -d ' ' -f 3)
 
 	if [[ $specn == $mastn ]]; then
-		printf "%s\n" "OpenRA Medieval Warfare mod is up to date\!"
+		printf "%s\n" "OpenRA Medieval Warfare mod is up to date!"
 	else
 		sed -i -e "s/$specn/$mastn/g" "$HOME"/OBS/home:fusion809/openra-mw/{openra-mw.spec,PKGBUILD}
 		sed -i -e "s/$specm/$comm/g" "$HOME"/OBS/home:fusion809/openra-mw/{openra-mw.spec,PKGBUILD}

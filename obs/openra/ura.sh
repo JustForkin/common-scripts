@@ -11,7 +11,7 @@ function uRAup {
     specm=$(grep "define commit" < "$OBSH"/openra-ura/openra-ura.spec | cut -d ' ' -f 3)
 
     if [[ "$specn" == "$mastn" ]]; then
-         printf "%s\n" "OpenRA Red Alert Unplugged mod is up to date\!"
+         printf "%s\n" "OpenRA Red Alert Unplugged mod is up to date!"
     else
          sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD}
          sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD}
