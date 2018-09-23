@@ -5,7 +5,8 @@ do
 done
 
 # OpenBabel latest version available
-cd /home/fusion809/GitHub/others/openbabel
+cd /home/fusion809/GitHub/others/openbabel || exit
+git stash -q || exit
 if command -v git > /dev/null 2>&1; then
     git pull origin master -q || ( printf "OBErr\n" && exit )
     orlv=$(git rev-list --branches master --count)

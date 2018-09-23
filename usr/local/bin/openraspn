@@ -5,7 +5,8 @@ do
 done
 
 # OpenRA latest commit on the bleed branch available
-cd /home/fusion809/GitHub/others/SP-OpenRAModSDK
+cd /home/fusion809/GitHub/others/SP-OpenRAModSDK || exit
+git stash -q || exit
 # update repository
 if command -v git > /dev/null 2>&1; then
     git pull origin master -q || ( printf "ORASSPrr\n" && exit )

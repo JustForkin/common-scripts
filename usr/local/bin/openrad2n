@@ -5,7 +5,8 @@ do
 done
 
 # OpenRA Red Alert 2 mod latest commit available
-cd /home/fusion809/GitHub/others/d2
+cd /home/fusion809/GitHub/others/d2 || exit
+git stash -q || exit
 if ! command -v git > /dev/null 2>&1; then
     printf "git is not detected, please install it and if already installed add it to your system PATH!\n" && exit
 fi

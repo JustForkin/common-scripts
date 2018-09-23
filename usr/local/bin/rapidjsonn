@@ -5,8 +5,9 @@ do
 done
 
 # Avogadro 2 latest version available
-cd /home/fusion809/GitHub/others/rapidjson
-if command -v git > /dev/null 2>&1; then
+cd /home/fusion809/GitHub/others/rapidjson || exit
+git stash -q || exit
+if command -v git > /dev/null 2>&1; then 
     git pull origin master -q || ( printf "RJSONErr\n" && exit )
     orlv=$(git rev-list --branches master --count)
 else

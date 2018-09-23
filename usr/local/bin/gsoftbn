@@ -6,6 +6,7 @@ done
 
 # GNOME Software Bleed latest version available
 cd /home/fusion809/GitHub/others/gnome-software || exit
+git stash -q || exit
 if command -v git > /dev/null 2>&1; then
     git pull origin master -q  || ( printf "GSBErr\n" && exit )
     orlv=$(git rev-list --branches master --count)

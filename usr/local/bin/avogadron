@@ -7,6 +7,7 @@ done
 # Avogadro 2 latest version available
 cd /home/fusion809/GitHub/others/avogadroapp || exit
 
+git stash -q || exit
 # Check for git command
 if command -v git > /dev/null 2>&1; then
     git pull origin master -q || ( printf "AvoAErr\n" && exit )

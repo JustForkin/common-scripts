@@ -5,7 +5,8 @@ do
 done
 
 # OpenRA Generals Alpha latest commit available
-cd /home/fusion809/GitHub/others/yr
+cd /home/fusion809/GitHub/others/yr || exit
+git stash -q || exit
 if ! command -v git > /dev/null 2>&1; then
     printf "git is not detected, either install it or if already installed at it to the system PATH.\n" && exit
 fi
