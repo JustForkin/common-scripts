@@ -6,24 +6,24 @@ function otroot {
     if ! cat /etc/mtab | grep -i tumbleweed > /dev/null 2>&1 ; then
          if [[ -d /tumbleweed ]]; then
               sudo mount /dev/$root /tumbleweed
-              genroot /tumbleweed
+              genbasic /tumbleweed
          elif [[ -d /opensuse-tumbleweed ]]; then
               sudo mount /dev/$root /opensuse-tumbleweed
-              genroot /opensuse-tumbleweed
+              genbasic /opensuse-tumbleweed
          elif [[ -d /ot ]]; then
               sudo mount /dev/$root /ot
-              genroot /ot
+              genbasic /ot
          elif [[ -d /opensuse && ! -d /opensuse/bin ]]; then
               sudo mount /dev/$root /opensuse
-              genroot /opensuse
+              genbasic /opensuse
          else
               printf "Suitable mount point not found, so making /tumbleweed directory.\n"
               sudo mkdir /tumbleweed
               sudo mount /dev/$root /tumbleweed
-              genroot /tumbleweed
+              genbasic /tumbleweed
          fi
     else
-         genroot $(cat /etc/mtab | grep tumbleweed | head -n 1 | cut -d ' ' -f 2)
+         genbasic $(cat /etc/mtab | grep tumbleweed | head -n 1 | cut -d ' ' -f 2)
     fi
 }
 
@@ -35,24 +35,24 @@ function olroot {
     if ! cat /etc/mtab | grep -i leap > /dev/null 2>&1 ; then
          if [[ -d /leap ]]; then
               sudo mount /dev/$root /leap
-              genroot /leap
+              genbasic /leap
          elif [[ -d /opensuse-leap ]]; then
               sudo mount /dev/$root /opensuse-leap
-              genroot /opensuse-leap
+              genbasic /opensuse-leap
          elif [[ -d /ol ]]; then
               sudo mount /dev/$root /ol
-              genroot /ol
+              genbasic /ol
          elif [[ -d /opensuse && ! -d /opensuse/bin ]]; then
               sudo mount /dev/$root /opensuse
-              genroot /opensuse
+              genbasic /opensuse
          else
               printf "Suitable mount point not found, so making /leap directory.\n"
               sudo mkdir /leap
               sudo mount /dev/$root /leap
-              genroot /leap
+              genbasic /leap
          fi
     else
-         genroot $(cat /etc/mtab | grep leap | head -n 1 | cut -d ' ' -f 2)
+         genbasic $(cat /etc/mtab | grep leap | head -n 1 | cut -d ' ' -f 2)
     fi
 }
 
