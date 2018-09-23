@@ -9,7 +9,7 @@ cd /home/fusion809/GitHub/others/ra2
 if ! command -v git > /dev/null 2>&1; then
     printf "%s\n" "git is not detected, please install it and if already installed add it to your system PATH!" && exit
 fi
-git pull origin master -q || printf "ORA2Err\n" && exit
+git pull origin master -q || ( printf "ORA2Err\n" && exit )
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
 orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-ra2/openra-ra2.spec | sed 's/Version:\s*//g')
