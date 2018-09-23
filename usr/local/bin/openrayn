@@ -9,7 +9,7 @@ cd /home/fusion809/GitHub/others/yr
 if ! command -v git > /dev/null 2>&1; then
     printf "git is not detected, either install it or if already installed at it to the system PATH.\n" && exit
 fi
-git pull origin master -q
+git pull origin master -q || printf "ORAYRErr\n" && exit
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
 orpv=$(cat /home/fusion809/OBS/home:fusion809/openra-yr/openra-yr.spec | grep "Version:" | sed 's/Version:\s*//g')
