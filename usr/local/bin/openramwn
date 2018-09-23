@@ -5,11 +5,12 @@ do
 done
 
 # OpenRA Dark Reign latest commit available
-cd /home/fusion809/GitHub/others/Medieval-Warfare
+cd /home/fusion809/GitHub/others/Medieval-Warfare || exit
+git stash -q || exit
 if ! command -v git > /dev/null 2>&1; then
     printf "git is not detected, either install it or if already installed at it to the system PATH.\n" && exit
 fi
-git pull origin Next -q || printf "ORAMWErr\n" && exit
+git pull origin Next -q || ( printf "ORAMWErr\n" && exit )
 orlv=$(git rev-list --branches Next --count)
 # OpenRA latest packaged version
 orpv=$(cat /home/fusion809/OBS/home:fusion809/openra-mw/openra-mw.spec | grep "Version:" | sed 's/Version:\s*//g')

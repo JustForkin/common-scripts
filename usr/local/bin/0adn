@@ -7,9 +7,10 @@ do
     sleep 60
 done
 
+git stash -q || exit
 # update repository
 if command -v git > /dev/null 2>&1; then
-    git pull origin master -q || printf "0adErr\n" && exit
+    git pull origin master -q || ( printf "0adErr\n" && exit )
 else
     printf "%s\n" "git isn't found. Please install it, or if it is installed edit your system PATH." && exit
 fi

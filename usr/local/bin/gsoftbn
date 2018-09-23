@@ -6,8 +6,9 @@ done
 
 # GNOME Software Bleed latest version available
 cd /home/fusion809/GitHub/others/gnome-software || exit
+git stash -q || exit
 if command -v git > /dev/null 2>&1; then
-    git pull origin master -q  || printf "GSBErr\n" && exit
+    git pull origin master -q  || ( printf "GSBErr\n" && exit )
     orlv=$(git rev-list --branches master --count)
 else
     printf "git has not been detected in the system PATH. Please either install it, if it is not already installed, or add it to the system PATH if it already is.\n"

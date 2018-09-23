@@ -6,11 +6,12 @@ done
 
 # OpenRA Red Alert Unplugged mod latest commit available
 OBS_PATH="/home/fusion809/OBS/home:fusion809/openra-ura"
-cd /home/fusion809/GitHub/others/uRA
+cd /home/fusion809/GitHub/others/uRA || exit
+git stash -q || exit
 if ! command -v git > /dev/null 2>&1; then
     printf "git is not detected, please install it and if already installed add it to your system PATH!\n" && exit
 fi
-git pull origin master -q || printf "ORAuErr\n" && exit
+git pull origin master -q || ( printf "ORAuErr\n" && exit )
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
 orpv=$(cat $OBS_PATH/openra-ura.spec | grep "Version:" | sed 's/Version:\s*//g')
