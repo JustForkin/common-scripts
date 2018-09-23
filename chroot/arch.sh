@@ -1,3 +1,3 @@
 function aroot {
-    genroot /arch
+    genbasic /arch
 }
