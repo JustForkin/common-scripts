@@ -8,7 +8,7 @@ done
 cd /home/fusion809/GitHub/others/SP-OpenRAModSDK
 # update repository
 if command -v git > /dev/null 2>&1; then
-    git pull origin master -q
+    git pull origin master -q || printf "ORASSPrr\n" && exit
 else
     printf "git isn't found. Please install it, or if it is installed edit your system PATH." && exit
 fi
