@@ -5,8 +5,8 @@
 # Sign in with SSH at startup
 # Makes contributing to GitHub projects a lot simpler.
 #if grep -i "Void\|Gentoo" < /etc/os-release > /dev/null 2>&1 ; then
-    eval `keychain -q --eval aur` &> /tmp/aur.log
-    eval `keychain -q --eval id_rsa` &> /tmp/id_rsa.log
+    eval `keychain -q --eval aur` | tee -a /tmp/aur.log
+    eval `keychain -q --eval id_rsa` | tee -a /tmp/id_rsa.log
 #else
 #    if [[ -a "$HOME/.ssh/environment" ]]; then
 #       	SSH_ENV="$HOME/.ssh/environment"
