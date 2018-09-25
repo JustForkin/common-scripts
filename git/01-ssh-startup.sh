@@ -5,8 +5,13 @@
 # Sign in with SSH at startup
 # Makes contributing to GitHub projects a lot simpler.
 #if grep -i "Void\|Gentoo" < /etc/os-release > /dev/null 2>&1 ; then
-    eval `keychain -q --eval aur` | tee -a /tmp/aur.log
-    eval `keychain -q --eval id_rsa` | tee -a /tmp/id_rsa.log
+#    eval `keychain -q --eval aur` | tee -a /tmp/aur.log
+#    eval `keychain -q --eval id_rsa` | tee -a /tmp/id_rsa.log
+if ! ps ax | grep ssh > /dev/null 2>&1 ; then
+	eval ssh-agent $SHELL
+	ssh-add ~/.ssh/aur
+	ssh-add ~/.ssh/id_rsa
+fi
 #else
 #    if [[ -a "$HOME/.ssh/environment" ]]; then
 #       	SSH_ENV="$HOME/.ssh/environment"
