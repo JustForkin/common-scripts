@@ -1,6 +1,6 @@
 function vcl {
 	if ls | grep "hange" > /dev/null 2>&1; then
-		vim *hange*
+		vim ./*hange*
 	else
 		printf "No *hang* file is found.\n"
 	fi
@@ -22,29 +22,29 @@ function vrl {
 }
 
 function ved {
-	vim ${PWD/*\//}-*.ebuild
+	vim "${PWD/*\//}-*.ebuild"
 }
 
 function vsl {
-	vim $HOME/SlackBuilds
+	vim "$HOME/SlackBuilds"
 }
 
 function vsp {
-	specl=$(ls | grep "\.spec")
+	specl=$(ls "*\.spec")
 	specln=$(echo $specl | wc -l)
 	if [[ $specln > 1 ]] && [[ -f $(basename $PWD).spec ]]; then
-		 vim $(basename $PWD).spec
+		 vim "$(basename $PWD).spec"
 	elif [[ $specl > 1 ]]; then
-		 vim $(echo $specl | head -n 1) 
+		 vim "$(echo $specl | head -n 1)" 
 	else
-		 vim $(basename $PWD).spec
+		 vim "$(basename $PWD).spec"
 	fi
 }
 
 function vyl {
-	if `ls .*.yml > /dev/null 2>&1`; then
+	if ls .*.yml > /dev/null 2>&1; then
 		 vim .*.yml
-	elif `ls *.yml > /dev/null 2>&1`; then
+	elif ls *.yml > /dev/null 2>&1; then
 		 vim *.yml
 	fi
 }

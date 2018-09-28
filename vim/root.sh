@@ -3,9 +3,9 @@ function vfs {
 }
 
 function vpc {
-    if `cat /etc/os-release | grep "Arch" > /dev/null 2>&1`; then
+    if grep "Arch" < /etc/os-release > /dev/null 2>&1; then
          sudo vim /etc/pacman.conf
-    elif `cat /etc/os-release | grep "Gentoo" > /dev/null 2>&1`; then
+    elif grep "Gentoo" < /etc/os-release > /dev/null 2>&1; then
          sudo vim /etc/portage/repos.conf
     fi
 }
