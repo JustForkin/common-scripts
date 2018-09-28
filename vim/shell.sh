@@ -3,11 +3,11 @@ function vbash {
 }
 
 function gvsh {
-    gvd $HOME/Shell/$1
+    gvd "$HOME/Shell/$1"
 }
 
 function vsh {
-    vd $HOME/Shell/$1
+    vd "$HOME/Shell/$1"
 }
 
 function vzsh {

@@ -47,7 +47,7 @@ function vrl {
 function vrm {
     # If a README exists, open it to edit it
     # otherwise create one written in markdown
-    if grep README < "*" > /dev/null 2>&1`; then
+    if grep README < "*" > /dev/null 2>&1 ; then
          vim README*
     else
          vim README.md

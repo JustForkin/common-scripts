@@ -1,11 +1,11 @@
 function gvd {
-    pushd $1
+    pushd $1 || exit
     gvim
-    popd
+    popd || exit
 }
 
 function vd {
-    pushd $1
+    pushd $1 || exit
     vim
-    popd
+    popd || exit
 }
