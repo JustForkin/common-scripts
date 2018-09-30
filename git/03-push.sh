@@ -6,11 +6,15 @@ function comno {
     git rev-list --branches "$(git-branch)" --count
 }
 
+function pushop {
+	git push origin "$(git-branch)"
+}
+
 ## Minimal version
 function pushm {
     git add --all                                        # Add all files to git
     git commit -m "$1"                                   # Commit with message = argument 1
-    git push origin "$(git-branch)"                        # Push to the current branch
+    pushop			                         # Push to the current branch
 }
 
 function pusht {
