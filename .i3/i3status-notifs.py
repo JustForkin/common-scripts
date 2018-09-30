@@ -163,16 +163,6 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/gsoftbn",
-    color="#AA99FF",
-    interval=300)
-
-status.register("shell",
-    command="/usr/local/bin/gsoftn",
-    color="#FF76DD",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/flatn",
     color="#4EC756",
     interval=300)
