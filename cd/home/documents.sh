@@ -13,5 +13,12 @@ function cddman {
 }
 
 function cdtx {
-    cdd "Text files/$1"
+	if [[ -d $HOME/Documents/"Text-files" ]]; then
+		cdd "Text-files/$1"
+	elif [[ -d $HOME/Documents/"Text files" ]]; then
+		cdd "Text files/$1"
+	else
+		mkdir -p "$HOME/Documents/Text-files"
+		cdd "Text-filese/$1"
+	fi
 }
