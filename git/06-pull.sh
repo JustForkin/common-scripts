@@ -12,3 +12,11 @@ function gitup {
          popd || exit
     done
 }
+
+function pullpush {
+	pullop
+	pushop
+}
+
+alias pull-push=pullpush
+alias pullsh=pullpush
