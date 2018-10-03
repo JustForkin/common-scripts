@@ -1,0 +1,8 @@
+#!/bin/bash
+space() {
+	USED=$(sudo btrfs fi show | head -n 3 | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} "devid" | cut -d ' ' -f 9 | sed 's/GiB//g')
+	TOTAL=$(sudo btrfs fi show | head -n 3 | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn} "devid" | cut -d ' ' -f 7 | sed 's/GiB/G/g')
+	printf "${USED}/${TOTAL}"
+}
+
+printf "/ $(space)\n"
