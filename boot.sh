@@ -7,7 +7,7 @@ function newld {
 		EFI=grubx64.efi
 	fi
 
-	sudo efibootmgr --create --disk /dev/sda --part 1 --label "$1" --loader "/EFI/$2/$EFI"
+	sudo efibootmgr --create --disk /dev/sda --part 2 --label "$1" --loader "/EFI/$2/$EFI"
 }
 
 alias efinld=newld
