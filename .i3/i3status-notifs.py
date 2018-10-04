@@ -168,11 +168,6 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/dtermn",
-    color="#FAE396",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/avogadroln",
     color="#F3FF22",
     interval=300)
