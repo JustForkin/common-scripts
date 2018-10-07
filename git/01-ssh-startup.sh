@@ -13,10 +13,6 @@ function start_agent {
 	ssh-add ~/.ssh/aur
  	ssh-add ~/.ssh/id_rsa
 }
-if ! [[ -f /tmp/"$OSYS-aur.log" ]] ; then
-	start_agent
-fi
-#else
 #    if [[ -a "$HOME/.ssh/environment" ]]; then
 #       	SSH_ENV="$HOME/.ssh/environment"
 #    elif [[ "$USER" == fusion809 ]] && ! [[ -f "$HOME/.ssh/id_rsa.pub" ]]; then
