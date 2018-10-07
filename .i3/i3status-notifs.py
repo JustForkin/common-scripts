@@ -99,7 +99,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/openracn",
-    color="#FF669F",
+    color="#FFAACF",
     interval=300)
 
 status.register("shell",
@@ -134,7 +134,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/openbabeln",
-    color="#F32CF5",
+    color="#F65FF8",
     interval=300)
 
 status.register("shell",
