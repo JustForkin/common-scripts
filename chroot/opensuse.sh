@@ -55,9 +55,3 @@ function olroot {
          genbasic $(cat /etc/mtab | grep leap | head -n 1 | cut -d ' ' -f 2)
     fi
 }
-
-if ls -ld /dev/disk/by-label/* | grep -i tumbleweed > /dev/null 2>&1 ; then
-    alias oroot=otroot
-else
-    alias oroot=olroot
-fi
