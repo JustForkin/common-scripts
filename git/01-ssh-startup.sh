@@ -8,10 +8,13 @@
 #    eval `keychain -q --eval aur` | tee -a /tmp/aur.log
 #    eval `keychain -q --eval id_rsa` | tee -a /tmp/id_rsa.log
 OSYS=$(cat /etc/os-release | grep "PRETTY_NAME" | cut -d '"' -f 2 | cut -d '/' -f 1)
-if ! [[ -f /tmp/"$OSYS-aur.log" ]] ; then
+function start_agent {
 	eval ssh-agent $SHELL
-	ssh-add ~/.ssh/aur | tee -a /tmp/"$OSYS-aur.log"
-	ssh-add ~/.ssh/id_rsa | tee -a /tmp/"$OSYS-id_rsa.log"
+	ssh-add ~/.ssh/aur
+ 	ssh-add ~/.ssh/id_rsa
+}
+if ! [[ -f /tmp/"$OSYS-aur.log" ]] ; then
+	start_agent
 fi
 #else
 #    if [[ -a "$HOME/.ssh/environment" ]]; then
