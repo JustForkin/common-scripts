@@ -7,11 +7,12 @@
 #if grep -i "Void\|Gentoo" < /etc/os-release > /dev/null 2>&1 ; then
 #    eval `keychain -q --eval aur` | tee -a /tmp/aur.log
 #    eval `keychain -q --eval id_rsa` | tee -a /tmp/id_rsa.log
-	if ! [[ -f /tmp/aur.log ]] ; then
+OSYS=$(cat /etc/os-release | grep "PRETTY_NAME" | cut -d '"' -f 2 | cut -d '/' -f 1)
+if ! [[ -f /tmp/$OSYS-aur.log ]] ; then
 	eval ssh-agent $SHELL
-	ssh-add ~/.ssh/aur | tee -a /tmp/aur.log
-	ssh-add ~/.ssh/id_rsa | tee -a /tmp/id_rsa.log
-	fi
+	ssh-add ~/.ssh/aur | tee -a /tmp/$OSYS-aur.log
+	ssh-add ~/.ssh/id_rsa | tee -a /tmp/$OSYS-id_rsa.log
+fi
 #else
 #    if [[ -a "$HOME/.ssh/environment" ]]; then
 #       	SSH_ENV="$HOME/.ssh/environment"
