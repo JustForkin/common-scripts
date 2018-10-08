@@ -33,11 +33,13 @@ function vsp {
 	specl=$(ls "*\.spec")
 	specln=$(echo $specl | wc -l)
 	if [[ $specln > 1 ]] && [[ -f $(basename $PWD).spec ]]; then
-		 vim "$(basename $PWD).spec"
+		vim "$(basename $PWD).spec"
 	elif [[ $specl > 1 ]]; then
-		 vim "$(echo $specl | head -n 1)" 
+		vim "$(echo $specl | head -n 1)" 
+	elif [[ $specl == 1 ]]; then
+		vim *.spec
 	else
-		 vim "$(basename $PWD).spec"
+		vim "$(basename $PWD).spec"
 	fi
 }
 
