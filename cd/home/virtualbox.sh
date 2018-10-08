@@ -1,20 +1,23 @@
 function cdvbm {
-    cd $HOME/"VirtualBox VMs"/$1
+	cd $HOME/"VirtualBox VMs"/$1
 } 
 
 function cdvi {
-    cdvbm "ISOs/$1"
+	cdvbm "iso/$1"
 }
 
 function cdvil {
-    cdvi "Linux/$1"
+	cdvi "Linux/$1"
 }
 
 function cdvid {
-    cdvil "Debian/$1"
+	cdvil "Debian/$1"
 }
  
 function cdviu {
-    cdvil "Ubuntu/$1"
+	cdvil "Ubuntu/$1"
 }
 
+function cdvbim {
+	cdvbm "img/$1"
+}
