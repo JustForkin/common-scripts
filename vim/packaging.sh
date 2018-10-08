@@ -30,7 +30,7 @@ function vsl {
 }
 
 function vsp {
-	specl=$(ls "*\.spec")
+	specl=$(ls *\.spec)
 	specln=$(echo $specl | wc -l)
 	if [[ $specln > 1 ]] && [[ -f $(basename $PWD).spec ]]; then
 		vim "$(basename $PWD).spec"
