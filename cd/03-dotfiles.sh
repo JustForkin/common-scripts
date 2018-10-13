@@ -18,6 +18,10 @@ function cdl {
     cd $HOME/.local/$1
 }
 
+function cdlb {
+    cdl "bin/$1"
+}
+
 function cdls {
     cdl "share/$1"
 }
