@@ -3,33 +3,35 @@ if ! [[ -d /run/current-system/sw/bin ]]; then
 fi
 
 if [[ -f /etc/ssl/ca-bundle.pem ]]; then
-    export NIX_SSL_CERT_FILE=/etc/ssl/ca-bundle.pem
+	export NIX_SSL_CERT_FILE=/etc/ssl/ca-bundle.pem
 elif [[ -f /etc/ssl/certs/ca-certificates.crt ]]; then
-    export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+	export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+elif [[ -f /etc/ssl/certs/ca-bundle.crt ]]; then
+	export NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt
 fi
 
 if ! [[ -f $HOME/.config/nixpkgs/config.nix ]]; then
-    mkdir -p $HOME/.config/nixpkgs
-    printf "{ allowUnfree = true; }" > $HOME/.config/nixpkgs/config.nix
+	mkdir -p $HOME/.config/nixpkgs
+	printf "{ allowUnfree = true; }" > $HOME/.config/nixpkgs/config.nix
 fi
 
 function nixup {
-    nix-channel --update && nix-env --upgrade
+	nix-channel --update && nix-env --upgrade
 }
 
 function nixr {
-    nix-env --uninstall "$@"
+	nix-env --uninstall "$@"
 }
 
 function nixs {
-    nix search "$@"
+	nix search "$@"
 }
 
 function nixi {
-    nix-env -i "$@"
+	nix-env -i "$@"
 }
 
 # Install from Nix file
 function nixif {
-    nix-env -if "$@"
+	nix-env -if "$@"
 }

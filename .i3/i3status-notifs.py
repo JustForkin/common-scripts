@@ -43,8 +43,8 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/pymoln",
-    color="#02F5AC",
+    command="/usr/local/bin/rofin",
+    color="#CCFFAA",
     interval=300)
 
 status.register("shell",

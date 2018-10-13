@@ -1,6 +1,6 @@
 function pymolup {
     cdobsh pymol
-    pkgver=$(curl -sL http://sourceforge.net/projects/pymol | grep "\.tar\.bz2" | cut -d '"' -f 4 | cut -d ' ' -f 2 | sed 's/pymol\-v//g' | sed 's/\.tar\.bz2//g')
+    pkgver=$(wget -cqO - https://pymol.org/2/ | grep "tar." | grep "Linux" | cut -d '-' -f 2 | cut -d '_' -f 1)
     pkgpver=$(cat pymol.spec | grep "Version:" | cut -d ':' -f 2 | sed 's/\s*//g' | sed 's/\.svn[0-9]*//g')
 
     if [[ $pkgver == $pkgpver ]]; then
