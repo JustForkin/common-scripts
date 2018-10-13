@@ -1,4 +1,6 @@
-export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$USER/channels/nixpkgs
+if ! [[ -d /run/current-system/sw/bin ]]; then
+	export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$USER/channels/nixpkgs
+fi
 
 if [[ -f /etc/ssl/ca-bundle.pem ]]; then
     export NIX_SSL_CERT_FILE=/etc/ssl/ca-bundle.pem
