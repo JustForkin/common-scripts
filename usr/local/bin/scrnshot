@@ -24,6 +24,10 @@ if ps ax | grep "i3" > /dev/null 2>&1; then
 	XDG_SESSION_DESKTOP=i3
 fi
 
+if [[ -n "$1" ]]; then
+	sleep "$1"
+fi
+
 if [[ -n $VERSION ]]; then
 	mkdir -p "/home/fusion809/Pictures/Screenshots/${XDG_SESSION_DESKTOP}/${OS}-${VERSION}"
 	import -window root -frame -silent "/home/fusion809/Pictures/Screenshots/${XDG_SESSION_DESKTOP}/${OS}-${VERSION}/Screenshot_${Y}${m}${D}_${H}${M}${S}.png" || zenity --error --text="Screenshot command:\n<span bgcolor='#CCCCCC'><tt>import -window root -frame -silent \"/home/fusion809/Pictures/Screenshots/${XDG_SESSION_DESKTOP}/${OS}-${VERSION}/Screenshot_${Y}${m}${D}_${H}${M}${S}.png\"</tt></span>" --width=1000 
