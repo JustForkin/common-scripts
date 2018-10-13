@@ -1,15 +1,15 @@
 function droot {
     if [[ $DISTRO == "debian" ]]; then
-         genroot /deepin
+         genbasic /deepin
     else
-         genroot /debian
+         genbasic /debian
     fi
 }
 
 function dproot {
-    genroot /deepin
+    genbasic /deepin
 }
 
 function duroot {
-    genroot /debian-unstable
+    genbasic /debian-unstable
 }

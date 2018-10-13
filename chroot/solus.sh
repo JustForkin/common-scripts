@@ -1,3 +1,3 @@
 function soroot {
-    genroot /solus
+    genbasic /solus
 }

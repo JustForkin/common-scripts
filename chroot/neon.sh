@@ -1,7 +1,7 @@
 function nroot {
-    genroot /neon
+    genbasic /neon
 }
 
 function nuroot {
-    genroot /neon-user
+    genbasic /neon-user
 }

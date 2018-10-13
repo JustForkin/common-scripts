@@ -1,3 +1,3 @@
 function mroot {
-    genroot /mageia
+    genbasic /mageia
 }

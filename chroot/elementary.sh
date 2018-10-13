@@ -1,3 +1,3 @@
 function eroot {
-    genroot /elementary
+    genbasic /elementary
 }

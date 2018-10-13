@@ -1,7 +1,7 @@
 function lroot {
     if [[ -d /linuxmint ]]; then
-         genroot /linuxmint
+         genbasic /linuxmint
     elif [[ -d /mint ]]; then
-         genroot /mint
+         genbasic /mint
     fi
 }

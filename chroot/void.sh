@@ -1,3 +1,3 @@
 function vroot {
-    genroot /void
+    genbasic /void
 }

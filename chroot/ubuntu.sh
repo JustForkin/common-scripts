@@ -1,3 +1,3 @@
 function uroot {
-    genroot /ubuntu
+    genbasic /ubuntu
 }

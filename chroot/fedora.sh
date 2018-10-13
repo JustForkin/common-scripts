@@ -1,9 +1,9 @@
 function froot {
-    genroot /fedora
+    genbasic /fedora
 }
 
 function rroot {
-    genroot /rawhide
+    genbasic /rawhide
 }
 
 alias frroot=rroot

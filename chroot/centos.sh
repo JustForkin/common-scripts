@@ -6,5 +6,5 @@ function croot {
 	fi
 	sudo mount /dev/mapper/$PART /centos
 	sudo mount /dev/$BOOT_PART /centos/boot
-	genroot /centos
+	genbasic /centos
 }

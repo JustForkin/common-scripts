@@ -1,3 +1,3 @@
 function proot {
-    genroot /pclinuxos
+    genbasic /pclinuxos
 }

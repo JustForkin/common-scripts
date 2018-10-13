@@ -1,7 +1,7 @@
 function sleroot {
     if [[ -d /sle ]]; then
-         genroot /sle
+         genbasic /sle
     elif [[ -d sled ]]; then
-         genroot /sled
+         genbasic /sled
     fi
 } 

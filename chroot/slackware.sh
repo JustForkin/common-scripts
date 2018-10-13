@@ -1,5 +1,5 @@
 function slkroot {
-    genroot /slackware
+    genbasic /slackware
 }
 
 alias skroot=slkroot
