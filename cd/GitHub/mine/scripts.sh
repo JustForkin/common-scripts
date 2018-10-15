@@ -47,7 +47,7 @@ function cdos {
 	cdsc "opensuse-scripts/$1"
 }
 
-function cdps {
+function cdpisi {
 	cdsc "pisi-scripts/$1"
 }
 
