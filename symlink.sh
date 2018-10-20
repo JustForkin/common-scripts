@@ -21,6 +21,8 @@ elif [[ -f /usr/bin/eopkg ]]; then
 	export ID=solus
 elif [[ -f /usr/bin/installpkg ]] || cat /etc/os-release | grep -i slackware > /dev/null 2>&1 ; then
 	export ID=slackware
+elif [[ -f /usr/bin/dnf ]]; then
+	export ID=fedora
 elif [[ -f /usr/bin/yum ]]; then
 	export ID=centos
 fi

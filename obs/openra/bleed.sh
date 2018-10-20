@@ -17,8 +17,11 @@ function openrabup {
          osc ci -m "Bumping $specn->$mastn"
 #         sed -i -e "s/version=$specn/version=$mastn/g" \
 #                -e "s/commit=$specm/commit=$comm/g" $PK/void-packages-bleed/srcpkgs/openra-bleed/template
-         if cat /etc/os-release | paste -d, -s | grep -vi "openSUSE\|Arch\|Void" > /dev/null 2>&1 ; then
+         if cat /etc/os-release | paste -d, -s | grep -vi "Fedora\|CentOS\|\|Scientific\|Mageia\|openSUSE\|Arch\|Void" > /dev/null 2>&1 ; then
               /usr/local/bin/openra-build-cli
          fi
+
+	printf "%s\n" "Updating local copy of my OpenRA repo fork..."
+	 cdora ; git pull upstream bleed -q ; git push origin bleed -q
     fi
 }

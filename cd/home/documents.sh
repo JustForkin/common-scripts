@@ -22,3 +22,7 @@ function cdtx {
 		cdd "Text-filese/$1"
 	fi
 }
+
+function cdmd {
+	cdd "Markdown/$1"
+}

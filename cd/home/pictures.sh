@@ -16,3 +16,5 @@ function cdart {
 function cdps {
     cdpi Screenshots/$1
 }
+
+alias cdpis=cdps

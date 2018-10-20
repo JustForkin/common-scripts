@@ -57,3 +57,8 @@ status.register("shell",
     command="/usr/local/bin/tville-weather",
     color="#AAFFFF",
     interval=1800)
+
+status.register("shell",
+    command="/usr/local/bin/operating-system",
+    color="#FFCA99",
+    interval=10000000)
