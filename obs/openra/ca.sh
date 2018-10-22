@@ -1,33 +1,37 @@
-# Dark Reign update
+# Combined Arms update
+# Last commit with OBS version is b76be97a97f499f1b1b716418c36f95f8483d17a
 function caup {
-    cdgo CAmod || exit
-    git pull origin master -q
+	printf "pushin' into $GHUBO/CAmod.\n"
+	pushd $GHUBO/CAmod || printf "pushdin' into $GHUBO/CAmod failed.\n" && exit
+	printf "Git pulling repository.\n"
+	git pull origin master -q || printf "Git pullin' repository failed.\n" && exit
     # OpenRA latest engine version
-    enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
+#    enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
     # OpenRA engine version in spec file
-    enpv=$(grep "^%define engine" < "$HOME"/OBS/home:fusion809/openra-ca/openra-ca.spec | cut -d ' ' -f 3)
-    mastn=$(comno)
-    specn=$(vere openra-ca)
-    comm=$(loge)
-    specm=$(come openra-ca)
+#    enpv=$(grep "^%define engine" < "$HOME"/OBS/home:fusion809/openra-ca/openra-ca.spec | cut -d ' ' -f 3)
+	mastn=$(comno)
+	specn=$(grep "VERSION" < $HOME/.local/share/openra-ca | cut -d ' ' -f 2)
+	comm=$(loge)
+	specm=$(grep "COMMIT" < $HOME/.local/share/openra-ca | cut -d ' ' -f 2)
 
-    if [[ $specn == $mastn ]]; then
-         printf "OpenRA Combined Arms is up-to-date!\n"
-    else
-         sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-ca/{openra-ca.spec,PKGBUILD}
-         sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-ca/{openra-ca.spec,PKGBUILD}
-         if ! [[ "$enpv" == "$enlv" ]]; then
-              sed -i -e "s/$enpv/$enlv/g" "$HOME"/OBS/home:fusion809/openra-ca/{openra-ca.spec,PKGBUILD}
-              make clean || exit
-              make || exit
-              tar czvf "$HOME"/OBS/home:fusion809/openra-ca/engine-"${enlv}".tar.gz engine
-              cdobsh openra-ca || exit
-              osc rm engine-"${enpv}".tar.gz
-              osc add engine-"${enlv}".tar.gz
-              cd - || exit
-         fi
-         cdobsh openra-ca || exit
-         osc ci -m "Bumping $specn->$mastn"
-    fi
+	if [[ $specn == $mastn ]] && [[ $comm == $specm ]]; then
+		printf "OpenRA Combined Arms is up-to-date!\n"
+	else
+		printf "Cleaning repository.\n"
+		make clean || printf "Make cleanin' $GHUBO/CAmod failed.\n" && exit
+		# Setting version
+		printf "Setting version in $HOME/.local/share/openra-ca.\n"
+		echo "VERSION ${mastn}\nCOMMIT ${comm}" > $HOME/.local/share/openra-ca
+		make version VERSION=${mastn} || printf "Make versionin' $GHUBO/CAmod failed.\n" && exit
+		# Building $GHUBO/CAmod
+		printf "Building CAmod.\n"
+		make || printf "Making $GHUBO/CAmod failed.\n" && exit
+		# Build AppImage
+		pushd packaging/linux || printf "pushdin' into packaging/linux.\n" && exit
+		./buildpackage.sh ${mastn} $HOME/Applications || printf "Building the AppImage with buildpackage.sh failed.\n" && exit
+		popd || printf "popdin' out of packaging/linux.\n" && exit
+	fi
+
+	popd || printf "popdin' out of $GHUBO/CAmod.\n" && exit
 }
 
