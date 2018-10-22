@@ -42,7 +42,7 @@ function caup {
 		mv ${modname}-${mastn}.AppImage $HOME/Applications || {printf "Moving new AppImage to $HOME/Applications failed.\n" && return}
 		printf "Removing existing desktop config files for this mod.\n"
 		pushd $HOME/Applications || {printf "Changing into $HOME/Applications failed.\n" && return}
-		rm -rf $HOME/.local/share/applications/*openra-yr*.desktop || {printf "Removing old openra-yr.desktop config file from $HOME/.local/share/applications failed.\n" && return}
+		rm -rf $HOME/.local/share/applications/*openra-ca*.desktop || {printf "Removing old openra-ca.desktop config file from $HOME/.local/share/applications failed.\n" && return}
 		read -q "yn?Do you want to integrate and launch ${modname}-${mastn}.AppImage? "
 		case $yn in
 			[Yy]* ) ./AppImageLauncher*.AppImage ${modname}-${mastn}.AppImage ;;
