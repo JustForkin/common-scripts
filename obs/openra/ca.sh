@@ -13,11 +13,11 @@ function caup {
 		printf "$HOME/.local/share/openra-ca does not exist, so creating it with touch.\n"
 		touch $HOME/.local/share/openra-ca || {printf "Touching it failed.\n" && return}
 	fi
-	mastn=${comno}
-	specn=${grep "VERSION" < $HOME/.local/share/openra-ca | cut -d ' ' -f 2}
-	comm=${loge}
-	specm=${grep "COMMIT" < $HOME/.local/share/openra-ca | cut -d ' ' -f 2}
-	modname=${grep "^PACKAGING_INSTALLER_NAME" < mod.config | cut -d '"' -f 2}
+	mastn=$(comno)
+	specn=$(grep "VERSION" < $HOME/.local/share/openra-ca | cut -d ' ' -f 2)
+	comm=$(loge)
+	specm=$(grep "COMMIT" < $HOME/.local/share/openra-ca | cut -d ' ' -f 2)
+	modname=$(grep "^PACKAGING_INSTALLER_NAME" < mod.config | cut -d '"' -f 2)
 
 	if [[ $specn == $mastn ]] && [[ $comm == $specm ]]; then
 		printf "OpenRA Combined Arms is up-to-date!\n"
@@ -29,7 +29,7 @@ function caup {
 		echo "VERSION ${mastn}\nCOMMIT ${comm}" > $HOME/.local/share/openra-ca
 		make version VERSION=${mastn} || {printf "Make versionin' $GHUBO/CAmod failed.\n" && return}
 		# Building $GHUBO/CAmod
-		printf "Building CAmod.\n"
+		printf "Building CAmod ${mastn} (${comm}).\n"
 		make || {printf "Making $GHUBO/CAmod failed.\n" && return}
 		# Build AppImage
 		pushd packaging/linux || {printf "pushdin' into packaging/linux.\n" && return}
@@ -40,6 +40,14 @@ function caup {
 		fi
 		printf "Moving AppImage to $HOME/Applications.\n"
 		mv ${modname}-${mastn}.AppImage $HOME/Applications || {printf "Moving new AppImage to $HOME/Applications failed.\n" && return}
+		printf "Removing existing desktop config files for this mod.\n"
+		pushd $HOME/Applications || {printf "Changing into $HOME/Applications failed.\n" && return}
+		rm -rf $HOME/.local/share/applications/*openra-yr*.desktop || {printf "Removing old openra-yr.desktop config file from $HOME/.local/share/applications failed.\n" && return}
+		read -q "yn?Do you want to integrate and launch ${modname}-${mastn}.AppImage? "
+		case $yn in
+			[Yy]* ) ./AppImageLauncher*.AppImage ${modname}-${mastn}.AppImage ;;
+			[Nn]* ) printf "OK. If you change your mind change into $HOME/Applications and run ./AppImageLauncher*.AppImage ${modname}-${mastn}.AppImage.\n" ;;
+		esac
 		popd || {printf "popdin' out of packaging/linux.\n" && return}
 	fi
 
