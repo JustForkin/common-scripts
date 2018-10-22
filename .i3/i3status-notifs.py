@@ -57,10 +57,10 @@ status.register("shell",
     color="#FFFF00",
     interval=300)
 
-#status.register("shell",
-#    command="/usr/local/bin/openrayn",
-#    color="#FFAAFF",
-#    interval=300)
+status.register("shell",
+    command="/usr/local/bin/openrayn",
+    color="#FFAAFF",
+    interval=300)
 
 status.register("shell",
     command="/usr/local/bin/openrauran",
@@ -92,10 +92,10 @@ status.register("shell",
     color="#FAF695",
     interval=300)
 
-#status.register("shell",
-#    command="/usr/local/bin/openracn",
-#    color="#FFAACF",
-#    interval=300)
+status.register("shell",
+    command="/usr/local/bin/openracn",
+    color="#FFAACF",
+    interval=300)
 
 status.register("shell",
     command="/usr/local/bin/openrabn",
