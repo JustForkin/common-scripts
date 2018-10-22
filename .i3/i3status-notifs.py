@@ -93,11 +93,6 @@ status.register("shell",
     interval=300)
 
 #status.register("shell",
-    command="/usr/local/bin/openracan",
-    color="#A9FF9F",
-    interval=300)
-
-#status.register("shell",
 #    command="/usr/local/bin/openracn",
 #    color="#FFAACF",
 #    interval=300)
