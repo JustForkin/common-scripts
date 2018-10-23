@@ -41,13 +41,7 @@ function caup {
 		printf "Moving AppImage to $HOME/Applications.\n"
 		mv ${modname}-${mastn}.AppImage $HOME/Applications || {printf "Moving new AppImage to $HOME/Applications failed.\n" && return}
 		printf "Removing existing desktop config files for this mod.\n"
-		pushd $HOME/Applications || {printf "Changing into $HOME/Applications failed.\n" && return}
 		rm -rf $HOME/.local/share/applications/*openra-ca*.desktop || {printf "Removing old openra-ca.desktop config file from $HOME/.local/share/applications failed.\n" && return}
-		read -q "yn?Do you want to integrate and launch ${modname}-${mastn}.AppImage? "
-		case $yn in
-			[Yy]* ) ./AppImageLauncher*.AppImage ${modname}-${mastn}.AppImage ;;
-			[Nn]* ) printf "OK. If you change your mind change into $HOME/Applications and run ./AppImageLauncher*.AppImage ${modname}-${mastn}.AppImage.\n" ;;
-		esac
 		popd || {printf "popdin' out of packaging/linux.\n" && return}
 	fi
 
