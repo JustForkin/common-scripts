@@ -17,6 +17,7 @@ function openrabup {
 		make clean
 		make
 		cd packaging/linux
+		cp ../../../OpenRA.backup/packaging/linux/buildpackage.sh .
 		./buildpackage.sh $mastn $HOME/Applications
 		cdobsh openra-bleed || exit
 		osc ci -m "Bumping $specn->$mastn"
