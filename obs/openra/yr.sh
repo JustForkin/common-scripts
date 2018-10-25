@@ -43,7 +43,7 @@ function yrup {
 		fi
 		printf "Moving AppImage to $HOME/Applications.\n"
 		mv ${modname}-${mastn}.AppImage $HOME/Applications || {printf "Moving new AppImage to $HOME/Applications failed.\n" && return}
-		printf "Removing existing desktop config files for this mod.\n"
+		printf "Removing existing desktop config files for older versions of this mod.\n"
 		rm -rf $HOME/.local/share/applications/*openra-yr*.desktop || {printf "Removing $HOME/.local/share/applications/*openra-yr*.desktop failed.\n" && return}
 		popd || {printf "popdin' out of packaging/linux.\n" && return}
 	fi
