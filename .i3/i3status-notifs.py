@@ -47,10 +47,10 @@ status.register("shell",
     color="#CCFFAA",
     interval=300)
 
-status.register("shell",
-    command="/usr/local/bin/ostreen",
-    color="#FF9F9F",
-    interval=300)
+#status.register("shell",
+#    command="/usr/local/bin/ostreen",
+#    color="#FF9F9F",
+#    interval=300)
 
 status.register("shell",
     command="/usr/local/bin/oscn",
