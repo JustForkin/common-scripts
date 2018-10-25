@@ -1,9 +1,10 @@
 function froot {
-    genbasic /fedora
+	sudo mount /dev/mapper/fedora-root /fedora
+	genbasic /fedora
 }
 
 function rroot {
-    genbasic /rawhide
+	genbasic /rawhide
 }
 
 alias frroot=rroot
