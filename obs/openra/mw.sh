@@ -37,4 +37,5 @@ function mwup {
 			osc ci -m "Bumping $specn->$mastn; engine version is unchanged."
 		fi
 	fi
+	mod-build Medieval-Warfare
 }
