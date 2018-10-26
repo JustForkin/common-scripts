@@ -8,9 +8,9 @@ function openrabup {
 	specm=$(come openra-bleed)
 
 	if [[ $specn == $mastn ]]; then
-		 printf "%s\n" "OpenRA Bleed is up-to-date!"
+		 printf '\e[1;32m%-6s\e[m\n' "OpenRA Bleed is up-to-date!"
 	else
-		printf "%s\n" "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
+		printf '\e[1;32m%-6s\e[m\n' "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
 		sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}
 		sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}
 		rm $HOME/.local/share/applications/*openra-{ra-,cnc,d2k}*
@@ -27,7 +27,7 @@ function openrabup {
 			/usr/local/bin/openra-build-cli
 		fi
 
-		printf "%s\n" "Updating local copy of my OpenRA repo fork..."
+		printf '\e[1;32m%-6s\e[m\n' "Updating local copy of my OpenRA repo fork..."
 		cdora ; git pull upstream bleed -q ; git push origin bleed -q
 	fi
 }
