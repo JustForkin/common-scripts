@@ -13,7 +13,7 @@ function openrabup {
 		printf '\e[1;32m%-6s\e[m\n' "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
 		sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}
 		sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD}
-		rm $HOME/.local/share/applications/*openra-{ra-,cnc,d2k}*
+		rm $HOME/.local/share/applications/*openra-{ra,cnc,d2k}.desktop
 		make clean
 		make
 		cd packaging/linux
