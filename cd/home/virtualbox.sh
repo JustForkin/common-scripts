@@ -6,12 +6,20 @@ function cdvi {
 	cdvbm "iso/$1"
 }
 
+function cdvib {
+	cdvi "BSDs/$1"
+}
+
 function cdvil {
 	cdvi "Linux/$1"
 }
 
 function cdvid {
 	cdvil "Debian/$1"
+}
+
+function cdvif {
+	cdvil "Fedora/$1"
 }
  
 function cdviu {

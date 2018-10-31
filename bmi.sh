@@ -1,5 +1,5 @@
 function bmiim {
-    # BMI from imperial measurements
+# BMI from imperial measurements
     # $1 is weight in lb
     # $2 is height in ft, rounding down
     # $3 is the remainder height in inches
