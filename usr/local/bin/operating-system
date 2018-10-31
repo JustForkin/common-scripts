@@ -1,7 +1,7 @@
 #!/bin/bash
-OSNAME=$(cat /etc/os-release | grep "^NAME" | cut -d '"' -f 2)
+OSNAME=$(cat /etc/os-release | grep "^NAME" | cut -d '"' -f 2 | sed 's/NAME=//g')
 if grep "^VERSION_ID" < /etc/os-release > /dev/null 2>&1; then
-	OSVER=$(cat /etc/os-release | grep "^VERSION_ID" | cut -d '"' -f 2)
+	OSVER=$(cat /etc/os-release | grep "^VERSION_ID" | cut -d '"' -f 2 | sed 's/VERSION_ID=//g')
 	OPSYS="${OSNAME} ${OSVER}"
 else
 	OPSYS=$OSNAME
