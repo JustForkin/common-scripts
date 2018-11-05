@@ -63,13 +63,12 @@ function cdsls {
 	cdsc "slackware-scripts/$1"
 }
 
-function cdzt {
+function cdzst {
 	cdsc "zsh-theme/$1"
 }
 
-alias cdzsh=cdzt
+alias cdzsh=cdzst
 alias cdzsht=cdzt
-alias cdzst=cdzt
 
 function cdaqi {
 	cdsc "atom-quick-install/$1"

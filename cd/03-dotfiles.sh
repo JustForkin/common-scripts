@@ -53,3 +53,15 @@ alias cdw=cdlw
 function cdic {
     cd $HOME/.icons/$1
 }
+
+function cdz {
+	cd $HOME/.oh-my-zsh/$@
+}
+
+function cdzp {
+	cdz "plugins/$@"
+}
+
+function cdzt {
+	cdz "themes/$@"
+}
