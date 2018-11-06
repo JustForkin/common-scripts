@@ -1,9 +1,13 @@
 function vrc {
-    vim $HOME/.vimrc
+	vim $HOME/.vimrc
 }
 
 function vgi {
-    vim .gitignore
+	vim .gitignore
 }
 
 alias vgit=vgi
+
+function vcf {
+	vim $HOME/.i3/config
+}
