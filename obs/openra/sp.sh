@@ -8,7 +8,7 @@ function spup {
 	enpv=$(grep "define engine\_version" < "$OBSH"/openra-sp/openra-sp.spec | cut -d ' ' -f 3)
 	cd ../SP-OpenRAModSDK || exit
 	sdklver=$(git log | head -n 1 | cut -d ' ' -f 2)
-	sdklc=$(git rev-list --brarnches master --count)
+	sdklc=$(git rev-list --branches master --count)
 	sdkpver=$(grep "commit" < cat /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define commit //g')
 	sdkpc=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/Version:\s*//g')
 
