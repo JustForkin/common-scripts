@@ -7,20 +7,26 @@ function comno {
 }
 
 function pushop {
-	git push origin "$(git-branch)"
+	git push origin "$(git-branch)" "$1"
 }
 
 ## Minimal version
 function pushm {
 	git add --all										# Add all files to git
 	git commit -m "$1"								   # Commit with message = argument 1
-	pushop									 # Push to the current branch
+	pushop										 # Push to the current branch
 }
 
 function pushme {
 	git add --all
 	git commit --edit
-	pushop
+	pushop "$1"
+}
+
+function pushmf {
+	git add --all
+	git commit -m "$1"
+	git push origin $(git-branch) -f
 }
 
 function pusht {
@@ -208,3 +214,62 @@ function gitsh {
 function pushss {
 	push "$1" && gitsh && gitsize
 }
+
+# Complete push 
+function pushf {
+	if printf "$PWD" | grep 'AUR' > /dev/null 2>&1 ; then
+		mksrcinfo
+	fi
+
+	if echo "$PWD" | grep opendesktop > /dev/null 2>&1 ; then
+		commc=$(git rev-list --branches master --count)
+		commn=$(octe "$commc+1")
+		sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" "$PK"/opendesktop-app/pkg/appimage/appimagebuild
+		pushmf "$1"
+	elif echo "$PWD" | grep OpenRA > /dev/null 2>&1 ; then
+		commc=$(git rev-list --branches bleed --count)
+		commn=$(octe "$commc+1")
+		sed -i -e "s/COMNO=[0-9]*/COMNO=${commn}/g" "$PK"/OpenRA/packaging/linux/buildpackage.sh
+		pushmf "$1"
+	else
+		pushmf "$1"
+	fi
+
+	if echo "$PWD" | grep "$HOME/Shell" > /dev/null 2>&1 ; then
+		szsh
+	elif echo "$PWD" | grep "$FS" > /dev/null 2>&1 && grep -i Fedora < /etc/os-release > /dev/null 2>&1 ; then
+		szsh
+	elif echo "$PWD" | grep "$ARS" > /dev/null 2>&1 && grep -i Arch < /etc/os-release  > /dev/null 2>&1 ; then
+		szsh
+	elif echo "$PWD" | grep "$GS" > /dev/null 2>&1 && grep -i Gentoo < /etc/os-release > /dev/null 2>&1; then
+		szsh
+	elif echo "$PWD" | grep "$DS" > /dev/null 2>&1 && grep -i "Debian\|Ubuntu" < /etc/os-release > /dev/null 2>&1; then
+		szsh
+	elif echo "$PWD" | grep "$VS" > /dev/null 2>&1 && grep -i Void < /etc/os-release > /dev/null 2>&1; then
+		szsh
+	elif echo "$PWD" | grep "$OS" > /dev/null 2>&1 && grep -i openSUSE < /etc/os-release > /dev/null 2>&1; then
+		szsh
+	elif echo "$PWD" | grep "$NS" > /dev/null 2>&1 && grep -i NixOS < /etc/os-release > /dev/null 2>&1; then
+		szsh
+	elif echo "$PWD" | grep "$PLS" > /dev/null 2>&1 && grep -i PCLinuxOS < /etc/os-release > /dev/null 2>&1; then
+		szsh
+	elif echo "$PWD" | grep "$CS" > /dev/null 2>&1 && grep -i CentOS < /etc/os-release > /dev/null 2>&1; then
+		szsh
+	fi
+
+	# Update common-scripts dirs
+	if echo "$PWD" | grep "$HOME/Shell/common-scripts" > /dev/null 2>&1; then
+		if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
+			read -p "Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n] " yn
+		else
+			read "yn?Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n] "
+		fi
+
+		case $yn in
+			[Yy]* ) update-common;;
+			[Nn]* ) printf "%s\n" "OK, it's your funeral. Run update-common if you change your mind." ;; 
+			* ) printf "%s\n" "Please answer y or n." ; ...
+		esac
+	fi
+}
+
