@@ -31,6 +31,8 @@ function cdfrs {
 	cdsc "freebsd-scripts/$1"
 }
 
+alias cdfbs=cdfrs
+
 function cdgs {
 	cdsc "gentoo-scripts/$1"
 }
