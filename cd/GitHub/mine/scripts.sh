@@ -85,3 +85,7 @@ function cdgpl {
 }
 
 alias cdgpml=cdgpl
+
+function cdzfs {
+	cdsc "freebsd-zfs-manual-install/$1"
+}
