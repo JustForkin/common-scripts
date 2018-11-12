@@ -7,7 +7,11 @@ function comno {
 }
 
 function pushop {
-	git push origin "$(git-branch)" "$1"
+	if [[ -n "$1" ]]; then
+		git push origin "$(git-branch)" "$1"
+	else
+		git push origin "$(git-branch)"
+	fi
 }
 
 ## Minimal version
