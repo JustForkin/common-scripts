@@ -117,7 +117,7 @@ function push {
 		 szsh
 	elif echo "$PWD" | grep "$VS" > /dev/null 2>&1 && grep -i Void < /etc/os-release > /dev/null 2>&1; then
 		 szsh
-	elif echo "$PWD" | grep "$OS" > /dev/null 2>&1 && grep -i openSUSE < /etc/os-release > /dev/null 2>&1; then
+	elif echo "$PWD" | grep "$OSS" > /dev/null 2>&1 && grep -i openSUSE < /etc/os-release > /dev/null 2>&1; then
 		 szsh
 	elif echo "$PWD" | grep "$NS" > /dev/null 2>&1 && grep -i NixOS < /etc/os-release > /dev/null 2>&1; then
 		 szsh
@@ -175,7 +175,7 @@ function pushe {
 		 szsh
 	elif echo "$PWD" | grep "$VS" > /dev/null 2>&1 && grep -i Void < /etc/os-release > /dev/null 2>&1; then
 		 szsh
-	elif echo "$PWD" | grep "$OS" > /dev/null 2>&1 && grep -i openSUSE < /etc/os-release > /dev/null 2>&1; then
+	elif echo "$PWD" | grep "$OSS" > /dev/null 2>&1 && grep -i openSUSE < /etc/os-release > /dev/null 2>&1; then
 		 szsh
 	elif echo "$PWD" | grep "$NS" > /dev/null 2>&1 && grep -i NixOS < /etc/os-release > /dev/null 2>&1; then
 		 szsh
@@ -251,7 +251,7 @@ function pushf {
 		szsh
 	elif echo "$PWD" | grep "$VS" > /dev/null 2>&1 && grep -i Void < /etc/os-release > /dev/null 2>&1; then
 		szsh
-	elif echo "$PWD" | grep "$OS" > /dev/null 2>&1 && grep -i openSUSE < /etc/os-release > /dev/null 2>&1; then
+	elif echo "$PWD" | grep "$OSS" > /dev/null 2>&1 && grep -i openSUSE < /etc/os-release > /dev/null 2>&1; then
 		szsh
 	elif echo "$PWD" | grep "$NS" > /dev/null 2>&1 && grep -i NixOS < /etc/os-release > /dev/null 2>&1; then
 		szsh
