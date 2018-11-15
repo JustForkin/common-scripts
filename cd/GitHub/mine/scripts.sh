@@ -41,6 +41,10 @@ function cdjs {
 	cdsc "JScripts/$1"
 }
 
+function cdjus {
+	cdsc "julia-scripts/$1"
+}
+
 function cdms {
 	cdsc "mageia-scripts/$1"
 }
