@@ -5,9 +5,9 @@ do
 done
 
 if command -v curl > /dev/null 2>&1; then
-    pkgver=$(curl -sL https://www.activestate.com/komodo-ide/downloads/edit | grep "linux-x86_64" | cut -d '/' -f 10)
+    pkgver=$(curl -sL https://www.activestate.com/komodo-ide/downloads/edit | grep "linux-x86_64" | cut -d '/' -f 12)
 elif command -v wget > /dev/null 2>&1; then
-    pkgver=$(wget -cqO- https://www.activestate.com/komodo-ide/downloads/edit | grep "linux-x86_64" | cut -d '/' -f 10)
+    pkgver=$(wget -cqO- https://www.activestate.com/komodo-ide/downloads/edit | grep "linux-x86_64" | cut -d '/' -f 12)
 else
     printf "Neither cURL nor wget are detected, so please either install one or if already installed add them to your system PATH.\n"
 fi
