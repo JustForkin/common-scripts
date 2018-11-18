@@ -38,7 +38,7 @@ fi
 # Nix
 if [[ -d $HOME/.nix-profile/etc/profile.d ]]; then
 	source $HOME/.nix-profile/etc/profile.d/nix.sh
-	source $HOME/.nix-profile/etc/profile.d/nix-daemon.sh
+#	source $HOME/.nix-profile/etc/profile.d/nix-daemon.sh
 fi
 
 # Guix
