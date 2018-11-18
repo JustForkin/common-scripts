@@ -27,8 +27,8 @@ elif [[ -f /usr/bin/yum ]]; then
 	export ID=centos
 fi
 
-if ! ls -ld $HOME/Shell | grep -i "$ID" > /dev/null 2>&1 ; then
-	printf "%s$ID\n" '$ID is '
-	ln -sf $SCR/$ID-scripts/{.bashrc,.zshrc,Shell} $HOME/
-	sudo ln -sf $SCR/$ID-scripts/root/{.bashrc,.zshrc,Shell} /root/
-fi
+#if ! ls -ld $HOME/Shell | grep -i "$ID" > /dev/null 2>&1 ; then
+#	printf "%s$ID\n" '$ID is '
+#	ln -sf $SCR/$ID-scripts/{.bashrc,.zshrc,Shell} $HOME/
+#	sudo ln -sf $SCR/$ID-scripts/root/{.bashrc,.zshrc,Shell} /root/
+#fi
