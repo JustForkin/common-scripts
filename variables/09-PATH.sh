@@ -36,19 +36,10 @@ if [[ -n $PERL_PATH ]]; then
 fi
 
 # Nix
-#if [[ -d $HOME/.nix-profile/bin ]]; then
-#    export PATH=$PATH:$HOME/.nix-profile/bin
-#fi
-
-#if [[ -d $HOME/.nix-profile/sbin ]]; then
-#    export PATH=$PATH:$HOME/.nix-profile/sbin
-#fi
-
-#if [[ -f /etc/nixos/configuration.nix ]]; then
-#	export PATH=/run/wrappers/bin:$PATH:/run/current-system/sw/bin
-#fi
-source $HOME/.nix-profile/etc/profile.d/nix.sh
-source $HOME/.nix-profile/etc/profile.d/nix-daemon.sh
+if [[ -d $HOME/.nix-profile/etc/profile.d ]]; then
+	source $HOME/.nix-profile/etc/profile.d/nix.sh
+	source $HOME/.nix-profile/etc/profile.d/nix-daemon.sh
+fi
 
 # Guix
 if [[ -d $HOME/.guix-profile/bin ]]; then
