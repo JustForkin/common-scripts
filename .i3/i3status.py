@@ -53,10 +53,10 @@ status.register("shell",
     color="#F3AC29",
     interval=300)
 
-status.register("shell",
-    command="/usr/local/bin/tville-weather",
-    color="#AAFFFF",
-    interval=1800)
+#status.register("shell",
+#    command="/usr/local/bin/tville-weather",
+#    color="#AAFFFF",
+#    interval=1800)
 
 status.register("shell",
     command="/usr/local/bin/operating-system",

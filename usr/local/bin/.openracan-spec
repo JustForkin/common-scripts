@@ -4,19 +4,16 @@ do
     sleep 60
 done
 
-# OpenRA RAClassic latest commit available
+# OpenRA Dark Reign latest commit available
 cd /home/fusion809/GitHub/others/CAmod || exit
 git stash -q || exit
-
-if command -v git > /dev/null 2>&1; then
-    git pull origin master -q || ( printf "ORACAErr\n" && exit )
-    orlv=$(git rev-list --branches master --count)
-else
+if ! command -v git > /dev/null 2>&1; then
     printf "git is not detected, either install it or if already installed at it to the system PATH.\n" && exit
 fi
-
-# Latest packaged version
-orpv=$(grep "VERSION" < /home/fusion809/.local/share/openra-camod | cut -d ' ' -f 2)
+git pull origin master -q || ( printf "ORACAErr\n" && exit )
+orlv=$(git rev-list --branches master --count)
+# OpenRA latest packaged version
+orpv=$(cat /home/fusion809/OBS/home:fusion809/openra-ca/openra-ca.spec | grep "Version:" | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then
     printf "ORACA \n"
