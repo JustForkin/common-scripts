@@ -41,6 +41,10 @@ if [[ -d $HOME/.nix-profile/etc/profile.d ]]; then
 #	source $HOME/.nix-profile/etc/profile.d/nix-daemon.sh
 fi
 
+if [[ -d /run/current-system/sw/bin ]] ; then
+	export PATH=$PATH:/run/current-system/sw/bin
+fi
+
 # Guix
 if [[ -d $HOME/.guix-profile/bin ]]; then
 	export PATH=$PATH:$HOME/.guix-profile/bin
