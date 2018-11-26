@@ -1,6 +1,8 @@
 # PATH
 export PATH=
-export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+if [[ -d /sbin ]] || [[ -d /usr/sbin ]] ; then
+	export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+fi
 export PATH=$PATH:/usr/local/bin:/usr/local/sbin
 
 if [[ -d $HOME/.local/bin ]]; then
@@ -42,7 +44,7 @@ if [[ -d $HOME/.nix-profile/etc/profile.d ]]; then
 fi
 
 if [[ -d /run/current-system/sw/bin ]] ; then
-	export PATH=$PATH:/run/current-system/sw/bin
+	export PATH=$HOME/.nix-profile/bin:$PATH:/run/current-system/sw/bin
 fi
 
 # Guix
