@@ -44,7 +44,7 @@ if [[ -d $HOME/.nix-profile/etc/profile.d ]]; then
 fi
 
 if [[ -d /run/current-system/sw/bin ]] ; then
-	export PATH=$HOME/.nix-profile/bin:$PATH:/run/current-system/sw/bin
+	export PATH=/run/wrappers/bin:/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
 fi
 
 # Guix
