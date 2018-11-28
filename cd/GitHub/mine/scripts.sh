@@ -49,6 +49,10 @@ function cdms {
 	cdsc "mageia-scripts/$1"
 }
 
+function cdns {
+	cdsc "nixos-scripts/$1"
+}
+
 function cdos {
 	cdsc "opensuse-scripts/$1"
 }
