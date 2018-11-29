@@ -28,10 +28,28 @@ function nixs {
 }
 
 function nixi {
-	nix-env -i "$@"
+	if [[ -d /etc/nixos ]]; then
+		nix-env -f '<nixos-unstable>' -iA "$@"
+	else
+		nix-env -f '<nixpkgs-unstable>' -iA "$@"
+	fi
 }
 
 # Install from Nix file
+function nixca {
+	sudo nix-channel --add https://nixos.org/channels/$1
+}
+
+function nixcr {
+	nix-channel --remove "$@"
+}
+
+function nixrb {
+	sudo nix-channel --update
+	sudo nixos-rebuild switch
+	sudo nix-collect-garbage -d
+}
+
 function nixif {
 	nix-env -if "$@"
 }
