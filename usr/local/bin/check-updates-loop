@@ -1,6 +1,6 @@
 #!/bin/bash
 while :
-do
+#do
     printf "%s\n" "Running /usr/local/bin/check-updates at $(date +"%r %A, %d %B %Y")"
     /usr/local/bin/check-updates
     if [[ -n "$@" ]]; then
@@ -8,4 +8,4 @@ do
     else
          sleep 10m
     fi
-done
+#done

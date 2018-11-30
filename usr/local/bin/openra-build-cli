@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/fusion809/GitHub/others/OpenRA || ( printf "/home/fusion809/GitHub/others/OpenRA doesn't exist mate, therefore I am exiting\!" && exit )
+cd /home/fusion809/GitHub/others/OpenRA || ( printf "/home/fusion809/GitHub/others/OpenRA #doesn't exist mate, therefore I am exiting\!" && exit )
 
 export DEST=$HOME/.local
 # Check for git
@@ -46,7 +46,7 @@ fi
 #printf "Done. Now run make clean to remove build artefacts so we can commit these changes...\n"
 #make clean
 
-#printf "Time to do some committng...\n"
+#printf "Time to #do some committng...\n"
 #git add --all
 #git commit -m "Upstream update"
 #printf "Tagging and pushing new release $commn...\n"
@@ -58,7 +58,7 @@ commco=$(git rev-list --branches bleed --count)
 if [[ -f $DEST/lib/openra/VERSION ]]; then
 	VERSION=$(cat $DEST/lib/openra/VERSION)
 else
-	VERSION="0" && printf "%s\n" "OpenRA doesn't appear to be installed to $HOME/.local, so I'm going to rectify this!"
+	VERSION="0" && printf "%s\n" "OpenRA #doesn't appear to be installed to $HOME/.local, so I'm going to rectify this!"
 fi
 
 if [[ $VERSION == "bleed-$commco" ]]; then

@@ -45,7 +45,7 @@ fi
 #printf "Done. Now run make clean to remove build artefacts so we can commit these changes...\n"
 #make clean
 
-#printf "Time to do some committng...\n"
+#printf "Time to #do some committng...\n"
 #git add --all
 #git commit -m "Upstream update"
 #printf "Tagging and pushing new release $commn...\n"
