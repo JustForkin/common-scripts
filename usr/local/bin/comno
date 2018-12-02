@@ -1,1 +1,2 @@
-commno
+#!/bin/bash
+git rev-list --branches $(git-branch) --count

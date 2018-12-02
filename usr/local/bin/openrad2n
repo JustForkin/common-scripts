@@ -1,8 +1,8 @@
 #!/bin/bash
-while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
-do
-    sleep 60
-done
+#while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
+#do
+#    sleep 60
+#done
 
 # OpenRA Red Alert 2 mod latest commit available
 cd /home/fusion809/GitHub/others/d2 || exit

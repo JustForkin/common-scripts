@@ -1,8 +1,8 @@
 #!/bin/bash
-while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
-do
-    sleep 60
-done
+#while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
+#do
+#    sleep 60
+#done
 
 # OpenRA Red Alert Unplugged mod latest commit available
 OBS_PATH="/home/fusion809/OBS/home:fusion809/openra-ura"

@@ -2,10 +2,10 @@
 # 0ad latest version available
 cd /home/fusion809/GitHub/others/0ad || exit
 
-while ! ping -q -w 1 -c 1 "$(ip r | grep default | cut -d ' ' -f 3)" > /dev/null
-do
-    sleep 60
-done
+#while ! ping -q -w 1 -c 1 "$(ip r | grep default | cut -d ' ' -f 3)" > /dev/null
+#do
+#    sleep 60
+#done
 
 git stash -q || exit
 # update repository
