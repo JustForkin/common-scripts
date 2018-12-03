@@ -31,7 +31,7 @@ function nixi {
 	if [[ -d /etc/nixos ]]; then
 		nix-env -f '<nixos-unstable>' -iA "$@"
 	else
-		nix-env -f '<nixpkgs-unstable>' -iA "$@"
+		nix-env -f '<nixpkgs>' -iA "$@"
 	fi
 }
 
