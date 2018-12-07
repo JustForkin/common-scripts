@@ -11,9 +11,9 @@ function openrabup {
 		 printf '\e[1;32m%-6s\e[m\n' "OpenRA Bleed is up-to-date!"
 	else
 		printf '\e[1;32m%-6s\e[m\n' "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
-		sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$PK"/games/openra/default.nix || return
-		sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$PK"/games/openra/default.nix || return
-		rm $HOME/.local/share/applications/*openra-{ra,cnc,d2k}.desktop || return
+		sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$NIXPKGS"/pkgs/games/openra/default.nix || return
+		sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$NIXPKGS"/pkgs/games/openra/default.nix || return
+		rm -rf $HOME/.local/share/applications/*openra-{ra,cnc,d2k}.desktop
 		make clean
 		make
 		cd packaging/linux || return
