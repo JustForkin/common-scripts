@@ -5,7 +5,7 @@ if command -v curl > /dev/null 2>&1; then
 elif command -v wget > /dev/null 2>&1; then
     orlv=$(wget -cqO- https://github.com/OpenRA/OpenRA/releases | grep "[a-z]*-.*\.tar\.gz" | head -n 1 | cut -d "/" -f 5 | cut -d '-' -f 2 | sed 's/\.tar.*//g')
 else
-    zenity --error --text="Neither cURL nor wget are detected, please install them, or if installed add to system PATH!" --title="Warning!" && exit
+    zenity --error --text="Neither cURL nor wget are detected, please install them, or if installed add to system PATH!" --title="Warning!" && return
 fi     
 # OpenRA latest packaged version
 orpv=$(cat /home/fusion809/OBS/home:fusion809/openra/openra.spec | grep "Version:" | sed 's/Version:\s*//g')

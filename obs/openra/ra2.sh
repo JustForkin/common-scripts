@@ -1,5 +1,5 @@
 function ra2up {
-	cdgo ra2 || exit
+	cdgo ra2 || return
 	git pull origin master -q
 	# OpenRA latest engine version
 	enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
@@ -19,13 +19,13 @@ function ra2up {
 		 if ! [[ "$enpv" == "$enlv" ]]; then
 			  printf "Updating OpenRA Red Alert 2 engine.\n"
 			  sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-ra2/{openra-ra2.spec,PKGBUILD}
-			  make clean || exit
-			  make || exit
+			  make clean || return
+			  make || return
 			  tar czvf "$OBSH"/openra-ra2/engine-"${enlv}".tar.gz engine
-			  cdobsh openra-ra2 || exit
+			  cdobsh openra-ra2 || return
 			  osc rm engine-"${enpv}".tar.gz
 			  osc add engine-"${enlv}".tar.gz
-			  cd - || exit
+			  cd - || return
 		 fi
 		 printf "%s\n" "Comitting changes."
 		 cdobsh openra-ra2

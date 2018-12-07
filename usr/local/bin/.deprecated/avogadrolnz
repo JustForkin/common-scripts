@@ -1,6 +1,6 @@
 #!/bin/bash
 # Avogadro 2 libraries latest version available
-cd /home/fusion809/GitHub/others/avogadrolibs || exit
+cd /home/fusion809/GitHub/others/avogadrolibs || return
 
 if command -v git > /dev/null 2>&1; then
     git pull origin master -q

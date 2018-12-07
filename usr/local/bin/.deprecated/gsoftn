@@ -9,7 +9,7 @@ if command -v wget > /dev/null 2>&1; then
 elif command -v curl > /dev/null 2>&1; then
     pkgver=$(curl -sL https://github.com/GNOME/gnome-software/releases | grep "tar\.gz" | grep "3\.[1-9][02468]\.[0-9]*" | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/\.tar\.gz//g' | head -n 1)
 else
-    printf "Neither cURL nor wget have been found, please install them, or if already installed, add them to the system PATH.\n" && exit
+    printf "Neither cURL nor wget have been found, please install them, or if already installed, add them to the system PATH.\n" && return
 fi
 
 pkgpver=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/gnome-software/gnome-software.spec | cut -d ':' -f 2 | sed 's/\s*//g')

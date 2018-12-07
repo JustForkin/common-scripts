@@ -28,5 +28,5 @@ function grubi {
 
 function grubn {
 	printf "This assigns a number to each entry in GRUB, so as to give the GRUB_DEFAULT option corresponding to each OS.\n"
-	sudo cat /boot/grub*/grub.cfg  | grep "^menu\|^submenu" | awk '{printf("%02d %s\n", NR, $0)}'
+	sudo cat /boot/grub*/grub.cfg  | grep "^menu\|^submenu" | awk '{ printf("%02d %s\n", NR, $0)}'
 }

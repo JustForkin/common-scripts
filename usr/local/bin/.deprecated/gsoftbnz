@@ -5,7 +5,7 @@ do
 done
 
 # GNOME Software Bleed latest version available
-cd /home/fusion809/GitHub/others/gnome-software || exit
+cd /home/fusion809/GitHub/others/gnome-software || return
 if command -v git > /dev/null 2>&1; then
     git pull origin master -q
     orlv=$(git rev-list --branches master --count)

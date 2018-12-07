@@ -50,20 +50,20 @@ function pusht {
 function cssubup {
 	if [[ "$1" = common ]] && ! echo ""$PWD"" | grep "$SCR/common-scripts" > /dev/null 2>&1 && [[ -d "$SCR/$1-scripts" ]] ; then
 		 printf "%s\n" "Updating common-scripts repository."
-		 pushd "$SCR/$1-scripts" || exit
+		 pushd "$SCR/$1-scripts" || return
 	elif ! [[ "$1" == common ]]; then
-		 pushd "$SCR/$1-scripts"/Shell/common-scripts || exit
+		 pushd "$SCR/$1-scripts"/Shell/common-scripts || return
 	fi
 
 	git pull origin master
 
 	if ! [[ $1 = common ]]; then
-		 pushd .. || exit
+		 pushd .. || return
 		 pushm "Updating common-scripts submodule"
-		 popd || exit
+		 popd || return
 	fi
 
-	popd || exit
+	popd || return
 }
 
 function update-common {

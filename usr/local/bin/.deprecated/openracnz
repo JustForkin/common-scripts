@@ -2,7 +2,7 @@
 # OpenRA RAClassic latest commit available
 cd /home/fusion809/GitHub/others/raclassic
 if ! command -v git > /dev/null 2>&1; then
-    printf "git is not detected, either install it or if already installed at it to the system PATH.\n" && exit
+    printf "git is not detected, either install it or if already installed at it to the system PATH.\n" && return
 fi
 
 git pull origin master -q

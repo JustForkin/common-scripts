@@ -1,5 +1,5 @@
 function openraup {
-    cdobsh openra || exit
+    cdobsh openra || return
     pkgverl=$(curl -sL https://github.com/OpenRA/OpenRA/releases | grep "[a-z]*-.*\.tar\.gz" | head -n 1 | cut -d "/" -f 5 | cut -d '-' -f 2 | sed 's/\.tar.*//g')
     pkgverp=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra/openra.spec | sed 's/Version:\s*//g')
 

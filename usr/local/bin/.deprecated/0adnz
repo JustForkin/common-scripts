@@ -1,12 +1,12 @@
 #!/bin/bash
 # 0 A.D. latest version available
-cd /home/fusion809/GitHub/others/0ad || exit
+cd /home/fusion809/GitHub/others/0ad || return
 
 # update repository
 if command -v git > /dev/null 2>&1; then
     git pull origin master -q
 else
-    zenity --error --text="git isn't found. Please install it, or if it is installed edit your system PATH." --title="Warning!" && exit
+    zenity --error --text="git isn't found. Please install it, or if it is installed edit your system PATH." --title="Warning!" && return
 fi
 
 # Determine latest commit number

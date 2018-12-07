@@ -5,12 +5,12 @@
 #done
 
 # Avogadro 2 latest version available
-cd /home/fusion809/GitHub/others/avogadroapp || exit
+cd /home/fusion809/GitHub/others/avogadroapp || return
 
-git stash -q || exit
+git stash -q || return
 # Check for git command
 if command -v git > /dev/null 2>&1; then
-    git pull origin master -q || ( printf "AvoAErr\n" && exit )
+    git pull origin master -q || ( printf "AvoAErr\n" && return )
     orlv=$(git rev-list --branches master --count)
 else
     printf "git has not been detected in the system PATH. Please either install it, if it is not already installed, or add it to the system PATH if it already is.\n"

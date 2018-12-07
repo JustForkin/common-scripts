@@ -18,8 +18,8 @@ alias gits=gitsw
 function gtsa {
 	for i in $GHUBM/*/*
 	do
-		pushd $i || exit
+		pushd $i || return
 		gitsw
-		popd || exit
+		popd || return
 	done
 }

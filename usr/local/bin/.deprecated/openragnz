@@ -2,7 +2,7 @@
 # OpenRA Generals Alpha latest commit available
 cd /home/fusion809/GitHub/others/Generals-Alpha
 if ! command -v git > /dev/null 2>&1; then
-    zenity --error --text="git is not detected, either install it or if already installed at it to the system PATH!" --title="Warning!" && exit
+    zenity --error --text="git is not detected, either install it or if already installed at it to the system PATH!" --title="Warning!" && return
 fi
 git pull origin master -q
 orlv=$(git rev-list --branches master --count)

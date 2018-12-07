@@ -31,8 +31,8 @@ usage() {
 	echo
 	printf "Usage: %s [options] [build file]\n" "${myname}"
 	echo
-	echo "    -h, --help        display this help message and exit"
-	echo "    -V, --version     display version information and exit"
+	echo "    -h, --help        display this help message and return"
+	echo "    -V, --version     display version information and return"
 	echo
 	echo "These options can be passed to makepkg-arch:"
 	echo "    -m, --nocolor     disable colorized output messages"
@@ -45,7 +45,7 @@ version() {
 
 die() {
 	printf "==> ERROR: $1\n" "${@:2}" >&2
-	exit 1
+	return 1
 }
 
 MAKEPKG_OPTS=()
@@ -53,9 +53,9 @@ buildfile='PKGBUILD'
 
 while (( "$#" )); do
 	case "$1" in
-		-h|--help) usage; exit ;;
+		-h|--help) usage; return ;;
 		-m|--nocolor) MAKEPKG_OPTS+=("$1"); shift ;;
-		-V|--version) version; exit ;;
+		-V|--version) version; return ;;
 		*) buildfile="$1"; break 2 ;;
 	esac
 done
@@ -91,7 +91,7 @@ fi
 export BUILDDIR=$(mktemp -d  "${TMPDIR:-/tmp}/updpkgsums.XXXXXX")
 newbuildfile=$(mktemp "${TMPDIR:-/tmp}/updpkgsums.XXXXXX")
 
-trap "rm -rf '$BUILDDIR' '$newbuildfile'" EXIT
+trap "rm -rf '$BUILDDIR' '$newbuildfile'" return
 newsums=$(makepkg-arch -g -p "$buildfile" "${MAKEPKG_OPTS[@]}") || die 'Failed to generate new checksums'
 awk -v newsums="$newsums" '
 	/^[[:blank:]]*(md|sha)[[:digit:]]+sums(_[^=]+)?=/,/\)[[:blank:]]*(#.*)?$/ {

@@ -10,7 +10,7 @@ if ! ls /tmp | grep src > /dev/null 2>&1; then
     elif command -v wget > /dev/null 2>&1; then
          wget -cqO- http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-$(date | sed 's/ /_/g' | sed 's/:[0-9]*_/_/g').html
     else
-         zenity --error --text="Neither cURL nor wget has been detected, please install them if not installed or add them to the system PATH if they already are.!" --title="Warning!" && exit
+         zenity --error --text="Neither cURL nor wget has been detected, please install them if not installed or add them to the system PATH if they already are.!" --title="Warning!" && return
     fi         
 fi
 

@@ -9,7 +9,7 @@ if command -v curl > /dev/null 2>&1; then
 elif command -v wget > /dev/null 2>&1; then
     wget -cqO- http://download.opensuse.org/source/tumbleweed/repo/oss/src &> /tmp/src-obsf2.html
 else
-    printf "Neither cURL nor wget are detected. Please install them if they are not already, or add them to system PATH if they already are.\n" && exit
+    printf "Neither cURL nor wget are detected. Please install them if they are not already, or add them to system PATH if they already are.\n" && return
 fi
 
 pkgver=$(cat /tmp/src-obsf2.html | grep obs-service-format_spec_file | cut -d '"' -f 4 | cut -d '_' -f 3 | sed 's/file-//g' | sed 's/\.src\.rpm*//g')

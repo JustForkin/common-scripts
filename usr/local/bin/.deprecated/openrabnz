@@ -1,11 +1,11 @@
 #!/bin/bash
 # OpenRA latest commit on the bleed branch available
-cd /home/fusion809/GitHub/others/OpenRA || exit
+cd /home/fusion809/GitHub/others/OpenRA || return
 # update repository
 if command -v git > /dev/null 2>&1; then
     git pull origin bleed -q
 else
-    zenity --error --text="git isn't found. Please install it, or if it is installed edit your system PATH." --title="Warning!" && exit
+    zenity --error --text="git isn't found. Please install it, or if it is installed edit your system PATH." --title="Warning!" && return
 fi
 
 orlv=$(git rev-list --branches bleed --count)

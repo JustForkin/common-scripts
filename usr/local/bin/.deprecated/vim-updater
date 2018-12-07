@@ -10,9 +10,9 @@ pkgpver=${vim_baseversion}.${vim_patchversion}
 if ! [[ $pkgpver == $pkgver ]]; then
     zenity --info --text "vim-suse is about to be updated from $pkgpver to $pkgver."
 else
-    printf "Vim\n" && exit
+    printf "Vim\n" && return
 fi
 
 sed -i -e "s/$baseversion/$vim_baseversion/g" vim.spec
 sed -i -e "s/$patchversion/$vim_patchversion/g" vim.spec
-osc ci -m "Bumping to $pkgver" || zenity --error --text "For some reason vim-updater exited at the stage of committing changes to the OBS" --title="vim-updater"
+osc ci -m "Bumping to $pkgver" || zenity --error --text "For some reason vim-updater returned at the stage of committing changes to the OBS" --title="vim-updater"

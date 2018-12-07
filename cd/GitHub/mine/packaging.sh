@@ -17,6 +17,10 @@ function cdfo {
     cdpk "fusion809-overlay/$1"
 }
 
+function cdnp {
+    cdpk "nixpkgs/$1"
+}
+
 # cd to my OpenRA repository
 function cdora {
     cdpk "OpenRA/$1"

@@ -4,5 +4,5 @@ function git-branch {
 }
 export GHUBO=$HOME/GitHub/others/"$@"
 cd $GHUBO/"$@"
-git pull origin $(git-branch) || printf "git pull origin $(git-branch) failed for $i\n" && exit
+git pull origin $(git-branch) || printf "git pull origin $(git-branch) failed for $i\n" && return
 cd $GHUBO

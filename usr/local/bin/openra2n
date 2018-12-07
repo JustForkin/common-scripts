@@ -5,12 +5,12 @@
 #done
 
 # OpenRA Red Alert 2 mod latest commit available
-cd /home/fusion809/GitHub/others/ra2 || exit
-git stash -q || exit
+cd /home/fusion809/GitHub/others/ra2 || return
+git stash -q || return
 if ! command -v git > /dev/null 2>&1; then
-    printf "%s\n" "git is not detected, please install it and if already installed add it to your system PATH!" && exit
+    printf "%s\n" "git is not detected, please install it and if already installed add it to your system PATH!" && return
 fi
-git pull origin master -q || ( printf "ORA2Err\n" && exit )
+git pull origin master -q || ( printf "ORA2Err\n" && return )
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
 orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-ra2/openra-ra2.spec | sed 's/Version:\s*//g')

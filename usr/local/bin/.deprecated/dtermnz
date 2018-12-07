@@ -6,7 +6,7 @@ if command -v curl > /dev/null 2>&1; then
 elif command -v wget > /dev/null 2>&1; then
     pkgver=$(wget -cqO- https://github.com/linuxdeepin/deepin-terminal/releases | grep "\.tar\.gz" | head -n 1 | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/v//g' | sed 's/\.tar\.gz//g')
 else
-    zenity --error --text="Neither cURL nor wget are detected, please install them, or if already installed please add them to the system PATH." && exit
+    zenity --error --text="Neither cURL nor wget are detected, please install them, or if already installed please add them to the system PATH." && return
 fi
 
 pkgpver=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/deepin-terminal/deepin-terminal.spec | sed 's/Version:\s*//g')

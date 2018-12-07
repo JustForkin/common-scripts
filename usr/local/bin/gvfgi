@@ -1,5 +1,5 @@
 #!/bin/bash
-export DIR=/home/fusion809/GitHub/mine/websites/fusion809.github.io
+export DIR=$WEB/fusion809.github.io
 pushd $DIR
 /usr/bin/gvim
 popd

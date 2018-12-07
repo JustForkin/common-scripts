@@ -1,30 +1,30 @@
 #!/bin/bash
-cd /home/fusion809/GitHub/mine/packaging/OpenRA || exit
+cd $GHUBM/packaging/OpenRA || return
 # Check for git
 if ! command -v git > /dev/null 2>&1; then
-	zenity --error --text="git not found, please add it to system path, presumably after installing it." --title="Error!" && exit
+	zenity --error --text="git not found, please add it to system path, presumably after installing it." --title="Error!" && return
 fi
 # Check for make
 if ! command -v make > /dev/null 2>&1; then
-	zenity --error --text="make is missing, please add it to system path, command -v will likely be after you install it." --title="Error!" && exit
+	zenity --error --text="make is missing, please add it to system path, command -v will likely be after you install it." --title="Error!" && return
 fi
 
 # Check for mono
 if ! command -v mono > /dev/null 2>&1; then
-	zenity --error --text="mono is missing, please add it to system path, command -v will likely be after you install it." --title="Error!" && exit
+	zenity --error --text="mono is missing, please add it to system path, command -v will likely be after you install it." --title="Error!" && return
 fi
 
 # Check for Lua 5.1 libraries
 if ! find /usr/lib* /lib* -name "liblua*5*1*.so*" -quit > /dev/null 2>&1 ; then
-	zenity --error --text="Lua 5.1 libs are not found in /usr/lib/x86_64-linux-gnu, /lib64 or /usr/lib64. If they are installed somewhere else, but in LD_LIBRARY_PATH, feel free to ignore this warning, otherwise install these libraries please" --title="Error!" && exit
+	zenity --error --text="Lua 5.1 libs are not found in /usr/lib/x86_64-linux-gnu, /lib64 or /usr/lib64. If they are installed somewhere else, but in LD_LIBRARY_PATH, feel free to ignore this warning, otherwise install these libraries please" --title="Error!" && return
 fi
 
 if ! find /lib* /usr/lib* -name "libopenal*" -quit > /dev/null 2>&1 ; then
-	zenity --error --text="OpenAL libraries not found, please install them." --title="Error!" && exit
+	zenity --error --text="OpenAL libraries not found, please install them." --title="Error!" && return
 fi
 
 if ! find /lib* /usr/lib* -name "libSDL2*.so*" -quit > /dev/null 2>&1 ; then
-	zenity --error --text="SDL2 libraries not found, please install them." --title="Error!" && exit
+	zenity --error --text="SDL2 libraries not found, please install them." --title="Error!" && return
 fi
 #printf "Updating my OpenRA fork...\n"
 
@@ -53,13 +53,13 @@ fi
 #git push origin $commn
 #printf "Pushing to bleed branch...\n"
 
-cd /home/fusion809/GitHub/others/OpenRA || exit
+cd /home/fusion809/GitHub/others/OpenRA || return
 commco=$(git rev-list --branches bleed --count)
 export DEST=$HOME/.local
 VERSION=$(cat $DEST/lib/openra/VERSION)
 
 if [[ $VERSION == "bleed-$commco" ]]; then
-	printf "At the latest commit already mate!\n" ; exit
+	printf "At the latest commit already mate!\n" ; return
 fi
 
 if ! [[ -f /usr/bin/openra-ra ]] || [[ -f /usr/lib/openra/method ]] ; then

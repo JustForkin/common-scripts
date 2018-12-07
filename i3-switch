@@ -2,7 +2,7 @@
 DISTRO=$(cat /etc/os-release | grep "^NAME" | cut -d '=' -f 2 | cut -d '"' -f 2)
 
 if ! [[ -d /home/fusion809/.i3 ]]; then
-    printf "i3 directory not found\n" ; exit
+    printf "i3 directory not found\n" ; return
 fi
 
 if [[ $DISTRO == openSUSE* ]]; then

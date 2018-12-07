@@ -7,5 +7,5 @@ function cpv {
 }
 
 function shvup {
-	cpv && cdvim && push "$1" && cd - || exit
+	cpv && cdvim && push "$1" && cd - || return
 }

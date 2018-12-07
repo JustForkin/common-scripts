@@ -1,12 +1,12 @@
 # Create new mod
 function newmod {
-    cdgo "$1" || exit
+    cdgo "$1" || return
     git pull origin master -q
     if [[ -f "$HOME/OBS/home:fusion809/openra-$2/openra-$2.spec" ]]; then
-         printf "%s\n" "I've already packaged openra-$1, so exiting" && exit
+         printf "%s\n" "I've already packaged openra-$1, so returning" && return
     else
          if ! [[ -d "$HOME/OBS/home:fusion809/openra-$2" ]]; then
-              cdobsh && osc mkpac "openra-$2" && cd - || exit
+              cdobsh && osc mkpac "openra-$2" && cd - || return
          fi
          # OpenRA latest engine version
          enlv=$(grep '^ENGINE\_VERSION' < cat mod.config | cut -d '"' -f 2)
@@ -56,10 +56,10 @@ function newmod {
          make clean
          make
          tar czvf "$HOME/OBS/home:fusion809/openra-$2/engine-${enlv}.tar.gz" engine
-         cdobsh openra-"$2" || exit
+         cdobsh openra-"$2" || return
          osc add engine-"${enlv}".tar.gz
-         cd - || exit
-         cdobsh openra-"$2" || exit
+         cd - || return
+         cdobsh openra-"$2" || return
          read "yn?Edit the description (line 70) as it presently is written for Dark Reign.\n Type y or yes and then enter to proceed.\n"
          vsp
          osc build openSUSE_Tumbleweed --noverify

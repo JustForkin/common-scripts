@@ -1,6 +1,6 @@
 #!/bin/bash
 # Avogadro 2 latest version available
-cd /home/fusion809/GitHub/others/avogadroapp || exit
+cd /home/fusion809/GitHub/others/avogadroapp || return
 
 # Check for git in PATH
 if command -v git > /dev/null 2>&1; then

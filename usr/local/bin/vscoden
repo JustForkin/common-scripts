@@ -15,7 +15,7 @@ else
     printf "Neither cURL nor wget has been detected, please install them if not installed or add them to the system PATH if they already are.\n"
 fi
 
-verl=$(ls /home/fusion809/GitHub/mine/packaging/fusion809-overlay/app-editors/visual-studio-code/*.ebuild | sed 's/.*\/visual-studio-code-//g' | sed 's/\.ebuild//g')
+verl=$(ls $GHUBM/packaging/fusion809-overlay/app-editors/visual-studio-code/*.ebuild | sed 's/.*\/visual-studio-code-//g' | sed 's/\.ebuild//g')
 
 if [[ $verl == $ver ]]; then
     printf "VSC\n"
