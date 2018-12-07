@@ -32,7 +32,7 @@ function uRAup {
 			  osc ci -m "Bumping $specn->$mastn; engine version is unchanged."
 		 fi
 
-		 cdpk nixpkgs/pkgs/games/openra-ura || return
+		 cdnp pkgs/games/openra-ura || return
 
 		 if ! [[ "$enpv" == "$enlv" ]]; then
 			  push "openra-ura: $specn->$mastn; engine $enpv->$enlv"
