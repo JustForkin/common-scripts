@@ -10,6 +10,14 @@ alias vch=vcl
 alias vchl=vcl
 alias vcg=vcl
 
+function vdn {
+	vim default.nix
+}
+
+function vnx {
+	vim *.nix
+}
+
 function vds {
 	vim *.dsc
 }
