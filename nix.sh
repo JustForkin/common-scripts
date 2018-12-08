@@ -53,3 +53,7 @@ function nixrb {
 function nixif {
 	nix-env -if "$@"
 }
+
+function nixb {
+	nix-env -f $NIXPKGS -iA ${PWD##*/}
+}
