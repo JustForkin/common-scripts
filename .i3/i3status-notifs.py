@@ -12,20 +12,20 @@ status.register("shell",
     color="#FDCDD9",
     interval=300)
 
-status.register("shell",
-    command="/usr/local/bin/vscoden",
-    color="#9FC9FF",
-    interval=300)
+#status.register("shell",
+#    command="/usr/local/bin/vscoden",
+#    color="#9FC9FF",
+#    interval=300)
 
 status.register("shell",
     command="/usr/local/bin/vimn",
     color="#AACCFF",
     interval=300)
 
-status.register("shell",
-    command="/usr/local/bin/subln",
-    color="#FFFF44",
-    interval=300)
+#status.register("shell",
+#    command="/usr/local/bin/subln",
+#    color="#FFFF44",
+#    interval=300)
 
 status.register("shell",
     command="/usr/local/bin/spglibn",
