@@ -17,12 +17,12 @@ function nixoup {
 	# Engine name
 	enginec=$(grep "^ENGINE_VERSION" < mod.config | cut -d '"' -f 2)
 	# Present versions
-	enginen=$(grep '^\s*engine-version' < $NIXPKGS/pkgs/games/openra-$MOD | cut -d '"' -f 2)
-	numbn=$(grep "^\s*version" < $NIXPKGS/pkgs/games/openra-$MOD | cut -d '"' -f 2)
-	commitn=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD | head -n 1 | cut -d '"' -f 2)
+	enginen=$(grep '^\s*engine-version' < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | cut -d '"' -f 2)
+	numbn=$(grep "^\s*version" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | cut -d '"' -f 2)
+	commitn=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | head -n 1 | cut -d '"' -f 2)
 	if [[ $MOD == "yr" ]]; then
 		# Get data on ra2
-		commitn2=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD | head -n 2 | tail -n 1 | cut -d '"' -f 2)
+		commitn2=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
 		cdgo ra2
 		git pull origin $(git-branch)
 		commitc2=$(loge)
@@ -55,14 +55,12 @@ function mod-build {
 	numbc=$(git rev-list --branches $(git-branch) --count)
 	# Present commit
 	commitc=$(loge)
-	enginec=$(grep "^ENGINE_VERSION" < mod.config | cut -d '"' -f 2)
 	if ! [[ -f $HOME/.local/share/openra-$MOD ]]; then
 		touch $HOME/.local/share/openra-$MOD
 	fi
 	# Already built commit number   
 	numbn=$(grep "VERSION" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
 	commitn=$(grep "COMMIT" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
-	enginen=$(grep '^\s*engine-version' < $NIXPKGS/pkgs/games/openra-$MOD | cut -d '"' -f 2)
 	# AppImage name
 	APPNAME=$(grep "^PACKAGING_INSTALLER_NAME" < mod.config | cut -d '"' -f 2)
 	if (! [[ $numbc == $numbn ]] ) || (! [[ $commitc == $commitn ]] ); then
@@ -90,7 +88,9 @@ function mod-build {
 		popd || { printf '\e[1;31m%-6s\e[m\n' "popdin' out of packaging/linux." && return }
 		# Updating version on ~/.local/share
 		echo "VERSION ${numbc}\nCOMMIT ${commitc}" > $HOME/.local/share/openra-${MOD}
-		nixoup "$1"
+		if ! [[ $MOD == "mw" ]]; then
+			nixoup "$1"
+		fi
 	else
 		printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date mate!"
 	fi
