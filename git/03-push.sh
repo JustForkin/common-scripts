@@ -87,59 +87,63 @@ function update-common {
 
 # Complete push	
 function push {
-	if printf "$PWD" | grep 'AUR' > /dev/null 2>&1 ; then
-		 mksrcinfo
-	fi
+	if [[ -d .git ]]; then
+		if printf "$PWD" | grep 'AUR' > /dev/null 2>&1 ; then
+			 mksrcinfo
+		fi
 
-	if echo "$PWD" | grep opendesktop > /dev/null 2>&1 ; then
-		 commc=$(git rev-list --branches master --count)
-		 commn=$(octe "$commc+1")
-		 sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" "$PK"/opendesktop-app/pkg/appimage/appimagebuild
-		 pushm "$1"
-	elif echo "$PWD" | grep OpenRA > /dev/null 2>&1 ; then
-		 commc=$(git rev-list --branches bleed --count)
-		 commn=$(octe "$commc+1")
-		 sed -i -e "s/COMNO=[0-9]*/COMNO=${commn}/g" "$PK"/OpenRA/packaging/linux/buildpackage.sh
-		 pushm "$1"
-	else
-		 pushm "$1"
-	fi
+		if echo "$PWD" | grep opendesktop > /dev/null 2>&1 ; then
+			 commc=$(git rev-list --branches master --count)
+			 commn=$(octe "$commc+1")
+			 sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" "$PK"/opendesktop-app/pkg/appimage/appimagebuild
+			 pushm "$1"
+		elif echo "$PWD" | grep OpenRA > /dev/null 2>&1 ; then
+			 commc=$(git rev-list --branches bleed --count)
+			 commn=$(octe "$commc+1")
+			 sed -i -e "s/COMNO=[0-9]*/COMNO=${commn}/g" "$PK"/OpenRA/packaging/linux/buildpackage.sh
+			 pushm "$1"
+		else
+			 pushm "$1"
+		fi
+	
+		if echo "$PWD" | grep "$HOME/Shell" > /dev/null 2>&1 ; then
+			 szsh
+		elif echo "$PWD" | grep "$FS" > /dev/null 2>&1 && grep -i Fedora < /etc/os-release > /dev/null 2>&1 ; then
+			 szsh
+		elif echo "$PWD" | grep "$ARS" > /dev/null 2>&1 && grep -i Arch < /etc/os-release  > /dev/null 2>&1 ; then
+			 szsh
+		elif echo "$PWD" | grep "$GS" > /dev/null 2>&1 && grep -i Gentoo < /etc/os-release > /dev/null 2>&1; then
+			 szsh
+		elif echo "$PWD" | grep "$DS" > /dev/null 2>&1 && grep -i "Debian\|Ubuntu" < /etc/os-release > /dev/null 2>&1; then
+			 szsh
+		elif echo "$PWD" | grep "$VS" > /dev/null 2>&1 && grep -i Void < /etc/os-release > /dev/null 2>&1; then
+			 szsh
+		elif echo "$PWD" | grep "$OSS" > /dev/null 2>&1 && grep -i openSUSE < /etc/os-release > /dev/null 2>&1; then
+			 szsh
+		elif echo "$PWD" | grep "$NS" > /dev/null 2>&1 && grep -i NixOS < /etc/os-release > /dev/null 2>&1; then
+			 szsh
+		elif echo "$PWD" | grep "$PLS" > /dev/null 2>&1 && grep -i PCLinuxOS < /etc/os-release > /dev/null 2>&1; then
+			 szsh
+		elif echo "$PWD" | grep "$CS" > /dev/null 2>&1 && grep -i CentOS < /etc/os-release > /dev/null 2>&1; then
+			 szsh
+		fi
 
-	if echo "$PWD" | grep "$HOME/Shell" > /dev/null 2>&1 ; then
-		 szsh
-	elif echo "$PWD" | grep "$FS" > /dev/null 2>&1 && grep -i Fedora < /etc/os-release > /dev/null 2>&1 ; then
-		 szsh
-	elif echo "$PWD" | grep "$ARS" > /dev/null 2>&1 && grep -i Arch < /etc/os-release  > /dev/null 2>&1 ; then
-		 szsh
-	elif echo "$PWD" | grep "$GS" > /dev/null 2>&1 && grep -i Gentoo < /etc/os-release > /dev/null 2>&1; then
-		 szsh
-	elif echo "$PWD" | grep "$DS" > /dev/null 2>&1 && grep -i "Debian\|Ubuntu" < /etc/os-release > /dev/null 2>&1; then
-		 szsh
-	elif echo "$PWD" | grep "$VS" > /dev/null 2>&1 && grep -i Void < /etc/os-release > /dev/null 2>&1; then
-		 szsh
-	elif echo "$PWD" | grep "$OSS" > /dev/null 2>&1 && grep -i openSUSE < /etc/os-release > /dev/null 2>&1; then
-		 szsh
-	elif echo "$PWD" | grep "$NS" > /dev/null 2>&1 && grep -i NixOS < /etc/os-release > /dev/null 2>&1; then
-		 szsh
-	elif echo "$PWD" | grep "$PLS" > /dev/null 2>&1 && grep -i PCLinuxOS < /etc/os-release > /dev/null 2>&1; then
-		 szsh
-	elif echo "$PWD" | grep "$CS" > /dev/null 2>&1 && grep -i CentOS < /etc/os-release > /dev/null 2>&1; then
-		 szsh
-	fi
-
-	# Update common-scripts dirs
-	if echo "$PWD" | grep "$HOME/Shell/common-scripts" > /dev/null 2>&1; then
-		 if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
-			  read -p "Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n] " yn
-		 else
-			  read "yn?Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n] "
-		 fi
-
-		 case $yn in
-			  [Yy]* ) update-common;;
-			  [Nn]* ) printf "%s\n" "OK, it's your funeral. Run update-common if you change your mind." ;; 
-			  * ) printf "%s\n" "Please answer y or n." ; ...
-		 esac
+		# Update common-scripts dirs
+		if echo "$PWD" | grep "$HOME/Shell/common-scripts" > /dev/null 2>&1; then
+			 if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
+				  read -p "Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n] " yn
+			 else
+				  read "yn?Do you want to update common-scripts submodules and the main common-scripts repo (if not already up-to-date) now? [y/n] "
+			 fi
+	
+			 case $yn in
+				  [Yy]* ) update-common;;
+				  [Nn]* ) printf "%s\n" "OK, it's your funeral. Run update-common if you change your mind." ;; 
+				  * ) printf "%s\n" "Please answer y or n." ; ...
+			 esac
+		fi
+	elif [[ -d .osc ]]; then
+		osc ci -m "$@"
 	fi
 }
 
