@@ -31,5 +31,6 @@ function d2up {
          cdobsh openra-d2 || return
          osc ci -m "Bumping $specn->$mastn"
     fi
-}
 
+    nixoup d2
+}

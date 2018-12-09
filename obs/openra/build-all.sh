@@ -1,3 +1,48 @@
+# OpenRA mod Nixpkg updater
+function nixoup {
+	# Change to mod source directory
+	cd $GHUBO/"$1"
+	# Determine mod name
+	MOD=$(grep "^MOD_ID" < mod.config | cut -d '"' -f 2)
+	# Print mod name (largely to check for errors)
+	printf '\e[1;32m%-6s\e[m\n' "Mod name is $MOD."
+	# Stash changes, so that pull works fine
+	git stash -q || { printf '\e[1;31m%-6s\e[m\n' "git stashin' failed, so exiting." && return }
+	# Pull upstream changes
+	git pull origin $(git-branch) -q || { printf '\e[1;31m%-6s\e[m\n' "git pullin' on branch $(git-branch) failed." && return }
+	# Present commit number
+	numbc=$(git rev-list --branches $(git-branch) --count)
+	# Present commit
+	commitc=$(loge)
+	# Engine name
+	enginec=$(grep "^ENGINE_VERSION" < mod.config | cut -d '"' -f 2)
+	# Present versions
+	enginen=$(grep '^\s*engine-version' < $NIXPKGS/pkgs/games/openra-$MOD | cut -d '"' -f 2)
+	numbn=$(grep "^\s*version" < $NIXPKGS/pkgs/games/openra-$MOD | cut -d '"' -f 2)
+	commitn=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD | head -n 1 | cut -d '"' -f 2)
+	if [[ $MOD == "yr" ]]; then
+		# Get data on ra2
+		commitn2=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD | head -n 2 | tail -n 1 | cut -d '"' -f 2)
+		cdgo ra2
+		git pull origin $(git-branch)
+		commitc2=$(loge)
+		# Update nix file
+		sed -i -e "s|$numbn|$numbc|g" \
+		       -e "s|$commitn|$commitc|g" \
+			   -e "s|$commitn2|$commitc2|g" \
+		       -e "s|$enginen|$enginec|g" $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
+	else
+		# Update nix file
+		sed -i -e "s|$numbn|$numbc|g" \
+		       -e "s|$commitn|$commitc|g" \
+		       -e "s|$enginen|$enginec|g" $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
+	fi
+	# Build package, to get sha256
+	printf "Building "
+	nix-env -f $NIXPKGS -iA "openra-${MOD}" || printf "You will have to update the sha256 field manually"
+
+}
+
 # openra-build-all builds all OpenRA mods as AppImages. If one fails it continues on.
 # Function takes a singular input: the name of the folder used by the mod in $HOME/GitHub/others
 function mod-build {
@@ -5,7 +50,7 @@ function mod-build {
 	MOD=$(grep "^MOD_ID" < mod.config | cut -d '"' -f 2)
 	printf '\e[1;32m%-6s\e[m\n' "Mod name is $MOD."
 	git stash -q || { printf '\e[1;31m%-6s\e[m\n' "git stashin' failed." && return }
-git pull origin $(git-branch) -q || { printf '\e[1;31m%-6s\e[m\n' "git pullin' on branch $(git-branch) failed." && return }
+	git pull origin $(git-branch) -q || { printf '\e[1;31m%-6s\e[m\n' "git pullin' on branch $(git-branch) failed." && return }
 	# Present commit number
 	numbc=$(git rev-list --branches $(git-branch) --count)
 	# Present commit
@@ -45,11 +90,7 @@ git pull origin $(git-branch) -q || { printf '\e[1;31m%-6s\e[m\n' "git pullin' o
 		popd || { printf '\e[1;31m%-6s\e[m\n' "popdin' out of packaging/linux." && return }
 		# Updating version on ~/.local/share
 		echo "VERSION ${numbc}\nCOMMIT ${commitc}" > $HOME/.local/share/openra-${MOD}
-		# Updating Nixpkgs
-		sed -i -e "s|$numbn|$numbc|g" \
-		       -e "s|$commitn|$commitc|g" \
-		       -e "s|$enginen|$enginec|g" $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
-		nix-env -f $NIXPKGS -iA "openra-${MOD}" || printf "You will have to update the sha256 field manually"
+		nixoup "$1"
 	else
 		printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date mate!"
 	fi

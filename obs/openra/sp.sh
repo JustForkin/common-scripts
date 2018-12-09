@@ -19,7 +19,7 @@ function spup {
 	else
 		 if ! [[ "$enpv" == "$enlv" ]]; then
 			  printf "%s\n" "Updating the game engine to $enlv."
-			  sed -i -e "s|${enpv}|${enlv}|g" "$OBSH"/openra-sp/{openra-sp.spec,PKGBUILD} "$PK"/nixpkgs/games/openra-sp/default.nix || ( printf "Replacing enpv ($enpv) with enlv ($enlv) failed" && return) 
+			  sed -i -e "s|${enpv}|${enlv}|g" "$OBSH"/openra-sp/{openra-sp.spec,PKGBUILD} || ( printf "Replacing enpv ($enpv) with enlv ($enlv) failed" && return) 
 			  make clean || return
 			  make || return
 			  tar czvf "$OBSH"/openra-sp/engine-"${enlv}".tar.gz engine
@@ -29,8 +29,8 @@ function spup {
 			  cd - || return
 		 fi
 		 cdobsh openra-sp || return
-		 sed -i -e "s|${sdkpc}$|${sdklc}|g" PKGBUILD openra-sp.spec "$PK"/nixpkgs/games/openra-sp/default.nix || ( printf "Replacing sdkpc ($sdkpc) with sdklc ($sdklc) failed" && return )
-		 sed -i -e "s|${sdkpver}|${sdklver}|g" PKGBUILD openra-sp.spec "$PK"/nixpkgs/games/openra-sp/default.nix || ( printf "Replacing sdkpver ($sdkpver) with sdklver ($sdklver) failed" && return )
+		 sed -i -e "s|${sdkpc}$|${sdklc}|g" PKGBUILD openra-sp.spec || ( printf "Replacing sdkpc ($sdkpc) with sdklc ($sdklc) failed" && return )
+		 sed -i -e "s|${sdkpver}|${sdklver}|g" PKGBUILD openra-sp.spec || ( printf "Replacing sdkpver ($sdkpver) with sdklver ($sdklver) failed" && return )
 	fi
 
 	# If Shattered Paradise is outdated sed update it
@@ -38,20 +38,8 @@ function spup {
 		 printf "%s\n" "Latest Shattered Paradise commit is packaged!"
 	else
 		 cdobsh openra-sp || return
-		 sed -i -e "s|${sppver}|${splver}|g" openra-sp.spec "$PK"/nixpkgs/games/openra-sp/default.nix || (printf "Replacing sppver ($sppver) with splver ($splver) failed" && return)
+		 sed -i -e "s|${sppver}|${splver}|g" openra-sp.spec || (printf "Replacing sppver ($sppver) with splver ($splver) failed" && return)
 	fi
 
-	# If OpenRAModSDK or Shattered Paradise repo is outdated commit updtae to repo
-	if ! [[ "$sdkpver" == "$sdkpver" ]] || ! [[ "$splver" == "$sppver" ]]; then
-		 cdobsh openra-sp || return
-		 osc ci -m "Bumping to SDK: $sdklc ($sdklver); SP: $splver" || return
-		 #cdpk nixpkgs/games/openra-sp || return
-		 #push "openra-sp: SDK $sdkpc->$sdklc; $sdkpver->$sdklver; SP $sppver->$splver" || return
-		 printf "%s\n" "You should run nix-env -f $PK/nixpkgs -iA openra-sp,"
-		 printf "%s\n" "and update the sha256 field in default.nix accordingly,"
-		 printf "%s\n" "then commit the changes."
-		 cdpk nixpkgs/pkgs/games/openra-sp || return
-		 printf "%s\n" "You are now in the $NIXPKGS directory."
-	fi
 	mod-build SP-OpenRAModSDK
 }
