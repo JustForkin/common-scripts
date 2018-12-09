@@ -10,12 +10,14 @@ git pull origin $(git-branch) -q || { printf '\e[1;31m%-6s\e[m\n' "git pullin' o
 	numbc=$(git rev-list --branches $(git-branch) --count)
 	# Present commit
 	commitc=$(loge)
+	enginec=$(grep "^ENGINE_VERSION" < mod.config | cut -d '"' -f 2)
 	if ! [[ -f $HOME/.local/share/openra-$MOD ]]; then
 		touch $HOME/.local/share/openra-$MOD
 	fi
 	# Already built commit number   
 	numbn=$(grep "VERSION" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
 	commitn=$(grep "COMMIT" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
+	enginen=$(grep '^\s*engine-version' < $NIXPKGS/pkgs/games/openra-$MOD | cut -d '"' -f 2)
 	# AppImage name
 	APPNAME=$(grep "^PACKAGING_INSTALLER_NAME" < mod.config | cut -d '"' -f 2)
 	if (! [[ $numbc == $numbn ]] ) || (! [[ $commitc == $commitn ]] ); then
@@ -32,14 +34,22 @@ git pull origin $(git-branch) -q || { printf '\e[1;31m%-6s\e[m\n' "git pullin' o
 			printf '\e[1;32m%-6s\e[m\n' "An existing AppImage seems to exist in $HOME/Applications, so deleting it, so we can replace it with the successfully build AppImage for this new version."
 			rm -rf $HOME/Applications/*${APPNAME}-*.AppImage || { printf '\e[1;31m%-6s\e[m\n' "Removing this AppImage failed." && return }
 		fi
+		# Moving to $HOME/Applications
 		printf '\e[1;32m%-6s\e[m\n' "Moving AppImage to $HOME/Applications."
 		mv ${APPNAME}-${numbc}.AppImage $HOME/Applications || { printf '\e[1;31m%-6s\e[m\n' "Moving new AppImage to $HOME/Applications failed." && return }
+		# Updating desktop config file
 		printf '\e[1;32m%-6s\e[m\n' "Removing existing desktop config files for older versions of this mod."
 		if ls $HOME/.local/share/applications | grep openra-${MOD} > /dev/null 2>&1 ; then
 			rm -rf $HOME/.local/share/applications/*openra-${MOD}*.desktop || { printf '\e[1;31m%-6s\e[m\n' "Removing old openra-${MOD}.desktop config file from $HOME/.local/share/applications failed." && return }
 		fi
 		popd || { printf '\e[1;31m%-6s\e[m\n' "popdin' out of packaging/linux." && return }
+		# Updating version on ~/.local/share
 		echo "VERSION ${numbc}\nCOMMIT ${commitc}" > $HOME/.local/share/openra-${MOD}
+		# Updating Nixpkgs
+		sed -i -e "s|$numbn|$numbc|g" \
+		       -e "s|$commitn|$commitc|g" \
+		       -e "s|$enginen|$enginec|g" $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
+		nix-env -f $NIXPKGS -iA "openra-${MOD}" || printf "You will have to update the sha256 field manually"
 	else
 		printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date mate!"
 	fi

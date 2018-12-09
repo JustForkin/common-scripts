@@ -13,10 +13,10 @@ function uRAup {
 	if [[ "$specn" == "$mastn" ]]; then
 		 printf "%s\n" "OpenRA Red Alert Unplugged mod is up to date!"
 	else
-		 sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD} "$PK"/nixpkgs/pkgs/games/openra-ura/default.nix
-		 sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD} "$PK"/nixpkgs/pkgs/games/openra-ura/default.nix 
+		 sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD}
+		 sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD} 
 		 if ! [[ "$enpv" == "$enlv" ]]; then
-			  sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD} "$PK"/nixpkgs/pkgs/games/openra-ura/default.nix
+			  sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD}
 			  make clean || return
 			  make || return
 			  tar czvf "$OBSH"/openra-ura/engine-"${enlv}".tar.gz engine
@@ -30,14 +30,6 @@ function uRAup {
 			  osc ci -m "Bumping $specn->$mastn; engine $enpv->$enlv"
 		 else
 			  osc ci -m "Bumping $specn->$mastn; engine version is unchanged."
-		 fi
-
-		 cdnp pkgs/games/openra-ura || return
-
-		 if ! [[ "$enpv" == "$enlv" ]]; then
-			  push "openra-ura: $specn->$mastn; engine $enpv->$enlv"
-		 else
-			  push "openra-ura: $specn->$mastn; engine version is unchanged."
 		 fi
 	fi
 	mod-build uRA

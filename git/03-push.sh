@@ -87,7 +87,7 @@ function update-common {
 
 # Complete push	
 function push {
-	if [[ -d .git ]]; then
+	if git log > /dev/null 2>&1; then
 		if printf "$PWD" | grep 'AUR' > /dev/null 2>&1 ; then
 			 mksrcinfo
 		fi
@@ -280,4 +280,3 @@ function pushf {
 		esac
 	fi
 }
-
