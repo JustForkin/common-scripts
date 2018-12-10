@@ -31,13 +31,15 @@ function nixoup {
 			if [[ $commitn2 == $commitc2 ]]; then
 				sed -i -e "s|$numbn|$numbc|g" \
 			    	   -e "s|$commitn|$commitc|g" \
-					   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' $NIXPKGS/pkgs/games/openra-${MOD}/default.nix		   
+					   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
+					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix		   
 			else
 				sed -i -e "s|$numbn|$numbc|g" \
 				       -e "s|$commitn|$commitc|g" \
 					   -e "s|$commitn2|$commitc2|g" \
 					   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
-					   -e '33s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
+					   -e '33s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
+					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 			fi
 		else
 			# If the engine has been updated its sha256 needs to be changed, so it is downloaded
@@ -46,7 +48,8 @@ function nixoup {
 				       -e "s|$commitn|$commitc|g" \
 					   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
 					   -e '40s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
-				       -e "s|$enginen|$enginec|g" $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
+				       -e "s|$enginen|$enginec|g" \
+					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 			else
 				sed -i -e "s|$numbn|$numbc|g" \
 				       -e "s|$commitn|$commitc|g" \
@@ -54,7 +57,8 @@ function nixoup {
 					   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
 					   -e '33s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
 					   -e '40s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
-				       -e "s|$enginen|$enginec|g" $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
+				       -e "s|$enginen|$enginec|g" \
+					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 			fi
 		fi
 	else
@@ -64,11 +68,13 @@ function nixoup {
 			       -e "s|$commitn|$commitc|g" \
 				   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
 				   -e '33s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
-			       -e "s|$enginen|$enginec|g" $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
+			       -e "s|$enginen|$enginec|g" \
+				   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 		else
 			sed -i -e "s|$numbn|$numbc|g" \
 			       -e "s|$commitn|$commitc|g" \
-				   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
+				   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
+				   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 		fi
 	fi
 	# Build package, to get sha256
