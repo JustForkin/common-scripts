@@ -29,7 +29,6 @@ function openrabup {
 		printf '\e[1;32m%-6s\e[m\n' "Updating local copy of my OpenRA repo fork..."
 		cdora ; git pull upstream bleed -q ; git push origin bleed -q
 		cdnp pkgs/games/openra || return
-		nix-env -f "$PK" -iA openra
-		printf '\e[1;34m%-6s\e[m\n' "You may need to update the sha256 based on the above output."
+		printf 'You are in the openra Nix repo, run nix-env -f $NIXPKGS -iA openra, then update the sha256 accordingly.\n'
 	fi
 }
