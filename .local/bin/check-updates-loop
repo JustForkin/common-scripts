@@ -1,0 +1,10 @@
+while :
+do
+    printf "%s\n" "Running /usr/local/bin/check-updates in Arch chroot at $(date +"%r %A, %d %B %Y")"
+    ~/.local/bin/check-updates
+    if [[ -n "$@" ]]; then
+         sleep "$@"
+    else
+         sleep 10m
+    fi
+done
