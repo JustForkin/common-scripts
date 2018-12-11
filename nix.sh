@@ -55,5 +55,9 @@ function nixif {
 }
 
 function nixb {
-	nix-env -f $NIXPKGS -iA ${PWD##*/}
+	if [[ -n $1 ]]; then
+		nix-env -f $NIXPKGS -iA "$@"
+	else		
+		nix-env -f $NIXPKGS -iA ${PWD##*/}
+	fi
 }
