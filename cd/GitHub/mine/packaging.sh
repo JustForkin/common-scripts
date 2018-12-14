@@ -21,7 +21,7 @@ function cdnp {
 	if [[ -d $NIXPKGS/pkgs/games/$1 ]]; then
     		cd "$NIXPKGS/pkgs/games/$1"
 	elif [[ -d $NIXPKGS/pkgs/applications/editors/$1 ]]; then
-		cd "$NIXPKGS/pkgs/editors/$1"
+		cd "$NIXPKGS/pkgs/applications/editors/$1"
 	elif [[ -d $NIXPKGS/$1 ]]; then
 		cd "$NIXPKGS/$1"
 	elif [[ -d $NIXPKGS/pkgs/$1 ]]; then
