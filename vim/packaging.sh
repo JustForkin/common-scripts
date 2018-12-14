@@ -17,12 +17,14 @@ function vnix {
 		vim default.nix
 	elif ls * | grep "\.nix" > /dev/null 2&>1 ; then
 		vim *.nix
+	elif [[ -n "$1" ]]; then
+		vim "$1".nix
+	else
+		vim default.nix
 	fi
 }
 
-function vnx {
-	vim *.nix
-}
+alias vnx=vnix
 
 function vds {
 	vim *.dsc
