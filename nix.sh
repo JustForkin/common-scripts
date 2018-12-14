@@ -57,6 +57,8 @@ function nixif {
 function nixb {
 	if [[ -n $1 ]]; then
 		nix-env -f $NIXPKGS -iA "$@"
+	elif [[ "${PWD##*/}" == "vim" ]]; then
+		nix-env -f $NIXPKGS -iA vimHugeX
 	else		
 		nix-env -f $NIXPKGS -iA ${PWD##*/}
 	fi
@@ -71,5 +73,5 @@ function sedsha {
 	else
 		FILE="default"
 	fi
-	sed -i -e "${1}s/sha256 = ".*"/sha256 = "${2}"/" $FILE.nix
+	sed -i -e "${1}s/sha256 = \".*\"/sha256 = \"${2}\"/" $FILE.nix
 }
