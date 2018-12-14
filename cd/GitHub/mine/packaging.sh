@@ -18,7 +18,23 @@ function cdfo {
 }
 
 function cdnp {
-    cdpk "nixpkgs/$1"
+	if [[ -d $NIXPKGS/pkgs/games/$1 ]]; then
+    		cd "$NIXPKGS/pkgs/games/$1"
+	elif [[ -d $NIXPKGS/pkgs/applications/editors/$1 ]]; then
+		cd "$NIXPKGS/pkgs/editors/$1"
+	elif [[ -d $NIXPKGS/$1 ]]; then
+		cd "$NIXPKGS/$1"
+	elif [[ -d $NIXPKGS/pkgs/$1 ]]; then
+		cd "$NIXPKGS/pkgs/$1"
+	elif [[ -d $NIXPKGS/pkgs/applications/$1 ]]; then
+		cd "$NIXPKGS/pkgs/applications/$1"
+	elif [[ -d $NIXPKGS/pkgs/applications/*/$1 ]]; then
+		cd "$NIXPKGS/pkgs/applications/"*"/$1"
+	elif [[ -d $NIXPKGS/pkgs/science/math/$1 ]]; then
+		cd "$NIXPKGS/pkgs/science/math/$1"
+	elif [[ -d $NIXPKGS/pkgs/science/*/$1 ]]; then
+		cd "$NIXPKGS/pkgs/science/*/$1"
+	fi
 }
 
 # cd to my OpenRA repository

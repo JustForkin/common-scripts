@@ -10,8 +10,14 @@ alias vch=vcl
 alias vchl=vcl
 alias vcg=vcl
 
-function vdn {
-	vim default.nix
+function vnix {
+	if [[ -f common.nix ]]; then
+		vim common.nix
+	elif [[ -f default.nix ]]; then
+		vim default.nix
+	elif ls * | grep "\.nix" > /dev/null 2&>1 ; then
+		vim *.nix
+	fi
 }
 
 function vnx {
