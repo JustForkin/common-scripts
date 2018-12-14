@@ -16,7 +16,12 @@ if ! [[ -f $HOME/.config/nixpkgs/config.nix ]]; then
 fi
 
 function nixup {
-	nix-channel --update && nix-env --upgrade
+#	nix-channel --update && nix-env --upgrade
+	cdnp
+	# Update local fork
+	git pull upstream master ; git push origin $(git-branch)
+	# Update user-installed packages
+	nix-env -f $NIXPKGS --upgrade
 }
 
 function nixr {
