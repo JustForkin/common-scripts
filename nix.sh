@@ -66,5 +66,10 @@ function sedsha {
 	if [[ "${1}" == "--help" ]]; then
 		printf "First argument is the line number in which sha256 is to be replaced; second argument is the checksum value.\n"
 	fi
-	sed -i -e "${1}s/sha256 = ".*"/sha256 = "${2}"/" default.nix
+	if [[ -f common.nix ]]; then
+		FILE="common"
+	else
+		FILE="default"
+	fi
+	sed -i -e "${1}s/sha256 = ".*"/sha256 = "${2}"/" $FILE.nix
 }
