@@ -95,44 +95,53 @@ function mod-build {
 	numbc=$(git rev-list --branches $(git-branch) --count)
 	# Present commit
 	commitc=$(loge)
-	if ! [[ -f $HOME/.local/share/openra-$MOD ]]; then
-		touch $HOME/.local/share/openra-$MOD
-	fi
-	# Already built commit number   
-	numbn=$(grep "VERSION" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
-	commitn=$(grep "COMMIT" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
-	# AppImage name
-	APPNAME=$(grep "^PACKAGING_INSTALLER_NAME" < mod.config | cut -d '"' -f 2)
-	if (! [[ $numbc == $numbn ]] ) || (! [[ $commitc == $commitn ]] ); then
-		printf '\e[1;32m%-6s\e[m\n' "Setting version in $HOME/.local/share/openra-${MOD}."
-		make version VERSION=${numbc} || { printf '\e[1;31m%-6s\e[m\n' "Make versionin' $GHUBO/$1 failed." && return }
-		# Building $GHUBO/$1
-		printf '\e[1;32m%-6s\e[m\n' "Building $MOD ${numbc} (${commitc})."
-		make || { printf '\e[1;31m%-6s\e[m\n' "Making $GHUBO/$1 failed." && return }
-		# Build AppImage
-		pushd packaging/linux || { printf '\e[1;31m%-6s\e[m\n' "pushdin' into packaging/linux." && return }
-		chmod +x buildpackage.sh || { printf '\e[1;31m%-6s\e[m\n' "Could not make buildpackage.sh executable." && return }
-		./buildpackage.sh ${numbc} . || { printf '\e[1;31m%-6s\e[m\n' "Building AppImage failed." && return }
-		if ls $HOME/Applications | grep "${APPNAME}-" | grep AppImage > /dev/null 2>&1 ; then
-			printf '\e[1;32m%-6s\e[m\n' "An existing AppImage seems to exist in $HOME/Applications, so deleting it, so we can replace it with the successfully build AppImage for this new version."
-			rm -rf $HOME/Applications/*${APPNAME}-*.AppImage || { printf '\e[1;31m%-6s\e[m\n' "Removing this AppImage failed." && return }
+	if ! grep -i "NixOS" < /etc/os-release > /dev/null 2>&1 ; then
+		if ! [[ -f $HOME/.local/share/openra-$MOD ]]; then
+			touch $HOME/.local/share/openra-$MOD
 		fi
-		# Moving to $HOME/Applications
-		printf '\e[1;32m%-6s\e[m\n' "Moving AppImage to $HOME/Applications."
-		mv ${APPNAME}-${numbc}.AppImage $HOME/Applications || { printf '\e[1;31m%-6s\e[m\n' "Moving new AppImage to $HOME/Applications failed." && return }
-		# Updating desktop config file
-		printf '\e[1;32m%-6s\e[m\n' "Removing existing desktop config files for older versions of this mod."
-		if ls $HOME/.local/share/applications | grep openra-${MOD} > /dev/null 2>&1 ; then
-			rm -rf $HOME/.local/share/applications/*openra-${MOD}*.desktop || { printf '\e[1;31m%-6s\e[m\n' "Removing old openra-${MOD}.desktop config file from $HOME/.local/share/applications failed." && return }
-		fi
-		popd || { printf '\e[1;31m%-6s\e[m\n' "popdin' out of packaging/linux." && return }
-		# Updating version on ~/.local/share
-		echo "VERSION ${numbc}\nCOMMIT ${commitc}" > $HOME/.local/share/openra-${MOD}
-		if ! [[ $MOD == "mw" ]]; then
-			nixoup "$1"
+		# Already built commit number   
+		numbn=$(grep "VERSION" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
+		commitn=$(grep "COMMIT" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
+		# AppImage name
+		APPNAME=$(grep "^PACKAGING_INSTALLER_NAME" < mod.config | cut -d '"' -f 2)
+		if (! [[ $numbc == $numbn ]] ) || (! [[ $commitc == $commitn ]] ); then
+			printf '\e[1;32m%-6s\e[m\n' "Setting version in $HOME/.local/share/openra-${MOD}."
+			make version VERSION=${numbc} || { printf '\e[1;31m%-6s\e[m\n' "Make versionin' $GHUBO/$1 failed." && return }
+			# Building $GHUBO/$1
+			printf '\e[1;32m%-6s\e[m\n' "Building $MOD ${numbc} (${commitc})."
+			make || { printf '\e[1;31m%-6s\e[m\n' "Making $GHUBO/$1 failed." && return }
+			# Build AppImage
+			pushd packaging/linux || { printf '\e[1;31m%-6s\e[m\n' "pushdin' into packaging/linux." && return }
+			chmod +x buildpackage.sh || { printf '\e[1;31m%-6s\e[m\n' "Could not make buildpackage.sh executable." && return }
+			./buildpackage.sh ${numbc} . || { printf '\e[1;31m%-6s\e[m\n' "Building AppImage failed." && return }
+			if ls $HOME/Applications | grep "${APPNAME}-" | grep AppImage > /dev/null 2>&1 ; then
+				printf '\e[1;32m%-6s\e[m\n' "An existing AppImage seems to exist in $HOME/Applications, so deleting it, so we can replace it with the successfully build AppImage for this new version."
+				rm -rf $HOME/Applications/*${APPNAME}-*.AppImage || { printf '\e[1;31m%-6s\e[m\n' "Removing this AppImage failed." && return }
+			fi
+			# Moving to $HOME/Applications
+			printf '\e[1;32m%-6s\e[m\n' "Moving AppImage to $HOME/Applications."
+			mv ${APPNAME}-${numbc}.AppImage $HOME/Applications || { printf '\e[1;31m%-6s\e[m\n' "Moving new AppImage to $HOME/Applications failed." && return }
+			# Updating desktop config file
+			printf '\e[1;32m%-6s\e[m\n' "Removing existing desktop config files for older versions of this mod."
+			if ls $HOME/.local/share/applications | grep openra-${MOD} > /dev/null 2>&1 ; then
+				rm -rf $HOME/.local/share/applications/*openra-${MOD}*.desktop || { printf '\e[1;31m%-6s\e[m\n' "Removing old openra-${MOD}.desktop config file from $HOME/.local/share/applications failed." && return }
+			fi
+			popd || { printf '\e[1;31m%-6s\e[m\n' "popdin' out of packaging/linux." && return }
+			# Updating version on ~/.local/share
+			echo "VERSION ${numbc}\nCOMMIT ${commitc}" > $HOME/.local/share/openra-${MOD}
+			if ! [[ $MOD == "mw\|dr" ]]; then
+				nixoup "$1"
+			fi
+		else
+			printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date mate!"
 		fi
 	else
-		printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date mate!"
+		numbn=$(grep " version = " < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | cut -d '"' -f 2)
+		commitn=$(grep " rev = " < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
+		if (! [[ $numbc == $numbn ]] ) || (! [[ $commitc == $commitn ]] ); then
+			printf '\e[1;32m%-6s\e[m\n' "Bumping $numbn->$numbc; $commitn->$commitc."
+			nixoup "$1"
+		fi
 	fi
 }
 

@@ -18,22 +18,26 @@ function cdfo {
 }
 
 function cdnp {
-	if [[ -d $NIXPKGS/pkgs/games/$1 ]]; then
-    		cd "$NIXPKGS/pkgs/games/$1"
-	elif [[ -d $NIXPKGS/pkgs/applications/editors/$1 ]]; then
-		cd "$NIXPKGS/pkgs/applications/editors/$1"
-	elif [[ -d $NIXPKGS/$1 ]]; then
-		cd "$NIXPKGS/$1"
-	elif [[ -d $NIXPKGS/pkgs/$1 ]]; then
-		cd "$NIXPKGS/pkgs/$1"
-	elif [[ -d $NIXPKGS/pkgs/applications/$1 ]]; then
-		cd "$NIXPKGS/pkgs/applications/$1"
-	elif [[ -d $NIXPKGS/pkgs/applications/*/$1 ]]; then
-		cd "$NIXPKGS/pkgs/applications/"*"/$1"
-	elif [[ -d $NIXPKGS/pkgs/science/math/$1 ]]; then
-		cd "$NIXPKGS/pkgs/science/math/$1"
-	elif [[ -d $NIXPKGS/pkgs/science/*/$1 ]]; then
-		cd "$NIXPKGS/pkgs/science/*/$1"
+	if [[ -n "$1" ]]; then
+		if [[ -d $NIXPKGS/pkgs/games/$1 ]]; then
+    			cd "$NIXPKGS/pkgs/games/$1"
+		elif [[ -d $NIXPKGS/pkgs/applications/editors/$1 ]]; then
+			cd "$NIXPKGS/pkgs/applications/editors/$1"
+		elif [[ -d $NIXPKGS/$1 ]]; then
+			cd "$NIXPKGS/$1"
+		elif [[ -d $NIXPKGS/pkgs/$1 ]]; then
+			cd "$NIXPKGS/pkgs/$1"
+		elif [[ -d $NIXPKGS/pkgs/applications/$1 ]]; then
+			cd "$NIXPKGS/pkgs/applications/$1"
+		elif [[ -d $NIXPKGS/pkgs/applications/*/$1 ]]; then
+			cd $NIXPKGS/pkgs/applications/*/$1
+		elif [[ -d $NIXPKGS/pkgs/applications/science/math/$1 ]]; then
+			cd "$NIXPKGS/pkgs/applications/science/math/$1"
+		elif [[ -d $NIXPKGS/pkgs/applications/science/*/$1 ]]; then
+			cd $NIXPKGS/pkgs/applications/science/*/$1
+		fi
+	else
+		cd $NIXPKGS
 	fi
 }
 
