@@ -158,14 +158,19 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
+    command="/usr/local/bin/jupytern",
+    color="#8EC756",
+    interval=300)
+
+status.register("shell",
     command="/usr/local/bin/jmoln",
     color="#A2F412",
     interval=300)
 
-status.register("shell",
-    command="/usr/local/bin/flatn",
-    color="#4EC756",
-    interval=300)
+#status.register("shell",
+#    command="/usr/local/bin/flatn",
+#    color="#4EC756",
+#    interval=300)
 
 status.register("shell",
     command="/usr/local/bin/avogadroln",
