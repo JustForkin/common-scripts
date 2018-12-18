@@ -19,7 +19,7 @@ function nixup {
 #	nix-channel --update && nix-env --upgrade
 	cdnp
 	# Update local fork
-	git pull upstream master ; git push origin $(git-branch)
+	git fetch upstream ; git merge upstream/master ; git push origin $(git-branch)
 	# Update user-installed packages
 	nix-env -f $NIXPKGS --upgrade
 }
