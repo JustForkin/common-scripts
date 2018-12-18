@@ -26,8 +26,8 @@ openrauran;
 openrayn;
 oscn; 
 rofin
-snapdn;
-snapdgn;
+#snapdn;
+#snapdgn;
 spglibn;
 subln;
 vimn; 
