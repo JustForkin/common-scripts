@@ -32,15 +32,15 @@ status.register("shell",
     color="#F9C755",
     interval=300)
 
-status.register("shell",
-    command="/usr/local/bin/snapdgn",
-    color="#33A0F0",
-    interval=300)
+#status.register("shell",
+#    command="/usr/local/bin/snapdgn",
+#    color="#33A0F0",
+#    interval=300)
 
-status.register("shell",
-    command="/usr/local/bin/snapdn",
-    color="#AFAFEF",
-    interval=300)
+#status.register("shell",
+#    command="/usr/local/bin/snapdn",
+#    color="#AFAFEF",
+#    interval=300)
 
 status.register("shell",
     command="/usr/local/bin/rofin",
