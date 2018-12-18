@@ -6,10 +6,12 @@ function gitup {
     cdgo
     for i in *
     do
-         pushd $i || return
-         git stash -q
-         git pull --all -q
-         popd || return
+	 if [[ -d $i ]]; then
+         	pushd $i || return
+         	git stash -q
+         	git pull --all -q
+         	popd || return
+	fi
     done
 }
 
