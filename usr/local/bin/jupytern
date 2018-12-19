@@ -18,7 +18,7 @@ fi
 # Determine latest commit's number
 orlv=$(git rev-list --branches master --count)
 # jupyterlab latest packaged version
-orpv=$(cat /data/abs/jupyterlab/PKGBUILD | grep "^pkgver" | cut -d '=' -f 2)
+orpv=$(cat /data/GitHub/mine/packaging/jupyterlab-archpkg/PKGBUILD | grep "^pkgver" | cut -d '=' -f 2)
 
 if [[ "$orpv" == "$orlv" ]]; then
     printf "%s\n" "JLab "
