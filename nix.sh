@@ -62,7 +62,7 @@ function nixif {
 function nixb {
 	if [[ -n $1 ]]; then
 		nix-env -f $NIXPKGS -iA "$@"
-	elif [[ "${PWD##*/}" == "vim" ]]; then
+	elif [[ "${PWD##*/}" == "vim" ]] && ( grep -i "NixOS" < /etc/os-release &> /dev/null ); then
 		nix-env -f $NIXPKGS -iA vimHugeX
 	else		
 		nix-env -f $NIXPKGS -iA ${PWD##*/}
