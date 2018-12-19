@@ -78,6 +78,11 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
+    command="/usr/local/bin/openrakn",
+    color="#FFCCAA",
+    interval=300)
+
+status.register("shell",
     command="/usr/local/bin/openragn",
     color="#9FCF9F",
     interval=300)
