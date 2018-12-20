@@ -74,7 +74,7 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/openramwn",
-    color="#FFCCAA",
+    color="#AACCFF",
     interval=300)
 
 status.register("shell",
