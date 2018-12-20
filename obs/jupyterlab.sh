@@ -23,3 +23,4 @@ function jupup {
 }
 
 alias jupyterup=jupup
+alias jlabup=jupup
