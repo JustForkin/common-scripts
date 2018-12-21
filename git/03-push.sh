@@ -97,11 +97,6 @@ function push {
 			 commn=$(octe "$commc+1")
 			 sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" "$PK"/opendesktop-app/pkg/appimage/appimagebuild
 			 pushm "$1"
-		elif echo "$PWD" | grep OpenRA > /dev/null 2>&1 ; then
-			 commc=$(git rev-list --branches bleed --count)
-			 commn=$(octe "$commc+1")
-			 sed -i -e "s/COMNO=[0-9]*/COMNO=${commn}/g" "$PK"/OpenRA/packaging/linux/buildpackage.sh
-			 pushm "$1"
 		else
 			 pushm "$1"
 		fi
