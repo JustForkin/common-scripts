@@ -69,6 +69,11 @@ status.register("shell",
 
 status.register("shell",
     command="/usr/local/bin/openraspn",
+    color="#AAFFFF",
+    interval=300)
+
+status.register("shell",
+    command="/usr/local/bin/openrarvn",
     color="#AAFFCC",
     interval=300)
 

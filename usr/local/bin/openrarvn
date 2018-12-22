@@ -1,0 +1,22 @@
+#!/bin/bash
+#while ! ping -q -w 1 -c 1 $(ip r | grep default | cut -d ' ' -f 3) > /dev/null
+#do
+#    sleep 60
+#done
+
+# OpenRA Dark Reign latest commit available
+cd /home/fusion809/GitHub/others/Romanovs-Vengeance || return
+git stash -q || return
+if ! command -v git > /dev/null 2>&1; then
+    printf "git is not detected, either install it or if already installed at it to the system PATH.\n" && return
+fi
+git pull origin "''secret''-ra2-mod" -q || ( printf "ORARVErr\n" && return )
+orlv=$(git rev-list --branches "''secret''-ra2-mod" --count)
+# OpenRA latest packaged version
+orpv=$(grep " version = " < /data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra-rv/default.nix | cut -d '"' -f 2)
+
+if [[ $orpv == $orlv ]]; then
+    printf "ORARV \n"
+else
+    printf "ORARV${orlv}\n"
+fi
