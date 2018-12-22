@@ -1,2 +1,6 @@
 #!/bin/bash
-git rev-list --branches $(git-branch) --count
+if [[ -n "$@" ]]; then
+	git -C "$@" rev-list --branches $(git-branch) --count
+else
+	git rev-list --branches $(git-branch) --count
+fi
