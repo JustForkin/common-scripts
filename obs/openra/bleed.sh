@@ -13,7 +13,7 @@ function openrabup {
 		printf '\e[1;32m%-6s\e[m\n' "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
 		sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$NIXPKGS"/pkgs/games/openra/default.nix || return
 		sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$NIXPKGS"/pkgs/games/openra/default.nix || return
-		sed -i -e "26s/sha256 = \".*\"/sha256 = \"1695y5yac62hy0vaav9rk0ws7nykral138f9xqb6dn4a26v4isv9\"/" "$NIXPKGS"/pkgs/games/openra/default.nix || return
+		sed -i -e "23s/sha256 = \".*\"/sha256 = \"1695y5yac62hy0vaav9rk0ws7nykral138f9xqb6dn4a26v4isv9\"/" "$NIXPKGS"/pkgs/games/openra/default.nix || return
 		rm -rf $HOME/.local/share/applications/*openra-{ra,cnc,d2k}.desktop
 		make clean
 		make
