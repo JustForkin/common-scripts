@@ -1,4 +1,4 @@
 # Romanov's Vengeance update
 function rvup {
-	mod-build rv
+	mod-build Romanovs-Vengeance
 }

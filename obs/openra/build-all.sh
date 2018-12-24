@@ -20,25 +20,33 @@ function nixoup {
 	enginen=$(grep '^\s*engine-version' < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | cut -d '"' -f 2)
 	numbn=$(grep "^\s*version" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | cut -d '"' -f 2)
 	commitn=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | head -n 1 | cut -d '"' -f 2)
+	# Mod itself
+	owner1=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
+	repo1=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
+	sha256_1=$(nix-prefetch-url https://github.com/$owner1/$repo1/archive/${commitc}.tar.gz)
 	if [[ $MOD == "yr" ]] || [[ $MOD == "rv" ]]; then
 		# Get data on ra2
 		commitn2=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
 		cdgo ra2
 		git pull origin $(git-branch)
 		commitc2=$(loge)
+		# Mod dep (ra2)
+		owner2=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
+		repo2=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
+		sha256_2=$(nix-prefetch-url https://github.com/$owner2/$repo2/archive/${commitc2}.tar.gz)
 		# Update nix file
 		if [[ $enginen == $enginec ]]; then
 			if [[ $commitn2 == $commitc2 ]]; then
 				sed -i -e "s|$numbn|$numbc|g" \
 			    	   -e "s|$commitn|$commitc|g" \
-					   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
+					   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
 					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix		   
 			else
 				sed -i -e "s|$numbn|$numbc|g" \
 				       -e "s|$commitn|$commitc|g" \
 					   -e "s|$commitn2|$commitc2|g" \
-					   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
-					   -e '33s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
+					   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
+					   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_2}\"|" \
 					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 			fi
 		else
@@ -46,34 +54,38 @@ function nixoup {
 			if [[ $commitn2 == $commitc2 ]]; then
 				sed -i -e "s|$numbn|$numbc|g" \
 				       -e "s|$commitn|$commitc|g" \
-					   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
-					   -e '40s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
+					   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
+					   -e "40s|sha256 = \".*\"|sha256 = \"${sha256_3}\"|" \
 				       -e "s|$enginen|$enginec|g" \
 					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 			else
 				sed -i -e "s|$numbn|$numbc|g" \
 				       -e "s|$commitn|$commitc|g" \
 					   -e "s|$commitn2|$commitc2|g" \
-					   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
-					   -e '33s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
-					   -e '40s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
+					   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
+					   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_2}\"|" \
+					   -e "40s|sha256 = \".*\"|sha256 = \"${sha256_3}\"|" \
 				       -e "s|$enginen|$enginec|g" \
 					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 			fi
 		fi
 	else
 		# Update nix file
+		# Engine
+		owner3=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
+		repo3=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
+		sha256_3=$(nix-prefetch-url https://github.com/$owner3/$repo3/archive/${enginec}.tar.gz)
 		if ! [[ $enginen == $enginec ]]; then
 			sed -i -e "s|$numbn|$numbc|g" \
 			       -e "s|$commitn|$commitc|g" \
-				   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
-				   -e '33s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
+				   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
+				   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_3}\"|" \
 			       -e "s|$enginen|$enginec|g" \
 				   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 		else
 			sed -i -e "s|$numbn|$numbc|g" \
 			       -e "s|$commitn|$commitc|g" \
-				   -e '26s|sha256 = ".*"|sha256 = "06ibyi602qk23g254gisn7s1fvbsg6f7bmbhqaypxm1ldgvwmq88"|' \
+				   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
 				   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 		fi
 	fi
