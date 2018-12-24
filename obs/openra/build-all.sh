@@ -23,7 +23,8 @@ function nixoup {
 	# Mod itself
 	owner1=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
 	repo1=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
-	sha256_1=$(nix-prefetch-url https://github.com/$owner1/$repo1/archive/${commitc}.tar.gz)
+	nix-prefetch-url https://github.com/$owner1/$repo1/archive/${commitc}.tar.gz &> /tmp/sha256_1
+	sha256_1=$(cat /tmp/sha256_1 | tail -n 1)
 	if [[ $MOD == "yr" ]] || [[ $MOD == "rv" ]]; then
 		# Get data on ra2
 		commitn2=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
@@ -33,7 +34,8 @@ function nixoup {
 		# Mod dep (ra2)
 		owner2=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
 		repo2=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
-		sha256_2=$(nix-prefetch-url https://github.com/$owner2/$repo2/archive/${commitc2}.tar.gz)
+		nix-prefetch-url https://github.com/$owner2/$repo2/archive/${commitc2}.tar.gz &> /tmp/sha256_2
+		sha256_2=$(cat /tmp/sha256_2 | tail -n 1)
 		# Update nix file
 		if [[ $enginen == $enginec ]]; then
 			if [[ $commitn2 == $commitc2 ]]; then
@@ -74,7 +76,8 @@ function nixoup {
 		# Engine
 		owner3=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
 		repo3=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
-		sha256_3=$(nix-prefetch-url https://github.com/$owner3/$repo3/archive/${enginec}.tar.gz)
+		nix-prefetch-url https://github.com/$owner3/$repo3/archive/${enginec}.tar.gz &> /tmp/sha256_3
+		sha256_3=$(cat /tmp/sha256_3 | tail -n 1)
 		if ! [[ $enginen == $enginec ]]; then
 			sed -i -e "s|$numbn|$numbc|g" \
 			       -e "s|$commitn|$commitc|g" \
