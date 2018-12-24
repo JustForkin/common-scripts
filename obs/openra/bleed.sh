@@ -23,7 +23,6 @@ function openrabup {
 		cd packaging/linux || return
 		cp ../../../OpenRA.backup/packaging/linux/buildpackage.sh . || return
 		./buildpackage.sh "$mastn" "$HOME"/Applications
-		appimaged
 		cdobsh openra-bleed || return
 		osc ci -m "Bumping $specn->$mastn"
 #		sed -i -e "s/version=$specn/version=$mastn/g" \
