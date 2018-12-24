@@ -13,13 +13,17 @@ function openrabup {
 		printf '\e[1;32m%-6s\e[m\n' "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
 		sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$NIXPKGS"/pkgs/games/openra/default.nix || return
 		sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$NIXPKGS"/pkgs/games/openra/default.nix || return
-		sed -i -e "23s/sha256 = \".*\"/sha256 = \"1695y5yac62hy0vaav9rk0ws7nykral138f9xqb6dn4a26v4isv9\"/" "$NIXPKGS"/pkgs/games/openra/default.nix || return
+		nix-prefetch-url https://github.com/OpenRA/OpenRA/archive/${comm}.tar.gz &> /tmp/sha256
+		sha256=$(cat /tmp/sha256 | tail -n 1)
+		sed -i -e "23s/sha256 = \".*\"/sha256 = \"${sha256}\"/" "$NIXPKGS"/pkgs/games/openra/default.nix || return
+		rm /tmp/sha256 || return
 		rm -rf $HOME/.local/share/applications/*openra-{ra,cnc,d2k}.desktop
 		make clean
 		make
 		cd packaging/linux || return
 		cp ../../../OpenRA.backup/packaging/linux/buildpackage.sh . || return
 		./buildpackage.sh "$mastn" "$HOME"/Applications
+		appimaged
 		cdobsh openra-bleed || return
 		osc ci -m "Bumping $specn->$mastn"
 #		sed -i -e "s/version=$specn/version=$mastn/g" \
@@ -30,6 +34,6 @@ function openrabup {
 		printf '\e[1;32m%-6s\e[m\n' "Updating local copy of my OpenRA repo fork..."
 		cdora ; git fetch upstream ; git merge upstream/bleed ; git push origin bleed -q
 		cdnp pkgs/games/openra || return
-		printf 'You are in the openra Nix repo, run nix-env -f $NIXPKGS -iA openra, then update the sha256 accordingly.\n'
+		push "openra: $specn->$mastn, $specm->$comm"
 	fi
 }

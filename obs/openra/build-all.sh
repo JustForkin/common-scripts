@@ -92,6 +92,7 @@ function nixoup {
 				   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 		fi
 	fi
+	rm /tmp/sha256*
 	# Build package, to get sha256
 	printf "You will have to update the sha256 field of /data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra-${MOD}/default.nix,\n"
 	printf 'based on the output of nix-env -f $NIXPKGS -iA openra-'
