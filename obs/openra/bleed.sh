@@ -13,7 +13,7 @@ function openrabup {
 		printf '\e[1;32m%-6s\e[m\n' "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
 		sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$NIXPKGS"/pkgs/games/openra/default.nix || return
 		sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$NIXPKGS"/pkgs/games/openra/default.nix || return
-		nix-prefetch-url https://github.com/OpenRA/OpenRA/archive/${comm}.tar.gz &> /tmp/sha256
+		nix-prefetch-url $NIXPKGS --attr openra.src &> /tmp/sha256
 		sha256=$(cat /tmp/sha256 | tail -n 1)
 		sed -i -e "23s/sha256 = \".*\"/sha256 = \"${sha256}\"/" "$NIXPKGS"/pkgs/games/openra/default.nix || return
 		rm /tmp/sha256 || return
