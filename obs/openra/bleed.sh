@@ -19,10 +19,12 @@ function openrabup {
 		rm /tmp/sha256 || return
 		rm -rf $HOME/.local/share/applications/*openra-{ra,cnc,d2k}.desktop
 		make clean
+		make version VERSION=${mastn}
 		make
 		cd packaging/linux || return
 		cp ../../../OpenRA.backup/packaging/linux/buildpackage.sh . || return
 		./buildpackage.sh "$mastn" "$HOME"/Applications
+		git stash
 		cdobsh openra-bleed || return
 		osc ci -m "Bumping $specn->$mastn"
 #		sed -i -e "s/version=$specn/version=$mastn/g" \
