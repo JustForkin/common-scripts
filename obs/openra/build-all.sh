@@ -93,10 +93,12 @@ function nixoup {
 		fi
 	fi
 	rm /tmp/sha256*
+	cd "/data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra-${MOD}"
+	nixb
 	# Build package, to get sha256
 	printf "You will have to update the sha256 field of /data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra-${MOD}/default.nix,\n"
-	printf 'based on the output of nix-env -f $NIXPKGS -iA openra-'
-	printf "${MOD}\n"
+#	printf 'based on the output of nix-env -f $NIXPKGS -iA openra-'
+#	printf "${MOD}\n"
 }
 
 # openra-build-all builds all OpenRA mods as AppImages. If one fails it continues on.
