@@ -6,7 +6,7 @@ function cdp {
 function cdpa {
 	if [[ -d /data/Applications ]]; then
 		cd /data/Applications
-	else; then
+	else
 		mkdir -p $HOME/Applications
 		cd $HOME/Applications
 	fi
