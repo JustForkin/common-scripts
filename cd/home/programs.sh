@@ -4,8 +4,12 @@ function cdp {
 }
 
 function cdpa {
-	mkdir -p $HOME/Applications
-	cd $HOME/Applications
+	if [[ -d /data/Applications ]]; then
+		cd /data/Applications
+	else; then
+		mkdir -p $HOME/Applications
+		cd $HOME/Applications
+	fi
 }
 
 alias cdAp=cdpa

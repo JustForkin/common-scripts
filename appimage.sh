@@ -1,4 +1,4 @@
 function start {
 	cdpa
-	./AppImageLauncher* "$@"
+	./AppImageLauncher* "$@"*
 }
