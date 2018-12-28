@@ -25,7 +25,7 @@ function nixoup {
 	repo1=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
 	nix-prefetch-url https://github.com/$owner1/$repo1/archive/${commitc}.tar.gz &> /tmp/sha256_1
 	sha256_1=$(cat /tmp/sha256_1 | tail -n 1)
-	if [[ $MOD == "yr" ]] || [[ $MOD == "rv" ]]; then
+	if [[ $MOD == "yr" ]]; then
 		# Get data on ra2
 		commitn2=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
 		cdgo ra2
