@@ -32,5 +32,5 @@ function d2up {
          osc ci -m "Bumping $specn->$mastn"
     fi
 
-    nixoup d2
+    mod-build d2
 }
