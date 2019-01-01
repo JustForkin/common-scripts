@@ -23,6 +23,7 @@ function openrabup {
 		make
 		cd packaging/linux || return
 		cp ../../../OpenRA.backup/packaging/linux/buildpackage.sh . || return
+		rm $HOME/Applications/OpenRA-{Red-Alert,Dune-2000,Tiberian-Dawn,Tiberian-Sun}*.AppImage
 		./buildpackage.sh "$mastn" "$HOME"/Applications
 		git stash
 		cdobsh openra-bleed || return
