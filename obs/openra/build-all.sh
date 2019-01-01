@@ -16,6 +16,10 @@ function nixoup {
 	commitc=$(loge)
 	# Engine name
 	enginec=$(grep "^ENGINE_VERSION" < mod.config | cut -d '"' -f 2)
+	if [[ $enginec == "{DEV_VERSION}" ]]; then
+		git -C $GHUBO/OpenRA pull origin bleed
+		enginec=$(git -C $GHUBO/OpenRA log | head -n 1 | cut -d ' ' -f 2)
+	fi
 	# Present versions
 	enginen=$(grep '^\s*engine-version' < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | cut -d '"' -f 2)
 	numbn=$(grep "^\s*version" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | cut -d '"' -f 2)
