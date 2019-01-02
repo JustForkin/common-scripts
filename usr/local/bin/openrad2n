@@ -12,10 +12,11 @@ if ! command -v git > /dev/null 2>&1; then
 fi
 git pull origin master -q || ( printf "ORAD2Err\n" && return )
 orlv=$(git rev-list --branches master --count)
+commitl=$(git log | head -n 1 | cut -d ' ' -f 2)
 # OpenRA latest packaged version
 orpv=$(cat /home/fusion809/OBS/home:fusion809/openra-d2/openra-d2.spec | grep "Version:" | sed 's/Version:\s*//g')
 
-if [[ $orpv == $orlv ]]; then
+if [[ $orpv == $orlv ]] || ( [[ $orpv == "124" ]] && [[ $commitl == "5d357ab2877ae5f0afe0906c9c581ab82a6990fc" ]] ); then
     printf "ORAD2 \n"
 else
     printf "ORAD2${orlv}\n"
