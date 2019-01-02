@@ -9,6 +9,7 @@ function yrup {
         specn=$(vere openra-yr) 
         comm=$(loge) 
         specm=$(come openra-yr) 
+
         if [[ "$specn" == "$mastn" ]]
         then
                 printf "OpenRA Yuri's Revenge is up-to-date!\n"
@@ -29,6 +30,7 @@ function yrup {
                 cdobsh openra-yr || exit
                 osc ci -m "Bumping $specn->$mastn"
         fi
+
 	# A larger func was used before eb723d4af07bf2a72038a938525f18cd98df2699
 	mod-build yr
 }
