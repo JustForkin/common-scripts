@@ -1,4 +1,5 @@
 # OpenRA mod Nixpkg updater
+# sha256 nix-prefetch-url lines are commented out as they do not give the correct sha256
 function nixoup {
 	# Change to mod source directory
 	cd $GHUBO/"$1"
@@ -39,10 +40,10 @@ function nixoup {
 	repo1=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
 	printf '\e[1;32m%-6s\e[m\n' "Mod repo's name (repo1) is ${repo1}."
 	# Nixpkg checksum for mod's latest commit's tar archive
-	nix-prefetch-url https://github.com/$owner1/$repo1/archive/${commitc}.tar.gz &> /tmp/sha256_1
-	# sha256 for this archive
-	sha256_1=$(cat /tmp/sha256_1 | tail -n 1)
-	printf '\e[1;32m%-6s\e[m\n' "Checksum for mod's latest commit's tar archive (sha256_1) is ${sha256_1}."
+	#nix-prefetch-url https://github.com/$owner1/$repo1/archive/${commitc}.tar.gz &> /tmp/sha256_1
+	#sha256 for this archive
+	#sha256_1=$(cat /tmp/sha256_1 | tail -n 1)
+	#printf '\e[1;32m%-6s\e[m\n' "Checksum for mod's latest commit's tar archive (sha256_1) is ${sha256_1}."
 	# Engine
 	# Owner name
 	owner2=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
@@ -50,22 +51,24 @@ function nixoup {
 	# Repo name
 	repo2=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
 	printf '\e[1;32m%-6s\e[m\n' "Engine repo's name (repo2) is ${repo2}."
-	# Checksum for tar archive
-	nix-prefetch-url https://github.com/$owner2/$repo2/archive/${enginec}.tar.gz &> /tmp/sha256_2
-	sha256_2=$(cat /tmp/sha256_2 | tail -n 1)
-	printf '\e[1;32m%-6s\e[m\n' "Checksum for the engine's tar archive (sha256_2) is ${sha256_2}."
-        # Update engine and mod, if needed, otherwise just update the mod itself
+	# Checksum for tar repo2's archive
+	#nix-prefetch-url https://github.com/$owner2/$repo2/archive/${enginec}.tar.gz &> /tmp/sha256_2
+	#sha256_2=$(cat /tmp/sha256_2 | tail -n 1)
+	# Below two lines are from the first sed to appear below
+	#			   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
+	#			   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_2}\"|" \
+	# This line is from the second sed
+	# 			   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
+	# printf '\e[1;32m%-6s\e[m\n' "Checksum for the engine's tar archive (sha256_2) is ${sha256_2}."
+    # Update engine and mod, if needed, otherwise just update the mod itself
 	if ! [[ ${enginen} == ${enginec} ]]; then
 		sed -i -e "13s|${numbn}|${numbc}|" \
 		       -e "25s|${commitn}|${commitc}|" \
-			   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
-			   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_2}\"|" \
-		       -e "14s|$enginen|$enginec|" \
+		       -e "14s|${enginen}|${enginec}|" \
 			   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 	else
 		sed -i -e "13s|${numbn}|${numbc}|g" \
 		       -e "25s|${commitn}|${commitc}|g" \
-			   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
 			   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 	fi
 	rm /tmp/sha256*
@@ -73,8 +76,8 @@ function nixoup {
 	nixb
 	# Build package, to get sha256
 	printf "You will have to update the sha256 field of /data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra-${MOD}/default.nix,\n"
-#	printf 'based on the output of nix-env -f $NIXPKGS -iA openra-'
-#	printf "${MOD}\n"
+	printf 'based on the output of nix-env -f $NIXPKGS -iA openra-'
+	printf "${MOD}\n"
 }
 
 # openra-build-all builds all OpenRA mods as AppImages. If one fails it continues on.
