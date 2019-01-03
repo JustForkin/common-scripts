@@ -61,7 +61,8 @@ function nixcr {
 
 function nixrb {
 	sudo nix-channel --update
-	sudo nixos-rebuild switch
+	#sudo nixos-rebuild switch
+	sudo nixos-rebuild -I /nix/var/nix/profiles/per-user/root/channels/nixos-unstable boot
 	sudo nix-collect-garbage -d
 }
 
