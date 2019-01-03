@@ -42,7 +42,7 @@ function nixoup {
 	nix-prefetch-url https://github.com/$owner1/$repo1/archive/${commitc}.tar.gz &> /tmp/sha256_1
 	# sha256 for this archive
 	sha256_1=$(cat /tmp/sha256_1 | tail -n 1)
-	printf "Checksum for mod's latest commit's tar archive is ${sha256_1}."
+	printf '\e[1;32m%-6s\e[m\n' "Checksum for mod's latest commit's tar archive (sha256_1) is ${sha256_1}."
 	# Engine
 	# Owner name
 	owner2=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
@@ -53,18 +53,18 @@ function nixoup {
 	# Checksum for tar archive
 	nix-prefetch-url https://github.com/$owner2/$repo2/archive/${enginec}.tar.gz &> /tmp/sha256_2
 	sha256_2=$(cat /tmp/sha256_2 | tail -n 1)
-	printf "Checksum for the engine's tar archive (sha256_2) is ${sha256_2}."
+	printf '\e[1;32m%-6s\e[m\n' "Checksum for the engine's tar archive (sha256_2) is ${sha256_2}."
         # Update engine and mod, if needed, otherwise just update the mod itself
 	if ! [[ ${enginen} == ${enginec} ]]; then
-		sed -i -e "s|${numbn}|${numbc}|g" \
-		       -e "s|$commitn|$commitc|g" \
+		sed -i -e "13s|${numbn}|${numbc}|" \
+		       -e "25s|${commitn}|${commitc}|" \
 			   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
 			   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_2}\"|" \
-		       -e "s|$enginen|$enginec|g" \
+		       -e "14s|$enginen|$enginec|" \
 			   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 	else
-		sed -i -e "s|$numbn|$numbc|g" \
-		       -e "s|$commitn|$commitc|g" \
+		sed -i -e "13s|${numbn}|${numbc}|g" \
+		       -e "25s|${commitn}|${commitc}|g" \
 			   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
 			   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 	fi
