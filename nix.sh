@@ -1,3 +1,5 @@
+#if [[ -d $NIXPKGS ]]; then
+#	export NIX_PATH="my-fork=$NIXPKGS:nixos-unstable=/nix/var/nix/profiles/per-user/root/channels/nixos-unstable:nixos-config=/etc/nixos/configuration.nix"
 if ! [[ -d /run/current-system/sw/bin ]]; then
 	export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$USER/channels/nixpkgs
 fi
@@ -33,8 +35,16 @@ function nixs {
 }
 
 function nixi {
-	if [[ -d /etc/nixos ]]; then
+	if ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep my-fork &> /dev/null ) ); then
+		nix-env -f '<my-fork>' -iA "$@"
+	elif [[ -d $NIXPKGS ]] ; then
+		nix-env -f $NIXPKGS -iA "$@"
+	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep nixos-unstable &> /dev/null ) ); then
 		nix-env -f '<nixos-unstable>' -iA "$@"
+	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep nixos &> /dev/null ) ); then
+		nix-env -f '<nixos>' -iA "$@"
+	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep "[0-9a-zA-Z]" &> /dev/null ) ); then
+		nix-env -iA "$@"
 	else
 		nix-env -f '<nixpkgs>' -iA "$@"
 	fi

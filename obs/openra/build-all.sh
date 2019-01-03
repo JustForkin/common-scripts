@@ -12,89 +12,61 @@ function nixoup {
 	git pull origin $(git-branch) -q || { printf '\e[1;31m%-6s\e[m\n' "git pullin' on branch $(git-branch) failed." && return }
 	# Present commit number
 	numbc=$(git rev-list --branches $(git-branch) --count)
-	# Present commit
+	printf '\e[1;32m%-6s\e[m\n' "Current commit number (numbc) is ${numbc}."
+	# Present commit hash
 	commitc=$(loge)
+	printf '\e[1;32m%-6s\e[m\n' "Current commit hash (commitc) is ${commitc}."
 	# Engine name
 	enginec=$(grep "^ENGINE_VERSION" < mod.config | cut -d '"' -f 2)
+	printf '\e[1;32m%-6s\e[m\n' "Current engine version (enginec) is ${enginec}."
 	if [[ $enginec == "{DEV_VERSION}" ]]; then
 		git -C $GHUBO/OpenRA pull origin bleed
 		enginec=$(git -C $GHUBO/OpenRA log | head -n 1 | cut -d ' ' -f 2)
 	fi
-	# Present versions
+	# Presently packaged versions
 	enginen=$(grep '^\s*engine-version' < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | cut -d '"' -f 2)
+	printf '\e[1;32m%-6s\e[m\n' "Presently packaged engine version (enginen) is ${enginen}."
 	numbn=$(grep "^\s*version" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | cut -d '"' -f 2)
+	printf '\e[1;32m%-6s\e[m\n' "Presently packaged commit number (numbn) is ${numbn}."
 	commitn=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | head -n 1 | cut -d '"' -f 2)
+	printf '\e[1;32m%-6s\e[m\n' "Presently packaged commit hash (commitn) is ${commitn}."
+	if [[ ${commitn} == ${commitc} ]]; then
+		return
+	fi
 	# Mod itself
 	owner1=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
+	printf '\e[1;32m%-6s\e[m\n' "Mod repo's owner (owner1) is ${owner1}."
 	repo1=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
+	printf '\e[1;32m%-6s\e[m\n' "Mod repo's name (repo1) is ${repo1}."
+	# Nixpkg checksum for mod's latest commit's tar archive
 	nix-prefetch-url https://github.com/$owner1/$repo1/archive/${commitc}.tar.gz &> /tmp/sha256_1
+	# sha256 for this archive
 	sha256_1=$(cat /tmp/sha256_1 | tail -n 1)
-	if [[ $MOD == "yr" ]]; then
-		# Get data on ra2
-		commitn2=$(grep "^\s*rev" < $NIXPKGS/pkgs/games/openra-$MOD/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
-		cdgo ra2
-		git pull origin $(git-branch)
-		commitc2=$(loge)
-		# Mod dep (ra2)
-		owner2=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
-		repo2=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 2 | tail -n 1 | cut -d '"' -f 2)
-		nix-prefetch-url https://github.com/$owner2/$repo2/archive/${commitc2}.tar.gz &> /tmp/sha256_2
-		sha256_2=$(cat /tmp/sha256_2 | tail -n 1)
-		# Update nix file
-		if [[ $enginen == $enginec ]]; then
-			if [[ $commitn2 == $commitc2 ]]; then
-				sed -i -e "s|$numbn|$numbc|g" \
-			    	   -e "s|$commitn|$commitc|g" \
-					   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
-					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix		   
-			else
-				sed -i -e "s|$numbn|$numbc|g" \
-				       -e "s|$commitn|$commitc|g" \
-					   -e "s|$commitn2|$commitc2|g" \
-					   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
-					   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_2}\"|" \
-					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
-			fi
-		else
-			# If the engine has been updated its sha256 needs to be changed, so it is downloaded
-			if [[ $commitn2 == $commitc2 ]]; then
-				sed -i -e "s|$numbn|$numbc|g" \
-				       -e "s|$commitn|$commitc|g" \
-					   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
-					   -e "40s|sha256 = \".*\"|sha256 = \"${sha256_3}\"|" \
-				       -e "s|$enginen|$enginec|g" \
-					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
-			else
-				sed -i -e "s|$numbn|$numbc|g" \
-				       -e "s|$commitn|$commitc|g" \
-					   -e "s|$commitn2|$commitc2|g" \
-					   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
-					   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_2}\"|" \
-					   -e "40s|sha256 = \".*\"|sha256 = \"${sha256_3}\"|" \
-				       -e "s|$enginen|$enginec|g" \
-					   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
-			fi
-		fi
+	printf "Checksum for mod's latest commit's tar archive is ${sha256_1}."
+	# Engine
+	# Owner name
+	owner2=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
+	printf '\e[1;32m%-6s\e[m\n' "Engine owner's name (owner2) is ${owner2}."
+	# Repo name
+	repo2=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
+	printf '\e[1;32m%-6s\e[m\n' "Engine repo's name (repo2) is ${repo2}."
+	# Checksum for tar archive
+	nix-prefetch-url https://github.com/$owner2/$repo2/archive/${enginec}.tar.gz &> /tmp/sha256_2
+	sha256_2=$(cat /tmp/sha256_2 | tail -n 1)
+	printf "Checksum for the engine's tar archive (sha256_2) is ${sha256_2}."
+        # Update engine and mod, if needed, otherwise just update the mod itself
+	if ! [[ ${enginen} == ${enginec} ]]; then
+		sed -i -e "s|${numbn}|${numbc}|g" \
+		       -e "s|$commitn|$commitc|g" \
+			   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
+			   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_2}\"|" \
+		       -e "s|$enginen|$enginec|g" \
+			   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 	else
-		# Update nix file
-		# Engine
-		owner3=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
-		repo3=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
-		nix-prefetch-url https://github.com/$owner3/$repo3/archive/${enginec}.tar.gz &> /tmp/sha256_3
-		sha256_3=$(cat /tmp/sha256_3 | tail -n 1)
-		if ! [[ $enginen == $enginec ]]; then
-			sed -i -e "s|$numbn|$numbc|g" \
-			       -e "s|$commitn|$commitc|g" \
-				   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
-				   -e "33s|sha256 = \".*\"|sha256 = \"${sha256_3}\"|" \
-			       -e "s|$enginen|$enginec|g" \
-				   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
-		else
-			sed -i -e "s|$numbn|$numbc|g" \
-			       -e "s|$commitn|$commitc|g" \
-				   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
-				   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
-		fi
+		sed -i -e "s|$numbn|$numbc|g" \
+		       -e "s|$commitn|$commitc|g" \
+			   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
+			   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 	fi
 	rm /tmp/sha256*
 	cd "/data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra-${MOD}"
@@ -155,7 +127,7 @@ function mod-build {
 				nixoup "$1"
 			fi
 		else
-			printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date mate!"
+			printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date, mate!"
 		fi
 	else
 		numbn=$(grep " version = " < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | cut -d '"' -f 2)
