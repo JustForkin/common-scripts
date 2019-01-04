@@ -60,6 +60,7 @@ function nixoup {
 	# This line is from the second sed
 	# 			   -e "26s|sha256 = \".*\"|sha256 = \"${sha256_1}\"|" \
 	# printf '\e[1;32m%-6s\e[m\n' "Checksum for the engine's tar archive (sha256_2) is ${sha256_2}."
+	# rm /tmp/sha256*
     # Update engine and mod, if needed, otherwise just update the mod itself
 	if ! [[ ${enginen} == ${enginec} ]]; then
 		sed -i -e "13s|${numbn}|${numbc}|" \
@@ -71,7 +72,6 @@ function nixoup {
 		       -e "25s|${commitn}|${commitc}|g" \
 			   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 	fi
-	rm /tmp/sha256*
 	cd "/data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra-${MOD}"
 	nixb
 	# Build package, to get sha256
