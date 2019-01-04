@@ -66,10 +66,13 @@ function nixoup {
 		sed -i -e "13s|${numbn}|${numbc}|" \
 		       -e "25s|${commitn}|${commitc}|" \
 		       -e "14s|${enginen}|${enginec}|" \
+			   -e "26s|sha256 = \".*\"|sha256 = \"1q5jbkpyhz1p0n7w0v8g6l8p3xcbnmcn0hvf3wxxs48n6fjyw6f9\"|" \
+			   -e "33s|sha256 = \".*\"|sha256 = \"1q5jbkpyhz1p0n7w0v8g6l8p3xcbnmcn0hvf3wxxs48n6fjyw6f2\"|" \
 			   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 	else
 		sed -i -e "13s|${numbn}|${numbc}|g" \
 		       -e "25s|${commitn}|${commitc}|g" \
+			   -e "26s|sha256 = \".*\"|sha256 = \"1q5jbkpyhz1p0n7w0v8g6l8p3xcbnmcn0hvf3wxxs48n6fjyw694\"|" \
 			   $NIXPKGS/pkgs/games/openra-${MOD}/default.nix
 	fi
 	cd "/data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra-${MOD}"
