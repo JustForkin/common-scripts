@@ -4,7 +4,7 @@
 #    sleep 60
 #done
 
-# OpenRA Red Alert 2 mod latest commit available
+# OpenRA Sole Survivor mod latest commit available
 cd /home/fusion809/GitHub/others/ss || return
 git stash -q || return
 if ! command -v git > /dev/null 2>&1; then
@@ -12,7 +12,7 @@ if ! command -v git > /dev/null 2>&1; then
 fi
 git pull origin master -q || ( printf "ORASSErr\n" && return )
 orlv=$(git rev-list --branches master --count)
-# OpenRA latest packaged version
+# Latest packaged version
 orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-ss/openra-ss.spec | sed 's/Version:\s*//g')
 
 if [[ $orpv == $orlv ]]; then

@@ -68,6 +68,11 @@ status.register("shell",
     interval=300)
 
 status.register("shell",
+    command="/usr/local/bin/openrassn",
+    color="#AACCFF",
+    interval=300)
+
+status.register("shell",
     command="/usr/local/bin/openraspn",
     color="#AAFFFF",
     interval=300)
