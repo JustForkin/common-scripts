@@ -1,8 +1,8 @@
 function spup {
 	cdgo Shattered-Paradise || return
 	git pull origin master || return
-	splver=$(git log | head -n 1 | cut -d ' ' -f 2)
-	sppver=$(grep '%define sp_commit' < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define sp_commit //g')
+	#splver=$(git log | head -n 1 | cut -d ' ' -f 2)
+	#sppver=$(grep '%define sp_commit' < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define sp_commit //g')
 	# Latest engine version
 	enlv=$(grep '^ENGINE\_VERSION' < ../SP-OpenRAModSDK/mod.config | cut -d '"' -f 2)
 	# OpenRA engine version in spec file
@@ -31,14 +31,6 @@ function spup {
 		 cdobsh openra-sp || return
 		 sed -i -e "s|${sdkpc}$|${sdklc}|g" PKGBUILD openra-sp.spec || ( printf "Replacing sdkpc ($sdkpc) with sdklc ($sdklc) failed" && return )
 		 sed -i -e "s|${sdkpver}|${sdklver}|g" PKGBUILD openra-sp.spec || ( printf "Replacing sdkpver ($sdkpver) with sdklver ($sdklver) failed" && return )
-	fi
-
-	# If Shattered Paradise is outdated sed update it
-	if [[ "$splver" == "$sppver" ]]; then
-		 printf "%s\n" "Latest Shattered Paradise commit is packaged!"
-	else
-		 cdobsh openra-sp || return
-		 sed -i -e "s|${sppver}|${splver}|g" openra-sp.spec || (printf "Replacing sppver ($sppver) with splver ($splver) failed" && return)
 	fi
 
 	mod-build SP-OpenRAModSDK
