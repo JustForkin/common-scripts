@@ -16,7 +16,7 @@ orlv=$(git rev-list --branches master --count)
 orpv=$(grep "VERSION" < /home/fusion809/.local/share/openra-kknd | cut -d ' ' -f 2)
 
 if [[ $orpv == $orlv ]]; then
-    printf "ORAKKnD \n"
+    printf "ORAK \n"
 else
-    printf "ORAKKnD${orlv}\n"
+    printf "ORAK${orlv}\n"
 fi
