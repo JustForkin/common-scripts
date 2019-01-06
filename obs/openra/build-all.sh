@@ -55,7 +55,7 @@ function nixoup {
 	owner2n=$(grep "owner" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
 	printf '\e[1;32m%-6s\e[m\n' "Packaged engine owner's name (owner2n) is ${owner2n}."
 	# Repo name
-	repo2c=(grep "^AUTOMATIC_ENGINE_SOURCE" < mod.config | cut -d '.' -f 2 | cut -d '/' -f 3)
+	repo2c=$(grep "^AUTOMATIC_ENGINE_SOURCE" < mod.config | cut -d '.' -f 2 | cut -d '/' -f 3)
 	printf '\e[1;32m%-6s\e[m\n' "New engine repo's name (repo2c) is ${repo2c}."
 	repo2n=$(grep "repo" < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 3 | tail -n 1 | cut -d '"' -f 2)
 	printf '\e[1;32m%-6s\e[m\n' "Packaged engine repo's name (repo2n) is ${repo2n}."
