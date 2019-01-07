@@ -14,8 +14,8 @@ function yrup {
         then
                 printf "OpenRA Yuri's Revenge is up-to-date!\n"
         else
-                sed -i -e "s/$specn/$mastn/g" \
-                       -e "s/$specm/$comm/g" "$OBSH"/openra-yr/{openra-yr.spec,PKGBUILD}
+                sed -i -e "s/$specm/$comm/g" \
+ 		       -e "s/$specn/$mastn/g" "$OBSH"/openra-yr/{openra-yr.spec,PKGBUILD}
                 if ! [[ "$enpv" == "$enlv" ]]
                 then
                         sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-yr/{openra-yr.spec,PKGBUILD}

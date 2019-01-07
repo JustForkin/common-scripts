@@ -14,8 +14,8 @@ function ssup {
 		 printf "OpenRA Sole Survivor is up-to-date!\n"
 	else
 		 printf "Updating openra-ss spec file and PKGBUILD.\n"
-		 sed -i -e "s/$specn/$mastn/g" \
-		 		-e "s/$specm/$comm/g" "$OBSH"/openra-ss/{openra-ss.spec,PKGBUILD}
+		 sed -i -e "s/$specm/$comm/g" \
+		 		-e "s/$specn/$mastn/g" "$OBSH"/openra-ss/{openra-ss.spec,PKGBUILD}
 		 if ! [[ "$enpv" == "$enlv" ]]; then
 			  printf "Updating OpenRA Sole Survivor engine.\n"
 			  sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-ss/{openra-ss.spec,PKGBUILD}

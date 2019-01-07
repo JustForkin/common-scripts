@@ -13,8 +13,8 @@ function mwup {
 	if [[ $specn == $mastn ]]; then
 		printf "%s\n" "OpenRA Medieval Warfare mod is up to date!"
 	else
-		sed -i -e "s/$specn/$mastn/g" \
-			   -e "s/$specm/$comm/g" "$OBSH"/openra-mw/{openra-mw.spec,PKGBUILD}
+		sed -i -e "s/$specm/$comm/g" \
+			   -e "s/$specn/$mastn/g" "$OBSH"/openra-mw/{openra-mw.spec,PKGBUILD}
 		if [[ $enlv == "{DEV_VERSION}" ]]; then
 			pushd $GHUBO/OpenRA || return
 			git pull origin bleed

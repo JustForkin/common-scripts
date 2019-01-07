@@ -14,8 +14,8 @@ function ra2up {
 		 printf "OpenRA RA2 is up-to-date!\n"
 	else
 		 printf "Updating openra-ra2 spec file and PKGBUILD.\n"
-		 sed -i -e "s/$specn/$mastn/g" \
-		 		-e "s/$specm/$comm/g" "$OBSH"/openra-ra2/{openra-ra2.spec,PKGBUILD}
+		 sed -i -e "s/$specm/$comm/g" \
+		 		-e "s/$specn/$mastn/g" "$OBSH"/openra-ra2/{openra-ra2.spec,PKGBUILD}
 		 if ! [[ "$enpv" == "$enlv" ]]; then
 			  printf "Updating OpenRA Red Alert 2 engine.\n"
 			  sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-ra2/{openra-ra2.spec,PKGBUILD}

@@ -15,8 +15,8 @@ function caup {
 	if [[ $specn == $mastn ]]; then
 		printf "OpenRA Combined Arms is up-to-date!\n"
 	else
-		sed -i -e "s/$specn/$mastn/g" \
-			   -e "s/$specm/$comm/g" "$OBSH"/openra-ca/{openra-ca.spec,PKGBUILD}
+		sed -i -e "s/$specm/$comm/g" \
+			   -e "s/$specn/$mastn/g" "$OBSH"/openra-ca/{openra-ca.spec,PKGBUILD}
 		if ! [[ "$enpv" == "$enlv" ]]; then
 			sed -i -e "s/$enpv/$enlv/g" "$HOME"/OBS/home:fusion809/openra-ca/{openra-ca.spec,PKGBUILD}
 			make clean || exit

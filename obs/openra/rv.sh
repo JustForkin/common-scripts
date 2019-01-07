@@ -14,8 +14,8 @@ function rvup {
 		 printf "OpenRA Romanov's Vengeance is up-to-date!\n"
 	else
 		 printf "Updating openra-rv spec file and PKGBUILD.\n"
-		 sed -i -e "s/$specn/$mastn/g" \
-		 		-e "s/$specm/$comm/g" "$OBSH"/openra-rv/{openra-rv.spec,PKGBUILD}
+		 sed -i -e "s/$specm/$comm/g" \
+		 		-e "s/$specn/$mastn/g" "$OBSH"/openra-rv/{openra-rv.spec,PKGBUILD}
 		 if ! [[ "$enpv" == "$enlv" ]]; then
 			  printf "Updating OpenRA Romanov's Vengeance engine.\n"
 			  sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-rv/{openra-rv.spec,PKGBUILD}
