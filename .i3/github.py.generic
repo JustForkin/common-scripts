@@ -1,6 +1,9 @@
 #!/usr/bin/python3
+# Copy this file to github.py, then edit the access_token line accordingly, then the i3 config file should
+# utilize it
 from i3status import status
 
+# This should show a circular dot next to "Unread" if there are unread GitHub notifications
 status.register("github",
     access_token="ADD THIS YOURSELF FROM https://github.com/settings/tokens/new",
     format="Unread {unread}")
