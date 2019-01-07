@@ -14,8 +14,8 @@ function drup {
 	if [[ $specn == $mastn ]]; then
 		printf "OpenRA Dark Reign is up-to-date!\n"
 	else
-		sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-dr/{openra-dr.spec,PKGBUILD}
-		sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-dr/{openra-dr.spec,PKGBUILD}
+		sed -i -e "s/$specn/$mastn/g" \
+			   -e "s/$specm/$comm/g" "$OBSH"/openra-dr/{openra-dr.spec,PKGBUILD}
 		if ! [[ "$enpv" == "$enlv" ]]; then
 			sed -i -e "s/$enpv/$enlv/g" "$HOME"/OBS/home:fusion809/openra-dr/{openra-dr.spec,PKGBUILD}
 			make clean || return

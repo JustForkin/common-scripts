@@ -14,8 +14,8 @@ function kkndup {
 		 printf "OpenRA KKnD is up-to-date!\n"
 	else
 		 printf "Updating openra-kknd spec file and PKGBUILD.\n"
-		 sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-kknd/{openra-kknd.spec,PKGBUILD}
-		 sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-kknd/{openra-kknd.spec,PKGBUILD}
+		 sed -i -e "s/$specn/$mastn/g" \
+		 		-e "s/$specm/$comm/g" "$OBSH"/openra-kknd/{openra-kknd.spec,PKGBUILD}
 		 if ! [[ "$enpv" == "$enlv" ]]; then
 			  printf "Updating OpenRA Krush, Kill n' Destroy engine.\n"
 			  sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-kknd/{openra-kknd.spec,PKGBUILD}

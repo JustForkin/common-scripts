@@ -15,8 +15,8 @@ function genup {
 		printf "%s\n" "OpenRA Generals Alpha is up-to-date!"
 	else
 		printf "%s\n" "Updating openra-gen spec file and PKGBUILD."
-		sed -i -e "s/$specn/$mastn/g" "$OBSH"/openra-gen/{openra-gen.spec,PKGBUILD}
-		sed -i -e "s/$specm/$comm/g" "$OBSH"/openra-gen/{openra-gen.spec,PKGBUILD}
+		sed -i -e "s/$specn/$mastn/g" \
+			   -e "s/$specm/$comm/g" "$OBSH"/openra-gen/{openra-gen.spec,PKGBUILD}
 		if ! [[ $enpv == $enlv ]]; then
 			printf "%s\n" "Updating Generals Alpha engine."
 			sed -i -e "s/$enpv/$enlv/g" "$HOME"/OBS/home:fusion809/openra-gen/{openra-gen.spec,PKGBUILD}
