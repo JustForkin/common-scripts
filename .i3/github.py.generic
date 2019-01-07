@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Copy this file to github.py, then edit the access_token line accordingly, then the i3 config file should
 # utilize it
 from i3status import status

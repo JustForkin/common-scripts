@@ -53,11 +53,6 @@ status.register("shell",
 #    interval=300)
 
 status.register("shell",
-    command="/usr/local/bin/oscn",
-    color="#FFFF00",
-    interval=300)
-
-status.register("shell",
     command="/usr/local/bin/openrayn",
     color="#FFAAFF",
     interval=300)
@@ -131,21 +126,6 @@ status.register("shell",
     command="/usr/local/bin/openran",
     color="#FFAA99",
     interval=300)
-
-status.register("shell",
-    command="/usr/local/bin/obss",
-    color="#44EF4F",
-    interval=1200)
-
-status.register("shell",
-    command="/usr/local/bin/obsd",
-    color="#FFAACC",
-    interval=300)
-
-status.register("shell",
-    command="/usr/local/bin/obsf",
-    color="#E8EF8E",
-    interval=1200)
 
 status.register("shell",
     command="/usr/local/bin/openbabeln",

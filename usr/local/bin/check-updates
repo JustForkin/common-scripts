@@ -10,7 +10,6 @@ komodon;
 libmsymn;
 molen;
 notepadqqn;
-obsa; 
 openbabeln;
 openran; 
 openrabn; 
@@ -27,12 +26,11 @@ openraspn;
 openrassn;
 openrauran;
 openrayn;
-oscn; 
 rofin
 #snapdn;
 #snapdgn;
 spglibn;
-subln;
+#subln;
 vimn; 
-vscoden; 
+#vscoden; 
 zshn
