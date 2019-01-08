@@ -30,7 +30,7 @@ function spup {
 		 fi
 		 cdobsh openra-sp || return
 		 sed -i -e "s|${sdkpver}|${sdklver}|g" \
-		 		-e -e "s|${sdkpc}$|${sdklc}|g" PKGBUILD openra-sp.spec || ( printf "Replacing sdkpver ($sdkpver) with sdklver ($sdklver) failed" && return )
+		 		-e "s|${sdkpc}$|${sdklc}|g" PKGBUILD openra-sp.spec || ( printf "Replacing sdkpver ($sdkpver) with sdklver ($sdklver) failed" && return )
 	fi
 
 	mod-build SP-OpenRAModSDK
