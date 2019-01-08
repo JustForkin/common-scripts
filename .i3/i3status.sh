@@ -1,8 +1,24 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
+# Zsh is needed for the arithmetic in this script
+# env is used because on NixOS the 'zsh' binary is placed in different locations, so env is needed to detect it
+
+( command -v awk &> /dev/null || (printf "")
+# Check that the required files are found
+if ! [[ -f daemon.o ]]; then
+     gcc daemon.c -o daemon.o
+fi
+
+if ! [[ -f ram ]]; then
+     g++ ram.cpp -o ram
+fi
+
+if ! [[ -f $HOME/.i3status.conf ]]; then
+     ln -sf $HOME/GitHub/mine/config/i3-configs/.i3status.conf ~/
+fi
 
 killall daemon.o
 cd $HOME/.i3 && ./daemon.o && cd -
-/usr/bin/i3status -c $HOME/.i3status.conf | while :
+i3status -c $HOME/.i3status.conf | while :
 do
     # Read input
     read line
@@ -15,7 +31,7 @@ do
     ##########################################################################################
     RAM=`free -kh | grep Mem | awk '{print $3}'`
     TOTR=$(cat /proc/meminfo | grep MemT | sed 's/.*\://g' | sed 's/ *//g' | sed 's/kB//g')
-    TOT=$(/usr/local/bin/ram $TOTR | sed 's/$/G/g' )
+    TOT=$(./ram $TOTR | sed 's/$/G/g' )
 
     ##########################################################################################
     ####################################### Uptime ###########################################
@@ -46,29 +62,33 @@ do
 
     ##########################################################################################
     ###################################### CPU Temp ##########################################
-    #########################################################################################
-    function temp {
-         K=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp$1_input)
-         let K=K/1000
-         printf "$K°"
-    }
+    ##########################################################################################
+    if [[ -f /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input ]]; then
+          function temp {
+          K=$(cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp$1_input)
+          let K=K/1000
+          printf "$K°"
 
-    # Temp of core 1
-    TEMP0=$(temp 1)
+          # Temp of core 1
+          TEMP0=$(temp 1)
 
-    # Temp of core 2
-    TEMP1=$(temp 2)
+          # Temp of core 2
+          TEMP1=$(temp 2)
 
-    # Temp of core 3
-    TEMP2=$(temp 3)
+          # Temp of core 3
+          TEMP2=$(temp 3)
 
-    # Temp of core 4
-    TEMP3=$(temp 4)
+          # Temp of core 4
+          TEMP3=$(temp 4)
 
-    # Temp of core 5
-    TEMP4=$(temp 5)
+          # Temp of core 5
+          TEMP4=$(temp 5)
+    fi
 
-    # Date
+
+    ##########################################################################################
+    #################################### Date ################################################
+    ##########################################################################################
     DATE=$(date +"%l:%M:%S %p, %a %d %b %y")
 
     ##########################################################################################
@@ -79,6 +99,7 @@ do
     }
 
     loadcheck=$(load 4 2)
+
     if [[ $hour -ge "1.0" ]]; then
          LOAD=$(load 5 1)
     elif [[ $loadcheck -gt "0.05" ]]; then
@@ -96,8 +117,14 @@ do
     ##########################################################################################
     ###################################### Status ############################################
     ##########################################################################################
+    if [[ -n $TEMP0 ]] && [[ -n $TEMP4 ]]; then
+        printf "%s\n" "$cond $temp | Up: $UP | CPU: $CPU% | RAM: $RAM/$TOT | Load: $LOAD | $TEMP0 | $TEMP1 | $TEMP2 | $TEMP3 | $TEMP4 | $DATE"
+    elif [[ -n $TEMP0 ]]; then
+        printf "%s\n" "$cond $temp | Up: $UP | CPU: $CPU% | RAM: $RAM/$TOT | Load: $LOAD | $TEMP0 | $TEMP1 | $TEMP2 | $TEMP3 | $TEMP4 | $DATE"
+    else
+        printf "%s\n" "$cond $temp | Up: $UP | CPU: $CPU% | RAM: $RAM/$TOT | Load: $LOAD | $DATE"
+    fi
    # printf "%s\n" "$cond $temp °C | Up: $UP | ↓ $DOWN kB/s ↑ $UPL kB/s | CPU: $CPU% | RAM: $RAM/$TOT | Load: $LOAD | $TEMP0 | $TEMP1 | $TEMP2 | $TEMP3 | $TEMP4 | $DATE"
-    printf "%s\n" "$cond $temp | Up: $UP | CPU: $CPU% | RAM: $RAM/$TOT | Load: $LOAD | $TEMP0 | $TEMP1 | $TEMP2 | $TEMP3 | $TEMP4 | $DATE"
     #printf "%s\n" "Up: $UP | CPU: $CPU% | RAM: $RAM/$TOT | Load: $LOAD | $TEMP0 | $TEMP1 | $TEMP2 | $TEMP3 | $TEMP4 | $DATE"
 
 done

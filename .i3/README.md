@@ -1,0 +1,2 @@
+# i3 scripts
+This folder is reserved for scripts and programs (C/C++) that are common to all my i3-configs branch. In order to know if you have all the required dependencies for the C/C++/Shell set up (which is not really recommended, but if you have trouble installing i3pystatus and other required Python modules, it might be best option available) run [`dependency-checker.sh`](dependency-checker.sh). 

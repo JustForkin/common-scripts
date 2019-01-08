@@ -45,6 +45,7 @@ status.register("cpu_usage",
     interval=1)
 
 # Network upload and download rates
+# needs netifaces module
 status.register("network", 
     interface="enp24s0", 
     format_up="↓{bytes_recv}KB/s ↑{bytes_sent}KB/s",
