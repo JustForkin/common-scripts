@@ -51,7 +51,7 @@ function verpres {
 		grep "^    version = \"" < $NIXPATH/mods.nix | head -n 1 | cut -d '"' -f 2
 	else
 		tailno=$((${1}-1))
-		grep "^    version = \"" < $NIXPATH/mods.nix | head -n "$1" | tail -n ${tailno} | cut -d '"' -f 2
+		grep "^    version = \"" < $NIXPATH/mods.nix | head -n "$1" | tail -n 1 | cut -d '"' -f 2
 	fi
 }
 
@@ -59,7 +59,6 @@ function compres {
 	if ( ! [[ -n "$1" ]] ) || [[ "$1" == "1" ]]; then
 		grep "^      rev = \"" < $NIXPATH/mods.nix | head -n 1 | cut -d '"' -f 2
 	else
-		tailno=$((${1}-1))
 		grep "^      rev = \"" < $NIXPATH/mods.nix | head -n "$1" | tail -n 1 | cut -d '"' -f 2
 	fi
 }
@@ -68,8 +67,7 @@ function comenpres {
 	if ( ! [[ -n "$1" ]] ) || [[ "$1" == "1" ]]; then
 		grep " commit = \"" < $NIXPATH/mods.nix | head -n 1 | cut -d '"' -f 2
 	else
-		tailno=$((${1}-1))
-		grep " commit = \"" < $NIXPATH/mods.nix | head -n ${1} | tail -n ${tailno} | cut -d '"' -f 2
+		grep " commit = \"" < $NIXPATH/mods.nix | head -n ${1} | tail -n 1 | cut -d '"' -f 2
 	fi
 }
 function engnew {
@@ -120,28 +118,31 @@ function nixoup2 {
 	## Commit number (version)
 	git -C ${1} pull origin $(git-branch "${1}") -q
 	vernew=$(comno "${1}")
-	verpres=$(verpres "${2}")
-	sed -i -e "${3}s|$verpres|$vernew|" $NIXPATH/mods.nix
+	verprese=$(verpres "${2}")
+	printf "sed at line 124.\n"
+	sed -i -e "${3}s|${verprese}|${vernew}|" $NIXPATH/mods.nix
 
 	## Commit hash
 	comnew=$(loge "${1}")
-	compres=$(compres "${2}")
+	comprese=$(compres "${2}")
 	
-	sed -i -e "${4}s|$compres|$comnew|" $NIXPATH/mods.nix
+	printf "sed at line 131.\n"
+	sed -i -e "${4}s|${comprese}|${comnew}|" $NIXPATH/mods.nix
 
 	## Commit hash (engine)
 	engrevnew=$(engnew ${1})
 	engrevpres=$(comenpres "${2}")
+	printf "sed at line 137.\n"
+	sed -i -e "${5}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix
 
-	sed -i -e "${5}s|$engrevpres|$engrevnew|" $NIXPATH/mods.nix
-
-	if ! [[ "$comnew" == "$compres" ]] || ! [[ "$engrevnew" == "$engrevpres"]]; then
+	if ( ! [[ "$comnew" == "$comprese" ]] ) || ( ! [[ "$engrevnew" == "$engrevpres" ]] ); then
 		MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
-		sha256=$(nix-prefetch-src openraPackages.mods.${MOD_ID})
+		sha256=$(nix-prefetch-src $NIXPKGS openraPackages.mods.${MOD_ID})
 		# First is the mod's hash, second is engine
 		sha256_1=$(echo $sha256 | head -n 1)
 		sha256_2=$(echo $sha256 | tail -n 1)
 
+		printf "Going to update checksums..."
 		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix
 		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix
 	fi
@@ -208,17 +209,17 @@ function nixpkgs-openra-up {
 	bleed_oldver="$(grep " commit = \"" < engines.nix | head -n 1 | cut -d '"' -f 2)"
 	
 	if ! [[ "${release}" == "${release_oldver}" ]] ; then
-		release_sha256=$(nix-prefetch-src openraPackages.engines.release)
+		release_sha256=$(nix-prefetch-src $NIXPKGS openraPackages.engines.release)
 		sed -i -e "25s|\".*\"|\"${release}\"|" \
 	    	   -e "27s|\".*\"|\"${release_sha256}\"|" $NIXPATH/engines.nix
 	fi
 	if ! [[ "${playtest}" == "${playtest_oldver}" ]] ; then
-	    playtest_sha256=$(nix-prefetch-src openraPackages.engines.playtest)
+	    playtest_sha256=$(nix-prefetch-src $NIXPKGS openraPackages.engines.playtest)
 		sed -i -e "31s|\".*\"|\"${playtest}\"|" \
 		   	   -e "33s|\".*\"|\"${playtest_sha256}\"|" $NIXPATH/engines.nix
 	fi
 	if ! [[ "${bleed}" == "${bleed_oldver}" ]] ; then
-		bleed_sha256=$(nix-prefetch-src openraPackages.engines.bleed)
+		bleed_sha256=$(nix-prefetch-src $NIXPKGS openraPackages.engines.bleed)
 		sed -i -e "36s|\".*\"|\"${bleed}\"|" \
 		       -e "39s|\".*\"|\"${bleed_sha256}\"|" $NIXPATH/engines.nix
     fi
