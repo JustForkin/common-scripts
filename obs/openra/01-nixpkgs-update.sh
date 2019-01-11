@@ -94,8 +94,10 @@ function engnew {
 		engsrcrepoorigin=$(git -C $GHUBO/OpenRA-mods/$engsrc remote -v | head -n 1 | sed 's|.*://||g' | sed 's/.git (fetch)//g' | sed 's/ (fetch)//g')
 	fi
 
-	if ( ! [[ -d $GHUBO/$engsrc ]] ) || ( ! [[ -d $GHUBO/OpenRA-mods/$engsrc ]] ); then
-		git clone -q https://$engsrcurl $GHUBO/$engsrc
+	if ! [[ -d $GHUBO/$engsrc ]]; then
+		if ! [[ -d $GHUBO/OpenRA-mods/$engsrc ]]; then
+			git clone -q https://$engsrcurl $GHUBO/$engsrc
+		fi
 		engsrcrepoorigin="${engineurl}"
 	fi
 	
@@ -184,57 +186,61 @@ function engine_update {
     fi
 }
 
-function nixpkgs-openra-up {
-	# ca
-
+function canup {
 	nixoup2 "$GHUBO/CAmod" "1" "10" "17" "20" "26"
-	
-	# d2
+}
 
+function d2nup {
 	nixoup2 "$GHUBO/d2" "2" "34" "41" "45" "51"
+}
 
-	# dr
-
+function drnup {
 	nixoup2 "$GHUBO/DarkReign" "3" "63" "70" "73" "79"
+}
 
-	# gen
-	
+function gennup {
 	nixoup2 "$GHUBO/Generals-Alpha" "4" "87" "94" "98" "103"
+}
 
-	# kknd
-	
+function kkndnup {
 	nixoup2 "$GHUBO/KKnD" "5" "111" "118" "121" "127"
+}
 
-	# mw
-
+function mwnup {
 	nixoup2 "$GHUBO/Medieval-Warfare" "6" "135" "142" "145" "151"
+}
 
-	# ra2
-
+function ra2nup {
 	nixoup2 "$GHUBO/ra2" "7" "159" "166" "170" "175"
+}
 
-	# raclassic
-
+function racnup {
 	nixoup2 "$GHUBO/raclassic" "8" "187" "194" "198" "203"
+}
 
-	# rv
-
+function rvnup {
 	nixoup2 "$GHUBO/Romanovs-Vengeance" "9" "211" "218" "221" "228"
+}
 
-	# sp
-
+function spnup {
 	nixoup2 "$GHUBO/SP-OpenRAModSDK" "10" "240" "247" "250" "257"
+}
 
-	# ss
+function ssnup {
+	nixoup2 "$GHUBO/sole-survivor" "11" "265" "272" "275" "281"
+}
 
-	nixoup2 "$GHUBO/Sole-Survivor" "11" "265" "272" "275" "281"
-
-	# ura
-
+function uranup {
 	nixoup2 "$GHUBO/uRA" "12" "289" "296" "300" "305"
+}
 
-	# yr
+function yrnup {
 	nixoup2 "$GHUBO/yr" "13" "313" "320" "324" "329"
+}
+
+function nixpkgs-openra-up {
+	# Mods
+	canup ; d2nup ; drnup ; gennup ; kkndnup ; mwnup ; ra2nup ; racnup ; rvnup ; spnup ; ssnup ; uranup ; yrnup
 
 	# Engines
 	engine_update
