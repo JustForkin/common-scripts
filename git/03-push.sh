@@ -1,9 +1,17 @@
 function git-branch {
-	git rev-parse --abbrev-ref HEAD
+	if ! [[ -n "$1" ]]; then
+		git rev-parse --abbrev-ref HEAD
+	else
+		git -C "$1" rev-parse --abbrev-ref HEAD
+	fi
 }
 
 function comno {
-	git rev-list --branches "$(git-branch)" --count
+	if ! [[ -n "$1" ]]; then
+		git rev-list --branches "$(git-branch)" --count
+	else
+		git -C "$1" rev-list --branches "$(git-branch "$1")" --count
+	fi
 }
 
 function pushop {

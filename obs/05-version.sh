@@ -5,7 +5,11 @@ function come {
 
 # extra commit from git log
 function loge {
-    git log | head -n 1 | cut -d ' ' -f 2
+	if [[ -n "$1" ]]; then
+    		git -C "$1" log | head -n 1 | cut -d ' ' -f 2
+	else
+		git log | head -n 1 | cut -d ' ' -f 2
+	fi
 }
 
 # Extra version from PKGBUILD

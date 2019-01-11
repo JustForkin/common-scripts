@@ -3,6 +3,9 @@ function mwup {
 	git pull origin Next -q
 	# OpenRA latest engine version
 	enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
+	if [[ $enlv == "{DEV_VERSION}" ]]; then
+		enlv=$(git -C $GHUBO/OpenRA-mods/OpenRA-mw log | head -n 1 | cut -d ' ' -f 2)
+	fi
 	# OpenRA engine version in spec file
 	enpv=$(grep "define engine\_version" < "$OBSH"/openra-mw/openra-mw.spec | cut -d ' ' -f 3)
 	mastn=$(git rev-list --branches Next --count)
