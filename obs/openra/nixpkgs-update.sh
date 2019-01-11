@@ -43,6 +43,7 @@ Options:
   done <<< "$src_drvs"
 }
 
+# Presently packaged version
 function verpres {
 	# $1 refers to the number of the item in the list:
 	# grep "^    version = \"" < $NIXPATH/mods.nix 
@@ -55,6 +56,7 @@ function verpres {
 	fi
 }
 
+# Presently packaged commit
 function compres {
 	if ( ! [[ -n "$1" ]] ) || [[ "$1" == "1" ]]; then
 		grep "^      rev = \"" < $NIXPATH/mods.nix | head -n 1 | cut -d '"' -f 2
@@ -63,6 +65,7 @@ function compres {
 	fi
 }
 
+# Packaged engine commit hash
 function comenpres {
 	if ( ! [[ -n "$1" ]] ) || [[ "$1" == "1" ]]; then
 		grep " commit = \"" < $NIXPATH/mods.nix | head -n 1 | cut -d '"' -f 2
@@ -70,6 +73,8 @@ function comenpres {
 		grep " commit = \"" < $NIXPATH/mods.nix | head -n ${1} | tail -n 1 | cut -d '"' -f 2
 	fi
 }
+
+# New engine commit hash
 function engnew {
 	# This does assume that if ENGINE_VERSION is {DEV_VERSION} my local copy of the engine repo is on the right branch for the mod
 	# e.g. that OpenRA-mw is on the MedievalWarfareEngine branch
@@ -119,22 +124,22 @@ function nixoup2 {
 	git -C ${1} pull origin $(git-branch "${1}") -q
 	vernew=$(comno "${1}")
 	verprese=$(verpres "${2}")
-	printf "sed at line 124.\n"
+
 	sed -i -e "${3}s|${verprese}|${vernew}|" $NIXPATH/mods.nix
 
 	## Commit hash
 	comnew=$(loge "${1}")
 	comprese=$(compres "${2}")
 	
-	printf "sed at line 131.\n"
 	sed -i -e "${4}s|${comprese}|${comnew}|" $NIXPATH/mods.nix
 
 	## Commit hash (engine)
 	engrevnew=$(engnew ${1})
 	engrevpres=$(comenpres "${2}")
-	printf "sed at line 137.\n"
 	sed -i -e "${5}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix
 
+	# Check if either engine, or mod has been updated, 
+	# as nix-prefetch-src can chew up a bit of bandwidth unnecessarily if used when there is no need
 	if ( ! [[ "$comnew" == "$comprese" ]] ) || ( ! [[ "$engrevnew" == "$engrevpres" ]] ); then
 		MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
 		sha256=$(nix-prefetch-src $NIXPKGS openraPackages.mods.${MOD_ID})
@@ -142,7 +147,6 @@ function nixoup2 {
 		sha256_1=$(echo $sha256 | head -n 1)
 		sha256_2=$(echo $sha256 | tail -n 1)
 
-		printf "Going to update checksums..."
 		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix
 		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix
 	fi
