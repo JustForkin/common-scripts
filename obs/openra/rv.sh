@@ -32,5 +32,5 @@ function rvup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	mod-build rv
-	nixoup2 "$GHUBO/Romanovs-Vengeance" "9" "211" "218" "221" "228"
+	rvnup
 }

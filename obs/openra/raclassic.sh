@@ -38,5 +38,5 @@ function racup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	mod-build raclassic
-	nixoup2 "$GHUBO/raclassic" "8" "187" "194" "198" "203"
+	racnup
 }

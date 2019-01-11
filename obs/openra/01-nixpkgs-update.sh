@@ -92,16 +92,12 @@ function engnew {
 		engsrcrepoorigin=$(git -C $GHUBO/$engsrc remote -v | head -n 1 | sed 's|.*://||g' | sed 's/.git (fetch)//g' | sed 's/ (fetch)//g')
 	elif [[ -d $GHUBO/OpenRA-mods/$engsrc ]]; then
 		engsrcrepoorigin=$(git -C $GHUBO/OpenRA-mods/$engsrc remote -v | head -n 1 | sed 's|.*://||g' | sed 's/.git (fetch)//g' | sed 's/ (fetch)//g')
-	fi
-
-	if ! [[ -d $GHUBO/$engsrc ]]; then
-		if ! [[ -d $GHUBO/OpenRA-mods/$engsrc ]]; then
-			git clone -q https://$engsrcurl $GHUBO/$engsrc
-		fi
+	else
+		git clone -q https://$engsrcurl $GHUBO/$engsrc
 		engsrcrepoorigin="${engineurl}"
 	fi
 	
-	if ! [[ $engsrcurl == $engsrcrepoorigin ]]; then
+	if ! [[ "${engsrcurl}" == "${engsrcrepoorigin}" ]]; then
 		if [[ -d $GHUBO/OpenRA-${MOD_ID} ]]; then
 			engsrc="OpenRA-${MOD_ID}"
 			engsrcrepoorigin=$(git -C $GHUBO/$engsrc remote -v | head -n 1 | sed 's|.*://||g' | sed 's/.git (fetch)//g' | sed 's/ (fetch)//g')

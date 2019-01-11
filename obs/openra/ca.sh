@@ -32,5 +32,5 @@ function caup {
 	fi
 	# An expanded caup func was used in commit eb723d4af07bf2a72038a938525f18cd98df2699 and earlier
 	mod-build CAmod
-	nixoup2 "$GHUBO/CAmod" "1" "10" "17" "20" "26"
+	canup
 }

@@ -30,6 +30,6 @@ function drup {
 		osc ci -m "Bumping $specn->$mastn"
 	fi
 	mod-build DarkReign
-	nixoup2 "$GHUBO/DarkReign" "3" "63" "70" "73" "79"
+	drnup
 }
 

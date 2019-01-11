@@ -33,5 +33,5 @@ function yrup {
 
 	# A larger func was used before eb723d4af07bf2a72038a938525f18cd98df2699
 	mod-build yr
-        nixoup2 "$GHUBO/yr" "13" "313" "320" "324" "329"
+        yrnup
 }
