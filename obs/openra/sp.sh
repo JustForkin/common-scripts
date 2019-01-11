@@ -34,4 +34,5 @@ function spup {
 	fi
 
 	mod-build SP-OpenRAModSDK
+	nixoup2 "$GHUBO/SP-OpenRAModSDK" "10" "240" "247" "250" "257"
 }

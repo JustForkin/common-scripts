@@ -41,4 +41,5 @@ function mwup {
 		fi
 	fi
 	mod-build Medieval-Warfare
+	nixoup2 "$GHUBO/Medieval-Warfare" "6" "135" "142" "145" "151"
 }

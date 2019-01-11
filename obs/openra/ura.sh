@@ -33,6 +33,7 @@ function uRAup {
 		 fi
 	fi
 	mod-build uRA
+	nixoup2 "$GHUBO/uRA" "12" "289" "296" "300" "305"
 }
 
 alias uraup=uRAup

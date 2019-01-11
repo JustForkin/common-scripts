@@ -32,6 +32,6 @@ function d2up {
          osc ci -m "Bumping $specn->$mastn"
     fi
 
-    nixoup d2
+    nixoup2 "$GHUBO/d2" "2" "34" "41" "45" "51"
     # AppImage update not appropriate as it presently fails to run, due to missing d2k assembly. 
 }

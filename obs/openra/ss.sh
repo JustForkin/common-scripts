@@ -32,4 +32,5 @@ function ssup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	mod-build ss
+	nixoup2 "$GHUBO/Sole-Survivor" "11" "265" "272" "275" "281"
 }

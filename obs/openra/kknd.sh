@@ -32,4 +32,5 @@ function kkndup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	mod-build kknd
+	nixoup2 "$GHUBO/KKnD" "5" "111" "118" "121" "127"
 }

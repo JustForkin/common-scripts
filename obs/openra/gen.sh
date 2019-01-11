@@ -33,5 +33,6 @@ function genup {
 		osc ci -m "Bumping $specn->$mastn"
 	fi
 	mod-build Generals-Alpha
+	nixoup2 "$GHUBO/Generals-Alpha" "4" "87" "94" "98" "103"
 }
 

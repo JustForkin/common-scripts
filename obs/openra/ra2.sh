@@ -32,4 +32,5 @@ function ra2up {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	mod-build ra2
+	nixoup2 "$GHUBO/ra2" "7" "159" "166" "170" "175"
 }

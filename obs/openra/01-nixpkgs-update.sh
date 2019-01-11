@@ -1,15 +1,4 @@
-function pkg_src_sha256s {
-  src_drvs=$(nix-instantiate --eval --strict --json --expr \
-    "let pkg = with import $NIXPKGS { }; $1; in map (src: src.drvPath) pkg.srcs or [ pkg.src ]" |
-    jq --raw-output '.[]') &&
-  for src_drv in $(echo $src_drvs); do
-    result=$(nix-store --quiet --realize "$src_drv" 2>&1) &&
-    nix-store --query --hash "$result" | cut -d: -f2 ||
-    sed -n 's/.*\([a-z0-9]\{52\}\).*[a-z0-9]\{52\}.*/\1/p' <<< "$result"
-  done
-}
-
-nix-prefetch-src() {
+function nix-prefetch-src {
   local help_ret=1 nixpkgs
   if
     [[ $1 =~ ^(-h|--help)$ ]] && help_ret=0 || {
@@ -152,6 +141,31 @@ function nixoup2 {
 	fi
 }
 
+function engine_update {
+	release="$(git -C $GHUBO/OpenRA tag | grep "release\-" | tail -n 1 | cut -d '-' -f 2)"
+	release_oldver="$(grep "    version = \"" < $NIXPATH/engines.nix | head -n 1 | cut -d '"' -f 2)"
+	playtest="$(git -C $GHUBO/OpenRA tag | grep "playtest\-" | tail -n 1 | cut -d '-' -f 2)"
+	playtest_oldver="$(grep "    version = \"" < $NIXPATH/engines.nix | tail -n 1 | cut -d '"' -f 2)"
+	bleed="$(git -C $GHUBO/OpenRA log | head -n 1 | cut -d ' ' -f 2)"
+	bleed_oldver="$(grep " commit = \"" < $NIXPATH/engines.nix | head -n 1 | cut -d '"' -f 2)"
+	
+	if ! [[ "${release}" == "${release_oldver}" ]] ; then
+		release_sha256=$(nix-prefetch-src $NIXPKGS openraPackages.engines.release)
+		sed -i -e "25s|\".*\"|\"${release}\"|" \
+	    	   -e "27s|\".*\"|\"${release_sha256}\"|" $NIXPATH/engines.nix
+	fi
+	if ! [[ "${playtest}" == "${playtest_oldver}" ]] ; then
+	    playtest_sha256=$(nix-prefetch-src $NIXPKGS openraPackages.engines.playtest)
+		sed -i -e "31s|\".*\"|\"${playtest}\"|" \
+		   	   -e "33s|\".*\"|\"${playtest_sha256}\"|" $NIXPATH/engines.nix
+	fi
+	if ! [[ "${bleed}" == "${bleed_oldver}" ]] ; then
+		bleed_sha256=$(nix-prefetch-src $NIXPKGS openraPackages.engines.bleed)
+		sed -i -e "36s|\".*\"|\"${bleed}\"|" \
+		       -e "39s|\".*\"|\"${bleed_sha256}\"|" $NIXPATH/engines.nix
+    fi
+}
+
 function nixpkgs-openra-up {
 	# ca
 
@@ -205,26 +219,5 @@ function nixpkgs-openra-up {
 	nixoup2 "$GHUBO/yr" "13" "313" "320" "324" "329"
 
 	# Engines
-	release="$(git -C $GHUBO/OpenRA tag | grep "release\-" | tail -n 1 | cut -d '-' -f 2)"
-	release_oldver="$(grep "    version = \"" < engines.nix | head -n 1 | cut -d '"' -f 2)"
-	playtest="$(git -C $GHUBO/OpenRA tag | grep "playtest\-" | tail -n 1 | cut -d '-' -f 2)"
-	playtest_oldver="$(grep "    version = \"" < engines.nix | tail -n 1 | cut -d '"' -f 2)"
-	bleed="$(git -C $GHUBO/OpenRA log | head -n 1 | cut -d ' ' -f 2)"
-	bleed_oldver="$(grep " commit = \"" < engines.nix | head -n 1 | cut -d '"' -f 2)"
-	
-	if ! [[ "${release}" == "${release_oldver}" ]] ; then
-		release_sha256=$(nix-prefetch-src $NIXPKGS openraPackages.engines.release)
-		sed -i -e "25s|\".*\"|\"${release}\"|" \
-	    	   -e "27s|\".*\"|\"${release_sha256}\"|" $NIXPATH/engines.nix
-	fi
-	if ! [[ "${playtest}" == "${playtest_oldver}" ]] ; then
-	    playtest_sha256=$(nix-prefetch-src $NIXPKGS openraPackages.engines.playtest)
-		sed -i -e "31s|\".*\"|\"${playtest}\"|" \
-		   	   -e "33s|\".*\"|\"${playtest_sha256}\"|" $NIXPATH/engines.nix
-	fi
-	if ! [[ "${bleed}" == "${bleed_oldver}" ]] ; then
-		bleed_sha256=$(nix-prefetch-src $NIXPKGS openraPackages.engines.bleed)
-		sed -i -e "36s|\".*\"|\"${bleed}\"|" \
-		       -e "39s|\".*\"|\"${bleed_sha256}\"|" $NIXPATH/engines.nix
-    fi
+	engine_update
 }

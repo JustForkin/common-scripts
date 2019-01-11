@@ -141,18 +141,8 @@ function mod-build {
 			popd || { printf '\e[1;31m%-6s\e[m\n' "popdin' out of packaging/linux." && return }
 			# Updating version on ~/.local/share
 			echo "VERSION ${numbc}\nCOMMIT ${commitc}" > $HOME/.local/share/openra-${MOD}
-			if ! [[ $MOD == "mw\|dr" ]]; then
-				nixoup "$1"
-			fi
 		else
 			printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date, mate!"
-		fi
-	else
-		numbn=$(grep " version = " < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | cut -d '"' -f 2)
-		commitn=$(grep " rev = " < $NIXPKGS/pkgs/games/openra-${MOD}/default.nix | head -n 1 | cut -d '"' -f 2)
-		if (! [[ $numbc == $numbn ]] ) || (! [[ $commitc == $commitn ]] ); then
-			printf '\e[1;32m%-6s\e[m\n' "Bumping $numbn->$numbc; $commitn->$commitc."
-			nixoup "$1"
 		fi
 	fi
 }
