@@ -78,25 +78,31 @@ function comenpres {
 }
 
 # New engine commit hash
+# First and only input is the path to the repo
 function engnew {
-	# This does assume that if ENGINE_VERSION is {DEV_VERSION} my local copy of the engine repo is on the right branch for the mod
-	# e.g. that OpenRA-mw is on the MedievalWarfareEngine branch
+	# This does assume that if ENGINE_VERSION is {DEV_VERSION} my local copy of the engine repo is on the right branch for 
+	# the mod, e.g. that OpenRA-mw is on the MedievalWarfareEngine branch
 	# engine version per mod.config
 	engver=$(grep "^ENGINE\_VERSION" < $1/mod.config | cut -d '"' -f 2)
 	# The engine's repo name
 	engsrc=$(grep "ENGINE\_VERSION" < $1/mod.config | tail -n 1 | cut -d '"' -f 2 | cut -d '/' -f 5)
 	MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
 	# The following two should match, assuming $engsrc is the name of the repo copy in $GHUBO
+	# First is the engine URL, without protocol (so no https://), according to mod.config
 	engsrcurl=$(grep "^AUTOMATIC_ENGINE_SOURCE" < $1/mod.config | tail -n 1 | cut -d '"' -f 2 | sed 's|https://||g' | sed 's|/archive/.*.zip||g')
 	if [[ -d $GHUBO/$engsrc ]]; then
+		# This is the URL according to what git remote in the engine repo says, it is needed in case the repo 
+		# just has the same name, e.g. some mods do not rename OpenRA when they fork it.
 		engsrcrepoorigin=$(git -C $GHUBO/$engsrc remote -v | head -n 1 | sed 's|.*://||g' | sed 's/.git (fetch)//g' | sed 's/ (fetch)//g')
 	elif [[ -d $GHUBO/OpenRA-mods/$engsrc ]]; then
 		engsrcrepoorigin=$(git -C $GHUBO/OpenRA-mods/$engsrc remote -v | head -n 1 | sed 's|.*://||g' | sed 's/.git (fetch)//g' | sed 's/ (fetch)//g')
 	else
+		# If $GHUBO/$engsrc cannot be found, clone it
 		git clone -q https://$engsrcurl $GHUBO/$engsrc
 		engsrcrepoorigin="${engineurl}"
 	fi
 	
+	# Determine whether these two URL match.
 	if ! [[ "${engsrcurl}" == "${engsrcrepoorigin}" ]]; then
 		if [[ -d $GHUBO/OpenRA-${MOD_ID} ]]; then
 			engsrc="OpenRA-${MOD_ID}"
@@ -105,8 +111,10 @@ function engnew {
 			engsrc="OpenRA-mods/OpenRA-${MOD_ID}"
 			engsrcrepoorigin=$(git -C $GHUBO/$engsrc remote -v | head -n 1 | sed 's|.*://||g' | sed 's/.git (fetch)//g' | sed 's/ (fetch)//g')
 	  else
-			engsrcrepoorigin=$(git -C $GHUBO/$engsrc remote -v | head -n 1 | sed 's|.*://||g' | sed 's/.git (fetch)//g' | sed 's/ (fetch)//g')
-			printf "Cannot find engine source directory, as it doesn't seem to be either $engsrc, nor $GHUBO/OpenRA-${MOD_ID}, nor $GHUBO/OpenRA-mods/OpenRA-${MOD_ID}.\n" && return
+			engsrcrepoorigin=$(git -C $GHUBO/$engsrc remote -v | head -n 1 | sed 's|.*://||g' | sed 's/.git (fetch)//g' | sed 's/ (fetch)//g') || return
+			## Give myself some details, of the variables being used, should something go wrong. 
+			printf "Cannot find engine source directory, as it doesn't seem to be $GHBUO/$engsrc, nor $GHUBO/OpenRA-${MOD_ID}, nor $GHUBO/OpenRA-mods/OpenRA-${MOD_ID}.\n" 
+			printf "engsrcrepoorigin is $engsrcrepoorigin. engsrcurl is $engsrcurl. engver is $engver.\n" && return
 		fi
 	fi
 			
