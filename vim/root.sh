@@ -45,3 +45,7 @@ function vsu {
 function vmo {
     sudo vim /etc/conf.d/modules
 }
+
+function vnc {
+    sudo vim /etc/nixos/configuration.nix
+}
