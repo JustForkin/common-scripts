@@ -1,50 +1,79 @@
 # This function is from msteen @ GitHub.
 function nix-prefetch {
-  local help_ret=1 nixpkgs expr
-  if
-    [[ $1 =~ ^(-h|--help)$ ]] && help_ret=0 || {
-      (( $# == 2 )) && nixpkgs=$1 && shift || nixpkgs='<nixpkgs>'
-      (( $# == 1 )) && expr=$1 && shift
-      ! (( $# == 0 ))
-    }
-  then
-    help_msg='Print the the hash of the sources.
+	#!/usr/bin/env bash
+[[ $1 =~ ^(-v|--version)$ ]] && echo '@version@' && exit
+if
+  [[ $1 =~ ^(-h|--help)$ ]] && help_ret=0 || ! {
+    help_ret=1
+    [[ $1 == --ignore-hash ]] && ignore_hash=1 && shift || ignore_hash=0
+    (( $# == 2 )) && nixpkgs=$1 && shift || nixpkgs='<nixpkgs>'
+    (( $# == 1 )) && expr=$1 && shift
+  }
+then
+  cat <<'EOF' > "/dev/std$( (( ! help_ret )) && echo out || echo err )"
+Print the output hash of the package sources.
 
 Usage:
-  nix-prefetch [<nixpkgs>] <srcs>
+  nix-prefetch --ignore-hash [<nixpkgs>] <sources>
+  nix-prefetch -v | --version
   nix-prefetch -h | --help
 
+Examples:
+  nix-prefetch hello
+  nix-prefetch --ignore-hash hello
+  nix-prefetch hello.src
+  nix-prefetch '[ hello.src ]'
+  nix-prefetch 'let name = "hello"; in pkgs.${name}'
+
 Options:
-  -h, --help  Show help message.'
-    ! (( help_ret )) && echo "$help_msg" || echo "$help_msg" >&2
-    return $help_ret
-  fi
-  local src_drvs src_drv hash_size output
-  src_drvs=$(nix eval --raw '(
-    let
-      pkgs = import '"$nixpkgs"' { };
-      x = with pkgs; '"$expr"';
-      xs = if builtins.isList x then x else [ x ];
-      srcs = builtins.concatMap (x: x.srcs or [ (x.src or x) ]) xs;
-      dummyHashes = {
-        sha1   = "00000000000000000000000000000000";
-        sha256 = "0000000000000000000000000000000000000000000000000000";
-        sha512 = "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
-      };
-      dummySrcs = map (src: src.overrideAttrs (oldAttrs: {
+  --ignore-hash  Ignore the hash provided in the sources, use a dummy hash instead.
+  -h, --help     Show help message.
+  -v, --version  Show the version.
+EOF
+  exit $help_ret
+fi
+
+lines=$(nix eval --raw '(
+  let
+    dummyHashes = {
+      sha1   = "00000000000000000000000000000000";
+      sha256 = "0000000000000000000000000000000000000000000000000000";
+      sha512 = "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    };
+    pkgs = import '"$nixpkgs"' { };
+  in with pkgs.lib; let
+    x = with pkgs; '"$expr"';
+    xs = if isList x then x else [ x ];
+    srcs = concatMap (x: x.srcs or [ (x.src or x) ]) xs;
+    overridenSrcs = (if '"$ignore_hash"' != 0
+      then map (src: src.overrideAttrs (oldAttrs: {
         outputHash = dummyHashes.${oldAttrs.outputHashAlgo};
-      })) srcs;
-      srcDrvs = map (src: "${src.drvPath} ${toString (builtins.stringLength src.outputHash)}") dummySrcs;
-    in builtins.concatStringsSep "\n" srcDrvs
-  )') &&
-  while IFS=' ' read -r src_drv hash_size; do
-    if output=$(nix-store --quiet --realize "$src_drv" 2>&1); then
-      echo "Something went wrong with the output hash, the dummy hash should always fail to build." >&2
-      return 1
+      }))
+      else id
+    ) srcs;
+    lines = map (src:
+      let
+        wantedHashSize = stringLength dummyHashes.${src.outputHashAlgo};
+        values = [ src.drvPath src.outputHash wantedHashSize ];
+      in concatStringsSep " " (map toString values)
+    ) overridenSrcs;
+  in concatStringsSep "\n" lines
+)') &&
+while IFS=' ' read -r src_drv src_output_hash wanted_hash_size; do
+  if output=$(nix-store --quiet --realize "$src_drv" 2>&1); then
+    if (( ignore_hash )); then
+      echo "Something went wrong, the dummy hash should always fail to build." >&2
+      exit 1
     else
-      sed -n "s/.*\([a-z0-9]\{$hash_size\}\).*[a-z0-9]\{$hash_size\}.*/\1/p" <<< "$output"
+      echo "$src_output_hash"
     fi
-  done <<< "$src_drvs"
+  else
+    # Check for the new format:
+    # https://github.com/NixOS/nix/commit/5e6fa9092fb5be722f3568c687524416bc746423
+    grep -o "[a-z0-9]\{$wanted_hash_size\}" <<< "$output" > >( [[ $output == 'hash mismatch'* ]] && tail -1 || head -1 )
+  fi
+done <<< "$lines"
+
 }
 
 # Presently packaged version
