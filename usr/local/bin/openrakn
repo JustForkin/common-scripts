@@ -13,7 +13,7 @@ fi
 git pull origin master -q || ( printf "ORAKDErr\n" && return )
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
-orpv=$(grep "VERSION" < /home/fusion809/.local/share/openra-kknd | cut -d ' ' -f 2)
+orpv=$(nixpkgs-mod-ver 5)
 
 if [[ $orpv == $orlv ]]; then
     printf "ORAK \n"

@@ -16,7 +16,7 @@ else
 fi
 
 # Latest packaged version
-orpv=$(grep "VERSION" < /home/fusion809/.local/share/openra-ca | cut -d ' ' -f 2)
+orpv=$(nixpkgs-mod-ver 1)
 
 if [[ $orpv == $orlv ]]; then
     printf "ORACA \n"

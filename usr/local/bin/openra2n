@@ -13,7 +13,7 @@ fi
 git pull origin master -q || ( printf "ORA2Err\n" && return )
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
-orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-ra2/openra-ra2.spec | sed 's/Version:\s*//g')
+orpv=$(nixpkgs-mod-ver 7)
 
 if [[ $orpv == $orlv ]]; then
     printf "%s\n" "ORA2 "

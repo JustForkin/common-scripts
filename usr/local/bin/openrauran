@@ -5,7 +5,6 @@
 #done
 
 # OpenRA Red Alert Unplugged mod latest commit available
-OBS_PATH="/home/fusion809/OBS/home:fusion809/openra-ura"
 cd /home/fusion809/GitHub/others/uRA || return
 git stash -q || return
 if ! command -v git > /dev/null 2>&1; then
@@ -14,18 +13,10 @@ fi
 git pull origin master -q || ( printf "ORAuErr\n" && return )
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
-orpv=$(cat $OBS_PATH/openra-ura.spec | grep "Version:" | sed 's/Version:\s*//g')
-# OpenRA latest engine version
-enlv=$(cat mod.config | grep '^ENGINE_VERSION' | cut -d '"' -f 2)
-# OpenRA engine version in spec file
-enpv=$(cat $OBS_PATH/openra-ura.spec | grep engine_version | cut -d ' ' -f 3)
+orpv=$(nixpkgs-mod-ver 12)
 
 if [[ $orpv == $orlv ]]; then
     printf "ORAu \n"
 else
-    if [[ $enpv == $enlv ]]; then
-         printf "ORAu${orlv}\n"
-    else
-         printf "ORAu${orlv}; engine $enpv->$enlv\n"
-    fi
+    printf "ORAu${orlv}\n"
 fi

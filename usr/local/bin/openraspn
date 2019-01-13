@@ -16,7 +16,7 @@ fi
 
 sdklv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
-sdkpv=$(cat /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | grep "Version:" | sed 's/Version:\s*//g')
+sdkpv=$(nixpkgs-mod-ver 10)
 
 if [[ $sdkpv == $sdklv ]]; then
     printf "ORASP \n"

@@ -13,7 +13,7 @@ fi
 git pull origin master -q || ( printf "ORASSErr\n" && return )
 orlv=$(git rev-list --branches master --count)
 # Latest packaged version
-orpv=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-ss/openra-ss.spec | sed 's/Version:\s*//g')
+orpv=$(nixpkgs-mod-ver 11)
 
 if [[ $orpv == $orlv ]]; then
     printf "%s\n" "ORASS "

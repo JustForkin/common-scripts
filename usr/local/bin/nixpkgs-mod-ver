@@ -1,0 +1,2 @@
+#!/bin/bash
+grep "^    version = " < /data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra/mods.nix | head -n "$1" | tail -n 1 | cut -d '"' -f 2

@@ -13,7 +13,7 @@ fi
 git pull origin "''secret''-ra2-mod" -q || ( printf "ORARVErr\n" && return )
 orlv=$(git rev-list --branches "''secret''-ra2-mod" --count)
 # OpenRA latest packaged version
-orpv=$(grep " version = " < /data/GitHub/mine/packaging/nixpkgs/pkgs/games/openra-rv/default.nix | cut -d '"' -f 2)
+orpv=$(nixpkgs-mod-ver 9)
 
 if [[ $orpv == $orlv ]]; then
     printf "ORARV \n"
