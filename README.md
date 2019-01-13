@@ -45,11 +45,12 @@ At the time of writing (14 Jan 2019) it displays the following, from left to rig
 
 * CPU usage, as a percentage.
 
-* RAM, in GiB/GiB. 
+* RAM, in GiB/GiB.
 
-* CPU Load. 
+* CPU Load.
 
 * (Depending on whether CPU cores can be detected by looking at `/sys/devices/platform/coretemp.0/hwmon/hwmon0/temp[0-9]-input`.) Core temperatures.
 
 * Date and time, in the format:
   > Short hour (e.g. 9, for 09):Minute:Second, Short Day (e.g. Mon, for Monday) Short Month (Jan, for January) Short Year (e.g. 19, for 2019).
+  > e.g. 5:17:33 AM, Mon 14 Jan 19.
