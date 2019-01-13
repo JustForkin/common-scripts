@@ -118,7 +118,7 @@ function engnew {
 		fi
 	fi
 			
-	if [[ $engver == "{DEV_VERSION}" ]] && [[ $engsrcrepoorigin == $engsrcurl ]] ; then
+	if ( [[ $engver == "{DEV_VERSION}" ]] || [[ $engver == "SP-Bleed-Branch" ]] ) && [[ $engsrcrepoorigin == $engsrcurl ]] ; then
 		git -C "$GHUBO/$engsrc" pull origin $(git-branch $GHUBO/$engsrc) -q
 		engver=$(loge $GHUBO/$engsrc)
 	fi
@@ -134,23 +134,22 @@ function nixoup2 {
 	# Fifth is the line on which the commit/version for the mod's engine is listed
 	# Sixth is the line the engine's source's sha256 is listed
 	## Commit number (version)
-	git -C ${1} pull origin $(git-branch "${1}") -q
+	git -C ${1} pull origin $(git-branch "${1}") -q || (printf "Git pulling ${1} at line 137 of 01-nixpkgs-update.sh failed.\n" && return)
 	vernew=$(comno "${1}")
 	verprese=$(verpres "${2}")
 
-	sed -i -e "${3}s|${verprese}|${vernew}|" $NIXPATH/mods.nix
+	sed -i -e "${3}s|${verprese}|${vernew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit number at line 141 of 01-nixpkgs-update.sh failed.\n" && return)
 
 	## Commit hash
 	comnew=$(loge "${1}")
 	comprese=$(compres "${2}")
 	
-	sed -i -e "${4}s|${comprese}|${comnew}|" $NIXPATH/mods.nix
+	sed -i -e "${4}s|${comprese}|${comnew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit hash at line 147 of 01-nixpkgs-update.sh failed.\n" && return)
 
 	## Commit hash (engine)
 	engrevnew=$(engnew ${1})
 	engrevpres=$(comenpres "${2}")
-	printf "Sedding engine revision @ line 153.\n"
-	sed -i -e "${5}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 153 failed.\n" && return)
+	sed -i -e "${5}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 152 of 01-nixpkgs-update.sh failed.\n" && return)
 
 	# Check if either engine, or mod has been updated, 
 	# as nix-prefetch can chew up a bit of bandwidth unnecessarily if used when there is no need
@@ -161,8 +160,8 @@ function nixoup2 {
 		sha256_1=$(echo $sha256 | head -n 1)
 		sha256_2=$(echo $sha256 | tail -n 1)
 
-		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash at line 164 failed.\n" && return)
-		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 164 failed.\n" && return)
+		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash at line 163 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 164 of 01-nixpkgs-update.sh failed.\n" && return)
 	fi
 }
 
