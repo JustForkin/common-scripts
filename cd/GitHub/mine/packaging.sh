@@ -33,8 +33,14 @@ function cdnp {
 			cd $NIXPKGS/pkgs/applications/*/$1
 		elif [[ -d $NIXPKGS/pkgs/applications/science/math/$1 ]]; then
 			cd "$NIXPKGS/pkgs/applications/science/math/$1"
+		elif [[ -d $NIXPKGS/pkgs/applications/science/chemistry/$1 ]]; then
+			cd "$NIXPKGS/pkgs/applications/science/chemistry/$1"
 		elif [[ -d $NIXPKGS/pkgs/applications/science/*/$1 ]]; then
 			cd $NIXPKGS/pkgs/applications/science/*/$1
+		elif [[ -d $PKG/nixpkgs.marvin-pr/pkgs/applications/science/chemistry/$1 ]]; then
+			cd $PKG/nixpkgs.marvin-pr/pkgs/applications/science/chemistry/$1
+		else
+			printf "Target directory not found.\n" && return
 		fi
 	else
 		cd $NIXPKGS
