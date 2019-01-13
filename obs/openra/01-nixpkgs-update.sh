@@ -1,5 +1,5 @@
 # This function is from msteen @ GitHub.
-nix-prefetch() {
+function nix-prefetch {
   local help_ret=1 nixpkgs expr
   if
     [[ $1 =~ ^(-h|--help)$ ]] && help_ret=0 || {
@@ -160,7 +160,7 @@ function nixoup2 {
 		sha256_1=$(echo $sha256 | head -n 1)
 		sha256_2=$(echo $sha256 | tail -n 1)
 
-		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash at line 163 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 163 of 01-nixpkgs-update.sh failed.\n" && return)
 		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 164 of 01-nixpkgs-update.sh failed.\n" && return)
 	fi
 }
@@ -175,19 +175,21 @@ function engine_update {
 	
 	if ! [[ "${release}" == "${release_oldver}" ]] ; then
 		release_sha256=$(nix-prefetch $NIXPKGS openraPackages.engines.release)
-		sed -i -e "25s|\".*\"|\"${release}\"|" \
-	    	   -e "27s|\".*\"|\"${release_sha256}\"|" $NIXPATH/engines.nix
+		sed -i -e "25s|\".*\"|\"${release}\"|" $NIXPATH/engines.nix || (printf "Sedding release version (${release}) failed at line 178 of 01-nixpkgs-update.sh.\n" && return)
+	  sed -i -e "27s|\".*\"|\"${release_sha256}\"|" $NIXPATH/engines.nix || (printf "Sedding release (${release}) hash (${release_sha256}) failed at line 179 of 01-nixpkgs-update.sh.\n" && return)
 	fi
+
 	if ! [[ "${playtest}" == "${playtest_oldver}" ]] ; then
-	    playtest_sha256=$(nix-prefetch $NIXPKGS openraPackages.engines.playtest)
-		sed -i -e "31s|\".*\"|\"${playtest}\"|" \
-		   	   -e "33s|\".*\"|\"${playtest_sha256}\"|" $NIXPATH/engines.nix
+	  playtest_sha256=$(nix-prefetch $NIXPKGS openraPackages.engines.playtest)
+		sed -i -e "31s|\".*\"|\"${playtest}\"|" $NIXPATH/engines.nix || (printf "Sedding playtest version (${playtest}) failed at line 183 of 01-nixpkgs-update.sh.\n" && return)
+		sed -i -e "33s|\".*\"|\"${playtest_sha256}\"|" $NIXPATH/engines.nix || (printf "Sedding playtest (${playtest}) hash (${playtest_sha256}) failed at line 184 of 01-nixpkgs-update.sh.\n" && return)
 	fi
+
 	if ! [[ "${bleed}" == "${bleed_oldver}" ]] ; then
 		bleed_sha256=$(nix-prefetch $NIXPKGS openraPackages.engines.bleed)
-		sed -i -e "36s|\".*\"|\"${bleed}\"|" \
-		       -e "39s|\".*\"|\"${bleed_sha256}\"|" $NIXPATH/engines.nix
-    fi
+		sed -i -e "36s|\".*\"|\"${bleed}\"|" $NIXPATH/engines.nix || (printf "Sedding bleed version (${bleed}) failed at line 188 of 01-nixpkgs-update.sh.\n" && return)
+		sed -i -e "39s|\".*\"|\"${bleed_sha256}\"|" $NIXPATH/engines.nix  || (printf "Sedding bleed version (${bleed_sha256}) hash (${bleed_sha256}) failed at line 189 of 01-nixpkgs-update.sh.\n" && return)
+  fi
 }
 
 function canup {
