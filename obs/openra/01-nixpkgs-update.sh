@@ -149,7 +149,8 @@ function nixoup2 {
 	## Commit hash (engine)
 	engrevnew=$(engnew ${1})
 	engrevpres=$(comenpres "${2}")
-	sed -i -e "${5}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix
+	printf "Sedding engine revision @ line 153.\n"
+	sed -i -e "${5}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 153 failed.\n" && return)
 
 	# Check if either engine, or mod has been updated, 
 	# as nix-prefetch can chew up a bit of bandwidth unnecessarily if used when there is no need
@@ -160,8 +161,8 @@ function nixoup2 {
 		sha256_1=$(echo $sha256 | head -n 1)
 		sha256_2=$(echo $sha256 | tail -n 1)
 
-		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix
-		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix
+		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash at line 164 failed.\n" && return)
+		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 164 failed.\n" && return)
 	fi
 }
 
