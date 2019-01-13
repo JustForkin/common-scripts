@@ -1,6 +1,5 @@
-# This function is from msteen @ GitHub.
+# This function is from msteen @ GitHub and taken from NixOS/nixpkgs#53878
 function nix-prefetch {
-	#!/usr/bin/env bash
 [[ $1 =~ ^(-v|--version)$ ]] && echo '@version@' && exit
 if
   [[ $1 =~ ^(-h|--help)$ ]] && help_ret=0 || ! {
