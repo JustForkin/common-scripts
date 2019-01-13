@@ -147,7 +147,14 @@ function engnew {
 		fi
 	fi
 			
-	if ( [[ $engver == "{DEV_VERSION}" ]] || [[ $engver == "SP-Bleed-Branch" ]] ) && [[ $engsrcrepoorigin == $engsrcurl ]] ; then
+	if ( [[ $engver == "{DEV_VERSION}" ]] || [[ $engver == "SP-Bleed-Branch" ]] || [[ $engver == "MedievalWarfareEngine" ]]) && [[ $engsrcrepoorigin == $engsrcurl ]] ; then
+		if [[ $engver == "{DEV_VERSION}" ]] && [[ $(git-branch $GHUBO/$engsrc) != "bleed" ]]; then
+			git -C "$GHUBO/$engsrc" checkout bleed
+		elif [[ $engver == "SP-Bleed-Branch" ]] && [[ $(git-branch $GHUBO/$engsrc) != "SP-Bleed-Branch" ]]; then
+			git -C "$GHUBO/$engsrc" checkout SP-Bleed-Branch
+		elif [[ $engver == "MedievalWarfareEngine" ]] && [[ $(git-branch $GHUBO/$engsrc) != "MedievalWarfareEngine" ]]; then
+			git -C "$GHUBO/$engsrc" checkout MedievalWarfareEngine
+		fi
 		git -C "$GHUBO/$engsrc" pull origin $(git-branch $GHUBO/$engsrc) -q
 		engver=$(loge $GHUBO/$engsrc)
 	fi
