@@ -181,24 +181,24 @@ function nixoup2 {
 	MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
 	git -C ${1} pull origin $(git-branch "${1}") -q || (printf "Git pulling ${1} at line 182 of 01-nixpkgs-update.sh failed.\n" && return)
 	vernew=$(comno "${1}")
-	verprese=$(verpres "${2}")
+	verprese=$(verpres "${3}")
 
-	sed -i -e "${3}s|${verprese}|${vernew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit number at line 186 of 01-nixpkgs-update.sh failed.\n" && return)
+	sed -i -e "${4}s|${verprese}|${vernew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit number at line 186 of 01-nixpkgs-update.sh failed.\n" && return)
 
 	## Commit hash
 	comnew=$(loge "${1}")
-	comprese=$(compres "${2}")
+	comprese=$(compres "${3}")
 	
-	sed -i -e "${4}s|${comprese}|${comnew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit hash at line 192 of 01-nixpkgs-update.sh failed.\n" && return)
+	sed -i -e "${5}s|${comprese}|${comnew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit hash at line 192 of 01-nixpkgs-update.sh failed.\n" && return)
 
 	## Commit hash (engine) / version
 	engrevnew=$(engnew ${1})
 	if [[ ${MOD_ID} == "d2" ]] || [[ ${MOD_ID} == "gen" ]] || [[ ${MOD_ID} == "ra2" ]] || [[ ${MOD_ID} == "raclassic" ]] || [[ ${MOD_ID} == "ura" ]] || [[ ${MOD_ID} == "yr" ]]; then
 		engpres=$(enpres "${2}")
-		sed -i -e "${5}s|${engpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 198 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "${6}s|${engpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 198 of 01-nixpkgs-update.sh failed.\n" && return)
 	else
 		engrevpres=$(comenpres "${2}")
-		sed -i -e "${5}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 201 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "${6}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 201 of 01-nixpkgs-update.sh failed.\n" && return)
 	fi
 
 	# Check if either engine, or mod has been updated, 
@@ -214,8 +214,8 @@ function nixoup2 {
 		printf "sha256_1 is $sha256_1.\n"
 		printf "sha256_2 is $sha256_2.\n"
 
-		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 213 of 01-nixpkgs-update.sh failed.\n" && return)
-		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 214 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "$((${5}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 213 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "${7}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 214 of 01-nixpkgs-update.sh failed.\n" && return)
 	fi
 }
 
@@ -275,7 +275,7 @@ function ra2nup {
 }
 
 function racnup {
-	nixoup2 "$GHUBO/raclassic" "4" "187" "194" "198" "203"
+	nixoup2 "$GHUBO/raclassic" "4" "8" "187" "194" "198" "203"
 }
 
 function rvnup {
