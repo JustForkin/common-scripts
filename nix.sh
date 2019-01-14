@@ -40,17 +40,17 @@ function nixs {
 
 function nixi {
 	if ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep my-fork &> /dev/null ) ); then
-		nix-env -f '<my-fork>' -iA "$@"
+		nix-env -f '<my-fork>' -r -iA "$@"
 	elif [[ -d $NIXPKGS ]] ; then
-		nix-env -f $NIXPKGS -iA "$@"
+		nix-env -f $NIXPKGS -r -iA "$@"
 	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep nixos-unstable &> /dev/null ) ); then
-		nix-env -f '<nixos-unstable>' -iA "$@"
+		nix-env -f '<nixos-unstable>' -r -iA "$@"
 	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep nixos &> /dev/null ) ); then
-		nix-env -f '<nixos>' -iA "$@"
+		nix-env -f '<nixos>' -r -iA "$@"
 	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep "[0-9a-zA-Z]" &> /dev/null ) ); then
-		nix-env -iA "$@"
+		nix-env -r -iA "$@"
 	else
-		nix-env -f '<nixpkgs>' -iA "$@"
+		nix-env -f '<nixpkgs>' -r -iA "$@"
 	fi
 }
 
@@ -76,13 +76,13 @@ function nixif {
 
 function nixb {
 	if ( [[ "$1" == "marvin" ]] || [[ "${PWD##*/}" == "marvin" ]] ) && ( ! [[ -d $NIXPKGS/pkgs/applications/science/chemistry/marvin ]] ) && [[ -d $PKG/nixpkgs.marvin-pr/pkgs/applications/science/chemistry/marvin ]]; then
-		nix-env -f $PKG/nixpkgs.marvin-pr -iA marvin
+		nix-env -f $PKG/nixpkgs.marvin-pr -r -iA marvin
 	elif [[ -n $1 ]]; then
-		nix-env -f $NIXPKGS -iA "$@"
+		nix-env -f $NIXPKGS -r -iA "$@"
 	elif [[ "${PWD##*/}" == "vim" ]] && ( grep -i "NixOS" < /etc/os-release &> /dev/null ); then
-		nix-env -f $NIXPKGS -iA vimHugeX
+		nix-env -f $NIXPKGS -r -iA vimHugeX
 	else		
-		nix-env -f $NIXPKGS -iA ${PWD##*/}
+		nix-env -f $NIXPKGS -r -iA ${PWD##*/}
 	fi
 }
 
