@@ -69,7 +69,7 @@ while IFS=' ' read -r src_drv src_output_hash wanted_hash_size; do
   else
     # Check for the new format:
     # https://github.com/NixOS/nix/commit/5e6fa9092fb5be722f3568c687524416bc746423
-    grep -o "[a-z0-9]\{$wanted_hash_size\}" <<< "$output" > >( [[ $output == 'hash mismatch'* ]] && tail -1 || head -1 )
+    grep -o "[a-z0-9]\{$wanted_hash_size\}" <<< "$output" > >( [[ $output == *'hash mismatch'* ]] && tail -1 || head -1 )
   fi
 done <<< "$lines"
 

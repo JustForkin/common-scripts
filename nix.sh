@@ -5,7 +5,7 @@ if ! [[ -d /run/current-system/sw/bin ]]; then
 elif [[ -d /nix/var/nix/profiles/per-user/root/channels/nixos ]]; then
 	export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/root/channels
 elif [[ -d /nix/var/nix/profiles/per-user/root/channels/nixos-unstable ]]; then
-	export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos-unstable:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/root/channels
+	export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos-unstable:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/root/channels:nixos=/nix/var/nix/profiles/per-user/root/channels/nixos
 fi
 
 if [[ -f /etc/ssl/ca-bundle.pem ]]; then
@@ -40,18 +40,26 @@ function nixs {
 
 function nixi {
 	if ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep my-fork &> /dev/null ) ); then
-		nix-env -f '<my-fork>' -r -iA "$@"
+		nix-env -f '<my-fork>' -iA "$@"
 	elif [[ -d $NIXPKGS ]] ; then
-		nix-env -f $NIXPKGS -r -iA "$@"
+		nix-env -f $NIXPKGS -iA "$@"
 	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep nixos-unstable &> /dev/null ) ); then
-		nix-env -f '<nixos-unstable>' -r -iA "$@"
+		nix-env -f '<nixos-unstable>' -iA "$@"
 	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep nixos &> /dev/null ) ); then
-		nix-env -f '<nixos>' -r -iA "$@"
+		nix-env -f '<nixos>' -iA "$@"
 	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep "[0-9a-zA-Z]" &> /dev/null ) ); then
-		nix-env -r -iA "$@"
+		nix-env -iA "$@"
 	else
-		nix-env -f '<nixpkgs>' -r -iA "$@"
+		nix-env -f '<nixpkgs>' -iA "$@"
 	fi
+}
+
+function nixiu {
+	nix-env -f '<nixos-unstable>' -iA "$@"
+}
+
+function nixis {
+	nix-env -f '<nixos>' -iA "$@"
 }
 
 # Install from Nix file
@@ -76,13 +84,13 @@ function nixif {
 
 function nixb {
 	if ( [[ "$1" == "marvin" ]] || [[ "${PWD##*/}" == "marvin" ]] ) && ( ! [[ -d $NIXPKGS/pkgs/applications/science/chemistry/marvin ]] ) && [[ -d $PKG/nixpkgs.marvin-pr/pkgs/applications/science/chemistry/marvin ]]; then
-		nix-env -f $PKG/nixpkgs.marvin-pr -r -iA marvin
+		nix-env -f $PKG/nixpkgs.marvin-pr -iA marvin
 	elif [[ -n $1 ]]; then
-		nix-env -f $NIXPKGS -r -iA "$@"
+		nix-env -f $NIXPKGS -iA "$@"
 	elif [[ "${PWD##*/}" == "vim" ]] && ( grep -i "NixOS" < /etc/os-release &> /dev/null ); then
-		nix-env -f $NIXPKGS -r -iA vimHugeX
+		nix-env -f $NIXPKGS -iA vimHugeX
 	else		
-		nix-env -f $NIXPKGS -r -iA ${PWD##*/}
+		nix-env -f $NIXPKGS -iA ${PWD##*/}
 	fi
 }
 
