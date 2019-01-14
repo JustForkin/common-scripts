@@ -72,10 +72,9 @@ function nixcr {
 }
 
 function nixrb {
-	sudo nix-channel --update
+	nix-channel --update
 	#sudo nixos-rebuild switch
-	sudo su -c "nixos-rebuild boot"
-	sudo nix-collect-garbage -d
+	sudo su -c "nixos-rebuild -I /nix/var/nix/profiles/per-user/fusion809/channels/nixos-unstable boot"
 }
 
 function nixif {
