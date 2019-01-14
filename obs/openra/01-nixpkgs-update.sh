@@ -205,7 +205,9 @@ function nixoup2 {
 	# as nix-prefetch can chew up a bit of bandwidth unnecessarily if used when there is no need
 	if ( ! [[ "$comnew" == "$comprese" ]] ) || ( ! [[ "$engrevnew" == "$engrevpres" ]] ); then
 		MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
+		printf "MOD_ID is $MOD_ID.\n"
 		sha256=$(nix-prefetch $NIXPKGS openraPackages.mods.${MOD_ID})
+		printf "sha256 is $sha256.\n"
 		# First is the mod's hash, second is engine
 		sha256_1=$(echo $sha256 | head -n 1)
 		sha256_2=$(echo $sha256 | tail -n 1)
