@@ -75,7 +75,9 @@ function nixif {
 }
 
 function nixb {
-	if [[ -n $1 ]]; then
+	if ( [[ "$1" == "marvin" ]] || [[ "${PWD##*/}" == "marvin" ]] ) && ( ! [[ -d $NIXPKGS/pkgs/applications/science/chemistry/marvin ]] ) && [[ -d $PKG/nixpkgs.marvin-pr/pkgs/applications/science/chemistry/marvin ]]; then
+		nix-env -f $PKG/nixpkgs.marvin-pr -iA marvin
+	elif [[ -n $1 ]]; then
 		nix-env -f $NIXPKGS -iA "$@"
 	elif [[ "${PWD##*/}" == "vim" ]] && ( grep -i "NixOS" < /etc/os-release &> /dev/null ); then
 		nix-env -f $NIXPKGS -iA vimHugeX
