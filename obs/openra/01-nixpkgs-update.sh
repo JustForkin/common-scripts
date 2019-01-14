@@ -181,24 +181,22 @@ function nixoup2 {
 	MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
 	git -C ${1} pull origin $(git-branch "${1}") -q || (printf "Git pulling ${1} at line 182 of 01-nixpkgs-update.sh failed.\n" && return)
 	vernew=$(comno "${1}")
-	verprese=$(verpres "${3}")
-
-	sed -i -e "${4}s|${verprese}|${vernew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit number at line 186 of 01-nixpkgs-update.sh failed.\n" && return)
+	sed -i -e "${2}s|version = \".*\"|version = \"${vernew}\"|" $NIXPATH/mods.nix || (printf "Sedding mod commit number at line 184 of 01-nixpkgs-update.sh failed.\n" && return)
 
 	## Commit hash
 	comnew=$(loge "${1}")
-	comprese=$(compres "${3}")
-	
-	sed -i -e "${5}s|${comprese}|${comnew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit hash at line 192 of 01-nixpkgs-update.sh failed.\n" && return)
+	sed -i -e "${3}s|rev = \".*\"|rev = \"${comnew}\"|" $NIXPATH/mods.nix || (printf "Sedding mod commit hash at line 188 of 01-nixpkgs-update.sh failed.\n" && return)
 
 	## Commit hash (engine) / version
 	engrevnew=$(engnew ${1})
-	if [[ ${MOD_ID} == "d2" ]] || [[ ${MOD_ID} == "gen" ]] || [[ ${MOD_ID} == "ra2" ]] || [[ ${MOD_ID} == "raclassic" ]] || [[ ${MOD_ID} == "ura" ]] || [[ ${MOD_ID} == "yr" ]]; then
-		engpres=$(enpres "${2}")
-		sed -i -e "${6}s|${engpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 198 of 01-nixpkgs-update.sh failed.\n" && return)
+	if sed -n "${4},${4}p" $NIXPATH/mods.nix | grep version &> /dev/null ; then
+  		sed -i -e "${4}s|version = \".*\"|version = \"${engrevnew}\"|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 193 of 01-nixpkgs-update.sh failed.\n" && return)
+	elif sed -n "${4},${4}p" $NIXPATH/mods.nix | grep commit &> /dev/null ; then
+		sed -i -e "${4}s|commit = \".*\"|commit = \"${engrevnew}\"|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 195 of 01-nixpkgs-update.sh failed.\n" && return)
 	else
-		engrevpres=$(comenpres "${2}")
-		sed -i -e "${6}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 201 of 01-nixpkgs-update.sh failed.\n" && return)
+		printf "Neither the keyword version or commit is found in line ${4} of mods.nix.\n"
+		line=$(sed -n "${4},${4}p" $NIXPATH/mods.nix)
+		printf "Here is line ${4}: \n${line}.\n"
 	fi
 
 	# Check if either engine, or mod has been updated, 
@@ -214,8 +212,8 @@ function nixoup2 {
 		printf "sha256_1 is $sha256_1.\n"
 		printf "sha256_2 is $sha256_2.\n"
 
-		sed -i -e "$((${5}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 213 of 01-nixpkgs-update.sh failed.\n" && return)
-		sed -i -e "${7}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 214 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 211 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "${5}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 212 of 01-nixpkgs-update.sh failed.\n" && return)
 	fi
 }
 
@@ -247,55 +245,55 @@ function engine_update {
 }
 
 function canup {
-	nixoup2 "$GHUBO/CAmod" "1" "10" "17" "20" "26"
+	nixoup2 "$GHUBO/CAmod" "10" "17" "20" "26"
 }
 
 function d2nup {
-	nixoup2 "$GHUBO/d2" "1" "34" "41" "45" "51"
+	nixoup2 "$GHUBO/d2" "34" "41" "45" "51"
 }
 
 function drnup {
-	nixoup2 "$GHUBO/DarkReign" "2" "63" "70" "73" "79"
+	nixoup2 "$GHUBO/DarkReign" "63" "70" "73" "79"
 }
 
 function gennup {
-	nixoup2 "$GHUBO/Generals-Alpha" "2" "87" "94" "98" "103"
+	nixoup2 "$GHUBO/Generals-Alpha" "87" "94" "98" "103"
 }
 
 function kkndnup {
-	nixoup2 "$GHUBO/KKnD" "3" "111" "118" "121" "127"
+	nixoup2 "$GHUBO/KKnD" "111" "118" "121" "127"
 }
 
 function mwnup {
-	nixoup2 "$GHUBO/Medieval-Warfare" "4" "135" "142" "145" "151"
+	nixoup2 "$GHUBO/Medieval-Warfare" "135" "142" "145" "151"
 }
 
 function ra2nup {
-	nixoup2 "$GHUBO/ra2" "3" "159" "166" "170" "175"
+	nixoup2 "$GHUBO/ra2" "159" "166" "170" "175"
 }
 
 function racnup {
-	nixoup2 "$GHUBO/raclassic" "4" "8" "187" "194" "198" "203"
+	nixoup2 "$GHUBO/raclassic" "8" "187" "194" "198" "203"
 }
 
 function rvnup {
-	nixoup2 "$GHUBO/Romanovs-Vengeance" "5" "211" "218" "221" "228"
+	nixoup2 "$GHUBO/Romanovs-Vengeance" "211" "218" "221" "228"
 }
 
 function spnup {
-	nixoup2 "$GHUBO/SP-OpenRAModSDK" "6" "240" "247" "250" "257"
+	nixoup2 "$GHUBO/SP-OpenRAModSDK" "240" "247" "250" "257"
 }
 
 function ssnup {
-	nixoup2 "$GHUBO/sole-survivor" "7" "265" "272" "275" "281"
+	nixoup2 "$GHUBO/sole-survivor" "265" "272" "275" "281"
 }
 
 function uranup {
-	nixoup2 "$GHUBO/uRA" "5" "289" "296" "300" "305"
+	nixoup2 "$GHUBO/uRA" "289" "296" "300" "305"
 }
 
 function yrnup {
-	nixoup2 "$GHUBO/yr" "6" "313" "320" "324" "329"
+	nixoup2 "$GHUBO/yr" "313" "320" "324" "329"
 }
 
 function nixpkgs-openra-up {
