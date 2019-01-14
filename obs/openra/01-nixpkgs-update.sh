@@ -211,6 +211,8 @@ function nixoup2 {
 		# First is the mod's hash, second is engine
 		sha256_1=$(echo $sha256 | head -n 1)
 		sha256_2=$(echo $sha256 | tail -n 1)
+		printf "sha256_1 is $sha256_1.\n"
+		printf "sha256_2 is $sha256_2.\n"
 
 		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 213 of 01-nixpkgs-update.sh failed.\n" && return)
 		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 214 of 01-nixpkgs-update.sh failed.\n" && return)
