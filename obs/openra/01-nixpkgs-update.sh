@@ -105,6 +105,15 @@ function comenpres {
 	fi
 }
 
+# Packaged engine version hash
+function enpres {
+	if ( ! [[ -n "$1" ]] ) || [[ "$1" == "1" ]]; then
+		grep "^      version = \"" < $NIXPATH/mods.nix | head -n 1 | cut -d '"' -f 2
+	else
+		grep "^      version = \"" < $NIXPATH/mods.nix | head -n ${1} | tail -n 1 | cut -d '"' -f 2
+	fi
+}
+
 # New engine commit hash
 # First and only input is the path to the repo
 function engnew {
@@ -169,22 +178,28 @@ function nixoup2 {
 	# Fifth is the line on which the commit/version for the mod's engine is listed
 	# Sixth is the line the engine's source's sha256 is listed
 	## Commit number (version)
-	git -C ${1} pull origin $(git-branch "${1}") -q || (printf "Git pulling ${1} at line 137 of 01-nixpkgs-update.sh failed.\n" && return)
+	MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
+	git -C ${1} pull origin $(git-branch "${1}") -q || (printf "Git pulling ${1} at line 182 of 01-nixpkgs-update.sh failed.\n" && return)
 	vernew=$(comno "${1}")
 	verprese=$(verpres "${2}")
 
-	sed -i -e "${3}s|${verprese}|${vernew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit number at line 141 of 01-nixpkgs-update.sh failed.\n" && return)
+	sed -i -e "${3}s|${verprese}|${vernew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit number at line 186 of 01-nixpkgs-update.sh failed.\n" && return)
 
 	## Commit hash
 	comnew=$(loge "${1}")
 	comprese=$(compres "${2}")
 	
-	sed -i -e "${4}s|${comprese}|${comnew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit hash at line 147 of 01-nixpkgs-update.sh failed.\n" && return)
+	sed -i -e "${4}s|${comprese}|${comnew}|" $NIXPATH/mods.nix || (printf "Sedding mod commit hash at line 192 of 01-nixpkgs-update.sh failed.\n" && return)
 
-	## Commit hash (engine)
+	## Commit hash (engine) / version
 	engrevnew=$(engnew ${1})
-	engrevpres=$(comenpres "${2}")
-	sed -i -e "${5}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 152 of 01-nixpkgs-update.sh failed.\n" && return)
+	if [[ ${MOD_ID} == "d2" ]] || [[ ${MOD_ID} == "gen" ]] || [[ ${MOD_ID} == "ra2" ]] || [[ ${MOD_ID} == "raclassic" ]] || [[ ${MOD_ID} == "ura" ]] || [[ ${MOD_ID} == "yr" ]]; then
+		engpres=$(enpres "${2}")
+		sed -i -e "${5}s|${engpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 198 of 01-nixpkgs-update.sh failed.\n" && return)
+	else
+		engrevpres=$(comenpres "${2}")
+		sed -i -e "${5}s|${engrevpres}|${engrevnew}|" $NIXPATH/mods.nix || (printf "Sedding engine revision at line 201 of 01-nixpkgs-update.sh failed.\n" && return)
+	fi
 
 	# Check if either engine, or mod has been updated, 
 	# as nix-prefetch can chew up a bit of bandwidth unnecessarily if used when there is no need
@@ -195,8 +210,8 @@ function nixoup2 {
 		sha256_1=$(echo $sha256 | head -n 1)
 		sha256_2=$(echo $sha256 | tail -n 1)
 
-		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 163 of 01-nixpkgs-update.sh failed.\n" && return)
-		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 164 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 213 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "${6}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 214 of 01-nixpkgs-update.sh failed.\n" && return)
 	fi
 }
 
@@ -210,20 +225,20 @@ function engine_update {
 	
 	if ! [[ "${release}" == "${release_oldver}" ]] ; then
 		release_sha256=$(nix-prefetch $NIXPKGS openraPackages.engines.release)
-		sed -i -e "25s|\".*\"|\"${release}\"|" $NIXPATH/engines.nix || (printf "Sedding release version (${release}) failed at line 178 of 01-nixpkgs-update.sh.\n" && return)
-	  sed -i -e "27s|\".*\"|\"${release_sha256}\"|" $NIXPATH/engines.nix || (printf "Sedding release (${release}) hash (${release_sha256}) failed at line 179 of 01-nixpkgs-update.sh.\n" && return)
+		sed -i -e "25s|\".*\"|\"${release}\"|" $NIXPATH/engines.nix || (printf "Sedding release version (${release}) failed at line 228 of 01-nixpkgs-update.sh.\n" && return)
+	  sed -i -e "27s|\".*\"|\"${release_sha256}\"|" $NIXPATH/engines.nix || (printf "Sedding release (${release}) hash (${release_sha256}) failed at line 229 of 01-nixpkgs-update.sh.\n" && return)
 	fi
 
 	if ! [[ "${playtest}" == "${playtest_oldver}" ]] ; then
 	  playtest_sha256=$(nix-prefetch $NIXPKGS openraPackages.engines.playtest)
-		sed -i -e "31s|\".*\"|\"${playtest}\"|" $NIXPATH/engines.nix || (printf "Sedding playtest version (${playtest}) failed at line 183 of 01-nixpkgs-update.sh.\n" && return)
-		sed -i -e "33s|\".*\"|\"${playtest_sha256}\"|" $NIXPATH/engines.nix || (printf "Sedding playtest (${playtest}) hash (${playtest_sha256}) failed at line 184 of 01-nixpkgs-update.sh.\n" && return)
+		sed -i -e "31s|\".*\"|\"${playtest}\"|" $NIXPATH/engines.nix || (printf "Sedding playtest version (${playtest}) failed at line 234 of 01-nixpkgs-update.sh.\n" && return)
+		sed -i -e "33s|\".*\"|\"${playtest_sha256}\"|" $NIXPATH/engines.nix || (printf "Sedding playtest (${playtest}) hash (${playtest_sha256}) failed at line 235 of 01-nixpkgs-update.sh.\n" && return)
 	fi
 
 	if ! [[ "${bleed}" == "${bleed_oldver}" ]] ; then
 		bleed_sha256=$(nix-prefetch $NIXPKGS openraPackages.engines.bleed)
-		sed -i -e "36s|\".*\"|\"${bleed}\"|" $NIXPATH/engines.nix || (printf "Sedding bleed version (${bleed}) failed at line 188 of 01-nixpkgs-update.sh.\n" && return)
-		sed -i -e "39s|\".*\"|\"${bleed_sha256}\"|" $NIXPATH/engines.nix  || (printf "Sedding bleed version (${bleed_sha256}) hash (${bleed_sha256}) failed at line 189 of 01-nixpkgs-update.sh.\n" && return)
+		sed -i -e "36s|\".*\"|\"${bleed}\"|" $NIXPATH/engines.nix || (printf "Sedding bleed version (${bleed}) failed at line 240 of 01-nixpkgs-update.sh.\n" && return)
+		sed -i -e "39s|\".*\"|\"${bleed_sha256}\"|" $NIXPATH/engines.nix  || (printf "Sedding bleed version (${bleed_sha256}) hash (${bleed_sha256}) failed at line 241 of 01-nixpkgs-update.sh.\n" && return)
   fi
 }
 
@@ -232,51 +247,51 @@ function canup {
 }
 
 function d2nup {
-	nixoup2 "$GHUBO/d2" "2" "34" "41" "45" "51"
+	nixoup2 "$GHUBO/d2" "1" "34" "41" "45" "51"
 }
 
 function drnup {
-	nixoup2 "$GHUBO/DarkReign" "3" "63" "70" "73" "79"
+	nixoup2 "$GHUBO/DarkReign" "2" "63" "70" "73" "79"
 }
 
 function gennup {
-	nixoup2 "$GHUBO/Generals-Alpha" "4" "87" "94" "98" "103"
+	nixoup2 "$GHUBO/Generals-Alpha" "2" "87" "94" "98" "103"
 }
 
 function kkndnup {
-	nixoup2 "$GHUBO/KKnD" "5" "111" "118" "121" "127"
+	nixoup2 "$GHUBO/KKnD" "3" "111" "118" "121" "127"
 }
 
 function mwnup {
-	nixoup2 "$GHUBO/Medieval-Warfare" "6" "135" "142" "145" "151"
+	nixoup2 "$GHUBO/Medieval-Warfare" "4" "135" "142" "145" "151"
 }
 
 function ra2nup {
-	nixoup2 "$GHUBO/ra2" "7" "159" "166" "170" "175"
+	nixoup2 "$GHUBO/ra2" "3" "159" "166" "170" "175"
 }
 
 function racnup {
-	nixoup2 "$GHUBO/raclassic" "8" "187" "194" "198" "203"
+	nixoup2 "$GHUBO/raclassic" "4" "187" "194" "198" "203"
 }
 
 function rvnup {
-	nixoup2 "$GHUBO/Romanovs-Vengeance" "9" "211" "218" "221" "228"
+	nixoup2 "$GHUBO/Romanovs-Vengeance" "5" "211" "218" "221" "228"
 }
 
 function spnup {
-	nixoup2 "$GHUBO/SP-OpenRAModSDK" "10" "240" "247" "250" "257"
+	nixoup2 "$GHUBO/SP-OpenRAModSDK" "6" "240" "247" "250" "257"
 }
 
 function ssnup {
-	nixoup2 "$GHUBO/sole-survivor" "11" "265" "272" "275" "281"
+	nixoup2 "$GHUBO/sole-survivor" "7" "265" "272" "275" "281"
 }
 
 function uranup {
-	nixoup2 "$GHUBO/uRA" "12" "289" "296" "300" "305"
+	nixoup2 "$GHUBO/uRA" "5" "289" "296" "300" "305"
 }
 
 function yrnup {
-	nixoup2 "$GHUBO/yr" "13" "313" "320" "324" "329"
+	nixoup2 "$GHUBO/yr" "6" "313" "320" "324" "329"
 }
 
 function nixpkgs-openra-up {
