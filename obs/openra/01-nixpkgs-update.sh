@@ -244,7 +244,7 @@ function nixoup2 {
 		printf "sha256_1 is $sha256_1.\n"
 		printf "sha256_2 is $sha256_2.\n"
 
-		sed -i -e "$((${4}+1))s|sha256 = \"[a-z0-9]*\"|sha256 = \"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 211 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "$((${3}+1))s|sha256 = \"[a-z0-9]*\"|sha256 = \"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 211 of 01-nixpkgs-update.sh failed.\n" && return)
 		sed -i -e "${5}s|sha256 = \"[a-z0-9]*\"|sha256 = \"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 212 of 01-nixpkgs-update.sh failed.\n" && return)
 	fi
 }
