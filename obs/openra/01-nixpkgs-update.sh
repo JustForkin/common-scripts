@@ -236,7 +236,7 @@ function nixoup2 {
 	if ( ! [[ "$comnew" == "$comprese" ]] ) || ( ! [[ "$engrevnew" == "$engrevpres" ]] ); then
 		MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
 		printf "MOD_ID is $MOD_ID.\n"
-		sha256=$(nix-prefetch $NIXPKGS openraPackages.mods.${MOD_ID})
+		sha256=$(nix-prefetch --force $NIXPKGS openraPackages.mods.${MOD_ID})
 		printf "sha256 is $sha256.\n"
 		# First is the mod's hash, second is engine
 		sha256_1=$(echo $sha256 | head -n 1)
@@ -244,8 +244,8 @@ function nixoup2 {
 		printf "sha256_1 is $sha256_1.\n"
 		printf "sha256_2 is $sha256_2.\n"
 
-		sed -i -e "$((${4}+1))s|\".*\"|\"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 211 of 01-nixpkgs-update.sh failed.\n" && return)
-		sed -i -e "${5}s|\".*\"|\"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 212 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "$((${4}+1))s|sha256 = \"[a-z0-9]*\"|sha256 = \"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 211 of 01-nixpkgs-update.sh failed.\n" && return)
+		sed -i -e "${5}s|sha256 = \"[a-z0-9]*\"|sha256 = \"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 212 of 01-nixpkgs-update.sh failed.\n" && return)
 	fi
 }
 
