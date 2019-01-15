@@ -108,7 +108,7 @@ function sedsha {
 }
 
 function user-pkg-list {
-	ls -ld ~/.nix-profile/bin/* | cut -d '/' -f 9 | sed 's/^[a-z0-9]*-//g' | sed 's/-[0-9a-z.]*$//g' | sed 's/[0-9.-]*$//g' | sort | uniq
+	ls -ld ~/.nix-profile/bin/* | cut -d '/' -f 9 | sed 's/^[a-z0-9]*-//g' | sed 's/-[0-9a-z.]*$//g' | sed 's/-[0-9.-]*$//g' | sort | uniq
 }
 
 alias userpkglist=user-pkg-list
