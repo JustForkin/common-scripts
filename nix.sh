@@ -97,7 +97,9 @@ function sedsha {
 	if [[ "${1}" == "--help" ]]; then
 		printf "First argument is the line number in which sha256 is to be replaced; second argument is the checksum value.\n"
 	fi
-	if [[ -f common.nix ]]; then
+	if [[ -n ${3} ]]; then
+		FILE="${3}.nix"
+	elif [[ -f common.nix ]]; then
 		FILE="common"
 	else
 		FILE="default"
