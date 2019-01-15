@@ -41,5 +41,9 @@ function mwup {
 		fi
 	fi
 	mod-build Medieval-Warfare
-	mwnup
+	if grep "Arch" < /etc/os-release &> /dev/null ; then
+		printf "Run mwnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
+	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
+		mwnup
+	fi
 }
