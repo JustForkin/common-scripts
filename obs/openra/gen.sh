@@ -33,6 +33,10 @@ function genup {
 		osc ci -m "Bumping $specn->$mastn"
 	fi
 	mod-build Generals-Alpha
-	gennup
+	if grep "Arch" < /etc/os-release &> /dev/null ; then
+		printf "Run mwnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
+	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
+		gennup
+	fi
 }
 

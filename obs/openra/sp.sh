@@ -34,5 +34,9 @@ function spup {
 	fi
 
 	mod-build SP-OpenRAModSDK
-	spnup
+	if grep "Arch" < /etc/os-release &> /dev/null ; then
+		printf "Run mwnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
+	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
+		spnup
+	fi
 }

@@ -32,5 +32,9 @@ function caup {
 	fi
 	# An expanded caup func was used in commit eb723d4af07bf2a72038a938525f18cd98df2699 and earlier
 	mod-build CAmod
-	canup
+	if grep "Arch" < /etc/os-release &> /dev/null ; then
+		printf "Run mwnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
+	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
+		canup
+	fi
 }
