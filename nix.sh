@@ -106,3 +106,11 @@ function sedsha {
 	fi
 	sed -i -e "${1}s/sha256 = \".*\"/sha256 = \"${2}\"/" $FILE.nix
 }
+
+function user-pkg-list {
+	ls -ld ~/.nix-profile/bin/* | cut -d '/' -f 9 | sed 's/^[a-z0-9]*-//g' | sed 's/-[0-9a-z.]*$//g' | sed 's/[0-9.-]*$//g' | sort | uniq
+}
+
+alias userpkglist=user-pkg-list
+alias usrplist=user-pkg-list
+alias uspkls=user-pkg-list
