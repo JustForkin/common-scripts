@@ -1,4 +1,4 @@
-function openrabup {
+function update_openra_bleed_obs_pkg_and_appimage {
 	cdgo OpenRA || return
 	git checkout bleed -q
 	git pull origin bleed -q
@@ -42,3 +42,5 @@ function openrabup {
 		printf '\e[1;34m%-6s\e[m\n' '* Running sedsha 23 "checksum".'
 	fi
 }
+
+alias openrabup=update_openra_bleed_obs_pkg_and_appimage

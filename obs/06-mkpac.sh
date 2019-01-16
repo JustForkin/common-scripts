@@ -1,5 +1,5 @@
 # Create package
-function mobc {
+function create_obs_pkg {
     if [[ $PWD == $OBSH ]]; then
          printf "Making package and changing directories into it"
          osc mkpac "$1"
@@ -11,3 +11,5 @@ function mobc {
          cd "$1"
     fi
 }
+
+alias mobc=create_obs_pkg

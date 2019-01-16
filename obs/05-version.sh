@@ -1,7 +1,9 @@
 # come short for commit extraction (from spec files)
-function come {
+function commit_in_spec_file {
     cat $OBSH/$1/$1.spec | grep "define commit" | cut -d ' ' -f 3
 }
+
+alias come=commit_in_spec_file
 
 # extra commit from git log
 function latest_commit_on_branch {
@@ -12,13 +14,17 @@ function latest_commit_on_branch {
 	fi
 }
 
+alias loge=latest_commit_on_branch
+
 # Extra version from PKGBUILD
-function verpe {
+function version_in_pkgbuild {
     sed -n 's/pkgver=//p' $OBSH/$1/PKGBUILD
 }
 
+alias verpe=version_in_pkgbuild
+
 # Extra version from spec/PKGBUILD file
-function vere {
+function version_in_obs_pkg {
     if ! [[ -n $2 ]]; then
          if [[ -f $OBSH/$1/$1.spec ]]; then
               cat $OBSH/$1/$1.spec | grep "Version:" | sed 's/Version:\s*//g'
@@ -36,8 +42,10 @@ function vere {
     fi
 }
 
+alias vere=version_in_obs_pkg
+
 # Get version from GitHub repository, this assumes the repo name and owner name are identical
-function verg {
+function version_from_github {
     if ! [[ -n $2 ]]; then
          if `which wget > /dev/null 2>&1`; then
               wget -cqO- https://github.com/$1/$1/releases | grep "tar\.gz" | cut -d '/' -f 5 | cut -d '"' -f 1 | sed 's/\.tar\.gz//g' | head -n 1
@@ -52,3 +60,5 @@ function verg {
          fi
     fi
 }
+
+alias verg=version_from_github

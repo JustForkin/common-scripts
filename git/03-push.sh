@@ -1,10 +1,12 @@
-function git-branch {
+function current_git_branch {
 	if ! [[ -n "$1" ]]; then
 		git rev-parse --abbrev-ref HEAD
 	else
 		git -C "$1" rev-parse --abbrev-ref HEAD
 	fi
 }
+
+alias git-branch=current_git_branch
 
 function latest_commit_number {
 	if ! [[ -n "$1" ]]; then
@@ -13,6 +15,8 @@ function latest_commit_number {
 		git -C "$1" rev-list --branches "$(git-branch "$1")" --count
 	fi
 }
+
+alias comno=latest_commit_number
 
 function pushop {
 	if [[ -n "$1" ]]; then
@@ -74,7 +78,7 @@ function cssubup {
 	popd || return
 }
 
-function update-common {
+function update_common_scripts_repo {
 	printf "Updating common-scripts submodules and main repo.\n"
 	cssubup arch
 	cssubup centos
@@ -92,6 +96,8 @@ function update-common {
 	cssubup solus
 	cssubup void
 }
+
+alias update-common=update_common_scripts_repo
 
 # Complete push	
 function push {
