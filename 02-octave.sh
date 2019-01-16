@@ -9,7 +9,7 @@ if ! command -v octave > /dev/null 2>&1; then
 	fi
 fi
  
-function octcli {
+function octave_cli {
     if ! command -v octave-cli > /dev/null 2>&1; then
          if command -v octave > /dev/null 2>&1; then
               octave --no-gui "$@"
@@ -19,7 +19,9 @@ function octcli {
     fi
 }
 
-function octe {
+alias octcli=octave_cli
+
+function octave_evaluate {
     if  command -v octave; then
          octave --eval "$1" | sed "s/ans =\s*//g"
     elif [[ -f $HOME/.nix-profile/bin/octave-cli ]]; then
@@ -27,7 +29,12 @@ function octe {
     fi
 } 
 
-for i in $HOME/Shell/common-scripts/octave/*.sh
+# Old name of this func, also more concise
+alias octe=octave_evaluate
+alias octave-eval=octave_evaluate
+
+FILE_PATH="`dirname \"$0\"`"
+for i in ${FILE_PATH}/octave/*.sh
 do
     . "$i"
 done

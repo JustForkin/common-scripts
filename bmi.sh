@@ -1,16 +1,19 @@
-function bmiim {
+# Body Mass Index (BMI) calculators
+function bmi_imperial {
 # BMI from imperial measurements
     # $1 is weight in lb
     # $2 is height in ft, rounding down
     # $3 is the remainder height in inches
-    kg=$(octe "0.4535924*$1" | sed 's/ans =\s*//g')
+    kg=$(octave_evaluate "0.4535924*$1" | sed 's/ans =\s*//g')
     cm=$(fitocm $2 $3)
-    mt=$(octe "$cm/100" | sed 's/ans =\s*//g')
-    octe "$kg/($mt^2)" | sed 's/ans =\s*//g'
+    mt=$(octave_evaluate "$cm/100" | sed 's/ans =\s*//g')
+    octave_evaluate "$kg/($mt^2)" | sed 's/ans =\s*//g'
 }
+
+alias bmii=bmi_imperial
 
 function bmi {
     # First input is weight in kg
     # Second input is height in m
-    octe "$1/(${2}^2)" | sed 's/ans =\s*//g'
+    octave_evaluate "$1/(${2}^2)" | sed 's/ans =\s*//g'
 }

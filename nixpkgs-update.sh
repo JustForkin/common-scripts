@@ -1,4 +1,4 @@
-for i in "`dirname \"$0\"`"/nix/*.sh
+for i in "`dirname \"$0\"`"/nixpkgs/*.sh
 do
 	. "$i"
 done

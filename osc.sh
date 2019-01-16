@@ -1,12 +1,5 @@
-if [[ -n $ZSH_VERSION ]]; then
-    for i in $(dirname "$0")/obs/*.sh
-    do
-         . "$i"
-    done
-elif `echo $0 | grep "bash" > /dev/null 2>&1`; then
-# If it's bash we pretty much are stuck with guessing where we are
-    for i in $HOME/Shell/common-scripts/obs/*.sh
-    do
-         . "$i"
-    done
-fi
+FILE_PATH="`dirname \"$0\"`"
+for i in ${FILE_PATH}/obs/*.sh
+do
+    . "$i"
+done

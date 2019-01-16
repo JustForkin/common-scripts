@@ -19,7 +19,7 @@ function octcli {
     fi
 }
 
-function octe {
+function octave_evaluate {
     if  [[ -f /usr/bin/octave ]]; then
          octave --eval "$1" | sed "s/ans =\s*//g"
     elif [[ -f /root/.nix-profile/bin/octave-cli ]]; then

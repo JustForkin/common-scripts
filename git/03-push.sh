@@ -108,7 +108,7 @@ function push {
 
 		if echo "$PWD" | grep opendesktop > /dev/null 2>&1 ; then
 			 commc=$(git rev-list --branches master --count)
-			 commn=$(octe "$commc+1")
+			 commn=$(octave_evaluate "$commc+1")
 			 sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" "$PK"/opendesktop-app/pkg/appimage/appimagebuild
 			 pushm "$1"
 		else
@@ -164,12 +164,12 @@ function pushe {
 
 	if echo "$PWD" | grep opendesktop > /dev/null 2>&1 ; then
 		 commc=$(git rev-list --branches master --count)
-		 commn=$(octe "$commc+1")
+		 commn=$(octave_evaluate "$commc+1")
 		 sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" "$PK"/opendesktop-app/pkg/appimage/appimagebuild
 		 pushme "$1"
 	elif echo "$PWD" | grep OpenRA > /dev/null 2>&1 ; then
 		 commc=$(git rev-list --branches bleed --count)
-		 commn=$(octe "$commc+1")
+		 commn=$(octave_evaluate "$commc+1")
 		 sed -i -e "s/COMNO=[0-9]*/COMNO=${commn}/g" "$PK"/OpenRA/packaging/linux/buildpackage.sh
 		 pushme "$1"
 	else
@@ -240,12 +240,12 @@ function pushf {
 
 	if echo "$PWD" | grep opendesktop > /dev/null 2>&1 ; then
 		commc=$(git rev-list --branches master --count)
-		commn=$(octe "$commc+1")
+		commn=$(octave_evaluate "$commc+1")
 		sed -i -e "s/PKGVER=[0-9]*/PKGVER=${commn}/g" "$PK"/opendesktop-app/pkg/appimage/appimagebuild
 		pushmf "$1"
 	elif echo "$PWD" | grep OpenRA > /dev/null 2>&1 ; then
 		commc=$(git rev-list --branches bleed --count)
-		commn=$(octe "$commc+1")
+		commn=$(octave_evaluate "$commc+1")
 		sed -i -e "s/COMNO=[0-9]*/COMNO=${commn}/g" "$PK"/OpenRA/packaging/linux/buildpackage.sh
 		pushmf "$1"
 	else
