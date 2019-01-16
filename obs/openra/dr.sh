@@ -8,7 +8,7 @@ function drup {
 	enpv=$(grep "^%define engine" < "$HOME"/OBS/home:fusion809/openra-dr/openra-dr.spec | cut -d ' ' -f 3)
 	mastn=$(comno)
 	specn=$(vere openra-dr)
-	comm=$(loge)
+	comm=$(latest_commit_on_branch)
 	specm=$(come openra-dr)
 
 	if [[ $specn == $mastn ]]; then

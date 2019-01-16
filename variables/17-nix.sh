@@ -4,4 +4,4 @@ elif [[ -d /run/current-system/sw/lib/locale ]]; then
 	export LOCALE_ARCHIVE="$(readlink /run/current-system/sw/lib/locale)/locale-archive"
 fi
 
-export NIXPATH="$PKG/nixpkgs/pkgs/games/openra"
+export OPENRA_NIXPKG_PATH="$PKG/nixpkgs/pkgs/games/openra"

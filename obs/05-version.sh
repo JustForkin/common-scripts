@@ -4,7 +4,7 @@ function come {
 }
 
 # extra commit from git log
-function loge {
+function latest_commit_on_branch {
 	if [[ -n "$1" ]]; then
     		git -C "$1" log | head -n 1 | cut -d ' ' -f 2
 	else

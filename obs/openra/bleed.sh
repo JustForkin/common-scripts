@@ -4,7 +4,7 @@ function openrabup {
 	git pull origin bleed -q
 	mastn=$(comno)
 	specn=$(vere openra-bleed)
-	comm=$(loge)
+	comm=$(latest_commit_on_branch)
 	specm=$(come openra-bleed)
 
 	if [[ "$specn" == "$mastn" ]]; then

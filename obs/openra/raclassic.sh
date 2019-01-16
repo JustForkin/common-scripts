@@ -13,7 +13,7 @@ function racup {
 	enpv=$(grep "define engine\_version" < "$OBSH"/openra-raclassic/openra-raclassic.spec | cut -d ' ' -f 3)
 	mastn=$(comno)
 	specn=$(vere openra-raclassic)
-	comm=$(loge)
+	comm=$(latest_commit_on_branch)
 	specm=$(come openra-raclassic)
 
 	if [[ $specn == $mastn ]]; then

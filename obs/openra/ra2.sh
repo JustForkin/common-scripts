@@ -7,7 +7,7 @@ function ra2up {
 	enpv=$(grep "define engine\_version" < "$OBSH"/openra-ra2/openra-ra2.spec | cut -d ' ' -f 3)
 	mastn=$(comno)
 	specn=$(vere openra-ra2)
-	comm=$(loge)
+	comm=$(latest_commit_on_branch)
 	specm=$(come openra-ra2)
 
 	if [[ $specn == $mastn ]]; then

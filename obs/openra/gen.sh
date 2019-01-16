@@ -8,7 +8,7 @@ function genup {
 	enpv=$(grep "define engine\_version" < "$HOME"/OBS/home:fusion809/openra-gen/openra-gen.spec | cut -d ' ' -f 3)
 	mastn=$(comno)
 	specn=$(vere openra-gen)
-	comm=$(loge)
+	comm=$(latest_commit_on_branch)
 	specm=$(come openra-gen)
 
 	if [[ $specn == $mastn ]]; then

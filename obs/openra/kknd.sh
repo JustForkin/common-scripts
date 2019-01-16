@@ -7,7 +7,7 @@ function kkndup {
 	enpv=$(grep "define engine\_version" < "$OBSH"/openra-kknd/openra-kknd.spec | cut -d ' ' -f 3)
 	mastn=$(comno)
 	specn=$(vere openra-kknd)
-	comm=$(loge)
+	comm=$(latest_commit_on_branch)
 	specm=$(come openra-kknd)
 
 	if [[ $specn == $mastn ]]; then

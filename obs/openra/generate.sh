@@ -14,7 +14,7 @@ function newmod {
          specn=$(vere openra-dr)
          mastn=$(comno)
          specm=$(come openra-dr)
-         comm=$(loge)
+         comm=$(latest_commit_on_branch)
 
          cp $OBSH/openra-dr/openra-dr "$OBSH/openra-$2/openra-$2"
          cp $OBSH/openra-dr/openra-dr.spec "$OBSH/openra-$2/openra-$2.spec"

@@ -15,7 +15,7 @@ function nixoup {
 	numbc=$(git rev-list --branches $(git-branch) --count)
 	printf '\e[1;32m%-6s\e[m\n' "Current commit number (numbc) is ${numbc}."
 	# Present commit hash
-	commitc=$(loge)
+	commitc=$(latest_commit_on_branch)
 	printf '\e[1;32m%-6s\e[m\n' "Current commit hash (commitc) is ${commitc}."
 	# Engine version
 	if ( grep "^AUTOMATIC_ENGINE_SOURCE" < mod.config | grep -v 'ENGINE_VERSION' &> /dev/null ) && ( grep '^AUTOMATIC_ENGINE_MANAGEMENT="True"' < mod.config &> /dev/null); then
@@ -106,7 +106,7 @@ function mod-build {
 	# Present commit number
 	numbc=$(git rev-list --branches $(git-branch) --count)
 	# Present commit
-	commitc=$(loge)
+	commitc=$(latest_commit_on_branch)
 	if ! grep -i "NixOS" < /etc/os-release > /dev/null 2>&1 ; then
 		if ! [[ -f $HOME/.local/share/openra-$MOD ]]; then
 			touch $HOME/.local/share/openra-$MOD

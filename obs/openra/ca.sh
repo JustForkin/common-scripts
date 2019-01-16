@@ -9,7 +9,7 @@ function caup {
 	enpv=$(grep "^%define engine" < "$HOME"/OBS/home:fusion809/openra-ca/openra-ca.spec | cut -d ' ' -f 3)
 	mastn=$(comno)
 	specn=$(vere openra-ca)
-	comm=$(loge)
+	comm=$(latest_commit_on_branch)
 	specm=$(come openra-ca)
 
 	if [[ $specn == $mastn ]]; then

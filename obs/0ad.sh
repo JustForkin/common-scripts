@@ -4,7 +4,7 @@ function 0adup {
     # See 05-version.sh for the definition of these funcs
     mastn=$(comno)
     specn=$(vere 0ad)
-    comm=$(loge)
+    comm=$(latest_commit_on_branch)
     specm=$(come 0ad)
 
     if [[ $specn == $mastn ]]; then

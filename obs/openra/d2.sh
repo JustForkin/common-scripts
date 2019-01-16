@@ -3,7 +3,7 @@ function d2up {
     git pull origin master -q
     mastn=$(comno)
     specn=$(vere openra-d2)
-    comm=$(loge)
+    comm=$(latest_commit_on_branch)
     specm=$(come openra-d2)
     # OpenRA latest engine version
     enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)

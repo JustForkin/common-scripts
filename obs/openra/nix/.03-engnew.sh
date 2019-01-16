@@ -24,7 +24,7 @@ function engnew {
 				git -C "$GHUBO/$engsrc" checkout ${engver}
 			fi
 			git -C "$GHUBO/$engsrc" pull origin $(git-branch $GHUBO/$engsrc) -q
-			engver=$(loge $GHUBO/$engsrc)
+			engver=$(latest_commit_on_branch $GHUBO/$engsrc)
 			printf ${engver}
 		fi
 	else
@@ -41,6 +41,6 @@ function engnew {
 			git -C "$GHUBO/$engsrc" checkout ${engver}
 		fi
 		git -C "$GHUBO/$engsrc" pull origin $(git-branch $GHUBO/$engsrc) -q
-		engver=$(loge $GHUBO/$engsrc)
+		engver=$(latest_commit_on_branch $GHUBO/$engsrc)
 		printf "${engver}"
 	fi

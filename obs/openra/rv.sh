@@ -7,7 +7,7 @@ function rvup {
 	enpv=$(grep "define engine\_version" < "$OBSH"/openra-rv/openra-rv.spec | cut -d ' ' -f 3)
 	mastn=$(comno)
 	specn=$(vere openra-rv)
-	comm=$(loge)
+	comm=$(latest_commit_on_branch)
 	specm=$(come openra-rv)
 
 	if [[ $specn == $mastn ]]; then

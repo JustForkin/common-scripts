@@ -7,7 +7,7 @@ function ssup {
 	enpv=$(grep "define engine\_version" < "$OBSH"/openra-ss/openra-ss.spec | cut -d ' ' -f 3)
 	mastn=$(comno)
 	specn=$(vere openra-ss)
-	comm=$(loge)
+	comm=$(latest_commit_on_branch)
 	specm=$(come openra-ss)
 
 	if [[ $specn == $mastn ]]; then

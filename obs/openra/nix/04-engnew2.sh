@@ -1,4 +1,4 @@
-function engcheck_and_update {
+function engine_check_and_update {
     engver="${1}"
     engsrc="${2}"
     if [[ "$engver" == "{DEV_VERSION}" ]]; then
@@ -18,7 +18,8 @@ function engcheck_and_update {
         git -C "$GHUBO/$engsrc" pull origin ${engver} -q
 	fi
 }
-function engnew2 {
+
+function new_engine_version {
     #MOD_ID is
     MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
 	# This does assume that if ENGINE_VERSION is {DEV_VERSION} my local copy of the engine repo is on the right branch for 
@@ -42,15 +43,15 @@ function engnew2 {
 		if echo $engver | grep "[0-9]" &> /dev/null ; then
 			printf $engver
 		else
-            engcheck_and_update $engver $engsrc
-			engver=$(loge $GHUBO/$engsrc)
+            engine_check_and_update $engver $engsrc
+			engver=$(latest_commit_on_branch $GHUBO/$engsrc)
 			printf ${engver}
 		fi
 	else
 		engver="${engver_src}"
-		engcheck_and_update $engver $engsrc
+		engine_check_and_update $engver $engsrc
 		git -C "$GHUBO/$engsrc" pull origin ${engver} -q
-		engver=$(loge $GHUBO/$engsrc)
+		engver=$(latest_commit_on_branch $GHUBO/$engsrc)
 		printf "${engver}"
 	fi
 }

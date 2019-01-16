@@ -7,7 +7,7 @@ function yrup {
         enpv=$(grep "define engine\_version" < "$OBSH"/openra-yr/openra-yr.spec | cut -d ' ' -f 3) 
         mastn=$(comno) 
         specn=$(vere openra-yr) 
-        comm=$(loge) 
+        comm=$(latest_commit_on_branch) 
         specm=$(come openra-yr) 
 
         if [[ "$specn" == "$mastn" ]]
