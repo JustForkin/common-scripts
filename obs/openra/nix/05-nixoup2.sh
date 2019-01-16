@@ -46,7 +46,7 @@ function nixoup2 {
 		sed -i -e "$((${3}+1))s|sha256 = \"[a-z0-9]*\"|sha256 = \"${sha256_1}\"|" $NIXPATH/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 46 of 05-nixoup2.sh failed.\n" && return)
 		sed -i -e "${5}s|sha256 = \"[a-z0-9]*\"|sha256 = \"${sha256_2}\"|" $NIXPATH/mods.nix || (printf "Sedding engine hash at line 47 of 05-nixoup2.sh failed.\n" && return)
 	fi
-	printf "%s\n ""${MOD_ID} has been updated."
+	printf "%s\n" "${MOD_ID} has been updated.\n"
 	question="Would you like to push the update to fusion809/nixpkgs?"
 	if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
 		read -p "${question} [y/n] " yn
