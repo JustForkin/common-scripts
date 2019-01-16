@@ -55,3 +55,5 @@ function new_engine_version {
 		printf "${engver}"
 	fi
 }
+
+alias engnew=new_engine_version

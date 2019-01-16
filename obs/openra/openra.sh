@@ -13,3 +13,5 @@ function update_openra_obs_package {
          osc ci -m "Bumping to $latest_openra_version"
     fi
 }
+
+alias openraup=update_openra_obs_package

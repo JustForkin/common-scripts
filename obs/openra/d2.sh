@@ -1,7 +1,7 @@
 function d2up {
     cdgo d2 || return
     git pull origin master -q
-    mastn=$(comno)
+    mastn=$(latest_commit_number)
     specn=$(vere openra-d2)
     comm=$(latest_commit_on_branch)
     specm=$(come openra-d2)

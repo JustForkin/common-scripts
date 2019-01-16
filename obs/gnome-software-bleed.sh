@@ -1,7 +1,7 @@
 function gsoftbup {
     cdgo gnome-software
     git pull origin master -q
-    mastn=$(comno)
+    mastn=$(latest_commit_number)
     specn=$(cat $OBS/home:fusion809/gnome-software-bleed/gnome-software-bleed.spec | grep "Version:" | sed 's/Version:\s*//g')
     comm=$(git log | head -n 1 | cut -d ' ' -f 2)
     specm=$(cat $OBS/home:fusion809/gnome-software-bleed/gnome-software-bleed.spec | grep "define commit" | cut -d ' ' -f 3)

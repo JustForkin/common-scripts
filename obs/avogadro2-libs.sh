@@ -1,7 +1,7 @@
 function libsup {
     cdgo avogadrolibs
     git pull origin master -q
-    mastn=$(comno)
+    mastn=$(latest_commit_number)
     specn=$(grep "Version:" < $OBS/home:fusion809/avogadro2-libs/avogadro2-libs.spec | sed 's/Version:\s*//g')
     comm=$(git log | head -n 1 | cut -d ' ' -f 2)
     specm=$(grep "define commit" < $OBS/home:fusion809/avogadro2-libs/avogadro2-libs.spec | cut -d ' ' -f 3)

@@ -6,7 +6,7 @@ function git-branch {
 	fi
 }
 
-function comno {
+function latest_commit_number {
 	if ! [[ -n "$1" ]]; then
 		git rev-list --branches "$(git-branch)" --count
 	else
@@ -48,8 +48,8 @@ function pusht {
 		 git tag "$2"
 		 git push origin "$2"
 	else
-		 git tag "$(comno)"
-		 git push origin "$(comno)"
+		 git tag "$(latest_commit_number)"
+		 git push origin "$(latest_commit_number)"
 	fi
 	git push origin "$(git-branch)"
 }

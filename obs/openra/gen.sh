@@ -6,7 +6,7 @@ function genup {
 	enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
 	# OpenRA engine version in spec file
 	enpv=$(grep "define engine\_version" < "$HOME"/OBS/home:fusion809/openra-gen/openra-gen.spec | cut -d ' ' -f 3)
-	mastn=$(comno)
+	mastn=$(latest_commit_number)
 	specn=$(vere openra-gen)
 	comm=$(latest_commit_on_branch)
 	specm=$(come openra-gen)

@@ -5,7 +5,7 @@ function ra2up {
 	enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
 	# OpenRA engine version in spec file
 	enpv=$(grep "define engine\_version" < "$OBSH"/openra-ra2/openra-ra2.spec | cut -d ' ' -f 3)
-	mastn=$(comno)
+	mastn=$(latest_commit_number)
 	specn=$(vere openra-ra2)
 	comm=$(latest_commit_on_branch)
 	specm=$(come openra-ra2)

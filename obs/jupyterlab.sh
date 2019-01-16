@@ -1,7 +1,7 @@
 function jupup {
     cdgo jupyterlab
     git pull origin master -q
-    mastn=$(comno)
+    mastn=$(latest_commit_number)
     pkgn=$(grep "^pkgver=" < /data/GitHub/mine/packaging/jupyterlab-archpkg/PKGBUILD | cut -d '=' -f 2)
     comm=$(git log | head -n 1 | cut -d ' ' -f 2)
     pkgm=$(grep "^_commit=" < /data/GitHub/mine/packaging/jupyterlab-archpkg/PKGBUILD | cut -d '=' -f 2)

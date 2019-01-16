@@ -2,7 +2,7 @@ function openrabup {
 	cdgo OpenRA || return
 	git checkout bleed -q
 	git pull origin bleed -q
-	mastn=$(comno)
+	mastn=$(latest_commit_number)
 	specn=$(vere openra-bleed)
 	comm=$(latest_commit_on_branch)
 	specm=$(come openra-bleed)

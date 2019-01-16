@@ -5,7 +5,7 @@ function yrup {
         hub pull origin master -q
         enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2) 
         enpv=$(grep "define engine\_version" < "$OBSH"/openra-yr/openra-yr.spec | cut -d ' ' -f 3) 
-        mastn=$(comno) 
+        mastn=$(latest_commit_number) 
         specn=$(vere openra-yr) 
         comm=$(latest_commit_on_branch) 
         specm=$(come openra-yr) 

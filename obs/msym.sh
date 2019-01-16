@@ -1,7 +1,7 @@
 function msymup {
     cdgo libmsym
     git pull origin master -q
-    mastn=$(comno)
+    mastn=$(latest_commit_number)
     comm=$(git log | head -n 1 | cut -d ' ' -f 2)
     cdobsh libmsym
     specn=$(cat libmsym0_2.spec | grep "Version:" | sed 's/Version:\s*//g')

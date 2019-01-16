@@ -12,7 +12,7 @@ function newmod {
          enlv=$(grep '^ENGINE\_VERSION' < cat mod.config | cut -d '"' -f 2)
          enpv=$(grep "define engine\_version" < $HOME/OBS/home:fusion809/openra-dr/openra-dr.spec | cut -d ' ' -f 3)
          specn=$(vere openra-dr)
-         mastn=$(comno)
+         mastn=$(latest_commit_number)
          specm=$(come openra-dr)
          comm=$(latest_commit_on_branch)
 

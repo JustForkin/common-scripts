@@ -7,7 +7,7 @@ function caup {
 	enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
 	# OpenRA engine version in spec file
 	enpv=$(grep "^%define engine" < "$HOME"/OBS/home:fusion809/openra-ca/openra-ca.spec | cut -d ' ' -f 3)
-	mastn=$(comno)
+	mastn=$(latest_commit_number)
 	specn=$(vere openra-ca)
 	comm=$(latest_commit_on_branch)
 	specm=$(come openra-ca)

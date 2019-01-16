@@ -2,7 +2,7 @@ function 0adup {
     cdgo 0ad
     git pull origin master -q
     # See 05-version.sh for the definition of these funcs
-    mastn=$(comno)
+    mastn=$(latest_commit_number)
     specn=$(vere 0ad)
     comm=$(latest_commit_on_branch)
     specm=$(come 0ad)

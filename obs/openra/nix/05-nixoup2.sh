@@ -8,7 +8,7 @@ function update_openra_mod_nixpkg {
 	## Commit number (version)
 	MOD_ID=$(grep "^MOD_ID" < $1/mod.config | head -n 1 | cut -d '"' -f 2)
 	git -C ${1} pull origin $(git-branch "${1}") -q || (printf "Git pulling ${1} at line 10 of 05-nixoup2.sh failed.\n" && return)
-	new_commit_number=$(comno "${1}")
+	new_commit_number=$(latest_commit_number "${1}")
 	printf "%s\n" "The new version (new_commit_number) is ${new_commit_number}."
 	sed -i -e "${2}s|version = \".*\"|version = \"${new_commit_number}\"|" $OPENRA_NIXPKG_PATH/mods.nix || (printf "Sedding mod commit number at line 13 of 05-nixoup2.sh failed.\n" && return)
 
@@ -59,3 +59,5 @@ function update_openra_mod_nixpkg {
 		cd -
 	fi
 }
+
+alias nixoup2=update_openra_mod_nixpkg
