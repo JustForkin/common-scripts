@@ -60,4 +60,5 @@ function update_openra_mod_nixpkg {
 	fi
 }
 
+# The old name for this func
 alias nixoup2=update_openra_mod_nixpkg
