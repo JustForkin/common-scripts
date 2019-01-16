@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 DISTRO=$(cat /etc/os-release | grep "^NAME" | cut -d '=' -f 2 | cut -d '"' -f 2)
 
 if ! [[ -d /home/fusion809/.i3 ]]; then

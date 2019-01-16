@@ -8,6 +8,10 @@ function current_git_branch {
 
 alias git-branch=current_git_branch
 
+function git_checkout {
+	git -C "$1" checkout "$2"
+}
+
 function latest_commit_number {
 	if ! [[ -n "$1" ]]; then
 		git rev-list --branches "$(git-branch)" --count
