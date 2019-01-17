@@ -37,6 +37,10 @@ function cdnp {
 			cd "$NIXPKGS/pkgs/applications/science/chemistry/$1"
 		elif [[ -d $NIXPKGS/pkgs/applications/science/*/$1 ]]; then
 			cd $NIXPKGS/pkgs/applications/science/*/$1
+		elif [[ -d $NIXPKGS/pkgs/development/compilers/$1 ]]; then
+			cd $NIXPKGS/pkgs/development/compilers/$1
+		elif [[ -d $NIXPKGS/pkgs/development/interpreters/$1 ]]; then
+			cd $NIXPKGS/pkgs/development/interpreters/$1
 		elif [[ -d $PKG/nixpkgs.marvin-pr/pkgs/applications/science/chemistry/$1 ]]; then
 			cd $PKG/nixpkgs.marvin-pr/pkgs/applications/science/chemistry/$1
 		else
