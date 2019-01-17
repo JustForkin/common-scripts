@@ -41,10 +41,6 @@ function cdjs {
 	cdsc "JScripts/$1"
 }
 
-function cdjus {
-	cdsc "julia-scripts/$1"
-}
-
 function cdms {
 	cdsc "mageia-scripts/$1"
 }
@@ -82,10 +78,6 @@ alias cdzsht=cdzt
 
 function cdaqi {
 	cdsc "atom-quick-install/$1"
-}
-
-function cdgn {
-	cdsc "GNU_Octave/$1"
 }
 
 function cdgpl {
