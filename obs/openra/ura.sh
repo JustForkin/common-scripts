@@ -34,7 +34,7 @@ function uRAup {
 	fi
 	mod-build uRA
 	if grep "Arch" < /etc/os-release &> /dev/null ; then
-		printf "Run mwnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
+		printf "Run uranup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
 	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
 		uranup
 	fi

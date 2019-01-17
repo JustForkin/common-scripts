@@ -34,7 +34,7 @@ function genup {
 	fi
 	mod-build Generals-Alpha
 	if grep "Arch" < /etc/os-release &> /dev/null ; then
-		printf "Run mwnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
+		printf "Run gennup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
 	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
 		gennup
 	fi

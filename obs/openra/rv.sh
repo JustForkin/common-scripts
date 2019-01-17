@@ -33,7 +33,7 @@ function rvup {
 	fi
 	mod-build rv
 	if grep "Arch" < /etc/os-release &> /dev/null ; then
-		printf "Run mwnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
+		printf "Run rvnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
 	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
 		rvnup
 	fi
