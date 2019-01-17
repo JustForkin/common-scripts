@@ -32,7 +32,7 @@ function genup {
 		cdobsh openra-gen || return
 		osc ci -m "Bumping $specn->$mastn"
 	fi
-	mod-build Generals-Alpha
+	openra_mod_appimage_build Generals-Alpha
 	if grep "Arch" < /etc/os-release &> /dev/null ; then
 		printf "Run gennup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
 	elif grep "NixOS" < /etc/os-release &> /dev/null ; then

@@ -40,7 +40,7 @@ function mwup {
 			osc ci -m "Bumping $packaged_latest_commit_hashit_number->$latest_latest_commit_hashit_number; engine version is unchanged."
 		fi
 	fi
-	mod-build Medieval-Warfare
+	openra_mod_appimage_build Medieval-Warfare
 	if grep "Arch" < /etc/os-release &> /dev/null ; then
 		printf "%s\n" "Run mwnup under NixOS, as in an Arch chroot nix-prefetch fails."
 	elif grep "NixOS" < /etc/os-release &> /dev/null ; then

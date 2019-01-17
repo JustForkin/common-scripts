@@ -2,7 +2,7 @@
 # Last commit with OBS version is d69ef4c3eb12f8a4324d7322d592223ad71f68ea
 #function racup {
 	# A larger racup func was used in commit eb723d4af07bf2a72038a938525f18cd98df2699 and earlier
-#	mod-build raclassic
+#	openra_mod_appimage_build raclassic
 #}
 function racup {
 	cdgo raclassic || return
@@ -37,7 +37,7 @@ function racup {
 		 cdobsh openra-raclassic
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
-	mod-build raclassic
+	openra_mod_appimage_build raclassic
 	if grep "Arch" < /etc/os-release &> /dev/null ; then
 		printf "Run racnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
 	elif grep "NixOS" < /etc/os-release &> /dev/null ; then

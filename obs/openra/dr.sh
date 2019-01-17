@@ -29,7 +29,7 @@ function drup {
 		cdobsh openra-dr || return
 		osc ci -m "Bumping $specn->$mastn"
 	fi
-	mod-build DarkReign
+	openra_mod_appimage_build DarkReign
 	if grep "Arch" < /etc/os-release &> /dev/null ; then
 		printf "Run drnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
 	elif grep "NixOS" < /etc/os-release &> /dev/null ; then

@@ -33,7 +33,7 @@ function spup {
 		 		-e "s|${sdkpc}$|${sdklc}|g" PKGBUILD openra-sp.spec || ( printf "Replacing sdkpver ($sdkpver) with sdklver ($sdklver) failed" && return )
 	fi
 
-	mod-build SP-OpenRAModSDK
+	openra_mod_appimage_build SP-OpenRAModSDK
 	if grep "Arch" < /etc/os-release &> /dev/null ; then
 		printf "Run spnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
 	elif grep "NixOS" < /etc/os-release &> /dev/null ; then

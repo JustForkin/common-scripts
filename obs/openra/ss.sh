@@ -31,7 +31,7 @@ function ssup {
 		 cdobsh openra-ss
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
-	mod-build ss
+	openra_mod_appimage_build ss
 	if grep "Arch" < /etc/os-release &> /dev/null ; then
 		printf "Run ssnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
 	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
