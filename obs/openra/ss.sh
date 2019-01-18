@@ -33,5 +33,4 @@ function ssup {
 	fi
 	openra_mod_appimage_build ss
 	ssnup
-	fi
 }
