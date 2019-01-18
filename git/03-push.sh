@@ -9,7 +9,6 @@ function update_git_repo {
 }
 
 function current_git_branch {
-	update_git_repo "$1"
 	if ! [[ -n "$1" ]]; then
 		git rev-parse --abbrev-ref HEAD
 	else
