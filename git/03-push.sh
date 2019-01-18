@@ -1,10 +1,10 @@
 function update_git_repo {
 	if [[ -n "$2" ]]; then
-		git -C "$1" pull "$2" $(git-branch "$1")
+		git -C "$1" pull "$2" $(git-branch "$1") -q
 	elif [[ -n "$1" ]]; then
-		git -C "$1" pull origin $(git-branch "$1")
+		git -C "$1" pull origin $(git-branch "$1") -q
 	else
-		git pull origin "$(git-branch)"
+		git pull origin "$(git-branch)" -q
 	fi
 }
 
