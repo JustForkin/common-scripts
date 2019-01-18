@@ -2,9 +2,10 @@ function mwup {
 	cdgo Medieval-Warfare || return
 	git pull origin Next -q
 	# OpenRA latest engine version
-	latest_engine_version=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
-	if [[ $latest_engine_version == "{DEV_VERSION}" ]]; then
-		latest_engine_version=$(git -C $GHUBO/OpenRA-mw log | head -n 1 | cut -d ' ' -f 2)
+	if [[ $(grep "^AUTOMATIC_ENGINE_SOURCE" < mod.config | cut -d '/' -f 7 | cut -d "." -f 1) == '${ENGINE_VERSION}' ]]; then
+		enlv=$(grep '^ENGINE_VERSION' < mod.config | cut -d '"' -f 2)
+	elif [[ $(grep "^AUTOMATIC_ENGINE_SOURCE" < mod.config | cut -d '/' -f 7 | cut -d "." -f 1) == 'MedievalWarfareEngine' ]]; then
+		enlv=$(latest_commit_on_branch $GHUBO/OpenRA-mw)
 	fi
 	# OpenRA engine version in spec file
 	packaged_engine_version=$(grep "define engine\_version" < "$OBSH"/openra-mw/openra-mw.spec | cut -d ' ' -f 3)
