@@ -32,9 +32,5 @@ function ra2up {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build ra2
-	if grep "Arch" < /etc/os-release &> /dev/null ; then
-		printf "Run ra2nup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
-	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
-		ra2nup
-	fi
+	ra2nup
 }

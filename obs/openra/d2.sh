@@ -32,10 +32,6 @@ function d2up {
          osc ci -m "Bumping $specn->$mastn"
     fi
 
-    	if grep "Arch" < /etc/os-release &> /dev/null ; then
-		printf "Run d2nup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
-	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
-		d2nup
-	fi
+    	d2nup
     # AppImage update not appropriate as it presently fails to run, due to missing d2k assembly. 
 }

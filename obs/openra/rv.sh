@@ -32,9 +32,5 @@ function rvup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build rv
-	if grep "Arch" < /etc/os-release &> /dev/null ; then
-		printf "Run rvnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
-	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
-		rvnup
-	fi
+	rvnup
 }

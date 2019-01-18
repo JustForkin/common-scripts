@@ -33,9 +33,5 @@ function yrup {
 
 	# A larger func was used before eb723d4af07bf2a72038a938525f18cd98df2699
 	openra_mod_appimage_build yr
-	if grep "Arch" < /etc/os-release &> /dev/null ; then
-		printf "Run yrnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
-	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
-		yrnup
-	fi
+        yrnup
 }

@@ -32,9 +32,5 @@ function kkndup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build kknd
-	if grep "Arch" < /etc/os-release &> /dev/null ; then
-		printf "Run kkndnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
-	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
-		kkndnup
-	fi
+	kndnup
 }

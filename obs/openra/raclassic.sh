@@ -38,9 +38,5 @@ function racup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build raclassic
-	if grep "Arch" < /etc/os-release &> /dev/null ; then
-		printf "Run racnup under NixOS, as in an Arch chroot nix-prefetch fails.\n"
-	elif grep "NixOS" < /etc/os-release &> /dev/null ; then
-		racnup
-	fi
+	racnup
 }
