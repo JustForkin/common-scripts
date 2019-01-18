@@ -3,7 +3,11 @@ function drup {
 	cdgo DarkReign || return
 	git pull origin master -q
 	# OpenRA latest engine version
-	enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
+	if [[ $(grep "^AUTOMATIC_ENGINE_SOURCE" < mod.config | cut -d '/' -f 7 | cut -d "." -f 1) == '${ENGINE_VERSION}' ]]; then
+		enlv=$(grep '^ENGINE_VERSION' < mod.config | cut -d '"' -f 2)
+	elif [[ $(grep "^AUTOMATIC_ENGINE_SOURCE" < mod.config | cut -d '/' -f 7 | cut -d "." -f 1) == 'DarkReign' ]]; then
+		enlv=$(loge $GHUBO/OpenRA-dr)
+	fi
 	# OpenRA engine version in spec file
 	enpv=$(grep "^%define engine" < "$HOME"/OBS/home:fusion809/openra-dr/openra-dr.spec | cut -d ' ' -f 3)
 	mastn=$(latest_commit_number)

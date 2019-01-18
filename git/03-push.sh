@@ -1,4 +1,15 @@
+function update_git_repo {
+	if [[ -n "$2" ]]; then
+		git -C "$1" pull "$2" $(git-branch "$1")
+	elif [[ -n "$1" ]]; then
+		git -C "$1" pull origin $(git-branch "$1")
+	else
+		git pull origin "$(git-branch)"
+	fi
+}
+
 function current_git_branch {
+	update_git_repo "$1"
 	if ! [[ -n "$1" ]]; then
 		git rev-parse --abbrev-ref HEAD
 	else
@@ -13,6 +24,7 @@ function git_checkout {
 }
 
 function latest_commit_number {
+	update_git_repo "$1"
 	if ! [[ -n "$1" ]]; then
 		git rev-list --branches "$(git-branch)" --count
 	else
