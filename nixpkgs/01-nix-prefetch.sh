@@ -37,7 +37,6 @@ issue() {
   echo "Something unexpected happened:" >&2
   echo "$*" >&2
   echo "Please report an issue at: https://github.com/NixOS/nixpkgs/issues" >&2
-  exit 1
 }
 
 preamble='let pkgs = import '"$nixpkgs"' { }; in with pkgs.lib;
@@ -58,7 +57,7 @@ else
         (src.outputHash or "")
       ])
     ) srcs)
-  )') || exit
+  )')
 
   validHashes='['
   while IFS=':' read -r output_hash_algo output_hash; do
