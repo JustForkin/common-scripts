@@ -12,7 +12,7 @@ function update_openra_bleed_obs_pkg_and_appimage {
 	else
 		printf '\e[1;32m%-6s\e[m\n' "Updating OBS repo openra-bleed from $specn, $specm to $mastn, $comm."
 		sed -i -e "s/$specm/$comm/g" \
-			   -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} "$NIXPKGS"/pkgs/games/openra/default.nix || return
+			   -e "s/$specn/$mastn/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} || return
 		#nix-prefetch-url $NIXPKGS --attr openra.src &> /tmp/sha256
 		#sha256=$(cat /tmp/sha256 | tail -n 1)
 		#sed -i -e "23s/sha256 = \".*\"/sha256 = \"${sha256}\"/" "$NIXPKGS"/pkgs/games/openra/default.nix || return
@@ -35,11 +35,7 @@ function update_openra_bleed_obs_pkg_and_appimage {
 		fi
 		printf '\e[1;32m%-6s\e[m\n' "Updating local copy of my OpenRA repo fork..."
 		cdora ; git fetch upstream -q ; git merge upstream/bleed ; git push origin bleed -q
-		cdnp pkgs/games/openra || return
-		sedsha 23 "17yap5080dmd6rdi3f58a7kxk5nlb2fv1pb52k4vay12yms8glp9" || return
-		printf '\e[1;34m%-6s\e[m\n' 'Time to update OpenRA nixpkg checksums by:'
-		printf '\e[1;34m%-6s\e[m\n' '* Running nix-env -f $NIXPKGS -iA openra, which will fail but tell you the correct checksums.'
-		printf '\e[1;34m%-6s\e[m\n' '* Running sedsha 23 "checksum".'
+		engine_update
 	fi
 }
 
