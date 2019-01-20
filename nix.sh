@@ -27,7 +27,7 @@ function nixup {
 	# Update local fork
 	git fetch upstream ; git merge upstream/master ; git push origin $(git-branch)
 	# Update user-installed packages
-	nix-env -f $NIXPKGS --upgrade
+	nix-env -f '<nixos-unstable>' --upgrade
 }
 
 function nixr {
@@ -39,11 +39,11 @@ function nixs {
 }
 
 function nixi {
-	if ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep my-fork &> /dev/null ) ); then
-		nix-env -f '<my-fork>' -iA "$@"
-	elif [[ -d $NIXPKGS ]] ; then
-		nix-env -f $NIXPKGS -iA "$@"
-	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep nixos-unstable &> /dev/null ) ); then
+	#if ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep my-fork &> /dev/null ) ); then
+#		nix-env -f '<my-fork>' -iA "$@"
+#	elif [[ -d $NIXPKGS ]] ; then
+#		nix-env -f $NIXPKGS -iA "$@"
+	if ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep nixos-unstable &> /dev/null ) ); then
 		nix-env -f '<nixos-unstable>' -iA "$@"
 	elif ( [[ -d /etc/nixos ]] && ( nix-channel --list | grep nixos &> /dev/null ) ); then
 		nix-env -f '<nixos>' -iA "$@"
