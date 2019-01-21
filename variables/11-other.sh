@@ -16,5 +16,6 @@ export PA="$PI/Artwork"
 
 # ~/Chem
 export CH="$HOME/Chem"
+export D2="$CH/2D"
 export D3="$CH/3D"
 export SM="$D3/Small molecules"
