@@ -24,7 +24,7 @@ EOF
 		mod_repository="${1}"
 	fi
 
-	mod_version_list_number="${2}"
+	mod_version_line_number="${2}"
 	mod_commit_hash_line_number="${3}"
 
 	if sed -n "${4},${4}p" $OPENRA_NIXPKG_PATH/mods.nix | grep version &> /dev/null ; then
@@ -119,5 +119,6 @@ EOF
 	
 }
 
-# The old name for this func
+# The old name for this func.
+# It was called nixoup2 because it was the second OpenRA nixpkg update function I wrote
 alias nixoup2=update_openra_mod_nixpkg
