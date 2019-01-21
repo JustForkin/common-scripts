@@ -9,7 +9,7 @@ export NC=$CFG/NixOS-configs
 # - Editors
 export ED=$GHUBM/editors
 export EDT=$ED
-export VIM=$EDT/vim
+export EVM=$EDT/vim
 # - Installers (no longer maintained)
 export INS=$GHUBM/installers
 # - Packaging
