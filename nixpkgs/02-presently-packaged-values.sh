@@ -24,7 +24,7 @@ function presently_packaged_commit_hashes {
 alias compres=presently_packaged_commit_hashes
 
 # Packaged engine commit hash
-function comenpres {
+function mod_nixpkg_engine_commit_hash {
 	if ( ! [[ -n "$1" ]] ) || [[ "$1" == "1" ]]; then
 		grep " commit = \"" < $OPENRA_NIXPKG_PATH/mods.nix | head -n 1 | cut -d '"' -f 2
 	else
@@ -33,7 +33,7 @@ function comenpres {
 }
 
 # Packaged engine version hash
-function enpres {
+function mod_nixpkg_engine_version {
 	if ( ! [[ -n "$1" ]] ) || [[ "$1" == "1" ]]; then
 		grep "^      version = \"" < $OPENRA_NIXPKG_PATH/mods.nix | head -n 1 | cut -d '"' -f 2
 	else
