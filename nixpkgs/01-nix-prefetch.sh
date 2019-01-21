@@ -37,6 +37,7 @@ issue() {
   echo "Something unexpected happened:" >&2
   echo "$*" >&2
   echo "Please report an issue at: https://github.com/NixOS/nixpkgs/issues" >&2
+  return
 }
 
 preamble='let pkgs = import '"$nixpkgs"' { }; in with pkgs.lib;
@@ -57,7 +58,7 @@ else
         (src.outputHash or "")
       ])
     ) srcs)
-  )')
+  )') || return
 
   validHashes='['
   while IFS=':' read -r output_hash_algo output_hash; do
@@ -88,7 +89,7 @@ lines=$(nix eval --raw '(
       (stringLength dummyHashes.${newSrc.outputHashAlgo})
     ])
   ) srcs '"$validHashes"')
-)') || exit
+)') || return
 
 while IFS=':' read -r drv_path valid_hash output_hash wanted_hash_size; do
   if err=$(nix-store --quiet --realize "$drv_path" 2>&1); then
