@@ -28,7 +28,6 @@ function new_engine_version {
 	engver=$(grep "^ENGINE\_VERSION" < $1/mod.config | cut -d '"' -f 2)
     # What comes after archive in AUTOMATIC_ENGINE_SOURCE
 	engver_src=$(grep "^AUTOMATIC_ENGINE_SOURCE" < $1/mod.config | cut -d '/' -f 7 | sed 's/\..*//g')
-#    printf "engver_src is $engver_src.\n"
 	# The engine's repo name
 	engsrc=$(grep "^AUTOMATIC_ENGINE_SOURCE" < $1/mod.config | cut -d '/' -f 5)
 #    printf "engsrc originally was $engsrc.\n"
@@ -53,6 +52,14 @@ function new_engine_version {
 		git -C "$GHUBO/$engsrc" pull origin ${engver} -q
 		engver=$(latest_commit_on_branch $GHUBO/$engsrc)
 		printf "${engver}"
+	fi
+
+	if [[ "$1" == "--debug" ]]; then
+		printf "%s\n" "MOD_ID is ${MOD_ID}."
+		printf "%s\n" "engver is ${engver}."
+    	printf "%s\n" "engver_src is ${engver_src}."
+		printf "%s\n" "engsrc is ${engsrc}."
+		printf "%s\n" "engown is ${engown}."
 	fi
 }
 
