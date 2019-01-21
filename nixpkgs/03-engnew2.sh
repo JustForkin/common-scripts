@@ -54,8 +54,8 @@ function new_engine_version {
 		printf "${engver}"
 	fi
 
-	if [[ "$1" == "--debug" ]]; then
-		printf "%s\n" "MOD_ID is ${MOD_ID}."
+	if [[ "$2" == "--debug" ]]; then
+		printf "\n%s\n" "MOD_ID is ${MOD_ID}."
 		printf "%s\n" "engver is ${engver}."
     	printf "%s\n" "engver_src is ${engver_src}."
 		printf "%s\n" "engsrc is ${engsrc}."
