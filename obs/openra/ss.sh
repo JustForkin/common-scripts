@@ -32,5 +32,5 @@ function ssup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build ss
-	ssnup
+	ssnup "${1}"
 }

@@ -33,5 +33,5 @@ function yrup {
 
 	# A larger func was used before eb723d4af07bf2a72038a938525f18cd98df2699
 	openra_mod_appimage_build yr
-        yrnup
+        yrnup "${1}"
 }

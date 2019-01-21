@@ -38,5 +38,5 @@ function racup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build raclassic
-	racnup
+	racnup "${1}"
 }

@@ -33,6 +33,6 @@ function genup {
 		osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build Generals-Alpha
-	gennup
+	gennup "${1}"
 }
 

@@ -32,5 +32,5 @@ function ra2up {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build ra2
-	ra2nup
+	ra2nup "${1}"
 }

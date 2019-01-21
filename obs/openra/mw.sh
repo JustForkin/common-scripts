@@ -36,5 +36,5 @@ function mwup {
 		fi
 	fi
 	openra_mod_appimage_build Medieval-Warfare
-	mwnup
+	mwnup "${1}"
 }

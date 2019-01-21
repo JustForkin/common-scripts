@@ -34,5 +34,5 @@ function spup {
 	fi
 
 	openra_mod_appimage_build SP-OpenRAModSDK
-	spnup
+	spnup "${1}"
 }

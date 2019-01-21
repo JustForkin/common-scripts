@@ -32,5 +32,5 @@ function rvup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build rv
-	rvnup
+	rvnup "${1}"
 }

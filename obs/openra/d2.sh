@@ -32,6 +32,6 @@ function d2up {
          osc ci -m "Bumping $specn->$mastn"
     fi
 
-    	d2nup
+    	d2nup "${1}"
     # AppImage update not appropriate as it presently fails to run, due to missing d2k assembly. 
 }

@@ -33,7 +33,7 @@ function uRAup {
 		 fi
 	fi
 	openra_mod_appimage_build uRA
-	uranup
+	uranup "${1}"
 }
 
 alias uraup=uRAup
