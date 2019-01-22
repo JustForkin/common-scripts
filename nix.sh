@@ -22,10 +22,10 @@ if ! [[ -f $HOME/.config/nixpkgs/config.nix ]]; then
 fi
 
 function nixup {
-#	nix-channel --update && nix-env --upgrade
-	cdnp
+	nix-channel --update
+#	cdnp
 	# Update local fork
-	git fetch upstream ; git merge upstream/master ; git push origin $(git-branch)
+#	git fetch upstream ; git merge upstream/master ; git push origin $(git-branch)
 	# Update user-installed packages
 	nix-env -f '<nixos-unstable>' --upgrade
 }
