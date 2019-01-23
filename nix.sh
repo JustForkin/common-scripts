@@ -2,8 +2,6 @@
 #	export NIX_PATH="my-fork=$NIXPKGS:nixos-unstable=/nix/var/nix/profiles/per-user/root/channels/nixos-unstable:nixos-config=/etc/nixos/configuration.nix"
 if ! [[ -d /run/current-system/sw/bin ]]; then
 	export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/$USER/channels/nixpkgs
-elif [[ -d /nix/var/nix/profiles/per-user/root/channels/nixos ]]; then
-	export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/root/channels
 elif [[ -d /nix/var/nix/profiles/per-user/root/channels/nixos-unstable ]]; then
 	export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos-unstable:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/root/channels:nixos=/nix/var/nix/profiles/per-user/root/channels/nixos
 fi
@@ -74,7 +72,7 @@ function nixcr {
 function nixrb {
 	nix-channel --update
 	#sudo nixos-rebuild switch
-	sudo su -c "nixos-rebuild -I /nix/var/nix/profiles/per-user/fusion809/channels/nixos-unstable boot"
+	sudo su -c "nixos-rebuild boot"
 }
 
 function nixif {
