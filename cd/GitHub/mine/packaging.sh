@@ -20,7 +20,7 @@ function cdfo {
 function cdnp {
 	if [[ -n "$1" ]]; then
 		if [[ -d $NIXPKGS/pkgs/games/$1 ]]; then
-    			cd "$NIXPKGS/pkgs/games/$1"
+    		cd "$NIXPKGS/pkgs/games/$1"
 		elif [[ -d $NIXPKGS/pkgs/applications/editors/$1 ]]; then
 			cd "$NIXPKGS/pkgs/applications/editors/$1"
 		elif [[ -d $NIXPKGS/$1 ]]; then
@@ -41,8 +41,8 @@ function cdnp {
 			cd $NIXPKGS/pkgs/development/compilers/$1
 		elif [[ -d $NIXPKGS/pkgs/development/interpreters/$1 ]]; then
 			cd $NIXPKGS/pkgs/development/interpreters/$1
-		elif [[ -d $PKG/nixpkgs.marvin-pr/pkgs/applications/science/chemistry/$1 ]]; then
-			cd $PKG/nixpkgs.marvin-pr/pkgs/applications/science/chemistry/$1
+		elif [[ "$1" == "googleearth" ]]; then
+			cd $PK/nixpkgs.googleearth-pr/pkgs/applications/misc/$1
 		else
 			printf "Target directory not found.\n" && return
 		fi
