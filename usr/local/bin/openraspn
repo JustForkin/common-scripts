@@ -9,12 +9,12 @@ cd /home/fusion809/GitHub/others/SP-OpenRAModSDK || return
 git stash -q || return
 # update repository
 if command -v git > /dev/null 2>&1; then
-    git pull origin master -q || ( printf "ORASPrr\n" && return )
+    git pull origin Shattered-Paradise-Master -q || ( printf "ORASPrr\n" && return )
 else
     printf "git isn't found. Please install it, or if it is installed edit your system PATH." && return
 fi
 
-sdklv=$(git rev-list --branches master --count)
+sdklv=$(git rev-list --branches Shattered-Paradise-Master --count)
 # OpenRA latest packaged version
 sdkpv=$(nixpkgs-mod-ver 10)
 
