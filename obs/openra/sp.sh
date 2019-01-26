@@ -1,6 +1,4 @@
 function spup {
-	cdgo Shattered-Paradise || return
-	git pull origin Shattered-Paradise-Master || return
 	#splver=$(git log | head -n 1 | cut -d ' ' -f 2)
 	#sppver=$(grep '%define sp_commit' < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define sp_commit //g')
 	# Latest engine version
@@ -8,6 +6,7 @@ function spup {
 	# OpenRA engine version in spec file
 	enpv=$(grep "%define engine\_version" < "$OBSH"/openra-sp/openra-sp.spec | cut -d ' ' -f 3)
 	cd ../SP-OpenRAModSDK || return
+	git pull origin Shattered-Paradise-Master
 	sdklver=$(git log | head -n 1 | cut -d ' ' -f 2)
 	sdklc=$(git rev-list --branches Shattered-Paradise-Master --count)
 	sdkpver=$(grep "%define commit" < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define commit //g')
