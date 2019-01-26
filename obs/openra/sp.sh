@@ -2,10 +2,10 @@ function spup {
 	#splver=$(git log | head -n 1 | cut -d ' ' -f 2)
 	#sppver=$(grep '%define sp_commit' < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define sp_commit //g')
 	# Latest engine version
-	enlv=$(grep '^ENGINE\_VERSION' < ../SP-OpenRAModSDK/mod.config | cut -d '"' -f 2)
+	cdgo SP-OpenRAModSDK || return
+	enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
 	# OpenRA engine version in spec file
 	enpv=$(grep "%define engine\_version" < "$OBSH"/openra-sp/openra-sp.spec | cut -d ' ' -f 3)
-	cd ../SP-OpenRAModSDK || return
 	git pull origin Shattered-Paradise-Master
 	sdklver=$(git log | head -n 1 | cut -d ' ' -f 2)
 	sdklc=$(git rev-list --branches Shattered-Paradise-Master --count)
