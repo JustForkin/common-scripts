@@ -32,5 +32,5 @@ function kkndup {
 		 osc ci -m "Bumping $specn->$mastn"
 	fi
 	openra_mod_appimage_build kknd
-	kndnup "${1}"
+	kkndnup "${1}"
 }
