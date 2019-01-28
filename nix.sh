@@ -72,7 +72,7 @@ function nixcr {
 function nixrb {
 	nix-channel --update
 	#sudo nixos-rebuild switch
-	sudo su -c "nixos-rebuild boot"
+	sudo su -c "nixos-rebuild switch --upgrade"
 }
 
 function nixif {
