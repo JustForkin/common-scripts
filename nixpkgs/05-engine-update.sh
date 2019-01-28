@@ -3,8 +3,10 @@ function engine_update {
 	old_release_version="$(grep "    version = \"" < $OPENRA_NIXPKG_PATH/engines.nix | head -n 1 | cut -d '"' -f 2)"
 	latest_playtest_version="$(git -C $GHUBO/OpenRA tag | grep "playtest\-" | tail -n 1 | cut -d '-' -f 2)"
 	old_playtest_version="$(grep "    version = \"" < $OPENRA_NIXPKG_PATH/engines.nix | tail -n 1 | cut -d '"' -f 2)"
-	latest_bleed_version="$(git -C $GHUBO/OpenRA log | head -n 1 | cut -d ' ' -f 2)"
-	old_bleed_version="$(grep " commit = \"" < $OPENRA_NIXPKG_PATH/engines.nix | head -n 1 | cut -d '"' -f 2)"
+	latest_bleed_hash="$(git -C $GHUBO/OpenRA log | head -n 1 | cut -d ' ' -f 2)"
+	latest_bleed_7_character_hash=$(echo ${latest_bleed_hash} | head -c 7)
+	latest_bleed_number=$(git -C $GHUBO/OpenRA rev-list --branches bleed --count)
+	old_bleed_hash="$(grep " commit = \"" < $OPENRA_NIXPKG_PATH/engines.nix | head -n 1 | cut -d '"' -f 2)"
 	
 	if ! [[ "${latest_release_version}" == "${old_release_version}" ]] ; then
 		printf "latest_release_version is ${latest_release_version}.\n"
@@ -12,7 +14,7 @@ function engine_update {
 	    release_sha256=$(nix-prefetch --force $NIXPKGS openraPackages.engines.release)
 		printf "release_sha256 is ${release_sha256}.\n"
 	    sed -i -e "27s|\".*\"|\"${release_sha256}\"|" $OPENRA_NIXPKG_PATH/engines.nix || (printf "Sedding release (${latest_release_version}) hash (${release_sha256}) failed at line 12 of 06-engine.sh.\n" && return)
-		push "openra: :arrow_up: ${latest_release_version}"
+		cdnp; push "openra: :arrow_up: ${latest_release_version}"
 	fi
 
 	if ! [[ "${latest_playtest_version}" == "${old_playtest_version}" ]] ; then
@@ -21,15 +23,16 @@ function engine_update {
 		playtest_sha256=$(nix-prefetch --force $NIXPKGS openraPackages.engines.playtest)
 		printf "playtest_sha256 is ${playtest_sha256}.\n"
 		sed -i -e "33s|\".*\"|\"${playtest_sha256}\"|" $OPENRA_NIXPKG_PATH/engines.nix || (printf "Sedding playtest (${latest_playtest_version}) hash (${playtest_sha256}) failed at line 18 of 06-engine.sh.\n" && return)
-		push "openra: :arrow_up: ${latest_playtest_version}"
+		cdnp; push "openra: :arrow_up: ${latest_playtest_version}"
 	fi
 
-	if ! [[ "${latest_bleed_version}" == "${old_bleed_version}" ]] ; then
-		printf "latest_bleed_version is ${latest_bleed_version}.\n"
-		sed -i -e "36s|\".*\"|\"${latest_bleed_version}\"|" $OPENRA_NIXPKG_PATH/engines.nix || (printf "Sedding bleed version (${latest_bleed_version}) failed at line 23 of 06-engine.sh.\n" && return)
+	if ! [[ "${latest_bleed_hash}" == "${old_bleed_hash}" ]] ; then
+		printf "latest_bleed_hash is ${latest_bleed_hash}.\n"
+		printf "latest_bleed_number is ${latest_bleed_number}.\n"
+		sed -i -e "36s|\".*\"|\"${latest_bleed_hash}\"|" $OPENRA_NIXPKG_PATH/engines.nix || (printf "Sedding bleed version (${latest_bleed_hash}) failed at line 23 of 06-engine.sh.\n" && return)
 		bleed_sha256=$(nix-prefetch --force $NIXPKGS openraPackages.engines.bleed)
 		printf "bleed_sha256 is ${bleed_sha256}.\n"
-		sed -i -e "39s|\".*\"|\"${bleed_sha256}\"|" $OPENRA_NIXPKG_PATH/engines.nix || (printf "Sedding bleed version (${latest_bleed_version}) hash (${bleed_sha256}) failed at line 24 of 06-engine.sh.\n" && return)
-		push "openra: :arrow_up: ${latest_bleed_version}"
+		sed -i -e "39s|\".*\"|\"${bleed_sha256}\"|" $OPENRA_NIXPKG_PATH/engines.nix || (printf "Sedding bleed version (${latest_bleed_hash}) hash (${bleed_sha256}) failed at line 24 of 06-engine.sh.\n" && return)
+		push "openra: :arrow_up: ${latest_bleed_number} (${latest_bleed_7_character_hash})"
 	fi
 }
