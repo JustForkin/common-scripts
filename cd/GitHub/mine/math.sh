@@ -12,6 +12,9 @@ function cdju {
 	cdmt "julia-scripts/$1"
 }
 
+alias cdjus=cdju
+alias cdjl=cdju
+
 function cdgn {
 	cdmt "GNU_Octave/$1"
 }
