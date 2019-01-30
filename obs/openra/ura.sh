@@ -2,34 +2,34 @@ function uRAup {
 	cdgo uRA || return
 	git pull origin master -q
 	# Latest engine version
-	enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
+	latest_engine_version=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
 	# OpenRA engine version in spec file
-	enpv=$(grep "define engine\_version" < "$OBSH"/openra-ura/openra-ura.spec | cut -d ' ' -f 3)
-	mastn=$(git rev-list --branches master --count)
-	specn=$(grep "Version\:" < "$OBSH"/openra-ura/openra-ura.spec | sed 's/Version:\s*//g')
-	comm=$(git log | head -n 1 | cut -d ' ' -f 2)
-	specm=$(grep "define commit" < "$OBSH"/openra-ura/openra-ura.spec | cut -d ' ' -f 3)
+	packaged_engine_version=$(grep "define engine\_version" < "$OBSH"/openra-ura/openra-ura.spec | cut -d ' ' -f 3)
+	latest_commit_no=$(git rev-list --branches master --count)
+	packaged_commit_number=$(grep "Version\:" < "$OBSH"/openra-ura/openra-ura.spec | sed 's/Version:\s*//g')
+	latest_commit_hash=$(git log | head -n 1 | cut -d ' ' -f 2)
+	packaged_commit_hash=$(grep "define latest_commit_hashit" < "$OBSH"/openra-ura/openra-ura.spec | cut -d ' ' -f 3)
 
-	if [[ "$specn" == "$mastn" ]]; then
-		 printf "%s\n" "OpenRA Red Alert Unplugged mod is up to date!"
+	if [[ "$packaged_commit_number" == "$latest_commit_no" ]]; then
+		 printf "%s\n" "OpenRA Red Alert Unplugged mod is up to date\!"
 	else
-		 sed -i -e "s/$specm/$comm/g" \
-		 		-e "s/$specn/$mastn/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD} 
-		 if ! [[ "$enpv" == "$enlv" ]]; then
-			  sed -i -e "s/$enpv/$enlv/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD}
+		 sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \
+		 		-e "s/$packaged_commit_number/$latest_commit_no/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD} 
+		 if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
+			  sed -i -e "s/$packaged_engine_version/$latest_engine_version/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD}
 			  make clean || return
-			  make || return
-			  tar czvf "$OBSH"/openra-ura/engine-"${enlv}".tar.gz engine
+			  make || ( printf "Running make failed" && return )
+			  tar czvf "$OBSH"/openra-ura/engine-"${latest_engine_version}".tar.gz engine
 			  cdobsh openra-ura || return
-			  osc rm engine-"${enpv}".tar.gz
-			  osc add engine-"${enlv}".tar.gz
+			  osc rm engine-"${packaged_engine_version}".tar.gz
+			  osc add engine-"${latest_engine_version}".tar.gz
 			  cd - || return
 		 fi
 		 cdobsh openra-ura || return
-		 if ! [[ "$enpv" == "$enlv" ]]; then
-			  osc ci -m "Bumping $specn->$mastn; engine $enpv->$enlv"
+		 if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
+			  osc ci -m "Bumping $packaged_commit_number->$latest_commit_no; engine $packaged_engine_version->$latest_engine_version"
 		 else
-			  osc ci -m "Bumping $specn->$mastn; engine version is unchanged."
+			  osc ci -m "Bumping $packaged_commit_number->$latest_commit_no; engine version is unchanged."
 		 fi
 	fi
 	openra_mod_appimage_build uRA

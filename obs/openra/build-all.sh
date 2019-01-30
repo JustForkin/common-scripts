@@ -3,27 +3,30 @@
 function openra_mod_appimage_build {
 	cd $GHUBO/"$1"
 	MOD=$(grep "^MOD_ID" < mod.config | cut -d '"' -f 2)
+	# The next printf line is coloured green
 	printf '\e[1;32m%-6s\e[m\n' "Mod name is $MOD."
+	# Stash any existing changes; printf failure output is coloured red.
 	git stash -q || { printf '\e[1;31m%-6s\e[m\n' "git stashin' failed." && return }
+	# Pull upstream changes
 	git pull origin $(git-branch) -q || { printf '\e[1;31m%-6s\e[m\n' "git pullin' on branch $(git-branch) failed." && return }
-	# Present commit number
+	# Present latest_commit_hashit number
 	latest_commit_number=$(git rev-list --branches $(git-branch) --count)
-	# Present commit
-	latest_commit_hash=$(latest_commit_on_branch)
+	# Present latest_commit_hashit
+	packaged_commit_hash=$(latest_commit_on_branch)
 	if ! grep -i "NixOS" < /etc/os-release > /dev/null 2>&1 ; then
 		if ! [[ -f $HOME/.local/share/openra-$MOD ]]; then
 			touch $HOME/.local/share/openra-$MOD
 		fi
-		# Already built commit number   
-		last_built_commit_number=$(grep "VERSION" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
-		last_built_commit_hash=$(grep "COMMIT" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
+		# Already built latest_commit_hashit number   
+		last_built_latest_commit_hashit_number=$(grep "VERSION" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
+		last_built_latest_commit_hashit_hash=$(grep "COMMIT" < $HOME/.local/share/openra-$MOD | cut -d ' ' -f 2)
 		# AppImage name
 		appimage_name=$(grep "^PACKAGING_INSTALLER_NAME" < mod.config | cut -d '"' -f 2)
-		if (! [[ $latest_commit_number == $last_built_commit_number ]] ) || (! [[ $latest_commit_hash == $last_built_commit_hash ]] ); then
+		if (! [[ $latest_commit_number == $last_built_latest_commit_hashit_number ]] ) || (! [[ $packaged_commit_hash == $last_built_latest_commit_hashit_hash ]] ); then
 			printf '\e[1;32m%-6s\e[m\n' "Setting version in $HOME/.local/share/openra-${MOD}."
 			make version VERSION=${latest_commit_number} || { printf '\e[1;31m%-6s\e[m\n' "Make versionin' $GHUBO/$1 failed." && return }
 			# Building $GHUBO/$1
-			printf '\e[1;32m%-6s\e[m\n' "Building $MOD ${latest_commit_number} (${latest_commit_hash})."
+			printf '\e[1;32m%-6s\e[m\n' "Building $MOD ${latest_commit_number} (${packaged_commit_hash})."
 			make || { printf '\e[1;31m%-6s\e[m\n' "Making $GHUBO/$1 failed." && return }
 			# Build AppImage
 			pushd packaging/linux || { printf '\e[1;31m%-6s\e[m\n' "pushdin' into packaging/linux." && return }
@@ -43,7 +46,7 @@ function openra_mod_appimage_build {
 			fi
 			popd || { printf '\e[1;31m%-6s\e[m\n' "popdin' out of packaging/linux." && return }
 			# Updating version on ~/.local/share
-			echo "VERSION ${latest_commit_number}\nCOMMIT ${latest_commit_hash}" > $HOME/.local/share/openra-${MOD}
+			echo "VERSION ${latest_commit_number}\nCOMMIT ${packaged_commit_hash}" > $HOME/.local/share/openra-${MOD}
 		else
 			printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date, mate!"
 		fi

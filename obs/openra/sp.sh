@@ -1,30 +1,30 @@
 function spup {
 	#splver=$(git log | head -n 1 | cut -d ' ' -f 2)
-	#sppver=$(grep '%define sp_commit' < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define sp_commit //g')
+	#sppver=$(grep '%define sp_latest_commit_hashit' < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define sp_latest_commit_hashit //g')
 	# Latest engine version
 	cdgo SP-OpenRAModSDK || return
-	enlv=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
+	latest_engine_version=$(grep '^ENGINE\_VERSION' < mod.config | cut -d '"' -f 2)
 	# OpenRA engine version in spec file
-	enpv=$(grep "%define engine\_version" < "$OBSH"/openra-sp/openra-sp.spec | cut -d ' ' -f 3)
+	packaged_engine_version=$(grep "%define engine\_version" < "$OBSH"/openra-sp/openra-sp.spec | cut -d ' ' -f 3)
 	git pull origin Shattered-Paradise-Master
 	sdklver=$(git log | head -n 1 | cut -d ' ' -f 2)
 	sdklc=$(git rev-list --branches Shattered-Paradise-Master --count)
-	sdkpver=$(grep "%define commit" < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define commit //g')
+	sdkpver=$(grep "%define latest_commit_hashit" < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/%define latest_commit_hashit //g')
 	sdkpc=$(grep "Version:" < /home/fusion809/OBS/home:fusion809/openra-sp/openra-sp.spec | sed 's/Version:\s*//g')
 
 	# If OpenRAModSDK is outdated sed update it
 	if [[ "$sdklc" == "$sdkpc" ]]; then
-		 printf "%s\n" "SDK is up-to-date!"
+		 printf "%s\n" "SDK is up-to-date\!"
 	else
-		 if ! [[ "$enpv" == "$enlv" ]]; then
-			  printf "%s\n" "Updating the game engine to $enlv."
-			  sed -i -e "s|${enpv}|${enlv}|g" "$OBSH"/openra-sp/{openra-sp.spec,PKGBUILD} || ( printf "Replacing enpv ($enpv) with enlv ($enlv) failed" && return) 
+		 if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
+			  printf "%s\n" "Updating the game engine to $latest_engine_version."
+			  sed -i -e "s|${packaged_engine_version}|${latest_engine_version}|g" "$OBSH"/openra-sp/{openra-sp.spec,PKGBUILD} || ( printf "Replacing packaged_engine_version ($packaged_engine_version) with latest_engine_version ($latest_engine_version) failed" && return) 
 			  make clean || return
-			  make || return
-			  tar czvf "$OBSH"/openra-sp/engine-"${enlv}".tar.gz engine
+			  make || ( printf "Running make failed" && return )
+			  tar czvf "$OBSH"/openra-sp/engine-"${latest_engine_version}".tar.gz engine
 			  cdobsh openra-sp || return
-			  osc rm engine-"${enpv}".tar.gz
-			  osc add engine-"${enlv}".tar.gz
+			  osc rm engine-"${packaged_engine_version}".tar.gz
+			  osc add engine-"${latest_engine_version}".tar.gz
 			  cd - || return
 		 fi
 		 cdobsh openra-sp || return

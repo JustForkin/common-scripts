@@ -72,7 +72,7 @@ EOF
 		sha256_2=$(echo ${sha256} | tail -n 1)
 		printf "sha256_1 is ${sha256_1}.\n"
 		printf "sha256_2 is ${sha256_2}.\n"
-
+		# Update checksums
 		sed -i -e "$((${mod_commit_hash_line_number}+1))s|sha256 = \"[a-z0-9]*\"|sha256 = \"${sha256_1}\"|" ${OPENRA_NIXPKG_PATH}/mods.nix || (printf "Sedding mod hash (${sha256_1}) at line 76 of ${0} failed.\n" && return)
 		sed -i -e "${engine_sha256_line_number}s|sha256 = \"[a-z0-9]*\"|sha256 = \"${sha256_2}\"|" ${OPENRA_NIXPKG_PATH}/mods.nix || (printf "Sedding engine hash at line 77 of ${0} failed.\n" && return)
 	fi
@@ -80,20 +80,53 @@ EOF
 	printf "%s\n" "${MOD_ID} has been updated."
 
 	# Now to check whether changes this function has made to my nixpkgs fork is to be committed. 
-	question="Would you like to push the update to fusion809/nixpkgs?"
+	question1="Would you like to push the update to fusion809/nixpkgs?"
+	question2="Would you like to change into the nixpkgs directory, add changes (with git add --all) and open a commit message-editing dialogue (with git commit)?"
+
+	function ask2 {
+		if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
+			read -p "${question2} [y/n] " yn
+		else
+			read "yn?${question2} [y/n] "
+		fi
+		# Act on user input
+		if [[ "${yn}" == [yY]* ]]; then
+			# Commit changes, but allow for an extended commit message
+			cdnp
+			git add --all
+			git commit
+			git push origin $(git-branch) -f
+		elif [[ "${yn}" == [Nn]* ]]; then
+			printf "OK, it's your funeral. Run ask2 again if you change your mind.\n"
+		else
+			printf "Only [nN]* and [yY]* are accepted inputs.\n Running ask2 again.\n" && ask2
+		fi
+	}
+
+	# Ask whether 
 	function ask {
 		# Check whether the shell is Zsh, or not (and as I only use Bash and Zsh this will mean it is Bash)
 		if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
-			read -p "${question} [y/n] " yn
+			read -p "${question1} [y/n] " yn
 		else
-			read "yn?${question} [y/n] "
+			read "yn?${question1} [y/n] "
 		fi
+		# Act on input
 		if [[ "${yn}" == [yY]* ]]; then
+			# Commit changes
 			cdnp
 			push "openra-${MOD_ID}: :arrow_up: ${new_commit_number}."
 			cd -
+		elif [[ "${yn}" == [Nn]* ]]; then
+			# Ask another question
+			ask2
+		else
+			printf "Only [yY]* and [nN]* are accepted inputs. Running ask again.\n"
+			ask
 		fi
 	}
+
+
 	# Check what argument 6 is and act accordingly.
 	if [[ "${6}" == "-y" ]] || [[ "${6}" == "--yes" ]] ; then
 		cdnp
@@ -112,7 +145,7 @@ It can be:
 -y/--yes: which will cause the changes to be automatically committed.
 -n/--no:  which will cause the changes to be automatically committed. 
 
-If no, or the wrong argument is given then you will be prompted with a question as to whether you wish to commit the changes.
+If no, or the wrong argument is given, then you will be prompted with a question as to whether you wish to commit the changes.
 EOF
 		ask
 	fi
