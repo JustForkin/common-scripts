@@ -9,16 +9,16 @@ function mwup {
 	fi
 	# OpenRA engine version in spec file
 	packaged_engine_version=$(grep "define engine\_version" < "$OBSH"/openra-mw/openra-mw.spec | cut -d ' ' -f 3)
-	packaged_commit_hash_number=$(git rev-list --branches Next --count)
+	latest_commit_hash_number=$(git rev-list --branches Next --count)
 	packaged_commit_hash_number=$(grep "Version\:" < "$OBSH"/openra-mw/openra-mw.spec | sed 's/Version:\s*//g')
 	packaged_commit_hash=$(git log | head -n 1 | cut -d ' ' -f 2)
 	packaged_commit_hash=$(grep "define commit" < "$OBSH"/openra-mw/openra-mw.spec | cut -d ' ' -f 3)
 
-	if [[ $packaged_commit_hash_number == $packaged_commit_hash_number ]]; then
-		printf "%s\n" "OpenRA Medieval Warfare mod is up to date\!"
+	if [[ $latest_commit_hash_number == $packaged_commit_hash_number ]]; then
+		printf "%s\n" "OpenRA Medieval Warfare mod is up to date!"
 	else
-		sed -i -e "s/$packaged_commit_hash/$packaged_commit_hash/g" \
-			   -e "s/$packaged_commit_hash_number/$packaged_commit_hash_number/g" "$OBSH"/openra-mw/{openra-mw.spec,PKGBUILD}
+		sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \
+			   -e "s/$packaged_commit_hash_number/$latest_commit_hash_number/g" "$OBSH"/openra-mw/{openra-mw.spec,PKGBUILD}
 		if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
 			sed -i -e "s/$packaged_engine_version/$latest_engine_version/g" "$OBSH"/openra-mw/{openra-mw.spec,PKGBUILD}
 			make || ( printf "Running make failed" && return )
@@ -30,9 +30,9 @@ function mwup {
 		fi
 		cdobsh openra-mw || return
 		if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
-			osc ci -m "Bumping $packaged_commit_hash_number->$packaged_commit_hash_number; engine $packaged_engine_version->$latest_engine_version"
+			osc ci -m "Bumping $packaged_commit_hash_number->$latest_commit_hash_number; engine $packaged_engine_version->$latest_engine_version"
 		else
-			osc ci -m "Bumping $packaged_commit_hash_number->$packaged_commit_hash_number; engine version is unchanged."
+			osc ci -m "Bumping $packaged_commit_hash_number->$latest_commit_hash_number; engine version is unchanged."
 		fi
 	fi
 	openra_mod_appimage_build Medieval-Warfare
