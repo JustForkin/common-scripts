@@ -8,7 +8,7 @@ function uRAup {
 	latest_commit_no=$(git rev-list --branches master --count)
 	packaged_commit_number=$(grep "Version\:" < "$OBSH"/openra-ura/openra-ura.spec | sed 's/Version:\s*//g')
 	latest_commit_hash=$(git log | head -n 1 | cut -d ' ' -f 2)
-	packaged_commit_hash=$(grep "define latest_commit_hashit" < "$OBSH"/openra-ura/openra-ura.spec | cut -d ' ' -f 3)
+	packaged_commit_hash=$(grep "define commit" < "$OBSH"/openra-ura/openra-ura.spec | cut -d ' ' -f 3)
 
 	if [[ "$packaged_commit_number" == "$latest_commit_no" ]]; then
 		 printf "%s\n" "OpenRA Red Alert Unplugged mod is up to date\!"
