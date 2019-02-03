@@ -45,6 +45,8 @@ function cdnp {
 			cd $PK/nixpkgs.googleearth-pr/pkgs/applications/misc/$1
 		elif [[ -d $NIXPKGS/pkgs/applications/misc/$1 ]]; then
 			cd $NIXPKGS/pkgs/applications/misc/$1
+		elif [[ -d $NIXPKGS/pkgs/shells/$1 ]]; then
+			cd $NIXPKGS/pkgs/shells/$1
 		else
 			printf "Target directory not found.\n" && return
 		fi
