@@ -1,3 +1,54 @@
+function ask2 {
+	# Now to check whether changes this function has made to my nixpkgs fork is to be committed. 
+	question2="Would you like to change into the nixpkgs directory, add changes (with git add --all) and open a commit message-editing dialogue (with git commit)?"
+
+	if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
+		read -p "${question2} [y/n] " yn
+	else
+		read "yn?${question2} [y/n] "
+	fi
+	# Act on user input
+	if [[ "${yn}" == [yY]* ]]; then
+		# Commit changes, but allow for an extended commit message
+		cdnp
+		git add --all
+		git commit
+		git push origin $(git-branch) -f
+	elif [[ "${yn}" == [Nn]* ]]; then
+		printf "OK, it's your funeral. Run ask2 again if you change your mind.\n"
+	else
+		printf "Only [nN]* and [yY]* are accepted inputs.\n Running ask2 again.\n" && ask2
+	fi
+}
+
+# Ask whether 
+function ask {
+	question1="Would you like to push the update to fusion809/nixpkgs?"
+	# Check whether the shell is Zsh, or not (and as I only use Bash and Zsh this will mean it is Bash)
+	if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
+		read -p "${question1} [y/n] " yn
+	else
+		read "yn?${question1} [y/n] "
+	fi
+	# Act on input
+	if [[ "${yn}" == [yY]* ]]; then
+		# Commit changes
+		cdnp
+		if ! grep "${1} = .*[bB]uildOpenRAMod" < $OPENRA_NIXPKG_PATH/mods.nix &> /dev/null; then
+			push "${1}: :arrow_up: ${2}."
+		else
+			push "openra-${1}: :arrow_up: ${2}."
+		fi
+		cd -
+	elif [[ "${yn}" == [Nn]* ]]; then
+		# Ask another question
+		ask2 "$1" "$2"
+	else
+		printf "Only [yY]* and [nN]* are accepted inputs. Running ask again.\n"
+		ask "$1" "$2"
+	fi
+}
+
 function update_openra_mod_nixpkg {
 	# First input is path to mod repo.
 	# Second is the line number the mod's version definition appears at.
@@ -79,54 +130,7 @@ EOF
 
 	printf "%s\n" "${MOD_ID} has been updated."
 
-	# Now to check whether changes this function has made to my nixpkgs fork is to be committed. 
-	question1="Would you like to push the update to fusion809/nixpkgs?"
-	question2="Would you like to change into the nixpkgs directory, add changes (with git add --all) and open a commit message-editing dialogue (with git commit)?"
-
-	function ask2 {
-		if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
-			read -p "${question2} [y/n] " yn
-		else
-			read "yn?${question2} [y/n] "
-		fi
-		# Act on user input
-		if [[ "${yn}" == [yY]* ]]; then
-			# Commit changes, but allow for an extended commit message
-			cdnp
-			git add --all
-			git commit
-			git push origin $(git-branch) -f
-		elif [[ "${yn}" == [Nn]* ]]; then
-			printf "OK, it's your funeral. Run ask2 again if you change your mind.\n"
-		else
-			printf "Only [nN]* and [yY]* are accepted inputs.\n Running ask2 again.\n" && ask2
-		fi
-	}
-
-	# Ask whether 
-	function ask {
-		# Check whether the shell is Zsh, or not (and as I only use Bash and Zsh this will mean it is Bash)
-		if ! echo "$SHELL" | grep zsh > /dev/null 2>&1; then
-			read -p "${question1} [y/n] " yn
-		else
-			read "yn?${question1} [y/n] "
-		fi
-		# Act on input
-		if [[ "${yn}" == [yY]* ]]; then
-			# Commit changes
-			cdnp
-			push "openra-${MOD_ID}: :arrow_up: ${new_commit_number}."
-			cd -
-		elif [[ "${yn}" == [Nn]* ]]; then
-			# Ask another question
-			ask2
-		else
-			printf "Only [yY]* and [nN]* are accepted inputs. Running ask again.\n"
-			ask
-		fi
-	}
-
-
+	ask "${MOD_ID}" "${new_commit_number}"
 	# Check what argument 6 is and act accordingly.
 	if [[ "${6}" == "-y" ]] || [[ "${6}" == "--yes" ]] ; then
 		cdnp
@@ -147,7 +151,7 @@ It can be:
 
 If no, or the wrong argument is given, then you will be prompted with a question as to whether you wish to commit the changes.
 EOF
-		ask
+		ask "${MOD_ID}" "${new_commit_number}"
 	fi
 	
 }
