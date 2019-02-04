@@ -28,7 +28,7 @@ function ra2nup {
 }
 
 function racnup {
-	update_openra_mod_nixpkg "$GHUBO/raclassic" "8" "187" "194" "198" "203" "${1}"
+	update_openra_mod_nixpkg "$GHUBO/raclassic" "187" "194" "198" "203" "${1}"
 }
 
 function rvnup {
