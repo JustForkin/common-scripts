@@ -130,7 +130,6 @@ EOF
 
 	printf "%s\n" "${MOD_ID} has been updated."
 
-	ask "${MOD_ID}" "${new_commit_number}"
 	# Check what argument 6 is and act accordingly.
 	if [[ "${6}" == "-y" ]] || [[ "${6}" == "--yes" ]] ; then
 		cdnp
@@ -139,7 +138,7 @@ EOF
 	elif [[ "${6}" == "-n" ]] || [[ "${6}" == "--no" ]]; then
 		yn="n"
 	elif ! [[ -n "${6}" ]]; then
-		ask
+		ask "${MOD_ID}" "${new_commit_number}"
 	else
 		cat <<'EOF' > "/dev/stderr"
 Incorrect sixth argument given to nixoup2. This argument determines whether the changes will be committed to my nixpkgs fork.
