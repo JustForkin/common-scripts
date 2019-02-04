@@ -48,7 +48,7 @@ function openra_mod_appimage_build {
 			# Updating version on ~/.local/share
 			echo "VERSION ${latest_commit_number}\nCOMMIT ${packaged_commit_hash}" > $HOME/.local/share/openra-${MOD}
 		else
-			printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date, mate!"
+			printf '\e[1;32m%-6s\e[m\n' "OpenRA ${MOD} is up-to-date, mate\!"
 		fi
 	fi
 }

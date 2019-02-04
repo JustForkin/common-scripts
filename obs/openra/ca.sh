@@ -13,7 +13,7 @@ function caup {
 	packaged_commit_hash=$(come openra-ca)
 
 	if [[ ${packaged_commit_number} == ${latest_commit_no} ]]; then
-		printf "\e[1;34m%-0s\e[m\n" "OpenRA Combined Arms is up-to-date\!" && return
+		printf "\e[1;34m%-0s\e[m\n" "OpenRA Combined Arms is up-to-date\!"
 	else
 		sed -i -e "s/${packaged_commit_hash}/${latest_commit_hash}/g" \
 			   -e "s/${packaged_commit_number}/${latest_commit_no}/g" "$OBSH"/openra-ca/{openra-ca.spec,PKGBUILD}

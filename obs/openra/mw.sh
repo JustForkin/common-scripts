@@ -15,11 +15,11 @@ function mwup {
 	packaged_commit_hash=$(grep "define commit" < "$OBSH"/openra-mw/openra-mw.spec | cut -d ' ' -f 3)
 
 	if [[ $latest_commit_hash_number == $packaged_commit_hash_number ]]; then
-		printf "%s\n" "OpenRA Medieval Warfare mod is up to date!"
+		printf "\e[1;32m%-0s\e[m\n" "OpenRA Medieval Warfare mod is up to date\!"
 	else
 		sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \
 			   -e "s/$packaged_commit_hash_number/$latest_commit_hash_number/g" "$OBSH"/openra-mw/{openra-mw.spec,PKGBUILD}
-		if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
+		if  [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
 			sed -i -e "s/$packaged_engine_version/$latest_engine_version/g" "$OBSH"/openra-mw/{openra-mw.spec,PKGBUILD}
 			make || ( printf "Running make failed" && return )
 			tar czvf "$OBSH"/openra-mw/engine-"${latest_engine_version}".tar.gz engine
@@ -29,7 +29,7 @@ function mwup {
 			cd - || return
 		fi
 		cdobsh openra-mw || return
-		if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
+		if  [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
 			osc ci -m "Bumping $packaged_commit_hash_number->$latest_commit_hash_number; engine $packaged_engine_version->$latest_engine_version"
 		else
 			osc ci -m "Bumping $packaged_commit_hash_number->$latest_commit_hash_number; engine version is unchanged."

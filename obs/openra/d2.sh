@@ -11,7 +11,7 @@ function d2up {
     packaged_engine_version=$(grep "define engine\_version" < "$HOME"/OBS/home:fusion809/openra-d2/openra-d2.spec | cut -d ' ' -f 3)
 
     if [[ ${packaged_commit_number} == ${latest_commit_no} ]]; then
-         printf "\e[1;32m%-0s\e[m\n" "OpenRA RA2 is up-to-date!"
+         printf "\e[1;32m%-0s\e[m\n" "OpenRA RA2 is up-to-date\!"
     else
          printf "\e[1;34m%-0s\e[m\n" "Updating d2 spec file and PKGBUILD."
          sed -i -e "s/${packaged_commit_hash}/${latest_commit_hash}/g" \

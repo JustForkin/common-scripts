@@ -17,7 +17,7 @@ function spup {
 
 	# If OpenRAModSDK is outdated sed update it
 	if [[ "$sdklc" == "$sdkpc" ]]; then
-		 printf "%s\n" "SDK is up-to-date\!"
+		 printf "\e[1;32m%-0s\e[m\n" "SDK is up-to-date\!"
 	else
 		 if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
 			  printf "%s\n" "Updating the game engine to $latest_engine_version."

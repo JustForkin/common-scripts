@@ -12,7 +12,7 @@ function yrup {
 
         if [[ "$packaged_commit_number" == "$latest_commit_no" ]]
         then
-                printf "OpenRA Yuri's Revenge is up-to-date\!\n"
+                printf "e[1;32m%-0se[m\n" "OpenRA Yuri's Revenge is up-to-date\!"
         else
                 sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \
  		       -e "s/$packaged_commit_number/$latest_commit_no/g" "$OBSH"/openra-yr/{openra-yr.spec,PKGBUILD}

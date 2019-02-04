@@ -11,7 +11,7 @@ function ra2up {
 	packaged_commit_hash=$(come openra-ra2)
 
 	if [[ "${packaged_commit_number}" == "${latest_commit_number}" ]]; then
-		 printf "OpenRA RA2 is up-to-date\!\n"
+		 printf "e[1;32m%-0se[m\n" "OpenRA RA2 is up-to-date\!"
 	else
 		 printf "Updating openra-ra2 spec file and PKGBUILD.\n"
 		 sed -i -e "s/${packaged_commit_hash}/${latest_commit_hash}/g" \

@@ -11,7 +11,7 @@ function ssup {
 	packaged_commit_hash=$(come openra-ss)
 
 	if [[ $packaged_commit_number == $latest_commit_no ]]; then
-		 printf "OpenRA Sole Survivor is up-to-date\!\n"
+		 printf "e[1;32m%-0se[m\n" "OpenRA Sole Survivor is up-to-date\!"
 	else
 		 printf "Updating openra-ss spec file and PKGBUILD.\n"
 		 sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \

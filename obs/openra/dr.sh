@@ -16,7 +16,7 @@ function drup {
 	packaged_commit_hash=$(come openra-dr)
 
 	if [[ $packaged_commit_number == $latest_commit_no ]]; then
-		printf "OpenRA Dark Reign is up-to-date\!\n"
+		printf "e[1;32m%-0se[m\n" "OpenRA Dark Reign is up-to-date\!"
 	else
 		sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \
 			   -e "s/$packaged_commit_number/$latest_commit_no/g" "$OBSH"/openra-dr/{openra-dr.spec,PKGBUILD}

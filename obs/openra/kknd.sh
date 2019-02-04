@@ -11,7 +11,7 @@ function kkndup {
 	packaged_commit_hash=$(come openra-kknd)
 
 	if [[ $packaged_commit_number == $latest_commit_no ]]; then
-		 printf "OpenRA KKnD is up-to-date\!\n"
+		 printf "e[1;32m%-0se[m\n" "OpenRA KKnD is up-to-date\!"
 	else
 		 printf "Updating openra-kknd spec file and PKGBUILD.\n"
   		 sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \

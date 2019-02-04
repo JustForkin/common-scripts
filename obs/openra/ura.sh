@@ -11,7 +11,7 @@ function uRAup {
 	packaged_commit_hash=$(grep "define commit" < "$OBSH"/openra-ura/openra-ura.spec | cut -d ' ' -f 3)
 
 	if [[ "$packaged_commit_number" == "$latest_commit_no" ]]; then
-		 printf "%s\n" "OpenRA Red Alert Unplugged mod is up to date\!"
+		 printf "\e[1;32m%-0s\e[m\n" "OpenRA Red Alert Unplugged mod is up to date\!"
 	else
 		 sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \
 		 		-e "s/$packaged_commit_number/$latest_commit_no/g" "$OBSH"/openra-ura/{openra-ura.spec,PKGBUILD} 
