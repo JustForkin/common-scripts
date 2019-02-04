@@ -47,6 +47,8 @@ function cdnp {
 			cd $NIXPKGS/pkgs/applications/misc/$1
 		elif [[ -d $NIXPKGS/pkgs/shells/$1 ]]; then
 			cd $NIXPKGS/pkgs/shells/$1
+		elif find $NIXPKGS -name "$1" -type d &> /dev/null ; then
+			cd $(find $NIXPKGS -name "$1" -type d | head -n 1)
 		else
 			printf "Target directory not found.\n" && return
 		fi
