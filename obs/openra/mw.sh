@@ -24,7 +24,7 @@ function mwup {
 			make || ( printf "Running make failed" && return )
 			tar czvf "$OBSH"/openra-mw/engine-"${latest_engine_version}".tar.gz engine
 			cdobsh openra-mw || return
-			osc rm engine-"${packaged_engine_version}".tar.gz
+			osc rm engine*.gz
 			osc add engine-"${latest_engine_version}".tar.gz
 			cd - || return
 		fi
