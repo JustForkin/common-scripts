@@ -1,12 +1,12 @@
 # Websites
-function cdw {
+function cdweb {
     cdgm "websites/$1"
 }
 
 function cdfgi {
-    cdw "fusion809.github.io/$1"
+    cdweb "fusion809.github.io/$1"
 }
 
 function cdim {
-    cdw "images/$1"
+    cdweb "images/$1"
 }
