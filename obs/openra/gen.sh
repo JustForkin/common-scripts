@@ -24,7 +24,7 @@ function genup {
 			make || ( printf "Running make failed" && return )
 			tar czvf "$HOME"/OBS/home:fusion809/openra-gen/engine-"${latest_engine_version}".tar.gz generals-alpha-engine
 			cdobsh openra-gen
-			osc rm engine-"${packaged_engine_version}".tar.gz
+			osc rm engine*.tar.gz
 			osc add engine-"${latest_engine_version}".tar.gz
 			cd - || return
 		fi

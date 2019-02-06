@@ -29,7 +29,7 @@ function racup {
 			  make || ( printf "Running make failed" && return )
 			  tar czvf "$OBSH"/openra-raclassic/engine-"${latest_engine_version}".tar.gz engine
 			  cdobsh openra-raclassic || return
-			  osc rm engine-"${packaged_engine_version}".tar.gz
+			  osc rm engine*.tar.gz
 			  osc add engine-"${latest_engine_version}".tar.gz
 			  cd - || return
 		 fi

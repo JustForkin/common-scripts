@@ -23,7 +23,7 @@ function kkndup {
 			  make || ( printf "Running make failed" && return )
 			  tar czvf "$OBSH"/openra-kknd/engine-"${latest_engine_version}".tar.gz engine
 			  cdobsh openra-kknd || return
-			  osc rm engine-"${packaged_engine_version}".tar.gz
+			  osc rm engine*.tar.gz
 			  osc add engine-"${latest_engine_version}".tar.gz
 			  cd - || return
 		 fi

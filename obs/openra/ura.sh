@@ -21,7 +21,7 @@ function uRAup {
 			  make || ( printf "Running make failed" && return )
 			  tar czvf "$OBSH"/openra-ura/engine-"${latest_engine_version}".tar.gz engine
 			  cdobsh openra-ura || return
-			  osc rm engine-"${packaged_engine_version}".tar.gz
+			  osc rm engine*.tar.gz
 			  osc add engine-"${latest_engine_version}".tar.gz
 			  cd - || return
 		 fi

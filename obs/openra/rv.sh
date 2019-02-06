@@ -23,7 +23,7 @@ function rvup {
 			  make || ( printf "Running make failed" && return )
 			  tar czvf "$OBSH"/openra-rv/engine-"${latest_engine_version}".tar.gz engine
 			  cdobsh openra-rv || return
-			  osc rm engine-"${packaged_engine_version}".tar.gz
+			  osc rm engine*.tar.gz
 			  osc add engine-"${latest_engine_version}".tar.gz
 			  cd - || return
 		 fi

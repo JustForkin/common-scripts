@@ -23,7 +23,7 @@ function yrup {
                         make || ( printf "Running make failed" && return )
                         tar czvf "$OBSH"/openra-yr/engine-"${latest_engine_version}".tar.gz engine
                         cdobsh openra-yr || return
-                        osc rm engine-"${packaged_engine_version}".tar.gz
+                        osc rm engine*.tar.gz
                         osc add engine-"${latest_engine_version}".tar.gz
                         cd - || return
                 fi

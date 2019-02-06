@@ -23,7 +23,7 @@ function d2up {
               make || return
               tar czvf "$HOME/OBS/home:fusion809/openra-d2/engine-${latest_engine_version}.tar.gz" engine
               cdobsh openra-d2 || return
-              osc rm engine-"${packaged_engine_version}".tar.gz
+              osc rm engine*.tar.gz
               osc add engine-"${latest_engine_version}".tar.gz
               cd - || return
          fi

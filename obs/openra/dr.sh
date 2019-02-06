@@ -26,7 +26,7 @@ function drup {
 			make || ( printf "Running make failed" && return )
 			tar czvf "$HOME"/OBS/home:fusion809/openra-dr/engine-"${latest_engine_version}".tar.gz engine
 			cdobsh openra-dr || return
-			osc rm engine-"${packaged_engine_version}".tar.gz
+			osc rm engine*.tar.gz
 			osc add engine-"${latest_engine_version}".tar.gz
 			cd - || return
 		fi

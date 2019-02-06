@@ -26,7 +26,7 @@ function spup {
 			  make || ( printf "Running make failed" && return )
 			  tar czvf "$OBSH"/openra-sp/engine-"${latest_engine_version}".tar.gz engine
 			  cdobsh openra-sp || return
-			  osc rm engine-"${packaged_engine_version}".tar.gz
+			  osc rm engine*.tar.gz
 			  osc add engine-"${latest_engine_version}".tar.gz
 			  cd - || return
 		 fi

@@ -23,7 +23,7 @@ function ra2up {
 			  make || ( printf "Running make failed" && return )
 			  tar czvf "$OBSH"/openra-ra2/engine-"${latest_engine_version}".tar.gz engine
 			  cdobsh openra-ra2 || return
-			  osc rm engine-"${packaged_engine_version}".tar.gz
+			  osc rm engine*.tar.gz
 			  osc add engine-"${latest_engine_version}".tar.gz
 			  cd - || return
 		 fi
