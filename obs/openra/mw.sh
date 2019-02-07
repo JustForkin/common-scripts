@@ -11,7 +11,7 @@ function mwup {
 	packaged_engine_version=$(grep "define engine\_version" < "$OBSH"/openra-mw/openra-mw.spec | cut -d ' ' -f 3)
 	latest_commit_hash_number=$(git rev-list --branches Next --count)
 	packaged_commit_hash_number=$(grep "Version\:" < "$OBSH"/openra-mw/openra-mw.spec | sed 's/Version:\s*//g')
-	packaged_commit_hash=$(git log | head -n 1 | cut -d ' ' -f 2)
+	latest_commit_hash=$(git log | head -n 1 | cut -d ' ' -f 2)
 	packaged_commit_hash=$(grep "define commit" < "$OBSH"/openra-mw/openra-mw.spec | cut -d ' ' -f 3)
 
 	if [[ $latest_commit_hash_number == $packaged_commit_hash_number ]]; then
