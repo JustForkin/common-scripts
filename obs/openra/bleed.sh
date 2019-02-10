@@ -8,7 +8,7 @@ function update_openra_bleed_obs_pkg_and_appimage {
 	packaged_commit_hash=$(come openra-bleed)
 
 	if [[ "$packaged_commit_number" == "$latest_commit_no" ]]; then
-		 printf '\e[1;32m%-6s\e[m\n' "OpenRA Bleed is up-to-date\!"
+		 printf '\e[1;32m%-6s\e[m\n' "OpenRA Bleed is up-to-date!"
 	else
 		printf '\e[1;32m%-6s\e[m\n' "Updating OBS repo openra-bleed from $packaged_commit_number, $packaged_commit_hash to $latest_commit_no, $latest_commit_hash."
 		sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} || \
