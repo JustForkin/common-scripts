@@ -36,6 +36,8 @@ function ask {
 		cdnp
 		if ! grep "${1} = .*[bB]uildOpenRAMod" < $OPENRA_NIXPKG_PATH/mods.nix &> /dev/null; then
 			push "${1}: :arrow_up: ${2}."
+		elif [[ "${1}" == "vim" ]]; then
+			push "${1}: :arrow_up: ${2}."
 		else
 			push "openra-${1}: :arrow_up: ${2}."
 		fi
