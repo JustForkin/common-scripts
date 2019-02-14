@@ -4,10 +4,6 @@ function cdd {
 
 alias cddc=cdd
 
-function cdcfe {
-    cdd "CodeLite/CPP-Math-Projects/$1"
-}
-
 function cddman {
     cdd "Manpages/$1"
 }

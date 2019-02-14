@@ -20,3 +20,10 @@ function cdgn {
 }
 
 alias cdgno=cdgn
+
+function cdcfe {
+	cdmt "CPP-Math-Projects/$1"
+}
+
+alias cdcp=cdcfe
+alias cdmcp=cdcfe
