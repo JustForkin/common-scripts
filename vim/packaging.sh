@@ -82,3 +82,7 @@ alias vdk=vdsk
 function vtp {
 	vim template
 }
+
+function vov {
+	vim $HOME/.config/nixpkgs/overlays.nix
+}
