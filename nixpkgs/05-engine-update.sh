@@ -32,7 +32,7 @@ function engine_update {
 		sed -i -e "36s|\".*\"|\"${latest_bleed_hash}\"|" $OPENRA_NIXPKG_PATH/engines.nix || (printf "Sedding bleed hash (${latest_bleed_hash}) failed at line 32 of 05-engine-update.sh.\n" && return)
 		bleed_sha256=$(nix-prefetch --force $NIXPKGS openraPackages.engines.bleed)
 		printf "bleed_sha256 is ${bleed_sha256}.\n"
-		sed -i -e "37s|\".*\"|\"${latest_bleed_number}\".git.\${latest_bleed_7_character_hash}\"|" $OPENRA_NIXPKG_PATH/engines.nix || ( printf "Sedding bleed commit version (${latest_bleed_number}.git.${latest_bleed_7_character_hash}) failed at line 35 of 05-engine-update.sh.\n" && return )
+		sed -i -e "37s|\".*\"|\"${latest_bleed_number}\.git.\${latest_bleed_7_character_hash}\"|" $OPENRA_NIXPKG_PATH/engines.nix || ( printf "Sedding bleed commit version (${latest_bleed_number}.git.${latest_bleed_7_character_hash}) failed at line 35 of 05-engine-update.sh.\n" && return )
 		sed -i -e "39s|\".*\"|\"${bleed_sha256}\"|" $OPENRA_NIXPKG_PATH/engines.nix || (printf "Sedding bleed version (${latest_bleed_hash}) checksum (${bleed_sha256}) failed at line 36 of 05-engine-update.sh.\n" && return)
 		push "openra: :arrow_up: ${latest_bleed_number} (${latest_bleed_7_character_hash})"
 	fi
