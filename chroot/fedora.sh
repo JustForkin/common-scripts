@@ -1,6 +1,6 @@
 function froot {
-	sudo mount /dev/mapper/fedora-root /fedora
-	sudo mount /dev/sda10 /fedora/boot
+	sudo mount /dev/sda5 /fedora
+	sudo mount /dev/sdb1 /fedora/data
 	genbasic /fedora
 }
 
