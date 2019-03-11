@@ -22,7 +22,7 @@ function racup {
 		 printf "Updating openra-raclassic spec file and PKGBUILD.\n"
 		 sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \
 		 		-e "s/$packaged_commit_number/$latest_commit_no/g" "$OBSH"/openra-raclassic/{openra-raclassic.spec,PKGBUILD}
-		 if  [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
+		 if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
 			  printf "Updating OpenRA Red Alert 2 engine.\n"
 			  sed -i -e "s/$packaged_engine_version/$latest_engine_version/g" "$OBSH"/openra-raclassic/{openra-raclassic.spec,PKGBUILD}
 			  make clean || return
