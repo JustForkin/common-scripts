@@ -11,7 +11,7 @@ function rvup {
 	packaged_commit_hash=$(come openra-rv)
 
 	if [[ $packaged_commit_number == $latest_commit_no ]]; then
-		 printf "e[1;32m%-0se[m\n" "OpenRA Romanov's Vengeance is up-to-date\!"
+		 printf "e[1;32m%-0s\!\n" "OpenRA Romanov's Vengeance is up-to-date"
 	else
 		 printf "Updating openra-rv spec file and PKGBUILD.\n"
 		 sed -i -e "s/$packaged_commit_hash/$latest_commit_hash/g" \
@@ -19,6 +19,7 @@ function rvup {
 		 if ! [[ "$packaged_engine_version" == "$latest_engine_version" ]]; then
 			  printf "Updating OpenRA Romanov's Vengeance engine.\n"
 			  sed -i -e "s/$packaged_engine_version/$latest_engine_version/g" "$OBSH"/openra-rv/{openra-rv.spec,PKGBUILD}
+			  rm -rf engine
 			  make clean || return
 			  make || ( printf "Running make failed" && return )
 			  tar czvf "$OBSH"/openra-rv/engine-"${latest_engine_version}".tar.gz engine
