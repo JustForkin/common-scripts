@@ -3,6 +3,8 @@ function update_openra_bleed_obs_pkg_and_appimage {
 	git checkout bleed -q || ( printf "\e[1;31m%-0s\e[m\n" "Failed to checkout the bleed branch." && return )
 	git pull origin bleed -q || ( printf "\e[1;31m%-0s\e[m\n" "Failed to pull from the bleed branch of the origin remote." && return)
 	latest_commit_no=$(latest_commit_number)
+	mycommit_original=$(grep "mycommit=" < $OBSH/openra-bleed/PKGBUILD | sed 's/_mycommit=//g')
+	mycommit_new=$(wget -cqO- https://github.com/fusion809/OpenRA/releases/latest | cut -d '/' -f 6 | grep "untagged-" | head -n 1 | cut -d '"' -f 1 | cut -d '-' -f 2)
 	packaged_commit_number=$(vere openra-bleed)
 	latest_commit_hash=$(latest_commit_on_branch)
 	packaged_commit_hash=$(come openra-bleed)
@@ -15,6 +17,8 @@ function update_openra_bleed_obs_pkg_and_appimage {
 			   (printf "\e[1;31m%-0s\e[m\n" "Replacing ${packaged_commit_hash} with ${latest_commit_hash} failed." && return )
 		sed -i -e "s/$packaged_commit_number/$latest_commit_no/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} || \
 			   (printf "\e[1;31m%-0s\e[m\n" "Replacing ${packaged_commit_number} with ${latest_commit_no} failed." && return )
+		sed -i -e "s/$mycommit_original/$mycommit_new/g" "$OBSH"/openra-bleed/{openra-bleed.spec,PKGBUILD} || \
+			   (printf "\e[1;31m%-0s\e[m\n" "Replacing ${mycommit_original} with ${mycommit_new} failed." && return )
 		rm -rf $HOME/.local/share/applications/*openra-{ra,cnc,d2k}.desktop
 		make clean || ( printf "\e[1;31m%-0s\e[m\n" "make clean failed.\n" && return )
 		make version VERSION="${latest_commit_no}" || ( printf "\e[1;31m%-0s\e[m\n" "make version failed." && return )
