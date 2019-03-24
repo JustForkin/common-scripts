@@ -10,7 +10,7 @@
 # travis_check repo [branch]
 function travis_check {
     if [[ "$1" == "rv" ]]; then
-        repo="MustaphaTR/Romanovs-Vegeance"
+        repo="MustaphaTR/Romanovs-Vengeance"
     elif [[ "$1" == "ca" ]]; then
         repo="Inq8/CAmod"
     elif [[ "$1" == "openra" ]]; then
@@ -39,7 +39,7 @@ function travis_check {
     elif [[ "$1" == "yr" ]]; then
         repo="cookgreen/yr"
     else
-        repo="$1"
+        repo="$e1"
     fi
 
     if ! [[ -n "$branch" ]] || ! [[ -n "$2" ]]; then
