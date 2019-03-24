@@ -22,7 +22,7 @@ function octave_cli {
 alias octcli=octave_cli
 
 function octave_evaluate {
-    if  command -v octave; then
+    if  command -v octave &> /dev/null 2>&1; then
          octave --eval "$1" | sed "s/ans =\s*//g"
     elif [[ -f $HOME/.nix-profile/bin/octave-cli ]]; then
          octave-cli --eval "$1" | sed "s/ans =\s*//g"
