@@ -48,5 +48,11 @@ function travis_check {
         branch="$2"
     fi
 
-    wget -cqO- "https://travis-ci.org/${repo}.svg?branch=${branch}" | cut -d '>' -f 16 | cut -d '<' -f 1
+    if command -v curl &> /dev/null ; then
+        curl -sL "https://travis-ci.org/${repo}.svg?branch=${branch}" | cut -d '>' -f 16 | cut -d '<' -f 1
+    elif command -v wget &> /dev/null ; then
+        wget -cqO- "https://travis-ci.org/${repo}.svg?branch=${branch}" | cut -d '>' -f 16 | cut -d '<' -f 1
+    else
+        printf "Neither cURL nor GNU wget are found within PATH.\n"
+    fi
 }
