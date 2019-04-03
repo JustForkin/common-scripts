@@ -10,7 +10,7 @@ git stash -q || return
 if ! command -v git > /dev/null 2>&1; then
     printf "git is not detected, either install it or if already installed at it to the system PATH.\n" && return
 fi
-git pull origin master -q || ( printf "ORAYRErr\n" && return )
+git fetch origin && git rebase origin || ( printf "ORAYRErr\n" && return )
 orlv=$(git rev-list --branches master --count)
 # OpenRA latest packaged version
 orpv=$(nixpkgs-mod-ver 13)
