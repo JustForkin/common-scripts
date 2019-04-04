@@ -13,12 +13,17 @@ function jupup {
          sed -i -e "s/$pkgn/$mastn/g" \
 		-e "s/$pkgm/$comm/g"  PKGBUILD
 	 if command -v updpkgsums > /dev/null 2>&1 ; then
-		 updpkgsums
-		 if grep -i "Arch Linux" < /etc/os-release > /dev/null 2>&1 ; then
-			 makepkg -sifC --noconfirm
-		 fi
-		 push ":arrow_up: $mastn"
+		updpkgsums
+		rm *.gz
+		push ":arrow_up: $mastn"
 	 fi
+	 if grep -i "Arch Linux" < /etc/os-release > /dev/null 2>&1 ; then
+ 		cdpk jupyterlab-git
+		makepkg -sifC --noconfirm
+		rm *.xz
+		push ":arrow_up: $mastn"
+	 fi
+
     fi
 }
 
